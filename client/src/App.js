@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
+import Icon from './components/Icon';
 import Blurb from './components/Blurb';
 import Login from './components/Login';
 import SavedList from './components/SavedList';
@@ -14,12 +15,22 @@ const TabIcon = ({ selected, title }) => {
   );
 };
 
+
 class App extends Component {
+<<<<<<< b1faa7092e073547398c1451b6692937c918425c
   state={
     markers: [{ id: 1, latitude: 30.268800, longitude: -97.740216, title: 'Caseys bat guy', image: require('./icons/tree-small.png'), category: 'nature' },
         { id: 2, latitude: 30.269946, longitude: -97.743531, title: 'An unexpected pony', image: require('./icons/tree-small.png'), category: 'nature' }]
   }
 
+=======
+	state={
+		showSelectedIcon: false,
+		markers: [
+		{ id: 1, latitude: 30.268800, longitude: -97.740216, title: 'Caseys bat guy', image: require('./icons/small-tree.png'), category: 'nature' },
+		{ id: 2, latitude: 30.269946, longitude: -97.743531, title: 'An unexpected pony', image: require('./icons/small-tree.png'), category: 'nature' }]
+	}
+>>>>>>> stuck
     render() {
       return (
           <Router>
