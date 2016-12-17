@@ -1,33 +1,68 @@
 const neo4j = require('neo4j-driver').v1;
+const db = require('seraph')(require('./config.js').graph)
+const model = require('seraph-model');
 
-var driver = neo4j.driver(require('./config.js').graph.url, neo4j.auth.basic(require('./config.js').graph.user, require('./config.js').graph.pw));
-var session = driver.session();
+var Spot = model(db, 'Spot');
+var User = model(db, 'User');
+var Category = model(db, 'Categories');
 
-var spots = {
-  get: function(cb){
-    session
-      .run( "MATCH (n:Categories) RETURN n LIMIT 25" )
-      .then( function( result ) {
-        cb(null, result)
+// TODO: add validation
+// model.on('validate', validateAge);
+module.exports = {
+  spots: {
+    get: function(params){
+      return new Promise(function(resolve, reject){
+        Spot.findAll(function (err, allOfTheseModels) {
+          if (err) reject(err)
+          else resolve (allOfTheseModels)
+        });
       })
+    },
+    post: function(obj) {
+      return new Promise(function (resolve, reject) {
+        Spot.save(obj, function (err, savedObject) {
+          if (err) reject(err)
+          else resolve (savedObject)
+        })
+      })
+    }
   },
-  post: function function_name(argument) {
-    // body...
+
+  users: {
+    get: function(params){
+      return new Promise(function(resolve, reject){
+        User.findAll(function (err, allOfTheseModels) {
+          if (err) reject(err)
+          else resolve (allOfTheseModels)
+        });
+      })
+    },
+    post: function(obj) {
+      return new Promise(function (resolve, reject) {
+        User.save(obj, function (err, savedObject) {
+          if (err) reject(err)
+          else resolve (savedObject)
+        })
+      })
+    }
+  },
+
+  categories: {
+    get: function(params){
+      return new Promise(function(resolve, reject){
+        Category.findAll(function (err, allOfTheseModels) {
+          if (err) reject(err)
+          else resolve (allOfTheseModels)
+        });
+      })
+    },
+    post: function(obj) {
+      return new Promise(function (resolve, reject) {
+        Category.save(obj, function (err, savedObject) {
+          if (err) reject(err)
+          else resolve (savedObject)
+        })
+      })
+    }
   }
 }
-
-module.exports = {
-  getSpots: spots.get
-}
-
-// categories: {
-//   get: function function_name(argument) {
-//     // body...
-//   },
-//   post: function function_name(argument) {
-//     // body...
-//   }
-// }
-
-
-

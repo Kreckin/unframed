@@ -8,8 +8,10 @@
     "start": "nodemon server.js"
   },
   "author": "",
+  "repository": "https://github.com/Kreckin/unexpectedpony",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "neo4j-driver": "^1.0.4",
     "seraph": "^0.15.2",
