@@ -1,3 +1,23 @@
+import React, {Component} from 'react';
+import {View,Text} from 'react-native';
+
+import MapContainer from './components/MapContainer';
+import Blurb from './components/Blurb';
+
+class App extends Component {
+	state={
+		showSelectedIcon:false
+	}
+  	render() {
+    	return (
+      		<View>
+      			{this.state.showSelectedIcon ? <Blurb/> : <MapContainer/>}
+      		</View>
+      	)
+  	}
+}
+
+export default App;
 
 
 
