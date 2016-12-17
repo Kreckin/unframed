@@ -49,7 +49,10 @@ class MapContainer extends Component {
         <MapView style={styles.map} 
         region={this.state.region}
         onRegionChange={this.onRegionChange}
+<<<<<<< 653f3e63934d22fc3d047191029a72efbeee4d9a
 <<<<<<< ed0487bf1c03c872761bfb4d7c635201c6781209
+=======
+>>>>>>> Pins mapping
         >
         {this.props.markers.map(marker => (
             <MapView.Marker
@@ -57,6 +60,7 @@ class MapContainer extends Component {
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
+<<<<<<< 653f3e63934d22fc3d047191029a72efbeee4d9a
               image={marker.image}
               onPress={() => Actions.Blurb({ marker: marker })}
               centerOffset={{ x: 0, y: -20 }}
@@ -66,6 +70,11 @@ class MapContainer extends Component {
 =======
         />
 >>>>>>> Starting over
+=======
+            />
+          ))}
+        </MapView>
+>>>>>>> Pins mapping
       </View>
     );
   }
