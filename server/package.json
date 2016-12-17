@@ -8,6 +8,7 @@
     "start": "nodemon server.js"
   },
   "author": "",
+<<<<<<< 37ae3adf96955ed8f95a0b72c4181dcd2f653e64
   "repository": "https://github.com/Kreckin/unexpectedpony",
   "license": "ISC",
   "dependencies": {
@@ -16,6 +17,11 @@
     "neo4j-driver": "^1.0.4",
     "seraph": "^0.15.2",
     "seraph-model": "^0.9.1"
+=======
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+>>>>>>> add express bp and basic, basic index.html
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
