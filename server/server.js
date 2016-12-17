@@ -68,7 +68,6 @@ app.post('/categories', function (req, res) {
     })
 })
 
-
 app.get('/users', function (req, res) {
   db.users.get()
     .then(function (resolve) {
@@ -92,9 +91,6 @@ app.post('/users', function (req, res) {
       res.status(500).send(reject);
     })
 })
-
-
-
 
 // app.get('/spots/:spotId', function (req, res) {
 //   db.spots.get(req.params, function(err, data){

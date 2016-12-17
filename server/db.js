@@ -2,9 +2,9 @@ const neo4j = require('neo4j-driver').v1;
 const db = require('seraph')(require('./config.js').graph)
 const model = require('seraph-model');
 
-var Spot = model(db, 'Spot');
-var User = model(db, 'User');
-var Category = model(db, 'Categories');
+const Spot = model(db, 'Spot');
+const User = model(db, 'User');
+const Category = model(db, 'Categories');
 
 // TODO: add validation
 // model.on('validate', validateAge);
