@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Blurb = (props) => {
+const Login = () => {
   return (
     <View style={{ paddingTop: 65 }}>
-        <Text onPress={() => Actions.MapContainer()}>I am some info about {props.marker.title}</Text>
+        <Text>OMG we're totally logging in right now</Text>
     </View>
   );
 };
 
-export default Blurb;
+export default Login;
