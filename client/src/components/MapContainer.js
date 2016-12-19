@@ -4,8 +4,8 @@ import {
   View,
   Dimensions
 } from 'react-native';
-
 import { Actions } from 'react-native-router-flux';
+import Blurb from './Blurb';
 //This gets the dimensions from the user's screen so the map takes up the full screen
 const { height, width } = Dimensions.get('window');
 
@@ -52,7 +52,7 @@ class MapContainer extends Component {
               title={marker.title}
               description={marker.category}
               //The image currently is hard coded in state
-              image={marker.image}
+              image={marker.icon}
               //This adds the mini blurb on the screen
               onPress={() => { reference[marker.id].showCallout(); }}
               //This changes the scene to the blurb with the marker passed down as props

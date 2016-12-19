@@ -19,15 +19,11 @@ import Blurb from './components/Blurb';
 // };
 
 class App extends Component {
-  state={
-    //This is hard coded in for the time being to practice front end stuff, 
-    //but will be cleaned out once the DB is connected
-    markers: [{ id: '1', latitude: 30.268800, longitude: -97.740216, title: 'Caseys bat guy', image: require('./icons/tree-small.png'), category: 'nature' },
-        { id: '2', latitude: 30.269946, longitude: -97.743531, title: 'An unexpected pony', image: require('./icons/pony.png'), category: 'nature' }]
-  }
+  
 
     render() {
-      return (
+
+      return !this.state.markers.length ? null : (
           <Router>
             <Scene key='root'>
               <Scene 

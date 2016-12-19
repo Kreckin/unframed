@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 const db = require('seraph')(require('./config').graph);
+=======
+const neo4j = require('neo4j-driver').v1;
+const db = require('seraph')(require('./config.js').graph);
+>>>>>>> added icons, added tests for server paths, wrote functions to get data from server, implemented client side to use data
 const model = require('seraph-model');
-fergergergerg
+
 const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
@@ -10,7 +15,11 @@ const Category = model(db, 'Categories');
 
 module.exports = {
   spots: {
+<<<<<<< HEAD
     get: () => {
+=======
+    get: function () {
+>>>>>>> added icons, added tests for server paths, wrote functions to get data from server, implemented client side to use data
       return new Promise((resolve, reject) => {
         Spot.findAll((err, allOfTheseModels) => {
           if (err) reject(err);
@@ -18,7 +27,11 @@ module.exports = {
         });
       });
     },
+<<<<<<< HEAD
     post: (obj) => {
+=======
+    post: function(obj) {
+>>>>>>> added icons, added tests for server paths, wrote functions to get data from server, implemented client side to use data
       return new Promise((resolve, reject) => {
         Spot.save(obj, (err, savedObject) => {
           if (err) reject(err);
@@ -29,10 +42,17 @@ module.exports = {
   },
 
   users: {
+<<<<<<< HEAD
     get: () => {
       return new Promise((resolve, reject) => {
         User.findAll((err, allOfTheseModels) => {
           if (err) reject(err);
+=======
+    get: function() {
+      return new Promise((resolve, reject) => {
+        User.findAll((err, allOfTheseModels) => {
+          if (err) reject(err)
+>>>>>>> added icons, added tests for server paths, wrote functions to get data from server, implemented client side to use data
           else resolve(allOfTheseModels);
         });
       });
