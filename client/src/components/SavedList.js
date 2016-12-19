@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Blurb = (props) => {
+const SavedList = () => {
   return (
     <View style={{ paddingTop: 65 }}>
-        <Text onPress={() => Actions.MapContainer()}>I am some info about {props.marker.title}</Text>
+        <Text>You can't see your saved things because you aren't logged in.</Text>
     </View>
   );
 };
 
-export default Blurb;
+export default SavedList;
