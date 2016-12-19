@@ -1,49 +1,67 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight } from 'react-native';
+import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+const { height, width } = Dimensions.get('window');
 
 const Blurb = (props) => {
   return (
-    <View style={{ paddingTop: 65 }}>
-        <Text style={styles.titleStyle}>{props.marker.title}</Text>
+    <View style={styles.viewStyle}>
+      <View style={styles.cardStyle}>
+        <Text style={styles.titleStyle}>
+        {props.marker.title}
+        </Text>
         <Image 
           style={styles.imageStyle}
           source={{ uri: 'https://staticdelivery.nexusmods.com/mods/1151/images/1917-0-1448130696.png' }} 
         />
         <Text style={styles.categoryStyle}>{props.marker.category}</Text>
         <TouchableHighlight 
-          onPress={() => Actions.MapContainer()}
+          onPress={props.goBackToMap}
           style={styles.buttonStyle} 
         >
-          <Text style={{ fontSize: 24 }}>Go back to map</Text>
+          <Text>Save</Text>
         </TouchableHighlight>
+      </View>
     </View>
   );
 };
 
-styles = {
+const styles = {
 	titleStyle: {
-    alignSelf: 'center',
-    fontSize: 36,
-    marginBottom: 5
+    fontSize: 34,
+    marginBottom: 3
 	},
   categoryStyle: {
-    alignSelf: 'center',
-    fontSize: 22
+    fontSize: 14,
+    alignSelf: 'center'
   },
 	imageStyle: {
-    height: 300,
-    width: 300,
-    alignSelf: 'center',
+    height: 90,
+    width: 90,
     borderWidth: 2,
     borderRadius: 4
   }, 
   buttonStyle: {
-    alignSelf: 'center',
+    marginTop: 3,
     backgroundColor: '#4286f4',
     padding: 4,
-    borderRadius: 10
+    borderWidth: 2,
+    borderRadius: 7
+  },
+  viewStyle: {
+    backgroundColor: 'rgba(255, 255, 255, .65)',
+    height,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardStyle: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    height: 200,
+    width: 300,
+    borderRadius: 7,
+    borderWidth: 1
   }
 };
 export default Blurb;

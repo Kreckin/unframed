@@ -16,7 +16,7 @@ const { height, width } = Dimensions.get('window');
 
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       region: {
@@ -24,7 +24,9 @@ class MapContainer extends Component {
         longitude: -97.7431,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+    modalVisible: false,
+    selectedMarker: null
     };
     this.onRegionChange = this.onRegionChange.bind(this);
   }
@@ -37,21 +39,29 @@ class MapContainer extends Component {
       return './icons/tree-small.png';
     }
   }
+  show() {
+    this.marker1.showCallout();
+  }
   render() {
     return (
       <View>
-        <MapView style={styles.map} 
+        <MapView 
+        style={styles.map} 
         region={this.state.region}
         onRegionChange={this.onRegionChange}
         >
         {this.props.markers.map(marker => (
             <MapView.Marker
+              ref={ref => { this.marker1 = ref; }}
               key={marker.id}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
               image={marker.image}
-              onPress={() => Actions.Blurb({ marker: marker })}
+              onPress={() => this.show()}
+              //onPress={() => onSelect}
+              //onPress={() => Actions.Blurb({ marker: marker })}
+              //onPress={() => this.setState({ modalVisible: true, selectedMarker: marker })}
               centerOffset={{ x: 0, y: -20 }}
             />
           ))}
