@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "install": "(cd client && npm install) && (cd server && npm install)",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "echo cd into client and server and run npm start separately"
   },
   "author": "",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "eslint-config-rallycoding": "^3.1.0"
+    "eslint-config-rallycoding": "^3.1.0",
+    "jest": "^18.0.0"
   }
 }
