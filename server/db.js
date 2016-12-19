@@ -1,6 +1,6 @@
 const db = require('seraph')(require('./config').graph);
 const model = require('seraph-model');
-
+fergergergerg
 const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
