@@ -8,11 +8,8 @@ import {
   View,
   Dimensions
 } from 'react-native';
-<<<<<<< ed0487bf1c03c872761bfb4d7c635201c6781209
 import Blurb from './Blurb';
 import { Actions } from 'react-native-router-flux';
-=======
->>>>>>> Starting over
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -33,26 +30,19 @@ class MapContainer extends Component {
   }
   //This changes the region when the user moves around
   onRegionChange(region) {
-    this.setState({ region })
+    this.setState({ region });
   }
-<<<<<<< ed0487bf1c03c872761bfb4d7c635201c6781209
   getIconType(category) {
     if (category === 'nature') {
       return './icons/tree-small.png';
     }
   }
-=======
->>>>>>> Starting over
   render() {
     return (
       <View>
         <MapView style={styles.map} 
         region={this.state.region}
         onRegionChange={this.onRegionChange}
-<<<<<<< 653f3e63934d22fc3d047191029a72efbeee4d9a
-<<<<<<< ed0487bf1c03c872761bfb4d7c635201c6781209
-=======
->>>>>>> Pins mapping
         >
         {this.props.markers.map(marker => (
             <MapView.Marker
@@ -60,21 +50,12 @@ class MapContainer extends Component {
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
-<<<<<<< 653f3e63934d22fc3d047191029a72efbeee4d9a
               image={marker.image}
               onPress={() => Actions.Blurb({ marker: marker })}
               centerOffset={{ x: 0, y: -20 }}
             />
           ))}
         </MapView>
-=======
-        />
->>>>>>> Starting over
-=======
-            />
-          ))}
-        </MapView>
->>>>>>> Pins mapping
       </View>
     );
   }
@@ -83,8 +64,22 @@ const styles = {
   map: {
     width: width,
     height: height
+  },
+  pinImage: {
+    width: 50,
+    height: 50 
+  },
+  callout: {
+    flex: 1,
+    paddingRight: 10,
+    paddingBottom: 10,
+    marginRight: 10,
+    marginBottom: 10
+  },
+  calloutTitle: {
+    fontSize: 16
   }
-}
+};
 //Right now, getUserLocation keeps telling me we're in SF, so the stuff above puts Austin
 // getUserLocation(){
 //     navigator.geolocation.getCurrentPosition((position) => {
