@@ -48,7 +48,7 @@ app.post('/spots', upload.single('spot_image'), (req, res) => {
           console.error('Error on image delete:', err); 
         } else {
           const postObj = req.body;
-          postObj.imgUrl = result.secure_url;
+          postObj.img_url = result.secure_url;
           db.spots.post(req.body)
             .then((resolve) => {
               console.log('sending', resolve);
