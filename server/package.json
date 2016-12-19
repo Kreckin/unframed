@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cloudinary": "^1.4.6",
     "express": "^4.14.0",
+    "multer": "^1.2.1",
     "neo4j-driver": "^1.0.4",
     "seraph": "^0.15.2",
     "seraph-model": "^0.9.1"

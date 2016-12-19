@@ -40,6 +40,12 @@ From within the root directory:
 npm install
 ```
 
+#### Building the iOS app:
+
+```sh
+pod install
+```
+
 ### Roadmap
 
 View the project roadmap [here](https://github.com/Kreckin/unexpectedpony/issues)
