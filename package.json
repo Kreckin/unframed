@@ -1,0 +1,18 @@
+{
+  "name": "unexpectedpony",
+  "version": "0.0.1",
+  "description": "hr thesis project",
+  "main": "server.js",
+  "scripts": {
+    "install": "(cd client && npm install) && (cd server && npm install)",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "echo cd into client and server and run npm start separately"
+  },
+  "author": "",
+  "repository": "https://github.com/Kreckin/unexpectedpony",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint-config-rallycoding": "^3.1.0"
+  }
+}
