@@ -1,12 +1,18 @@
-const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const express = require('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
+const cloudinary = require('cloudinary'); // stores images
+cloudinary.config(require('./config').cloudinary);
+const multer = require('multer'); // Node.js middleware for handling `multipart/form-data`
+
+const upload = multer({ dest: 'temp/' }); // set temp location of new files
 
 const app = express();
 
 // ----- MIDDLEWARE -----
-app.use(express.static(path.join(__dirname, '/../client')));
+app.use(express.static(path.join(__dirname, '/../web/public/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use((req, res, next) => { // print out requests
@@ -32,16 +38,32 @@ app.get('/spots', (req, res) => {
     });
 });
 
-app.post('/spots', (req, res) => {
-  db.spots.post(req.body)
-    .then((resolve) => {
-      console.log('sending', resolve);
-      res.send(resolve);
-    })
-    .catch((reject) => {
-      console.log('rejecting with', reject);
-      res.status(500).send(reject);
+app.post('/spots', upload.single('spot_image'), (req, res) => {
+  if (req.file !== undefined) {
+    // send spot photo to cloudinary
+    cloudinary.uploader.upload(req.file.path, (result) => { 
+      // delete file from server
+      fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.error('Error on image delete:', err); 
+        } else {
+          const postObj = req.body;
+          postObj.imgUrl = result.secure_url;
+          db.spots.post(req.body)
+            .then((resolve) => {
+              console.log('sending', resolve);
+              res.status(201).send(resolve);
+            })
+            .catch((reject) => {
+              console.log('rejecting with', reject);
+              res.status(500).send(reject);
+            });
+        }
+      });
     });
+  } else {
+    res.status(400).send('Spots require images');
+  }
 });
 
 app.get('/categories', (req, res) => {

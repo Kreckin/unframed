@@ -1,4 +1,4 @@
-module.exports ={
+module.exports = {
   graph: {
     server: '',
     user: '',
@@ -8,5 +8,10 @@ module.exports ={
     server: '',
     user: '',
     pass: '',
+  },
+  cloudinary: { 
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: '' 
   }
-}
+};
