@@ -13,7 +13,7 @@ const SpotInfo = (props) => {
         </Text>
         <Image 
           style={styles.imageStyle}
-          source={{ uri: `${props.marker.img_url}` }} 
+          source={{ uri: `${props.spot.img_url}` }} 
         />
         <Text style={styles.categoryStyle}>{props.spot.category}</Text>
         <TouchableHighlight 

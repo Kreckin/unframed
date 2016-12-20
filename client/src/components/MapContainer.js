@@ -27,7 +27,7 @@ class MapContainer extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
-      markers: []
+      spots: []
     };
     //commented out for now because re-rendering does not play nice with this currently
 
@@ -37,7 +37,7 @@ class MapContainer extends Component {
   componentWillMount() {
     //when the app is first called it will get every spot from our database and change the markers state to use it
     getSpots((data) => {
-      this.setState({ markers: data });
+      this.setState({ spots: data });
     });
   }
   render() {
@@ -50,19 +50,19 @@ class MapContainer extends Component {
         //this will change the region as the user moves around the map
         onRegionChange={this.onRegionChange}
         >
-        {this.props.spots.map(spot => (
+        {this.state.spots.map(spot => (
             //This maps all the spots (passed down from app as props)
             <MapView.Marker
             //The ref is the weird workaround to the showCallout issue
-              ref={ref => { reference[spot.id] = ref; }}
+              //ref={ref => { reference[spot.id] = ref; }}
               key={spot.id}
               coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
               title={spot.title}
               description={spot.category}
               //The image currently is hard coded in state
-              image={spot.image}
+              image={spot.icon}
               //This adds the mini blurb on the screen
-              onPress={() => { reference[spot.id].showCallout(); }}
+              //onPress={() => { reference[spot.id].showCallout(); }}
               //This changes the scene to the blurb with the spot passed down as props
               onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
