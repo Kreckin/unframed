@@ -9,14 +9,15 @@ import {
   Dimensions
 } from 'react-native';
 import Blurb from './Blurb';
+import CustomMarker from './CustomMarker';
 import { Actions } from 'react-native-router-flux';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
-
+let reference = {};
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       region: {
@@ -24,7 +25,9 @@ class MapContainer extends Component {
         longitude: -97.7431,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+    modalVisible: false,
+    selectedMarker: null
     };
     this.onRegionChange = this.onRegionChange.bind(this);
   }
@@ -37,22 +40,42 @@ class MapContainer extends Component {
       return './icons/tree-small.png';
     }
   }
+  // show(ref) {
+  //   newRefFunc = showCallout.bind(ref);
+  //   newRefFunc();
+  // }
+  show(id) {
+    console.log(id)
+    id.showCallout();
+  }
+
   render() {
     return (
       <View>
-        <MapView style={styles.map} 
+        <MapView 
+        style={styles.map} 
         region={this.state.region}
         onRegionChange={this.onRegionChange}
         >
         {this.props.markers.map(marker => (
+            
             <MapView.Marker
+              ref={ref => { reference[marker.id] = ref}}
               key={marker.id}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
               image={marker.image}
-              onPress={() => Actions.Blurb({ marker: marker })}
-              centerOffset={{ x: 0, y: -20 }}
+              //onPress={() => console.log({marker})}
+              //onPress={() => this.show(this.key)}
+              onPress={() => {
+                console.log("click!", reference[marker.id].showCallout);
+                reference[marker.id].showCallout();
+              }}
+              //onPress={() => onSelect}
+              //onPress={() => Actions.Blurb({ marker: marker })}
+              //onPress={() => this.setState({ modalVisible: true, selectedMarker: marker })}
+              //centerOffset={{ x: 20, y: -30 }}
             />
           ))}
         </MapView>
