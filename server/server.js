@@ -50,6 +50,8 @@ app.get('/spots', (req, res) => {
 });
 
 app.post('/spots', upload.single('spot_image'), (req, res) => {
+  req.body.latitude = parseFloat(req.body.latitude);
+  req.body.longitude = parseFloat(req.body.longitude);
   if (req.file !== undefined) {
     // send spot photo to cloudinary
     cloudinary.uploader.upload(req.file.path, (result) => { 
