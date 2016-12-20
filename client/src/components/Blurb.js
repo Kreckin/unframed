@@ -17,10 +17,10 @@ const Blurb = (props) => {
         />
         <Text style={styles.categoryStyle}>{props.marker.category}</Text>
         <TouchableHighlight 
-          onPress={props.goBackToMap}
+          onPress={() => Actions.MapContainer()}
           style={styles.buttonStyle} 
         >
-          <Text>Save</Text>
+          <Text>Back to map</Text>
         </TouchableHighlight>
       </View>
     </View>
@@ -33,12 +33,12 @@ const styles = {
     marginBottom: 3
 	},
   categoryStyle: {
-    fontSize: 14,
+    fontSize: 18,
     alignSelf: 'center'
   },
 	imageStyle: {
-    height: 90,
-    width: 90,
+    height: 150,
+    width: 150,
     borderWidth: 2,
     borderRadius: 4
   }, 
@@ -58,10 +58,6 @@ const styles = {
   cardStyle: {
     alignItems: 'center',
     backgroundColor: 'white',
-    height: 200,
-    width: 300,
-    borderRadius: 7,
-    borderWidth: 1
   }
 };
 export default Blurb;

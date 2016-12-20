@@ -9,7 +9,7 @@ import {
   Dimensions
 } from 'react-native';
 import Blurb from './Blurb';
-import CustomMarker from './CustomMarker';
+
 import { Actions } from 'react-native-router-flux';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -40,15 +40,6 @@ class MapContainer extends Component {
       return './icons/tree-small.png';
     }
   }
-  // show(ref) {
-  //   newRefFunc = showCallout.bind(ref);
-  //   newRefFunc();
-  // }
-  show(id) {
-    console.log(id)
-    id.showCallout();
-  }
-
   render() {
     return (
       <View>
@@ -60,22 +51,14 @@ class MapContainer extends Component {
         {this.props.markers.map(marker => (
             
             <MapView.Marker
-              ref={ref => { reference[marker.id] = ref}}
+              ref={ref => { reference[marker.id] = ref; }}
               key={marker.id}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
               image={marker.image}
-              //onPress={() => console.log({marker})}
-              //onPress={() => this.show(this.key)}
-              onPress={() => {
-                console.log("click!", reference[marker.id].showCallout);
-                reference[marker.id].showCallout();
-              }}
-              //onPress={() => onSelect}
-              //onPress={() => Actions.Blurb({ marker: marker })}
-              //onPress={() => this.setState({ modalVisible: true, selectedMarker: marker })}
-              //centerOffset={{ x: 20, y: -30 }}
+              onPress={() => { reference[marker.id].showCallout(); }}
+              onCalloutPress={() => Actions.Blurb({ marker })}
             />
           ))}
         </MapView>
