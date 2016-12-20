@@ -1,12 +1,6 @@
 //const axios = require('axios');
-//const server = require('../server.js');
-//var server;
-//  beforeEach(function () {
-  //  server = require('../server.js');
-//  });
-  // afterEach(function () {
-  //   server.close();
-  // });
+
+//keep your node server running when doing these tests
 
   describe('Travis doesn\'t like local servers', () => {
     it('comment out the rest of the tests when pushing until we deploy', () => {
@@ -45,4 +39,3 @@
   //   }).catch((error)=>console.log(error))
   // })
 //});
-  //process.exitCode = 1;

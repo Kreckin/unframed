@@ -6,7 +6,12 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Blurb from './Blurb';
+<<<<<<< HEAD
 //This gets the dimensions from the user's screen so the map takes up the full screen
+=======
+import getSpots from '../lib/getSpots';
+//This gets the dimensions from the user's screen
+>>>>>>> moved marker state to map container, merged in latest changes, and made sure its still functioning
 const { height, width } = Dimensions.get('window');
 
 //This is the work around for the airbnb bug (Casey - go ahead and refactor this)
@@ -24,15 +29,24 @@ class MapContainer extends Component {
         longitude: -97.7431,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+      markers: [],
+      modalVisible: false,
+      selectedMarker: null
     };
-    this.onRegionChange = this.onRegionChange.bind(this);
+    //commented out for now because re-rendering does not play nice with this currently
+
+    //this.onRegionChange = this.onRegionChange.bind(this);
   }
   //This changes the region when the user moves around
-  onRegionChange(region) {
-    this.setState({ region });
+  componentWillMount() {
+    //when the app is first called it will get every spot from our database and change the markers state to use it
+    getSpots((data) => {
+      this.setState({ markers: data });
+    });
   }
   render() {
+
     return (
       <View>
         <MapView 
@@ -42,8 +56,8 @@ class MapContainer extends Component {
         //this will change the region as the user moves around the map
         onRegionChange={this.onRegionChange}
         >
-        {this.props.markers.map(marker => (
-            //This maps all the markers (passed down from app as props)
+        {this.state.markers.map(marker => (
+            
             <MapView.Marker
             //The ref is the weird workaround to the showCallout issue
               ref={ref => { reference[marker.id] = ref; }}
