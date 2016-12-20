@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TabBarIOS,
   View,
   Dimensions
 } from 'react-native';
-import Blurb from './Blurb';
 
 import { Actions } from 'react-native-router-flux';
-//This gets the dimensions from the user's screen
+//This gets the dimensions from the user's screen so the map takes up the full screen
 const { height, width } = Dimensions.get('window');
 
-let reference = {};
+//This is the work around for the airbnb bug (Casey - go ahead and refactor this)
+const reference = {};
+
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       region: {
+        //Austin's latitude, hard coded in 
+        //(see bottom of thing for how we'd get the actual location on a real phone)
         latitude: 30.2672,
         longitude: -97.7431,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      },
-    modalVisible: false,
-    selectedMarker: null
+      }
     };
     this.onRegionChange = this.onRegionChange.bind(this);
   }
@@ -35,29 +32,30 @@ class MapContainer extends Component {
   onRegionChange(region) {
     this.setState({ region });
   }
-  getIconType(category) {
-    if (category === 'nature') {
-      return './icons/tree-small.png';
-    }
-  }
   render() {
     return (
       <View>
         <MapView 
         style={styles.map} 
+        //this sets the region as Austin
         region={this.state.region}
+        //this will change the region as the user moves around the map
         onRegionChange={this.onRegionChange}
         >
         {this.props.markers.map(marker => (
-            
+            //This maps all the markers (passed down from app as props)
             <MapView.Marker
+            //The ref is the weird workaround to the showCallout issue
               ref={ref => { reference[marker.id] = ref; }}
               key={marker.id}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
               title={marker.title}
               description={marker.category}
+              //The image currently is hard coded in state
               image={marker.image}
+              //This adds the mini blurb on the screen
               onPress={() => { reference[marker.id].showCallout(); }}
+              //This changes the scene to the blurb with the marker passed down as props
               onCalloutPress={() => Actions.Blurb({ marker })}
             />
           ))}
@@ -66,24 +64,11 @@ class MapContainer extends Component {
     );
   }
 }
+// sets the map as the width and heigh of the screen
 const styles = {
   map: {
-    width: width,
-    height: height
-  },
-  pinImage: {
-    width: 50,
-    height: 50 
-  },
-  callout: {
-    flex: 1,
-    paddingRight: 10,
-    paddingBottom: 10,
-    marginRight: 10,
-    marginBottom: 10
-  },
-  calloutTitle: {
-    fontSize: 16
+    width,
+    height
   }
 };
 //Right now, getUserLocation keeps telling me we're in SF, so the stuff above puts Austin
