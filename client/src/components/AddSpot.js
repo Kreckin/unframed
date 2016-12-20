@@ -1,41 +1,60 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Picker } from 'react-native';
+import { View, Text, TextInput, Picker, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 class AddSpot extends Component {
- constructor(props) {
+    constructor(props) {
     super(props);
     this.state = {
+        title: '',
+        description: '',
+        category: 'nature'
         };
     }
-  render() {
-    return (
-        <View>
-            <View style={styles.topContainerStyle}>
-                <Text style={styles.labelStyle}>Title:</Text>
-                <TextInput 
-                style={styles.inputStyle}
-                label='title'
-                placeholder='Cool street art'
-                autocorrect={false}
-                />
-                <Text style={styles.labelStyle}>Description:</Text>
-                <TextInput 
-                style={styles.inputStyle}
-                label='description'
-                placeholder='A large painting on the side of a building'
-                autocorrect={false}
-                numberOfLines={2}
-                />
+    onButtonPress() {
+        console.log("first", this.state)
+        this.setState({ title: '', description: '' });
+    }
+    render() {
+        return (
+            <View>
+                <View style={styles.topContainerStyle}>
+                    <Text style={styles.labelStyle}>Title:</Text>
+                    <TextInput 
+                    style={styles.inputStyle}
+                    label='title'
+                    placeholder='Cool street art'
+                    autocorrect={false}
+                    value={this.state.title}
+                    onChangeText={title => this.setState({ title })}
+                    />
+                    <Text style={styles.labelStyle}>Description:</Text>
+                    <TextInput 
+                    style={styles.inputStyle}
+                    label='description'
+                    value={this.state.description}
+                    placeholder='A large painting on the side of a building'
+                    onChangeText={description => this.setState({ description })}
+                    autocorrect={false}
+                    />
+                </View>
+                <Text style={styles.labelStyle}>Category:</Text>
+                <Picker 
+                    style={{ marginTop: -80 }}
+                    selectedValue={this.state.category}
+                    onValueChange={(category) => this.setState({ category })}
+                >
+                  <Picker.Item label="Nature" value="nature" />
+                  <Picker.Item label="Street Art" value="street_art" />
+                  <Picker.Item label="Holiday" value="holiday" />
+                </Picker>
+                <TouchableHighlight 
+                    style={styles.buttonStyle}
+                    onPress={this.onButtonPress.bind(this)}
+                >
+                    <Text style={{ fontSize: 18 }}>Submit</Text>
+                </TouchableHighlight>
             </View>
-            <Text style={styles.labelStyle}>Category:</Text>
-            <Picker style={{marginTop: -80}}>
-              <Picker.Item label="Nature" value="nature" />
-              <Picker.Item label="Street Art" value="street_art" />
-              <Picker.Item label="Holiday" value="holiday" />
-            </Picker>
-        </View>
-              //selectedValue={this.state.language} onValueChange={(lang) => this.setState({ language: lang})}>
       );
     }
 }
@@ -71,6 +90,14 @@ const styles = {
     marginTop: 65, 
     marginLeft: 5,
     marginRight: 5
+  },
+  buttonStyle: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 3,
+    padding: 4,
+    alignSelf: 'center',
+    backgroundColor: '#007aff' 
   }
 };
 
