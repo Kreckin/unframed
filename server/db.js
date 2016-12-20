@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-const db = require('seraph')(require('./config').graph);
-=======
 const neo4j = require('neo4j-driver').v1;
-<<<<<<< HEAD
-const db = require('seraph')(require('./config.js').graph);
->>>>>>> added icons, added tests for server paths, wrote functions to get data from server, implemented client side to use data
-=======
-const deploy = !process.env.server ? require('/config.js').graph : {server:process.env.server,user:process.env.user,pass:provess.env.pass}; 
-const db = require('seraph')deploy
->>>>>>> added global variables for travis to use
+const deploy = !process.env.server ? require('./config').graph : { server: process.env.server, user: process.env.user, pass: process.env.pass }; 
+const db = require('seraph')(deploy);
 const model = require('seraph-model');
 
 const Spot = model(db, 'Spot');
