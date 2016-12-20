@@ -6,12 +6,8 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Blurb from './Blurb';
-<<<<<<< HEAD
-//This gets the dimensions from the user's screen so the map takes up the full screen
-=======
 import getSpots from '../lib/getSpots';
 //This gets the dimensions from the user's screen
->>>>>>> moved marker state to map container, merged in latest changes, and made sure its still functioning
 const { height, width } = Dimensions.get('window');
 
 //This is the work around for the airbnb bug (Casey - go ahead and refactor this)
@@ -46,7 +42,6 @@ class MapContainer extends Component {
     });
   }
   render() {
-
     return (
       <View>
         <MapView 

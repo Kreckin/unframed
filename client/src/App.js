@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import Blurb from './components/Blurb';
-<<<<<<< HEAD
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
@@ -21,51 +20,25 @@ import Blurb from './components/Blurb';
 
 class App extends Component {
 
-    render() { 
-      return (
-          <Router>
-            <Scene key='root'>
-              <Scene
-                key="tabBar"
-                tabs
-                tabBarStyle={{ backgroundColor: '#FFFFFF' }}
-              >
-              {/* Map Tab and its scenes */}
-                <Scene key='Map' title='Map' icon={TabIcon}>
-                  <Scene 
-                    key='MapContainer'
-                    component={MapContainer}
-                    title='Map'
-                    //initial
-                  />
-                  <Scene 
-                    key='Blurb'
-                    component={Blurb}
-                    title='Blurb'
-                  />
-                </Scene>
-              {/* Login Tab and its scenes */}
-                <Scene key='LoginTab' title='Log In' icon={TabIcon}>
-                  <Scene 
-                    key='Login'
-                    component={Login}
-                    title='Log In'
-                  />
-                </Scene>
-              {/* Saved List Tab and its scenes */}
-                <Scene key='SavedListTab' title='Saved List' icon={TabIcon}>
-                  <Scene 
-                    key='SavedList'
-                    component={SavedList}
-                    title='Saved List'
-                  />
-                </Scene>
-              </Scene>
->>>>>>> moved marker state to map container, merged in latest changes, and made sure its still functioning
-            </Scene>
-          </Router>
-        );
-    }
+  render() { 
+    return (
+        <Router>
+          <Scene key='root'>             
+                <Scene 
+                  key='MapContainer'
+                  component={MapContainer}
+                  title='Map'
+                  //initial
+                />
+                <Scene 
+                  key='Blurb'
+                  component={Blurb}
+                  title='Blurb'
+                />
+          </Scene>
+        </Router>
+    );
+  }
 }
 
 export default App;
