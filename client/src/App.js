@@ -19,7 +19,6 @@ import Blurb from './components/Blurb';
 // };
 
 class App extends Component {
-  
 
     render() {
 
