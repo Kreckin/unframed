@@ -19,13 +19,14 @@ if (!process.env.cloud_name){
 const multer = require('multer'); // Node.js middleware for handling `multipart/form-data`
 
 const upload = multer({ dest: 'temp/' }); // set temp location of new files
+
 const app = express();
 
 // ----- MIDDLEWARE -----
 app.use(express.static(path.join(__dirname, '/../web/public/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use((req, res, next) => { // print out requests
+app.use((req, res, next) => { // print out incoming requests
     console.log('---------');
     console.log('Received', req.method, req.url);
     next();

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
-import Blurb from './components/Blurb';
+import SpotInfo from './components/SpotInfo';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
@@ -20,25 +20,26 @@ import Blurb from './components/Blurb';
 
 class App extends Component {
 
-  render() { 
-    return (
-        <Router>
-          <Scene key='root'>             
-                <Scene 
-                  key='MapContainer'
-                  component={MapContainer}
-                  title='Map'
-                  //initial
-                />
-                <Scene 
-                  key='Blurb'
-                  component={Blurb}
-                  title='Blurb'
-                />
-          </Scene>
-        </Router>
-    );
-  }
+    render() {
+      return (
+          <Router>
+            <Scene key='root'>
+              <Scene 
+                key='MapContainer'
+                component={MapContainer}
+                title='Map'
+                spots={this.state.spots}
+                //initial
+              />
+              <Scene 
+                key='SpotInfo'
+                component={SpotInfo}
+                title='SpotInfo'
+              />
+            </Scene>
+          </Router>
+        );
+    }
 }
 
 export default App;
@@ -85,13 +86,13 @@ export default App;
 //                     key='MapContainer'
 //                     component={MapContainer}
 //                     title='Map'
-//                     markers={this.state.markers}
+//                     spots={this.state.spots}
 //                     //initial
 //                   />
 //                   <Scene 
-//                     key='Blurb'
-//                     component={Blurb}
-//                     title='Blurb'
+//                     key='SpotInfo'
+//                     component={SpotInfo}
+//                     title='SpotInfo'
 //                   />
 //                 </Scene>
 //               {/* Login Tab and its scenes */}

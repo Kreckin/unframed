@@ -4,18 +4,18 @@ import { Actions } from 'react-native-router-flux';
 
 const { height, width } = Dimensions.get('window');
 
-const Blurb = (props) => {
+const SpotInfo = (props) => {
   return (
     <View style={styles.viewStyle}>
       <View style={styles.cardStyle}>
         <Text style={styles.titleStyle}>
-        {props.marker.title}
+        {props.spot.title}
         </Text>
         <Image 
           style={styles.imageStyle}
           source={{ uri: `${props.marker.img_url}` }} 
         />
-        <Text style={styles.categoryStyle}>{props.marker.category}</Text>
+        <Text style={styles.categoryStyle}>{props.spot.category}</Text>
         <TouchableHighlight 
           onPress={() => Actions.MapContainer()}
           style={styles.buttonStyle} 
@@ -28,15 +28,15 @@ const Blurb = (props) => {
 };
 
 const styles = {
-	titleStyle: {
+  titleStyle: {
     fontSize: 34,
     marginBottom: 3
-	},
+  },
   categoryStyle: {
     fontSize: 18,
     alignSelf: 'center'
   },
-	imageStyle: {
+  imageStyle: {
     height: 150,
     width: 150,
     borderWidth: 2,
@@ -60,4 +60,4 @@ const styles = {
     backgroundColor: 'white',
   }
 };
-export default Blurb;
+export default SpotInfo;

@@ -4,6 +4,8 @@ import {
   View,
   Dimensions
 } from 'react-native';
+import SpotInfo from './SpotInfo';
+
 import { Actions } from 'react-native-router-flux';
 import getSpots from '../lib/getSpots';
 //This gets the dimensions from the user's screen
@@ -48,21 +50,21 @@ class MapContainer extends Component {
         //this will change the region as the user moves around the map
         onRegionChange={this.onRegionChange}
         >
-        {this.state.markers.map(marker => (
-            
+        {this.props.spots.map(spot => (
+            //This maps all the spots (passed down from app as props)
             <MapView.Marker
             //The ref is the weird workaround to the showCallout issue
-              ref={ref => { reference[marker.id] = ref; }}
-              key={marker.id}
-              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-              title={marker.title}
-              description={marker.category}
+              ref={ref => { reference[spot.id] = ref; }}
+              key={spot.id}
+              coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
+              title={spot.title}
+              description={spot.category}
               //The image currently is hard coded in state
-              image={marker.icon}
+              image={spot.image}
               //This adds the mini blurb on the screen
-              onPress={() => { reference[marker.id].showCallout(); }}
-              //This changes the scene to the blurb with the marker passed down as props
-              onCalloutPress={() => Actions.Blurb({ marker })}
+              onPress={() => { reference[spot.id].showCallout(); }}
+              //This changes the scene to the blurb with the spot passed down as props
+              onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
           ))}
         </MapView>
