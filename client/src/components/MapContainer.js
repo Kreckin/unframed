@@ -70,7 +70,7 @@ class MapContainer extends Component {
               //onPress={() => this.show(this.key)}
               onPress={() => {
                 console.log("click!", reference[marker.id].showCallout);
-                reference[marker.id].showCallout;
+                reference[marker.id].showCallout();
               }}
               //onPress={() => onSelect}
               //onPress={() => Actions.Blurb({ marker: marker })}
