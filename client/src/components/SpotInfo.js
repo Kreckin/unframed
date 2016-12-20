@@ -13,7 +13,7 @@ const SpotInfo = (props) => {
         </Text>
         <Image 
           style={styles.imageStyle}
-          source={{ uri: 'https://staticdelivery.nexusmods.com/mods/1151/images/1917-0-1448130696.png' }} 
+          source={{ uri: `${props.marker.img_url}` }} 
         />
         <Text style={styles.categoryStyle}>{props.spot.category}</Text>
         <TouchableHighlight 
