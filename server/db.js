@@ -1,5 +1,4 @@
-const neo4j = require('neo4j-driver').v1;
-const db = require('seraph')(require('./config.js').graph)
+const db = require('seraph')(require('./config').graph);
 const model = require('seraph-model');
 
 const Spot = model(db, 'Spot');
@@ -8,61 +7,62 @@ const Category = model(db, 'Categories');
 
 // TODO: add validation
 // model.on('validate', validateAge);
+
 module.exports = {
   spots: {
-    get: function(params){
-      return new Promise(function(resolve, reject){
-        Spot.findAll(function (err, allOfTheseModels) {
-          if (err) reject(err)
-          else resolve (allOfTheseModels)
+    get: () => {
+      return new Promise((resolve, reject) => {
+        Spot.findAll((err, allOfTheseModels) => {
+          if (err) reject(err);
+          else resolve(allOfTheseModels);
         });
-      })
+      });
     },
-    post: function(obj) {
-      return new Promise(function (resolve, reject) {
-        Spot.save(obj, function (err, savedObject) {
-          if (err) reject(err)
-          else resolve (savedObject)
-        })
-      })
+    post: (obj) => {
+      return new Promise((resolve, reject) => {
+        Spot.save(obj, (err, savedObject) => {
+          if (err) reject(err);
+          else resolve(savedObject);
+        });
+      });
     }
   },
 
   users: {
-    get: function(params){
-      return new Promise(function(resolve, reject){
-        User.findAll(function (err, allOfTheseModels) {
-          if (err) reject(err)
-          else resolve (allOfTheseModels)
+    get: () => {
+      return new Promise((resolve, reject) => {
+        User.findAll((err, allOfTheseModels) => {
+          if (err) reject(err);
+          else resolve(allOfTheseModels);
         });
-      })
+      });
     },
-    post: function(obj) {
-      return new Promise(function (resolve, reject) {
-        User.save(obj, function (err, savedObject) {
-          if (err) reject(err)
-          else resolve (savedObject)
-        })
-      })
+    post: (obj) => {
+      return new Promise((resolve, reject) => {
+        User.save(obj, (err, savedObject) => {
+          if (err) reject(err);
+          else resolve(savedObject);
+        });
+      });
     }
   },
 
   categories: {
-    get: function(params){
-      return new Promise(function(resolve, reject){
-        Category.findAll(function (err, allOfTheseModels) {
-          if (err) reject(err)
-          else resolve (allOfTheseModels)
+    get: () => {
+      return new Promise((resolve, reject) => {
+        Category.findAll((err, allOfTheseModels) => {
+          if (err) reject(err);
+          else resolve(allOfTheseModels);
         });
-      })
+      });
     },
-    post: function(obj) {
-      return new Promise(function (resolve, reject) {
-        Category.save(obj, function (err, savedObject) {
-          if (err) reject(err)
-          else resolve (savedObject)
-        })
-      })
+    post: (obj) => {
+      return new Promise((resolve, reject) => {
+        Category.save(obj, (err, savedObject) => {
+          if (err) reject(err);
+          else resolve(savedObject);
+        });
+      });
     }
   }
-}
+};
