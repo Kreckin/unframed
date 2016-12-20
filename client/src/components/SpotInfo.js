@@ -15,7 +15,13 @@ const SpotInfo = (props) => {
           style={styles.imageStyle}
           source={{ uri: `${props.spot.img_url}` }} 
         />
-        <Text style={styles.categoryStyle}>{props.spot.category}</Text>
+        <Text style={styles.categoryStyle}>{props.marker.category}</Text>
+        <Text style={styles.descriptionStyle}>THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
+         SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
+          COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
+          UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
+          S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
+          POTTHIS IS SUCH A COOL SPOT</Text>
         <TouchableHighlight 
           onPress={() => Actions.MapContainer()}
           style={styles.buttonStyle} 
@@ -41,6 +47,11 @@ const styles = {
     width: 150,
     borderWidth: 2,
     borderRadius: 4
+  },
+  descriptionStyle: {
+    paddingRight: 20,
+    paddingLeft: 20,
+    height: 200
   }, 
   buttonStyle: {
     marginTop: 3,
