@@ -5,7 +5,6 @@ import {
   Dimensions
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Blurb from './Blurb';
 import getSpots from '../lib/getSpots';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -26,9 +25,7 @@ class MapContainer extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
-      markers: [],
-      modalVisible: false,
-      selectedMarker: null
+      markers: []
     };
     //commented out for now because re-rendering does not play nice with this currently
 
