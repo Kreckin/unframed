@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+    <div>
+      <form action="http://localhost:4040/spots" method="POST" enctype="multipart/form-data" target="_top">
+        <label>
+          Title: 
+          <input type="text" name="title"><br>
+        </label>
+        <label>
+          Latitude: 
+          <input type="number" name="latitude" step="0.000001"><br>
+        </label>
+        <label>
+          Longitude: 
+          <input type="number" name="longitude" step="0.000001"><br>
+        </label>
+        <label>
+          Latitude: 
+          <select name="category">
+            <option value="nature">Nature</option>
+            <option value="street_art">Street Art</option>
+            <option value="holiday">Holiday</option>
+          </select><br>
+        </label>
+        <label>
+          Picture: 
+        <input type="file" name="spot_image" accept="image/*"><br>
+        </label>
+        <input type="submit">
+      </form>
+    </div>
+  </body>
+</html>
