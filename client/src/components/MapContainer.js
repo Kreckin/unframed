@@ -35,7 +35,7 @@ class MapContainer extends Component {
   }
   //This changes the region when the user moves around
   componentWillMount() {
-    //when the app is first called it will get every spot from our database and change the markers state to use it
+    //when the map is first called it will get every spot from our database and change the spots state to use it
     getSpots((data) => {
       this.setState({ spots: data });
     });

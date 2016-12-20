@@ -28,7 +28,6 @@ class App extends Component {
                 key='MapContainer'
                 component={MapContainer}
                 title='Map'
-                //spots={this.state.spots}
                 //initial
               />
               <Scene 

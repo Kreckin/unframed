@@ -9,6 +9,10 @@ const Category = model(db, 'Categories');
 
 // TODO: add validation
 // model.on('validate', validateAge);
+// db.constraints.uniqueness.createIfNone('Spot', 'latitude', (err, constraint)=> {
+//   console.log(constraint); 
+//   // -> { type: 'UNIQUENESS', label: 'Person', property_keys: ['name'] }
+// });
 
 module.exports = {
   spots: {
