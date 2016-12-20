@@ -4,9 +4,9 @@ import {
   View,
   Dimensions
 } from 'react-native';
-
 import { Actions } from 'react-native-router-flux';
-//This gets the dimensions from the user's screen so the map takes up the full screen
+import getSpots from '../lib/getSpots';
+//This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
 //This is the work around for the airbnb bug (Casey - go ahead and refactor this)
@@ -24,13 +24,19 @@ class MapContainer extends Component {
         longitude: -97.7431,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
-      }
+      },
+      markers: []
     };
-    this.onRegionChange = this.onRegionChange.bind(this);
+    //commented out for now because re-rendering does not play nice with this currently
+
+    //this.onRegionChange = this.onRegionChange.bind(this);
   }
   //This changes the region when the user moves around
-  onRegionChange(region) {
-    this.setState({ region });
+  componentWillMount() {
+    //when the app is first called it will get every spot from our database and change the markers state to use it
+    getSpots((data) => {
+      this.setState({ markers: data });
+    });
   }
   render() {
     return (
@@ -42,8 +48,8 @@ class MapContainer extends Component {
         //this will change the region as the user moves around the map
         onRegionChange={this.onRegionChange}
         >
-        {this.props.markers.map(marker => (
-            //This maps all the markers (passed down from app as props)
+        {this.state.markers.map(marker => (
+            
             <MapView.Marker
             //The ref is the weird workaround to the showCallout issue
               ref={ref => { reference[marker.id] = ref; }}
@@ -52,7 +58,7 @@ class MapContainer extends Component {
               title={marker.title}
               description={marker.category}
               //The image currently is hard coded in state
-              image={marker.image}
+              image={marker.icon}
               //This adds the mini blurb on the screen
               onPress={() => { reference[marker.id].showCallout(); }}
               //This changes the scene to the blurb with the marker passed down as props
