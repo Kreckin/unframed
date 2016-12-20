@@ -3,9 +3,10 @@ const fs = require('fs');
 const express = require('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
-const cloudinary = require('cloudinary'); // stores images
-cloudinary.config(require('./config').cloudinary);
+const cloudinary = require('cloudinary'); // stores images in the cloud
 const multer = require('multer'); // Node.js middleware for handling `multipart/form-data`
+
+cloudinary.config(require('./config').cloudinary);
 
 const upload = multer({ dest: 'temp/' }); // set temp location of new files
 
@@ -15,7 +16,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/../web/public/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use((req, res, next) => { // print out requests
+app.use((req, res, next) => { // print out incoming requests
     console.log('---------');
     console.log('Received', req.method, req.url);
     next();
@@ -123,4 +124,4 @@ app.post('/users', (req, res) => {
 // ----- LISTEN -----
 const port = process.env.PORT || 4040;
 app.listen(port);
-console.log('Listening on port ' + port);
+console.log('Listening on port', port);
