@@ -16,8 +16,8 @@ const TabIcon = ({ selected, title }) => {
 
 class App extends Component {
   state={
-    markers: [{ id: 1, latitude: 30.268800, longitude: -97.740216, title: 'Caseys bat guy', image: require('./icons/tree-small.png'), category: 'nature' },
-        { id: 2, latitude: 30.269946, longitude: -97.743531, title: 'An unexpected pony', image: require('./icons/tree-small.png'), category: 'nature' }]
+    markers: [{ id: '1', latitude: 30.268800, longitude: -97.740216, title: 'Caseys bat guy', image: require('./icons/tree-small.png'), category: 'nature' },
+        { id: '2', latitude: 30.269946, longitude: -97.743531, title: 'An unexpected pony', image: require('./icons/pony.png'), category: 'nature' }]
   }
 
     render() {
