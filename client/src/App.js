@@ -29,7 +29,7 @@ class App extends Component {
               <Scene 
                 key='MapContainer'
                 //////////
-                component={AddSpot}
+                component={CameraRoll}
                 title='Map'
               />
               <Scene 

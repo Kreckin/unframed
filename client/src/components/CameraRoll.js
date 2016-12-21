@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import CameraButtons from './CameraButtons';
 
 const Platform = require('react-native').Platform;
 const ImagePicker = require('react-native-image-picker');
@@ -42,12 +43,9 @@ export default class CameraRoll extends Component {
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
   }
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          {this.state.image ? <Image style={{ flex: 1 }} source={this.state.image} /> : null}
-        </View>
+  renderButtonOrPic() {
+    if (!this.state.image) {
+      return (
         <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={this.takePhoto}>
           <Text style={styles.buttonText}>Camera</Text>
@@ -56,7 +54,20 @@ export default class CameraRoll extends Component {
             <Text style={styles.buttonText}>Gallery</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Image style={{ flex: 1 }} source={this.state.image} />
+        </View>
+      );
+    }
+  }
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        {this.renderButtonOrPic()}
+      </View> 
     );
   }
 }
