@@ -7,8 +7,18 @@ const { height, width } = Dimensions.get('window');
 class SpotInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      numUpvotes: 25,
+      numDownvotes: 5
+    };
   }
+
+  ComponentWillMount() {
+    //fetch the vote tally
+    //store in state
+    //this.setState({ voteTally: 25 });
+  }
+
   upVote() {
     console.log('Yay!');
   }
@@ -51,7 +61,10 @@ class SpotInfo extends Component {
                 source={require('../buttonImages/thumbsDown.png')}
               />
             </TouchableHighlight>
-            <Text style={styles.voteTotalStyle}># of votes: 250</Text>
+            <View>
+              <Text style={styles.voteTotalStyle}>{ this.state.numUpvotes + ' upvotes' }</Text>
+              <Text style={styles.voteTotalStyle}>{ this.state.numDownvotes + ' downvotes' }</Text>
+            </View>
             <TouchableHighlight
               style={styles.upVoteStyle}
               onPress={this.upVote}
@@ -130,8 +143,8 @@ const styles = {
   voteTotalStyle: {
     //marginTop: 3,
     //padding: 4,
-    borderWidth: 2,
-    borderRadius: 7,
+    //borderWidth: 2,
+    //borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center'
   },
