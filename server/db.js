@@ -6,9 +6,8 @@ const model = require('seraph-model');
 const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
-
-// TODO: add validation
-// model.on('validate', validateAge);
+//anytime spot is saved, if it receives any properties that are not part of this list it will strip them
+Spot.fields = ['latitude', 'longitude', 'category', 'title', 'img_url', 'upvotes', 'downvotes', 'percentage', 'description'];
 
 //really awkward way to enforce schema, validation will check each typeof to make sure its the right type
 //if callback is called on a truthy value it'll stop the save process
