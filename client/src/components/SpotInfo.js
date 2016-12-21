@@ -4,50 +4,63 @@ import { Actions } from 'react-native-router-flux';
 
 const { height, width } = Dimensions.get('window');
 
-const SpotInfo = (props) => {
-  return (
-    <View style={styles.viewStyle}>
-      <View style={styles.cardStyle}>
-        <Text style={styles.titleStyle}>
-        {props.spot.title}
-        </Text>
-        <Image 
-          style={styles.imageStyle}
-          source={{ uri: `${props.spot.img_url}` }} 
-        />
-        <Text style={styles.categoryStyle}>{props.spot.category}</Text>
-        <Text style={styles.descriptionStyle}>
-          THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
-          SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
-          COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
-          UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
-          S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
-          POTTHIS IS SUCH A COOL SPOT</Text>
-        <TouchableHighlight 
-          onPress={() => Actions.MapContainer()}
-          style={styles.buttonStyle} 
-        >
-          <Text>Back to map</Text>
-        </TouchableHighlight>
-        <View style={styles.voteRowStyle}>
-          <TouchableHighlight style={styles.downVoteStyle}>
-            <Image
-              style={styles.thumbImageStyle}
-              source={require('../buttonImages/thumbsDown.png')}
-            />
+class SpotInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.viewStyle}>
+        <View style={styles.cardStyle}>
+          <Text style={styles.titleStyle}>
+          {this.props.spot.title}
+          </Text>
+          <Image 
+            style={styles.imageStyle}
+            source={{ uri: `${this.props.spot.img_url}` }} 
+          />
+          <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
+          <Text style={styles.descriptionStyle}>
+            THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
+            SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
+            COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
+            UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
+            S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
+            POTTHIS IS SUCH A COOL SPOT</Text>
+          <TouchableHighlight 
+            onPress={() => Actions.MapContainer()}
+            style={styles.buttonStyle} 
+          >
+            <Text>Back to map</Text>
           </TouchableHighlight>
-          <Text style={styles.voteTotalStyle}># of votes: 250</Text>
-          <TouchableHighlight style={styles.upVoteStyle}>
-            <Image
-              style={styles.thumbImageStyle}
-              source={require('../buttonImages/thumbsUp.png')}
-            />
-          </TouchableHighlight>
+          <View style={styles.voteRowStyle}>
+            <TouchableHighlight
+              style={styles.downVoteStyle}
+              onPress={console.log('Booooo!')}
+            >
+              <Image
+                style={styles.thumbImageStyle}
+                source={require('../buttonImages/thumbsDown.png')}
+              />
+            </TouchableHighlight>
+            <Text style={styles.voteTotalStyle}># of votes: 250</Text>
+            <TouchableHighlight
+              style={styles.upVoteStyle}
+              onPress={console.log('Yaaaay!')}
+            >
+              <Image
+                style={styles.thumbImageStyle}
+                source={require('../buttonImages/thumbsUp.png')}
+              />
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const styles = {
   titleStyle: {
