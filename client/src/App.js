@@ -6,7 +6,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 
-import AddPhoto from './components/AddPhoto';
+import CameraRoll from './components/CameraRoll';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
@@ -29,7 +29,7 @@ class App extends Component {
               <Scene 
                 key='MapContainer'
                 //////////
-                component={AddPhoto}
+                component={CameraRoll}
                 title='Map'
               />
               <Scene 
