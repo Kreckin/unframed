@@ -44,13 +44,9 @@ class SpotInfo extends Component {
             COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
             UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
             S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
-            POTTHIS IS SUCH A COOL SPOT</Text>
-          <TouchableHighlight 
-            onPress={() => Actions.MapContainer()}
-            style={styles.buttonStyle} 
-          >
-            <Text>Back to map</Text>
-          </TouchableHighlight>
+            POTTHIS IS SUCH A COOL SPOT
+          </Text>
+          
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
@@ -75,6 +71,12 @@ class SpotInfo extends Component {
               />
             </TouchableHighlight>
           </View>
+          <TouchableHighlight 
+            onPress={() => Actions.MapContainer()}
+            style={styles.buttonStyle} 
+          >
+            <Text>Back to map</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -102,7 +104,7 @@ const styles = {
     height: 200
   }, 
   buttonStyle: {
-    marginTop: 3,
+    marginTop: 20,
     backgroundColor: '#4286f4',
     padding: 4,
     borderWidth: 2,
@@ -112,6 +114,8 @@ const styles = {
     flexDirection: 'row',
     width: 350,
     paddingTop: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     justifyContent: 'space-around'
   },
   downVoteStyle: {
@@ -145,6 +149,7 @@ const styles = {
     //padding: 4,
     //borderWidth: 2,
     //borderRadius: 7,
+    fontSize: 18,
     alignItems: 'center',
     justifyContent: 'center'
   },
