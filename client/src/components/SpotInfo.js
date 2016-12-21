@@ -13,17 +13,33 @@ class SpotInfo extends Component {
     };
   }
 
-  ComponentWillMount() {
+  componentWillMount() {
     //fetch the vote tally
+    console.log(this.props.spot);
+    //var upvotes = fetch('http://localhost:4040/upvote/' + this.props.spot.id);
     //store in state
     //this.setState({ voteTally: 25 });
   }
 
   upVote() {
-    console.log('Yay!');
+    //console.log('Yay!');
+    console.log('spot' + this.props.spot);
+    fetch('http://localhost:4040/upvote/' + this.props.spot.spot_id)
+      .then((res) => res.json())
+      .then((res) => {
+        //this.setState({numUpvotes: res.upvotes})
+        console.log(res);
+      });
   }
   downVote() {
-    console.log('Booo!');
+    //console.log('Yay!');
+    console.log('spot' + this.props.spot);
+    fetch('http://localhost:4040/downvote/' + this.props.spot.spot_id)
+      .then((res) => res.json())
+      .then((res) => {
+        //this.setState({numUpvotes: res.upvotes})
+        console.log(res);
+      });
   }
 
   render() {
@@ -63,7 +79,7 @@ class SpotInfo extends Component {
             </View>
             <TouchableHighlight
               style={styles.upVoteStyle}
-              onPress={this.upVote}
+              onPress={this.upVote.bind(this)}
             >
               <Image
                 style={styles.thumbImageStyle}
