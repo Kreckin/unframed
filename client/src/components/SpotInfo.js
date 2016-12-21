@@ -9,6 +9,12 @@ class SpotInfo extends Component {
     super(props);
     this.state = {};
   }
+  upVote() {
+    console.log('Yay!');
+  }
+  downVote() {
+    console.log('Booo!');
+  }
 
   render() {
     return (
@@ -38,7 +44,7 @@ class SpotInfo extends Component {
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
-              onPress={console.log('Booooo!')}
+              onPress={this.downVote}
             >
               <Image
                 style={styles.thumbImageStyle}
@@ -48,7 +54,7 @@ class SpotInfo extends Component {
             <Text style={styles.voteTotalStyle}># of votes: 250</Text>
             <TouchableHighlight
               style={styles.upVoteStyle}
-              onPress={console.log('Yaaaay!')}
+              onPress={this.upVote}
             >
               <Image
                 style={styles.thumbImageStyle}
