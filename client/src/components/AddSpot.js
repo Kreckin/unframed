@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Picker, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import postSpot from '../lib/postSpot';
+
 class AddSpot extends Component {
     constructor(props) {
     super(props);
@@ -12,7 +14,8 @@ class AddSpot extends Component {
         };
     }
     onButtonPress() {
-        console.log("first", this.state)
+        //Add the 'file' and the long and lat later, besides that, it's all set up
+        postSpot({ title: this.state.title, description: this.state.description, category: this.state.category });
         this.setState({ title: '', description: '' });
     }
     render() {
