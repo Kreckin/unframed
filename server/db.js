@@ -34,9 +34,6 @@ const validateSpot = (spot, callback) => {
     callback();
   }
 };
-const validateUsers = () => {
-
-};
 Spot.on('validate', validateSpot);
 
 module.exports = {
