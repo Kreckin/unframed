@@ -28,6 +28,15 @@ const SpotInfo = (props) => {
         >
           <Text>Back to map</Text>
         </TouchableHighlight>
+        <View style={styles.voteRowStyle}>
+          <TouchableHighlight style={styles.downVoteStyle}>
+            <Text>BOO</Text>
+          </TouchableHighlight>
+          <Text style={styles.voteTotalStyle}># of votes: 250</Text>
+          <TouchableHighlight style={styles.upVoteStyle}>
+            <Text>YAH</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     </View>
   );
@@ -56,6 +65,32 @@ const styles = {
   buttonStyle: {
     marginTop: 3,
     backgroundColor: '#4286f4',
+    padding: 4,
+    borderWidth: 2,
+    borderRadius: 7
+  },
+  voteRowStyle: {
+    flexDirection: 'row',
+    width: 350,
+    paddingTop: 20,
+    justifyContent: 'space-around'
+  },
+  downVoteStyle: {
+    marginTop: 3,
+    backgroundColor: '#FF0000',
+    padding: 4,
+    borderWidth: 2,
+    borderRadius: 7
+  },
+  upVoteStyle: {
+    marginTop: 3,
+    backgroundColor: '#32CD32',
+    padding: 4,
+    borderWidth: 2,
+    borderRadius: 7
+  },
+  voteTotalStyle: {
+    marginTop: 3,
     padding: 4,
     borderWidth: 2,
     borderRadius: 7
