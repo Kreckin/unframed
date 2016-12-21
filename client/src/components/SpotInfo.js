@@ -33,12 +33,15 @@ const SpotInfo = (props) => {
           <TouchableHighlight style={styles.downVoteStyle}>
             <Image
               style={styles.thumbImageStyle}
-              source={require('../buttonImages/thumbsDown-small.png')}
+              source={require('../buttonImages/thumbsDown.png')}
             />
           </TouchableHighlight>
           <Text style={styles.voteTotalStyle}># of votes: 250</Text>
           <TouchableHighlight style={styles.upVoteStyle}>
-            <Text>YAH</Text>
+            <Image
+              style={styles.thumbImageStyle}
+              source={require('../buttonImages/thumbsUp.png')}
+            />
           </TouchableHighlight>
         </View>
       </View>
@@ -81,31 +84,37 @@ const styles = {
   },
   downVoteStyle: {
     //marginTop: 3,
-    //backgroundColor: '#FF0000',
+    backgroundColor: '#FF704D',
     //padding: 4,
-    //borderWidth: 2,
-    //borderRadius: 7,
-    height: 30,
-    width: 30
+    borderWidth: 2,
+    borderRadius: 7,
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   upVoteStyle: {
     //marginTop: 3,
-    //backgroundColor: '#32CD32',
+    backgroundColor: '#70db70',
     //padding: 4,
-    //borderWidth: 2,
-    //borderRadius: 7
-    height:30,
-    width: 30
+    borderWidth: 2,
+    borderRadius: 7,
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center'  
   },
   thumbImageStyle: {
     height: 30,
     width: 30
   },
   voteTotalStyle: {
-    marginTop: 3,
-    padding: 4,
+    //marginTop: 3,
+    //padding: 4,
     borderWidth: 2,
-    borderRadius: 7
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   viewStyle: {
     backgroundColor: 'rgba(255, 255, 255, .65)',
