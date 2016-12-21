@@ -16,8 +16,9 @@ const SpotInfo = (props) => {
           source={{ uri: `${props.spot.img_url}` }} 
         />
         <Text style={styles.categoryStyle}>{props.spot.category}</Text>
-        <Text style={styles.descriptionStyle}>THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
-         SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
+        <Text style={styles.descriptionStyle}>
+          THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
+          SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
           COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
           UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
           S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
@@ -79,22 +80,24 @@ const styles = {
     justifyContent: 'space-around'
   },
   downVoteStyle: {
-    marginTop: 3,
-    backgroundColor: '#FF0000',
-    padding: 4,
-    borderWidth: 2,
-    borderRadius: 7,
+    //marginTop: 3,
+    //backgroundColor: '#FF0000',
+    //padding: 4,
+    //borderWidth: 2,
+    //borderRadius: 7,
     height: 30,
     width: 30
   },
   upVoteStyle: {
-    marginTop: 3,
-    backgroundColor: '#32CD32',
-    padding: 4,
-    borderWidth: 2,
-    borderRadius: 7
+    //marginTop: 3,
+    //backgroundColor: '#32CD32',
+    //padding: 4,
+    //borderWidth: 2,
+    //borderRadius: 7
+    height:30,
+    width: 30
   },
-  thubImageStyle: {
+  thumbImageStyle: {
     height: 30,
     width: 30
   },
