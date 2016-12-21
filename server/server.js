@@ -134,6 +134,28 @@ app.post('/users', (req, res) => {
 //     res.send(data);
 //   })
 // })
+app.get('/upvote/:id', (req, res) => {
+  db.votes.upvote(parseFloat(req.params.id))
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+app.get('/downvote/:id', (req, res) => {
+  db.votes.downvote(parseFloat(req.params.id))
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
 
 // ----- LISTEN -----
 const port = process.env.PORT || 4040;
