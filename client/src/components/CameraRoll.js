@@ -1,11 +1,10 @@
-var Platform = require('react-native').Platform;
-var ImagePicker = require('react-native-image-picker');
-import React, {Component} from 'react';
-import {
-  AppRegistry, StyleSheet, Text, View, Image, TouchableOpacity
-} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 
-export default class L10_CameraRollPicker extends Component {
+const Platform = require('react-native').Platform;
+const ImagePicker = require('react-native-image-picker');
+
+export default class CameraRoll extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,45 +15,38 @@ export default class L10_CameraRollPicker extends Component {
     this.setImage = this.setImage.bind(this);
   }
 
-  takePhoto(){
-    ImagePicker.launchCamera({noData: true }, this.setImage);
-  }
-
-  chooseImage(){
-    ImagePicker.launchImageLibrary({noData: true }, this.setImage);
-  }
-
-  setImage(response){
+  setImage(response) {
     console.log('Response = ', response);
 
     if (response.didCancel) {
       console.log('User cancelled image picker');
-    }
-    else if (response.error) {
+    } else if (response.error) {
       console.log('ImagePicker Error: ', response.error);
-    }
-    else if (response.customButton) {
+    } else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
     } else {
       //If it is iOS, remove 'file://' prefix
-      let source = {uri: response.uri.replace('file://', ''), isStatic: true};
+      let source = { uri: response.uri.replace('file://', ''), isStatic: true };
 
       //If android, don't need to remove the 'file://'' prefix
       if (Platform.OS === 'android') {
-        source = {uri: response.uri, isStatic: true};
+        source = { uri: response.uri, isStatic: true };
       }
 
-      this.setState({image: source});
-      console.log("You selected an image")
+      this.setState({ image: source });
     }
   }
-
+  takePhoto() {
+    ImagePicker.launchCamera({ noData: true }, this.setImage);
+  }
+  chooseImage() {
+    ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
+  }
   render() {
-    console.log("Before clicking", this.state.image)
     return (
-      <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {this.state.image?<Image style={{flex: 1}} source={this.state.image}></Image>:null}
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          {this.state.image ? <Image style={{ flex: 1 }} source={this.state.image} /> : null}
         </View>
         <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={this.takePhoto}>
@@ -69,8 +61,8 @@ export default class L10_CameraRollPicker extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container:{
+const styles = {
+  container: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -85,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10
   },
-  buttonText:{
+  buttonText: {
     color: 'white'
   }
-});
+};

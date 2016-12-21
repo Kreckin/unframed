@@ -10,7 +10,7 @@ import CameraRoll from './components/CameraRoll';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
-//import AddSpot from './components/AddSpot';
+import AddSpot from './components/AddSpot';
 
 // This displays a different color on the tab bar depending on whether the tab is selected or not, 
 // and it's uncommented out for the time being
@@ -29,7 +29,7 @@ class App extends Component {
               <Scene 
                 key='MapContainer'
                 //////////
-                component={MapContainer}
+                component={AddSpot}
                 title='Map'
               />
               <Scene 
