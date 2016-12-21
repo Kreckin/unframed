@@ -2,6 +2,8 @@ const postSpot = (data) => {
   console.log('I a posting a spot');
   console.log(JSON.stringify(data));
  
+ //This takes data from AddSpot.js and sends a post request to the server
+ 
   fetch('http://localhost:4040/spots', {
     method: 'POST',
     headers: {
@@ -15,6 +17,6 @@ const postSpot = (data) => {
   	console.log(error)
   })
 };
-//this will go through all of our data, check the category and tag it with an icon to later be used
+
 
 export default postSpot;
