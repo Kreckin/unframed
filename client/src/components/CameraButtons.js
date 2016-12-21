@@ -8,7 +8,7 @@ const CameraButtons = (props) => {
 			<Text style={styles.buttonText}>Take a picture</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={styles.button} onPress={props.chooseImage}>
-			<Text style={styles.buttonText}>Grab a photo from your gallery</Text>
+			<Text style={styles.buttonText}>Choose from gallery</Text>
 		</TouchableOpacity>
     </View>
   );
@@ -22,7 +22,7 @@ const styles = {
   },
   button: {
     backgroundColor: 'gray',
-    width: 200,
+    width: 220,
     height: 90,
     borderRadius: 10,
     alignItems: 'center',
@@ -32,7 +32,7 @@ const styles = {
   buttonText: {
     color: 'white',
     fontSize: 22,
-    alignSelf: 'center'
+    alignItems: 'center'
   }
 };
 export default CameraButtons;
