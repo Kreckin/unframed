@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
 import CameraButtons from './CameraButtons';
+import AddSpot from './AddSpot';
 
 const Platform = require('react-native').Platform;
 const ImagePicker = require('react-native-image-picker');
@@ -9,7 +10,12 @@ export default class CameraRoll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: null
+      image: null,
+      title: '',
+      description: '',
+      category: 'nature',
+      latitude: null,
+      longitude: null
     };
     this.takePhoto = this.takePhoto.bind(this);
     this.chooseImage = this.chooseImage.bind(this);
@@ -51,14 +57,15 @@ export default class CameraRoll extends Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Image style={{ flex: 1 }} source={this.state.image} />
+          <Image style={styles.image} source={this.state.image} />
+          <AddSpot />
         </View>
       );
     }
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ marginTop: 65, alignItems: 'center', flex: 1 }}>
         {this.renderButtonOrPic()}
       </View> 
     );
@@ -66,22 +73,12 @@ export default class CameraRoll extends Component {
 }
 
 const styles = {
-  container: {
-    flex: 1,
-    flexDirection: 'row',
+  image: {
+    //later look how to maintain the image's aspect ratio
+    height: 165,
+    //flex: 1,
+    width: 165,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  button: {
-    backgroundColor: 'gray',
-    width: 150,
-    height: 50,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10
-  },
-  buttonText: {
-    color: 'white'
   }
 };

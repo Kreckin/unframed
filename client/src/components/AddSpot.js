@@ -43,7 +43,7 @@ class AddSpot extends Component {
                 </View>
                 <Text style={styles.labelStyle}>Category:</Text>
                 <Picker 
-                    style={{ marginTop: -80 }}
+                    style={{ marginTop: -100 }}
                     selectedValue={this.state.category}
                     onValueChange={(category) => this.setState({ category })}
                 >
@@ -77,6 +77,7 @@ const styles = {
     fontSize: 18,
     lineHeight: 23,
     flex: 5,
+    width: 300,
     borderColor: 'gray', 
     borderWidth: 1,
     borderRadius: 2
@@ -90,7 +91,6 @@ const styles = {
   },
   topContainerStyle: {
     height: 180, 
-    marginTop: 65, 
     marginLeft: 5,
     marginRight: 5
   },
