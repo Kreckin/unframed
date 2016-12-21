@@ -46,14 +46,7 @@ export default class CameraRoll extends Component {
   renderButtonOrPic() {
     if (!this.state.image) {
       return (
-        <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={this.takePhoto}>
-          <Text style={styles.buttonText}>Camera</Text>
-        </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.chooseImage}>
-            <Text style={styles.buttonText}>Gallery</Text>
-          </TouchableOpacity>
-        </View>
+        <CameraButtons chooseImage={this.chooseImage.bind(this)} takePhoto={this.takePhoto.bind(this)} />
       );
     } else {
       return (
