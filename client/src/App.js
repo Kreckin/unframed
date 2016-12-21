@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
+import AddSpot from './components/AddSpot';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
@@ -26,9 +27,9 @@ class App extends Component {
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
+                //////////
                 component={MapContainer}
                 title='Map'
-                //initial
               />
               <Scene 
                 key='SpotInfo'
