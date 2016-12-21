@@ -5,13 +5,14 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
-import AddSpot from './components/AddSpot';
+
+import CameraRoll from './components/CameraRoll';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
+//import AddSpot from './components/AddSpot';
 
-
-// This displays a different color depending on whether the tab is selected or not, 
+// This displays a different color on the tab bar depending on whether the tab is selected or not, 
 // and it's uncommented out for the time being
 // const TabIcon = ({ selected, title }) => {
 //   return (
