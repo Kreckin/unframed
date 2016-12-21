@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 const CameraButtons = (props) => {
   return (
@@ -9,7 +8,7 @@ const CameraButtons = (props) => {
 			<Text style={styles.buttonText}>Take a picture</Text>
 		</TouchableOpacity>
 		<TouchableOpacity style={styles.button} onPress={props.chooseImage}>
-			<Text style={styles.buttonText}>Gallery</Text>
+			<Text style={styles.buttonText}>Grab a photo from your gallery</Text>
 		</TouchableOpacity>
     </View>
   );
@@ -17,21 +16,23 @@ const CameraButtons = (props) => {
 const styles = {
   container: {
     flex: 1,
-    flexDirection: 'row',
+    //flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
   button: {
     backgroundColor: 'gray',
-    width: 150,
-    height: 50,
+    width: 200,
+    height: 90,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 22,
+    alignSelf: 'center'
   }
 };
 export default CameraButtons;
