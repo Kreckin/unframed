@@ -10,6 +10,32 @@ const Category = model(db, 'Categories');
 // TODO: add validation
 // model.on('validate', validateAge);
 
+//really awkward way to enforce schema, validation will check each typeof to make sure its the right type
+//if callback is called on a truthy value it'll stop the save process
+const validateSpot = (spot, callback) => {
+  if (typeof spot.latitude !== 'number' || typeof spot.longitude !== 'number') {
+      callback('please enter your current location as a number');
+  } else if (typeof spot.category !== 'string') {
+      callback('please enter category as a string');
+  } else if (typeof spot.title !== 'string') {
+      callback('please enter title as a string');
+  } else if (typeof spot.img_url !== 'string') {
+      callback('cloudinary error?');
+  }
+  //uncomment these when we add them to our schema
+
+  // else if (typeof spot.upvotes !== 'number' || typeof spot.downvotes !== 'number') {
+  //   callback('please enter upvotes/downvotes as numbers');
+  // }
+  // else if (typeof spot.creator !== 'string') {
+  //   callback('creator is not a string');
+  // } 
+  else {
+    callback();
+  }
+};
+Spot.on('validate', validateSpot);
+
 module.exports = {
   spots: {
     get: () => {
