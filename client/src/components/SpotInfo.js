@@ -15,7 +15,7 @@ const SpotInfo = (props) => {
           style={styles.imageStyle}
           source={{ uri: `${props.spot.img_url}` }} 
         />
-        <Text style={styles.categoryStyle}>{props.marker.category}</Text>
+        <Text style={styles.categoryStyle}>{props.spot.category}</Text>
         <Text style={styles.descriptionStyle}>THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
          SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
           COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
@@ -30,7 +30,10 @@ const SpotInfo = (props) => {
         </TouchableHighlight>
         <View style={styles.voteRowStyle}>
           <TouchableHighlight style={styles.downVoteStyle}>
-            <Text>BOO</Text>
+            <Image
+              style={styles.thumbImageStyle}
+              source={require('../buttonImages/thumbsDown-small.png')}
+            />
           </TouchableHighlight>
           <Text style={styles.voteTotalStyle}># of votes: 250</Text>
           <TouchableHighlight style={styles.upVoteStyle}>
@@ -80,7 +83,9 @@ const styles = {
     backgroundColor: '#FF0000',
     padding: 4,
     borderWidth: 2,
-    borderRadius: 7
+    borderRadius: 7,
+    height: 30,
+    width: 30
   },
   upVoteStyle: {
     marginTop: 3,
@@ -88,6 +93,10 @@ const styles = {
     padding: 4,
     borderWidth: 2,
     borderRadius: 7
+  },
+  thubImageStyle: {
+    height: 30,
+    width: 30
   },
   voteTotalStyle: {
     marginTop: 3,
