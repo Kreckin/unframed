@@ -37,7 +37,7 @@ class AddSpotInfo extends Component {
                 </Picker>
                 <TouchableHighlight 
                     style={styles.buttonStyle}
-                    
+                    onPress={this.props.onSubmit}
                 >
                     <Text style={{ fontSize: 20 }}>Submit</Text>
                 </TouchableHighlight>
