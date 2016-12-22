@@ -3,19 +3,6 @@ import { View, Text, TextInput, Picker, TouchableHighlight } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 
 class AddSpotInfo extends Component {
-    constructor(props) {
-    super(props);
-    this.state = {
-        title: '',
-        description: '',
-        category: 'nature'
-        };
-    }
-    onButtonPress() {
-        //Add the 'file' and the long and lat later, besides that, it's all set up
-        postSpot({ title: this.state.title, description: this.state.description, category: this.state.category });
-        this.setState({ title: '', description: '' });
-    }
     render() {
         return (
             <View>
@@ -25,25 +12,24 @@ class AddSpotInfo extends Component {
                     style={styles.inputStyle}
                     label='title'
                     placeholder='Cool street art'
-                    autocorrect={false}
-                    value={this.state.title}
-                    onChangeText={title => this.setState({ title })}
+                    //autocorrect={false}
+                    value={this.props.title}
+                    onChangeText={this.props.onTitleChange}
                     />
                     <Text style={styles.labelStyle}>Description:</Text>
                     <TextInput 
                     style={styles.inputStyle}
                     label='description'
-                    value={this.state.description}
-                    placeholder='A large painting on the side of a building'
-                    onChangeText={description => this.setState({ description })}
-                    autocorrect={false}
+                    placeholder='A large painting on a dumpster'
+                    value={this.props.description}
+                    onChangeText={this.props.onDescriptionChange}
                     />
                 </View>
                 <Text style={styles.labelStyle}>Category:</Text>
                 <Picker 
-                    style={{ marginTop: -100 }}
-                    selectedValue={this.state.category}
-                    onValueChange={(category) => this.setState({ category })}
+                    style={{ marginTop: -80 }}
+                    //selectedValue={this.state.category}
+                    //onValueChange={(category) => this.setState({ category })}
                 >
                   <Picker.Item label="Nature" value="nature" />
                   <Picker.Item label="Street Art" value="street_art" />
@@ -51,9 +37,9 @@ class AddSpotInfo extends Component {
                 </Picker>
                 <TouchableHighlight 
                     style={styles.buttonStyle}
-                    onPress={this.onButtonPress.bind(this)}
+                    
                 >
-                    <Text style={{ fontSize: 18 }}>Submit</Text>
+                    <Text style={{ fontSize: 20 }}>Submit</Text>
                 </TouchableHighlight>
             </View>
       );
@@ -63,7 +49,7 @@ class AddSpotInfo extends Component {
 const styles = {
   labelStyle: {
     fontSize: 18,
-    paddingBottom: 30,
+    paddingBottom: 20,
     paddingTop: 15,
     flex: 1,
     alignSelf: 'center'

@@ -29,9 +29,14 @@ export default class UploadPhotoContainer extends Component {
     this.setState({ title: '', description: '', image: null });
   }
 
-  onTitleChange(title){
+  onTitleChange(title) {
     this.setState({ title });
-    console.log(title)l
+  }
+  onDescriptionChange(description) {
+    this.setState({ description });
+  }
+  onCategoryChange(category) {
+    this.setState({ category });
   }
   setImage(response) {
     console.log('Response = ', response);
@@ -69,7 +74,14 @@ export default class UploadPhotoContainer extends Component {
       return (
         <View style={{ flex: 1 }}>
           <Image style={styles.image} source={this.state.image} />
-          <AddSpotInfo />
+          <AddSpotInfo 
+            onTitleChange={this.onTitleChange.bind(this)}
+            title={this.state.title}
+            onDescriptionChange={this.onDescriptionChange.bind(this)}
+            description={this.state.description}  
+            onCategoryChange={this.onCategoryChange.bind(this)}
+            category={this.state.category}
+          />
         </View>
       );
     }
