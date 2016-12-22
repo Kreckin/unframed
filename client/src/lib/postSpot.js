@@ -1,14 +1,11 @@
-//import { FormData } from 'react';
-
 const postSpot = (data) => {
-  console.log('I a posting a spot');
-  //console.log(JSON.stringify(data));
- console.log(data);
+ //we make an object for the photo so the form knows how to read it
  const photo = {
   uri: `file://${data.uri}`,
   type: 'image/jpeg',
   name: 'photo.jpg',
 };
+//where the magic happens, we simulate a form and add everything we're passed to this form
  const form = new FormData();
  form.append('title', data.title);
  form.append('description', data.description);
@@ -16,32 +13,21 @@ const postSpot = (data) => {
  form.append('latitude', data.latitude);
  form.append('longitude', data.longitude);
  form.append('spot_image', photo);
- console.log(form);
+
+ //a config object that tells the fetch function what to do
  const config = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data; boundary=6ff46e0b6b5148d984f148b6542e5a5d',
-      //'Content-Language': React.NativeModules.RNI18n.locale,
-      //Authorization: 'Token ABCDEF123457890',
     },
     body: form,
-  }
-   fetch(`http://localhost:4040/spots`, config)
-    .then(data=>console.log(data))
-//}
-//   fetch('http://localhost:4040/spots', {
-//     method: 'POST',
-//     headers: {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json',
-//   },
-//     body: JSON.stringify(data)
-//   }).then((response) =>{
-//   	console.log(response)
-//   }).catch((error)=>{
-//   	console.log(error)
-//   })
+  };
+  //send a fetch rquest with our config file, complete with a body that contains our simulated form
+   fetch('http://localhost:4040/spots', config)
+    .then((response) => {
+      console.log(response);
+    }).catch(error => console.log(error));
  };
 
 
