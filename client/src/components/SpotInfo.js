@@ -28,17 +28,17 @@ class SpotInfo extends Component {
       .then((res) => res.json())
       .then((res) => {
         //this.setState({numUpvotes: res.upvotes})
-        console.log(res);
+        console.log(res.upvotes);
       });
   }
   downVote() {
     //console.log('Yay!');
-    console.log('spot' + this.props.spot);
+    //console.log('spot' + this.props.spot);
     fetch('http://localhost:4040/downvote/' + this.props.spot.spot_id)
       .then((res) => res.json())
       .then((res) => {
         //this.setState({numUpvotes: res.upvotes})
-        console.log(res);
+        console.log(res.downvotes);
       });
   }
 
@@ -66,7 +66,7 @@ class SpotInfo extends Component {
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
-              onPress={this.downVote}
+              onPress={this.downVote.bind(this)}
             >
               <Image
                 style={styles.thumbImageStyle}
