@@ -51,7 +51,7 @@ export default class UploadPhotoContainer extends Component {
       console.log('User tapped custom button: ', response.customButton);
     } else {
       //If it is iOS, remove 'file://' prefix
-      let source = { uri: response.uri.replace('file://', ''), isStatic: true };
+      let source = { uri: response.uri, isStatic: true };
 
       //If android, don't need to remove the 'file://'' prefix
       if (Platform.OS === 'android') {
@@ -115,5 +115,13 @@ const styles = {
     width: 165,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonStyle: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 3,
+    padding: 4,
+    alignSelf: 'center',
+    backgroundColor: '#007aff' 
   }
 };
