@@ -30,12 +30,7 @@ class App extends Component {
                 key='MapContainer'
                 initial
                 component={MapContainer}
-                title='Map'
-              />
-              <Scene 
-                key='AddPhotoIcon'
-                component={AddPhotoIcon}
-                title='AddPhotoIcon'
+                renderRightButton={AddPhotoIcon}
               />
               <Scene 
                 key='UploadPhotoContainer'
