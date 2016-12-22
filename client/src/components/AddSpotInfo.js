@@ -28,8 +28,8 @@ class AddSpotInfo extends Component {
                 <Text style={styles.labelStyle}>Category:</Text>
                 <Picker 
                     style={{ marginTop: -80 }}
-                    //selectedValue={this.state.category}
-                    //onValueChange={(category) => this.setState({ category })}
+                    selectedValue={this.props.category}
+                    onValueChange={this.props.onCategoryChange}
                 >
                   <Picker.Item label="Nature" value="nature" />
                   <Picker.Item label="Street Art" value="street_art" />

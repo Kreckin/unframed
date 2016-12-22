@@ -12,6 +12,7 @@ export default class UploadPhotoContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       image: null,
       title: '',
       description: '',
@@ -71,7 +72,15 @@ export default class UploadPhotoContainer extends Component {
         <CameraButtons chooseImage={this.chooseImage.bind(this)} takePhoto={this.takePhoto.bind(this)} />
       );
     } else {
-      return (
+      if (this.state.loading) {
+        return (
+          <View style={{backgroundColor:'blue'}}>
+            <Image
+            />
+          </View>
+        );
+      } else {
+        return (
         <View style={{ flex: 1 }}>
           <Image style={styles.image} source={this.state.image} />
           <AddSpotInfo 
@@ -83,7 +92,8 @@ export default class UploadPhotoContainer extends Component {
             category={this.state.category}
           />
         </View>
-      );
+        );
+      } 
     }
   }
   render() {
