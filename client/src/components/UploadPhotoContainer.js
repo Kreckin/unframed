@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import CameraButtons from './CameraButtons';
-import AddSpot from './AddSpot';
+import AddSpotInfo from './AddSpotInfo';
+
+import postSpot from '../lib/postSpot';
 
 const Platform = require('react-native').Platform;
 const ImagePicker = require('react-native-image-picker');
 
-export default class CameraRoll extends Component {
+export default class UploadPhotoContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +23,16 @@ export default class CameraRoll extends Component {
     this.chooseImage = this.chooseImage.bind(this);
     this.setImage = this.setImage.bind(this);
   }
+  onButtonPress() {
+    //Add the 'file' later, besides that, it's all set up
+    postSpot({ title: this.state.title, description: this.state.description, category: this.state.category });
+    this.setState({ title: '', description: '', image: null });
+  }
 
+  onTitleChange(title){
+    this.setState({ title });
+    console.log(title)l
+  }
   setImage(response) {
     console.log('Response = ', response);
 
@@ -58,7 +69,7 @@ export default class CameraRoll extends Component {
       return (
         <View style={{ flex: 1 }}>
           <Image style={styles.image} source={this.state.image} />
-          <AddSpot />
+          <AddSpotInfo />
         </View>
       );
     }

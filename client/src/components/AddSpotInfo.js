@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Picker, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import postSpot from '../lib/postSpot';
-
-class AddSpot extends Component {
+class AddSpotInfo extends Component {
     constructor(props) {
     super(props);
     this.state = {
@@ -104,4 +102,4 @@ const styles = {
   }
 };
 
-export default AddSpot;
+export default AddSpotInfo;
