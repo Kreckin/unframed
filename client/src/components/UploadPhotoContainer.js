@@ -26,7 +26,13 @@ export default class UploadPhotoContainer extends Component {
   }
   onSubmit() {
     //Ethan, add stuff below!!!
-    postSpot({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
+    postSpot({ 
+      title: this.state.title, 
+      description: this.state.description, 
+      category: this.state.category, 
+      latitude: this.state.latitude, 
+      longitude: this.state.longitude,
+      uri:this.state.image.uri });
    // console.log({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
     this.setState({ title: '', description: '', image: null });
   }
