@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
+import Spinner from './Spinner';
 
 import postSpot from '../lib/postSpot';
 
@@ -48,6 +49,7 @@ export default class UploadPhotoContainer extends Component {
     this.setState({ category });
   }
   setImage(response) {
+    this.setState({loading: true});
     console.log('Response = ', response);
 
     if (response.didCancel) {
@@ -75,20 +77,16 @@ export default class UploadPhotoContainer extends Component {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
   }
   renderButtonOrPic() {
-    if (!this.state.image) {
+    if (!this.state.image && !this.state.loading) {
       return (
         <CameraButtons 
         chooseImage={this.chooseImage.bind(this)} 
         takePhoto={this.takePhoto.bind(this)} 
         />
       );
-    } else {
-      if (this.state.loading) {
+    } else if (this.state.loading) {
         return (
-          <View style={{ backgroundColor: 'blue' }}>
-            <Image
-            />
-          </View>
+          <Spinner />
         );
       } else {
         return (
@@ -107,7 +105,6 @@ export default class UploadPhotoContainer extends Component {
         );
       } 
     }
-  }
   render() {
     return (
       <View style={{ marginTop: 65, alignItems: 'center', flex: 1 }}>
