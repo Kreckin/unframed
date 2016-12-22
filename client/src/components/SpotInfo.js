@@ -20,23 +20,19 @@ class SpotInfo extends Component {
   }
 
   upVote() {
-    //console.log('Yay!');
     console.log('spot' + this.props.spot);
     fetch('http://localhost:4040/upvote/' + this.props.spot.spot_id)
       .then((res) => res.json())
       .then((res) => {
-        //this.setState({upvotes: res.upvotes})
-        console.log(res.upvotes);
+        this.setState({ upvotes: res.upvotes });
       });
   }
+  
   downVote() {
-    //console.log('Yay!');
-    //console.log('spot' + this.props.spot);
     fetch('http://localhost:4040/downvote/' + this.props.spot.spot_id)
       .then((res) => res.json())
       .then((res) => {
-        //this.setState({upvotes: res.upvotes})
-        console.log(res.downvotes);
+        this.setState({ downvotes: res.downvotes });
       });
   }
 
