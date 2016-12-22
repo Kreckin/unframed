@@ -16,14 +16,7 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: {
-        //Austin's latitude, hard coded in 
-        //(see bottom of thing for how we'd get the actual location on a real phone)
-        latitude: 30.2672,
-        longitude: -97.7431,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      },
+      currentLocation: {},
       spots: []
     };
     //commented out for now because re-rendering does not play nice with this currently
@@ -34,9 +27,22 @@ class MapContainer extends Component {
   componentWillMount() {
     //when the map is first called it will get every spot from our database 
     //and change the spots state to use it
+    this.getUserLocation();
     getSpots((data) => {
       this.setState({ spots: data });
     });
+  }
+  getUserLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const region = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+        };
+      this.setState({ region });
+      console.log('Current location is', region);
+      });
   }
   render() {
     return (
@@ -78,21 +84,5 @@ const styles = {
     height
   }
 };
-//Right now, getUserLocation keeps telling me we're in SF, so the stuff above puts Austin
-// getUserLocation(){
-//     navigator.geolocation.getCurrentPosition((position) => {
-//           let currentLocation = {
-//           latitude: position.coords.latitude,
-//             longitude: position.coords.longitude
-//             //Do we need latitude and longitude delta?
-//             // latitudeDelta: 0.01,
-//             // longitudeDelta: 0.01
-//           }
-//         this.setState({currentLocation: currentLocation})
-//         console.log(currentLocation)
-//       })
-//   }
-//   componentDidMount(){
-//     this.getUserLocation()
-//   }
+
 export default MapContainer;
