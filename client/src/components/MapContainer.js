@@ -4,15 +4,12 @@ import {
   View,
   Dimensions
 } from 'react-native';
-import SpotInfo from './SpotInfo';
 
 import { Actions } from 'react-native-router-flux';
+import AddPhotoIcon from './AddPhotoIcon';
 import getSpots from '../lib/getSpots';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
-
-//This is the work around for the airbnb bug (Casey - go ahead and refactor this)
-const reference = {};
 
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
@@ -35,7 +32,8 @@ class MapContainer extends Component {
   }
   //This changes the region when the user moves around
   componentWillMount() {
-    //when the map is first called it will get every spot from our database and change the spots state to use it
+    //when the map is first called it will get every spot from our database 
+    //and change the spots state to use it
     getSpots((data) => {
       this.setState({ spots: data });
     });
@@ -67,6 +65,7 @@ class MapContainer extends Component {
               onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
           ))}
+            <AddPhotoIcon />
         </MapView>
       </View>
     );
