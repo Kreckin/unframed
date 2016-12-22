@@ -28,7 +28,6 @@
 		5D9A89A2DA954A9D864C2303 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE68C82DC8A44715B515785A /* libAirMaps.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		D55022181E0AFB5F005CED6A /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D55022171E0AFAFA005CED6A /* libRCTCameraRoll.a */; };
 		D550224A1E0B27D2005CED6A /* ios in Resources */ = {isa = PBXBuildFile; fileRef = D55022491E0B27D2005CED6A /* ios */; };
 /* End PBXBuildFile section */
 
@@ -131,13 +130,6 @@
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
-		D55022161E0AFAFA005CED6A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D55022121E0AFAFA005CED6A /* RCTCameraRoll.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
-			remoteInfo = RCTCameraRoll;
-		};
 		D55022381E0B1EF8005CED6A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CC17A901DC3549E4AF9FBDF0 /* RNImagePicker.xcodeproj */;
@@ -187,7 +179,6 @@
 		BE68C82DC8A44715B515785A /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		CC17A901DC3549E4AF9FBDF0 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		D019666E1E0466E000868881 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
-		D55022121E0AFAFA005CED6A /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "/Users/robindykema/Desktop/MKS/thesis/unexpectedpony/client/node_modules/react-native/Libraries/Settings/../CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<absolute>"; };
 		D55022491E0B27D2005CED6A /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios; path = "../node_modules/react-native-image-picker/ios"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,7 +195,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D55022181E0AFB5F005CED6A /* libRCTCameraRoll.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -372,7 +362,6 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* unexpectedpony */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				D55022121E0AFAFA005CED6A /* RCTCameraRoll.xcodeproj */,
 				00E356EF1AD99517003FC87E /* unexpectedponyTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				9F1D8F152D8B609CD061D5CD /* Pods */,
@@ -421,14 +410,6 @@
 			isa = PBXGroup;
 			children = (
 				D01966901E04686200868881 /* libAirMaps.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D55022131E0AFAFA005CED6A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D55022171E0AFAFA005CED6A /* libRCTCameraRoll.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -537,10 +518,6 @@
 				{
 					ProductGroup = D55022691E0B287C005CED6A /* Products */;
 					ProjectRef = B76103F863764FFBA5E6B77A /* RCTCamera.xcodeproj */;
-				},
-				{
-					ProductGroup = D55022131E0AFAFA005CED6A /* Products */;
-					ProjectRef = D55022121E0AFAFA005CED6A /* RCTCameraRoll.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -681,13 +658,6 @@
 			fileType = archive.ar;
 			path = libAirMaps.a;
 			remoteRef = D019668F1E04686200868881 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D55022171E0AFAFA005CED6A /* libRCTCameraRoll.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCameraRoll.a;
-			remoteRef = D55022161E0AFAFA005CED6A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D55022391E0B1EF8005CED6A /* libRNImagePicker.a */ = {
@@ -877,6 +847,7 @@
 			baseConfigurationReference = 0D4586928943B71A2E9CB5F5 /* Pods-unexpectedpony.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = unexpectedpony/Info.plist;
@@ -897,6 +868,7 @@
 			baseConfigurationReference = 7CDBC810A4C7F5F9F9093355 /* Pods-unexpectedpony.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = unexpectedpony/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
