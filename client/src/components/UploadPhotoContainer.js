@@ -24,9 +24,10 @@ export default class UploadPhotoContainer extends Component {
     this.chooseImage = this.chooseImage.bind(this);
     this.setImage = this.setImage.bind(this);
   }
-  onButtonPress() {
-    //Add the 'file' later, besides that, it's all set up
-    postSpot({ title: this.state.title, description: this.state.description, category: this.state.category });
+  onSubmit() {
+    //Ethan, add stuff below!!!
+    //postSpot({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.image.latitude, longitude: this.image.longitude });
+    console.log({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
     this.setState({ title: '', description: '', image: null });
   }
 
@@ -57,7 +58,7 @@ export default class UploadPhotoContainer extends Component {
         source = { uri: response.uri, isStatic: true };
       }
 
-      this.setState({ image: source });
+      this.setState({ image: source, latitude: response.latitude, longitude: response.longitude });
     }
   }
   takePhoto() {
@@ -90,6 +91,7 @@ export default class UploadPhotoContainer extends Component {
             description={this.state.description}  
             onCategoryChange={this.onCategoryChange.bind(this)}
             category={this.state.category}
+            onSubmit={this.onSubmit.bind(this)}
           />
         </View>
         );
