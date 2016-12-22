@@ -26,8 +26,8 @@ export default class UploadPhotoContainer extends Component {
   }
   onSubmit() {
     //Ethan, add stuff below!!!
-    //postSpot({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.image.latitude, longitude: this.image.longitude });
-    console.log({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
+    postSpot({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
+   // console.log({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
     this.setState({ title: '', description: '', image: null });
   }
 
@@ -51,7 +51,7 @@ export default class UploadPhotoContainer extends Component {
       console.log('User tapped custom button: ', response.customButton);
     } else {
       //If it is iOS, remove 'file://' prefix
-      let source = { uri: response.uri, isStatic: true };
+      let source = { uri: response.uri.replace('file://', ''), isStatic: true };
 
       //If android, don't need to remove the 'file://'' prefix
       if (Platform.OS === 'android') {
