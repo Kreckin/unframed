@@ -6,11 +6,11 @@ import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 
-import CameraRoll from './components/CameraRoll';
+import UploadPhotoContainer from './components/UploadPhotoContainer';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
-//import AddSpot from './components/AddSpot';
+import AddSpotInfo from './components/AddSpotInfo';
 
 // This displays a different color on the tab bar depending on whether the tab is selected or not, 
 // and it's uncommented out for the time being
@@ -29,7 +29,7 @@ class App extends Component {
               <Scene 
                 key='MapContainer'
                 //////////
-                component={MapContainer}
+                component={UploadPhotoContainer}
                 title='Map'
               />
               <Scene 
