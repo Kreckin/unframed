@@ -10,7 +10,7 @@ import UploadPhotoContainer from './components/UploadPhotoContainer';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
-import AddSpotInfo from './components/AddSpotInfo';
+import AddPhotoIcon from './components/AddPhotoIcon';
 
 // This displays a different color on the tab bar depending on whether the tab is selected or not, 
 // and it's uncommented out for the time being
@@ -28,9 +28,19 @@ class App extends Component {
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
-                //////////
+                initial
                 component={MapContainer}
                 title='Map'
+              />
+              <Scene 
+                key='AddPhotoIcon'
+                component={AddPhotoIcon}
+                title='AddPhotoIcon'
+              />
+              <Scene 
+                key='UploadPhotoContainer'
+                component={UploadPhotoContainer}
+                title='Add a new spot'
               />
               <Scene 
                 key='SpotInfo'
