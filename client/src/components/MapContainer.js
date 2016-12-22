@@ -71,7 +71,7 @@ class MapContainer extends Component {
               onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
           ))}
-            <AddPhotoIcon />
+          {/*  <AddPhotoIcon />*/}
         </MapView>
       </View>
     );
