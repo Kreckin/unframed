@@ -7,18 +7,16 @@ const { height, width } = Dimensions.get('window');
 class SpotInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numUpvotes: 25,
-      numDownvotes: 5
-    };
+    this.state = {};
   }
 
   componentWillMount() {
     //fetch the vote tally
     console.log(this.props.spot);
-    //var upvotes = fetch('http://localhost:4040/upvote/' + this.props.spot.id);
-    //store in state
-    //this.setState({ voteTally: 25 });
+    this.setState({
+      upvotes: this.props.spot.upvotes,
+      downvotes: this.props.spot.downvotes
+    });
   }
 
   upVote() {
@@ -27,7 +25,7 @@ class SpotInfo extends Component {
     fetch('http://localhost:4040/upvote/' + this.props.spot.spot_id)
       .then((res) => res.json())
       .then((res) => {
-        //this.setState({numUpvotes: res.upvotes})
+        //this.setState({upvotes: res.upvotes})
         console.log(res.upvotes);
       });
   }
@@ -37,7 +35,7 @@ class SpotInfo extends Component {
     fetch('http://localhost:4040/downvote/' + this.props.spot.spot_id)
       .then((res) => res.json())
       .then((res) => {
-        //this.setState({numUpvotes: res.upvotes})
+        //this.setState({upvotes: res.upvotes})
         console.log(res.downvotes);
       });
   }
@@ -74,8 +72,8 @@ class SpotInfo extends Component {
               />
             </TouchableHighlight>
             <View>
-              <Text style={styles.voteTotalStyle}>{ this.state.numUpvotes + ' upvotes' }</Text>
-              <Text style={styles.voteTotalStyle}>{ this.state.numDownvotes + ' downvotes' }</Text>
+              <Text style={styles.voteTotalStyle}>{ this.state.upvotes + ' upvotes' }</Text>
+              <Text style={styles.voteTotalStyle}>{ this.state.downvotes + ' downvotes' }</Text>
             </View>
             <TouchableHighlight
               style={styles.upVoteStyle}
