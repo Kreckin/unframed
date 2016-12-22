@@ -3,6 +3,7 @@ import { View, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 //This is a button with a camera icon. 
+//It is currently 
 //When you click it, it brings you to UploadPhotoContainer component where you can upload a new spot
 const AddPhotoIcon = () => {
   return (
@@ -22,9 +23,10 @@ const styles = {
 	image: {
 		width: 50,
 		height: 50,
-		marginTop: 5,
-		marginRight: 5,
+		marginTop: 10,
+		marginRight: 10,
 		alignSelf: 'flex-end'
 	}
-}
+};
+
 export default AddPhotoIcon;
