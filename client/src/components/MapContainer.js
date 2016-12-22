@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import AddPhotoIcon from './AddPhotoIcon';
 import getSpots from '../lib/getSpots';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
