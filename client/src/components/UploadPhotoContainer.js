@@ -67,7 +67,7 @@ export default class UploadPhotoContainer extends Component {
         source = { uri: response.uri, isStatic: true };
       }
 
-      this.setState({ image: source, latitude: response.latitude, longitude: response.longitude });
+      this.setState({ image: source, latitude: response.latitude, longitude: response.longitude, loading: false });
     }
   }
   takePhoto() {
