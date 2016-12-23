@@ -21,19 +21,22 @@ import AddPhotoIcon from './components/AddPhotoIcon';
 // };
 
 class App extends Component {
-
+// Note: if you want to make the app render something different than the map on initial load, 
+// use the 'initial' keyword inside that scene
+// Just put it back into MapContainer before you push
     render() {
       return (
           <Router>
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
-                initial
+                //initial
                 component={MapContainer}
                 renderRightButton={AddPhotoIcon}
               />
               <Scene 
                 key='UploadPhotoContainer'
+                initial
                 component={UploadPhotoContainer}
                 title='Add a new spot'
               />

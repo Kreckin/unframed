@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Picker, TouchableHighlight } from 'react-native';
+import { ScrollView, View, Text, TextInput, Picker, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 class AddSpotInfo extends Component {
     render() {
         return (
-            <View>
+            <ScrollView>
                 <View style={styles.topContainerStyle}>
                     <Text style={styles.labelStyle}>Title:</Text>
                     <TextInput 
@@ -41,7 +41,7 @@ class AddSpotInfo extends Component {
                 >
                     <Text style={{ fontSize: 20 }}>Submit</Text>
                 </TouchableHighlight>
-            </View>
+            </ScrollView>
       );
     }
 }
