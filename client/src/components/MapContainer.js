@@ -6,8 +6,8 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import AddPhotoIcon from './AddPhotoIcon';
 import getSpots from '../lib/getSpots';
+import Spinner from './Spinner.js';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -17,7 +17,8 @@ class MapContainer extends Component {
     super(props);
     this.state = {
       currentLocation: {},
-      spots: []
+      spots: [],
+      loading: true
     };
     //commented out for now because re-rendering does not play nice with this currently
 
@@ -40,12 +41,13 @@ class MapContainer extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
         };
-      this.setState({ region });
+      this.setState({ region, loading: false });
       console.log('Current location is', region);
       });
   }
   render() {
     return (
+      this.state.loading ? <Spinner /> :
       <View>
         <MapView 
         style={styles.map} 

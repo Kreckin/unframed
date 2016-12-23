@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
+import Spinner from './Spinner';
 
 import postSpot from '../lib/postSpot';
 
@@ -25,9 +26,16 @@ export default class UploadPhotoContainer extends Component {
     this.setImage = this.setImage.bind(this);
   }
   onSubmit() {
-    //Ethan, add stuff below!!!
-    //postSpot({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.image.latitude, longitude: this.image.longitude });
-    console.log({ title: this.state.title, description: this.state.description, category: this.state.category, latitude: this.state.latitude, longitude: this.state.longitude });
+    //we take everything we need for the postSpot function and pass it in as an object
+    postSpot({ 
+      title: this.state.title, 
+      description: this.state.description, 
+      category: this.state.category, 
+      latitude: this.state.latitude, 
+      longitude: this.state.longitude,
+      uri: this.state.image.uri 
+    });
+    //set the states to null so we get a blank slate again
     this.setState({ title: '', description: '', image: null });
   }
 
@@ -57,8 +65,7 @@ export default class UploadPhotoContainer extends Component {
       if (Platform.OS === 'android') {
         source = { uri: response.uri, isStatic: true };
       }
-
-      this.setState({ image: source, latitude: response.latitude, longitude: response.longitude });
+      this.setState({ image: source, latitude: response.latitude, longitude: response.longitude, loading: false });
     }
   }
   takePhoto() {
@@ -66,19 +73,19 @@ export default class UploadPhotoContainer extends Component {
   }
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
+     this.setState({ loading: true });
   }
   renderButtonOrPic() {
-    if (!this.state.image) {
+    if (!this.state.image && !this.state.loading) {
       return (
-        <CameraButtons chooseImage={this.chooseImage.bind(this)} takePhoto={this.takePhoto.bind(this)} />
+        <CameraButtons 
+        chooseImage={this.chooseImage.bind(this)} 
+        takePhoto={this.takePhoto.bind(this)} 
+        />
       );
-    } else {
-      if (this.state.loading) {
+    } else if (this.state.loading) {
         return (
-          <View style={{backgroundColor:'blue'}}>
-            <Image
-            />
-          </View>
+          <Spinner />
         );
       } else {
         return (
@@ -97,7 +104,6 @@ export default class UploadPhotoContainer extends Component {
         );
       } 
     }
-  }
   render() {
     return (
       <View style={{ marginTop: 65, alignItems: 'center', flex: 1 }}>
@@ -115,5 +121,13 @@ const styles = {
     width: 165,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonStyle: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 3,
+    padding: 4,
+    alignSelf: 'center',
+    backgroundColor: '#007aff' 
   }
 };

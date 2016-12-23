@@ -20,6 +20,23 @@ Spot.schema = {
   //we give it a "random" id since we can't use the built in one for some reason
   spot_id: { default: Math.floor(Math.random() * 10000000) }
 };
+//further improved validation, since empty strings would pass the schema check
+const validateSpot = function (spot, callback) {
+  if (!spot.title.length) {
+    callback('enter a title');
+    //even though schema says lat/long are required, could submit it empty before without this for some reason
+  } else if (!spot.latitude || !spot.longitude) {
+    callback('enter coordinates');
+  } else if (!spot.img_url.length) {
+    callback('enter a photo');
+  } else if (!spot.category.length) {
+    callback('enter a category');
+  } else {
+    callback();
+  }
+};
+
+Spot.on('validate', validateSpot);
 
 module.exports = {
   spots: {
