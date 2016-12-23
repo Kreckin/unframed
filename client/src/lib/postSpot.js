@@ -25,7 +25,7 @@ const postSpot = (data) => {
     body: form,
   };
   //send a fetch rquest with our config file, complete with a body that contains our simulated form
-  fetch('http://ec2-54-165-55-247.compute-1.amazonaws.com:4040/spots', config)
+  fetch('http://localhost:4040/spots', config)
     .then((response) => {
       console.log(response);
     }).catch(error => console.log(error));
