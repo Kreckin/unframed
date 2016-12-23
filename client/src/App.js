@@ -38,7 +38,6 @@ class App extends Component {
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
                 title='Add a new spot'
-                initial
               />
               <Scene 
                 key='SpotInfo'
