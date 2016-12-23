@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableHighlight, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { ScrollView, Text, TextInput, TouchableHighlight, Dimensions } from 'react-native';
 import CategoryModal from './CategoryModal';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class AddSpotInfo extends Component {
     render() {
@@ -29,7 +28,7 @@ class AddSpotInfo extends Component {
                 />
 
                 <Text style={styles.labelStyle}>Category:</Text>
-                <CategoryModal />
+                <CategoryModal onCategoryChange={this.props.onCategoryChange} />
 
                 <TouchableHighlight 
                     style={styles.buttonStyle}
@@ -57,14 +56,7 @@ const styles = {
     borderColor: '#ccc', 
     padding: 10, 
     height: 40, 
-    width: width - 20
-  },
-  containerStyle: {
-    padding: 2,
-    height: 20,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
+    width: width - 30
   },
   buttonStyle: {
     backgroundColor: 'gray',

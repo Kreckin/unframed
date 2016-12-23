@@ -2,7 +2,7 @@ import ModalPicker from 'react-native-modal-picker';
 import React, { Component } from 'react';
 import { View, TextInput, Dimensions } from 'react-native';
  
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class CategoryModal extends Component {
  
@@ -30,7 +30,7 @@ class CategoryModal extends Component {
                 <ModalPicker
                     data={data}
                     initValue="Nature"
-                    onChange={(option) => { this.setState({ textInputValue: option.label })}}
+                    onChange={(option) => { this.props.onCategoryChange(option.label)}}
                 >
                     
                     <TextInput
@@ -52,7 +52,7 @@ const styles = {
         borderColor: '#ccc', 
         padding: 10, 
         height: 40, 
-        width: width - 20
+        width: width - 30
       },
   };
 export default CategoryModal;
