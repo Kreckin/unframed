@@ -23,7 +23,7 @@ import AddPhotoIcon from './components/AddPhotoIcon';
 class App extends Component {
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
-// Just put it back into MapContainer before you push
+// Just put it back into MapContainer before you push to master
     render() {
       return (
           <Router>

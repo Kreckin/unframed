@@ -16,7 +16,7 @@ class AddSpotInfo extends Component {
                     value={this.props.title}
                     onChangeText={this.props.onTitleChange}
                     />
-                    <Text style={styles.labelStyle}>Description:</Text>
+                    <Text style={styles.labelStyle}>Description: </Text>
                     <TextInput 
                     style={styles.inputStyle}
                     label='description'
@@ -27,7 +27,7 @@ class AddSpotInfo extends Component {
                 </View>
                 <Text style={styles.labelStyle}>Category:</Text>
                 <Picker 
-                    style={{ marginTop: -80 }}
+                    //style={{ marginTop: -80 }}
                     selectedValue={this.props.category}
                     onValueChange={this.props.onCategoryChange}
                 >
