@@ -1,7 +1,9 @@
 import ModalPicker from 'react-native-modal-picker';
 import React, { Component } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Dimensions } from 'react-native';
  
+const { height, width } = Dimensions.get('window');
+
 class CategoryModal extends Component {
  
     constructor() {
@@ -15,6 +17,7 @@ class CategoryModal extends Component {
     render() {
         let index = 0;
         const data = [
+            //Later, if we want to use
             //{ key: index++, section: true, label: 'Outdoors' },
             { key: index++, label: 'Nature' },
             { key: index++, label: 'Street Art' },
@@ -22,15 +25,16 @@ class CategoryModal extends Component {
         ];
  
         return (
-            <View style={{ flex: 1, justifyContent: 'space-around', padding: 50 }}>
+            <View style={{ flex: 1 }}>
 
                 <ModalPicker
                     data={data}
                     initValue="Nature"
-                    onChange={(option) => { this.setState({ textInputValue: option.label })}}>
+                    onChange={(option) => { this.setState({ textInputValue: option.label })}}
+                >
                     
                     <TextInput
-                        style={{ borderWidth: 1, borderColor: '#ccc', padding: 10, height: 30 }}
+                        style={styles.inputStyle}
                         editable={false}
                         placeholder="Click to select your category"
                         value={this.state.textInputValue} 
@@ -40,5 +44,15 @@ class CategoryModal extends Component {
         );
     }
 }
-
+const styles = {
+    inputStyle: {
+        alignSelf: 'center', 
+        borderWidth: 1, 
+        borderRadius: 2,
+        borderColor: '#ccc', 
+        padding: 10, 
+        height: 40, 
+        width: width - 20
+      },
+  };
 export default CategoryModal;

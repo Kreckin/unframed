@@ -38,7 +38,7 @@ class App extends Component {
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
                 title='Add a new spot'
-                //initial
+                initial
               />
               <Scene 
                 key='SpotInfo'
@@ -49,7 +49,6 @@ class App extends Component {
                 key='CategoryModal'
                 component={CategoryModal}
                 title='CategoryModal'
-                initial
               />
             </Scene>
           </Router>
