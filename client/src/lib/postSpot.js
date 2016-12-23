@@ -4,7 +4,7 @@ const postSpot = (data) => {
  
  //This takes data from AddSpot.js and sends a post request to the server
  
-  fetch('http://localhost:4040/spots', {
+  fetch('http://ec2-54-165-55-247.compute-1.amazonaws.com:4040/spots', {
     method: 'POST',
     headers: {
     'Accept': 'application/json',
