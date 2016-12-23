@@ -70,6 +70,9 @@ export default class UploadPhotoContainer extends Component {
   }
   takePhoto() {
     ImagePicker.launchCamera({ noData: true }, this.setImage);
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+    });
   }
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
