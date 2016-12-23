@@ -35,7 +35,7 @@ class AddSpotInfo extends Component {
                     style={styles.buttonStyle}
                     onPress={this.props.onSubmit}
                 >
-                    <Text style={{ fontSize: 20 }}>Submit</Text>
+                    <Text style={styles.buttonTextStyle}>Submit</Text>
                 </TouchableHighlight>
             </ScrollView>
       );
@@ -67,12 +67,18 @@ const styles = {
     alignItems: 'center'
   },
   buttonStyle: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 3,
-    padding: 4,
+    backgroundColor: 'gray',
+    width: 100,
+    height: 40,
+    borderRadius: 8,
     alignSelf: 'center',
-    backgroundColor: '#007aff' 
+    justifyContent: 'center',
+    marginTop: 30
+  },
+  buttonTextStyle: {
+    color: 'white',
+    fontSize: 24,
+    alignSelf: 'center'
   }
 };
 

@@ -121,14 +121,6 @@ const styles = {
     //flex: 1,
     width: 150,
     alignSelf: 'center',
-    justifyContent: 'center'
-  },
-  buttonStyle: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 3,
-    padding: 4,
-    alignSelf: 'center',
-    backgroundColor: '#007aff' 
+    justifyContent: 'center',
   }
 };
