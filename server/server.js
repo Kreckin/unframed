@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/spots', (req, res) => {
-  db.spots.get()
+  db.spots.get(req.params)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);

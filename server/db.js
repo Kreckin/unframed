@@ -1,5 +1,5 @@
 const neo4j = require('neo4j-driver').v1;
-const deploy = !process.env.server ? require('./config').graph : { server: process.env.server, user: process.env.user, pass: process.env.pass }; 
+const deploy = !process.env.server ? require('./config').graph_local : { server: process.env.server, user: process.env.user, pass: process.env.pass }; 
 const db = require('seraph')(deploy);
 const model = require('seraph-model');
 
@@ -7,7 +7,8 @@ const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
 
-//this will validate Spot whenever its updated/saved, anything not in this list will be removed 
+// ------ VALIDATION ------
+// this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
   title: { type: String, required: true },
   category: { type: String, required: true },
@@ -20,11 +21,11 @@ Spot.schema = {
   //we give it a "random" id since we can't use the built in one for some reason
   spot_id: { default: Math.floor(Math.random() * 10000000) }
 };
-//further improved validation, since empty strings would pass the schema check
+// further improved validation, since empty strings would pass the schema check
 const validateSpot = function (spot, callback) {
   if (!spot.title.length) {
     callback('enter a title');
-    //even though schema says lat/long are required, could submit it empty before without this for some reason
+    // even though schema says lat/long are required, could submit it empty before without this for some reason
   } else if (!spot.latitude || !spot.longitude) {
     callback('enter coordinates');
   } else if (!spot.img_url.length) {
@@ -37,6 +38,18 @@ const validateSpot = function (spot, callback) {
 };
 
 Spot.on('validate', validateSpot);
+
+// ------ VALIDATION ------
+// adds the spot to the 'geom' layer after save
+const addSpotToGeomLayerAfterSave = function (spot) {
+  Spot.query('CALL spatial.addNode("geom", {spot})', { spot }, (err) => {
+    if (err) {
+      console.log('Err in addSpotToGeomLayerAfterSave', err);
+    }
+  });
+};
+
+Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 
 module.exports = {
   spots: {
