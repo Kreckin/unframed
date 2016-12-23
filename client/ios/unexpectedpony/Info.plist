@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string></string>
+	<string>SideTracked</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
@@ -42,17 +42,14 @@
 				<true/>
 			</dict>
 			<key>amazonaws.com</key>
-		  <dict>
-		    <!--Include to allow subdomains-->
-		    <key>NSIncludesSubdomains</key>
-		    <true/>
-		    <!--Include to allow HTTP requests-->
-		    <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-		    <true/>
-		    <!--Include to specify minimum TLS version-->
-		    <key>NSTemporaryExceptionMinimumTLSVersion</key>
-		    <string>TLSv1.1</string>
-		  </dict>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
