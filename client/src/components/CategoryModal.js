@@ -37,7 +37,7 @@ class CategoryModal extends Component {
                         style={styles.inputStyle}
                         editable={false}
                         placeholder="Click to select your category"
-                        value={this.state.textInputValue} 
+                        value={this.props.category} 
                     />
                 </ModalPicker>
             </View>

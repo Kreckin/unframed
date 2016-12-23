@@ -28,7 +28,10 @@ class AddSpotInfo extends Component {
                 />
 
                 <Text style={styles.labelStyle}>Category:</Text>
-                <CategoryModal onCategoryChange={this.props.onCategoryChange} />
+                <CategoryModal 
+                    onCategoryChange={this.props.onCategoryChange} 
+                    category={this.props.category}
+                />
 
                 <TouchableHighlight 
                     style={styles.buttonStyle}

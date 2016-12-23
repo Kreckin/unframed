@@ -17,7 +17,7 @@ export default class UploadPhotoContainer extends Component {
       image: null,
       title: '',
       description: '',
-      category: 'nature',
+      category: null,
       latitude: null,
       longitude: null
     };
@@ -27,6 +27,14 @@ export default class UploadPhotoContainer extends Component {
   }
   onSubmit() {
     //we take everything we need for the postSpot function and pass it in as an object
+    // console.log({ 
+    //   title: this.state.title, 
+    //   description: this.state.description, 
+    //   category: this.state.category, 
+    //   latitude: this.state.latitude, 
+    //   longitude: this.state.longitude,
+    //   uri: this.state.image.uri 
+    // });
     postSpot({ 
       title: this.state.title, 
       description: this.state.description, 
