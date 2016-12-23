@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
-import CategoryModal from './components/CategoryModal';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
@@ -38,7 +37,6 @@ class App extends Component {
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
                 title='Add a new spot'
-                initial
               />
               <Scene 
                 key='SpotInfo'
