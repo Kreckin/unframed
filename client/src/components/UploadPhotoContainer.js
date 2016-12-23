@@ -65,7 +65,6 @@ export default class UploadPhotoContainer extends Component {
       if (Platform.OS === 'android') {
         source = { uri: response.uri, isStatic: true };
       }
-
       this.setState({ image: source, latitude: response.latitude, longitude: response.longitude, loading: false });
     }
   }
