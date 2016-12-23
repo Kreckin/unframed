@@ -20,8 +20,8 @@ class SpotInfo extends Component {
   }
 
   upVote() {
-    console.log('spot' + this.props.spot);
-    fetch('http://localhost:4040/upvote/' + this.props.spot.spot_id)
+    console.log(`spot ${this.props.spot}`);
+    fetch(`http://localhost:4040/upvote/${this.props.spot.spot_id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ upvotes: res.upvotes });
@@ -29,7 +29,7 @@ class SpotInfo extends Component {
   }
   
   downVote() {
-    fetch('http://localhost:4040/downvote/' + this.props.spot.spot_id)
+    fetch(`http://localhost:4040/downvote/${this.props.spot.spot_id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ downvotes: res.downvotes });
@@ -49,12 +49,8 @@ class SpotInfo extends Component {
           />
           <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
           <Text style={styles.descriptionStyle}>
-            THIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL
-            SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A
-            COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS S
-            UCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHI
-            S IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOTTHIS IS SUCH A COOL SPOT
-            POTTHIS IS SUCH A COOL SPOT
+           
+{this.props.spot.description ? this.props.spot.description : 'No description currently available'}
           </Text>
           
           <View style={styles.voteRowStyle}>
