@@ -9,7 +9,9 @@ const getSpots = (callback) => {
       //with fetch we gotta json it before we can use it
       return response.json();
       //we then call imageGetter on the data, and then send it back to the app
-    }).then((data) => callback(imageGetter(data)));
+    })
+    .then((data) => callback(imageGetter(data)))
+    .catch((err) => console.log('Error in get spots', err));
 };
 //this will go through all of our data, check the category and tag it with an icon to later be used
 const imageGetter = (data) => {
