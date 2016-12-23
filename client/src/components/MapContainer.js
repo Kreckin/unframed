@@ -50,7 +50,8 @@ class MapContainer extends Component {
       this.state.loading ? <Spinner /> :
       <View>
         <MapView 
-        style={styles.map} 
+        style={styles.map}
+        showsUserLocation={true}
         //this sets the region as Austin
         region={this.state.region}
         //this will change the region as the user moves around the map

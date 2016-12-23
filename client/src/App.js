@@ -30,7 +30,7 @@ class App extends Component {
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
-                //initial
+                initial
                 component={MapContainer}
                 renderRightButton={AddPhotoIcon}
               />
@@ -44,11 +44,6 @@ class App extends Component {
                 key='SpotInfo'
                 component={SpotInfo}
                 title='SpotInfo'
-              />
-              <Scene 
-                key='CategoryModal'
-                component={CategoryModal}
-                title='CategoryModal'
               />
             </Scene>
           </Router>
