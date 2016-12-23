@@ -116,10 +116,10 @@ export default class UploadPhotoContainer extends Component {
 const styles = {
   image: {
     //later look how to maintain the image's aspect ratio
-    height: 165,
+    height: 145,
     //flex: 1,
-    width: 165,
-    alignItems: 'center',
+    width: 145,
+    alignSelf: 'center',
     justifyContent: 'center'
   },
   buttonStyle: {
