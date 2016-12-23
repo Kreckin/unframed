@@ -4,7 +4,8 @@ const wreath = require('../icons/wreath-small.png');
 
 const getSpots = (callback) => {
   //sends a GET request to our server/spots
-  fetch('http://localhost:4040/spots')
+  // fetch('http://localhost:4040/spots', config)
+  fetch('http://ec2-54-165-55-247.compute-1.amazonaws.com:4040/spots')
     .then((response) => {
       //with fetch we gotta json it before we can use it
       return response.json();
