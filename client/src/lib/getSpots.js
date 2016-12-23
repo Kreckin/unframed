@@ -17,13 +17,13 @@ const getSpots = (callback) => {
 //this will go through all of our data, check the category and tag it with an icon to later be used
 const imageGetter = (data) => {
   for (let i = 0; i < data.length; i++) {
-    if (data[i].category === 'holiday') {
+    if (data[i].category === 'Holiday') {
       data[i].icon = wreath;
     }
-    if (data[i].category === 'nature') {
+    if (data[i].category === 'Nature') {
       data[i].icon = tree;
     }
-    if (data[i].category === 'street_art') {
+    if (data[i].category === 'Street art') {
       data[i].icon = spraycan;
     }
   }

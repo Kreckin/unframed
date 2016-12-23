@@ -17,7 +17,7 @@ export default class UploadPhotoContainer extends Component {
       image: null,
       title: '',
       description: '',
-      category: 'nature',
+      category: null,
       latitude: null,
       longitude: null
     };
@@ -116,18 +116,11 @@ export default class UploadPhotoContainer extends Component {
 const styles = {
   image: {
     //later look how to maintain the image's aspect ratio
-    height: 165,
+    marginTop: 10,
+    height: 150,
     //flex: 1,
-    width: 165,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonStyle: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 3,
-    padding: 4,
+    width: 150,
     alignSelf: 'center',
-    backgroundColor: '#007aff' 
+    justifyContent: 'center',
   }
 };
