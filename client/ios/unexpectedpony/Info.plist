@@ -41,12 +41,24 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>amazonaws.com</key>
+		  <dict>
+		    <!--Include to allow subdomains-->
+		    <key>NSIncludesSubdomains</key>
+		    <true/>
+		    <!--Include to allow HTTP requests-->
+		    <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+		    <true/>
+		    <!--Include to specify minimum TLS version-->
+		    <key>NSTemporaryExceptionMinimumTLSVersion</key>
+		    <string>TLSv1.1</string>
+		  </dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access the camera for the app</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Cuz I need it</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to access the camera for the app</string>
 	<key>UIRequiredDeviceCapabilities</key>
