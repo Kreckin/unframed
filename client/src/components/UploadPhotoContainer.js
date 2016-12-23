@@ -49,7 +49,6 @@ export default class UploadPhotoContainer extends Component {
     this.setState({ category });
   }
   setImage(response) {
-    this.setState({loading: true});
     console.log('Response = ', response);
 
     if (response.didCancel) {
@@ -75,6 +74,7 @@ export default class UploadPhotoContainer extends Component {
   }
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
+     this.setState({ loading: true });
   }
   renderButtonOrPic() {
     if (!this.state.image && !this.state.loading) {
