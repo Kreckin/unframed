@@ -20,7 +20,7 @@ class CategoryModal extends Component {
             //Later, if we want to use
             //{ key: index++, section: true, label: 'Outdoors' },
             { key: index++, label: 'Nature' },
-            { key: index++, label: 'Street Art' },
+            { key: index++, label: 'Street art' },
             { key: index++, label: 'Holiday' },
         ];
  
