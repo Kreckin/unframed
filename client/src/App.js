@@ -34,6 +34,7 @@ class App extends Component {
                 renderRightButton={AddPhotoIcon}
               />
               <Scene 
+                initial
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
                 title='Add a new spot'
