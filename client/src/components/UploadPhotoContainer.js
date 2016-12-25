@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
 import Spinner from './Spinner';
@@ -37,6 +39,7 @@ export default class UploadPhotoContainer extends Component {
     });
     //set the states to null so we get a blank slate again
     this.setState({ title: '', description: '', image: null });
+    Actions.MapContainer();
   }
 
   onTitleChange(title) {
@@ -70,9 +73,12 @@ export default class UploadPhotoContainer extends Component {
   }
   takePhoto() {
     ImagePicker.launchCamera({ noData: true }, this.setImage);
-    navigator.geolocation.getCurrentPosition((position) => {
+    //this checks if your photo has geolocation data. If not, it takes your current location
+    if (!this.state.latitude || !this.state.longitude) {
+      navigator.geolocation.getCurrentPosition((position) => {
       this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-    });
+      });
+    }
   }
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
@@ -90,6 +96,8 @@ export default class UploadPhotoContainer extends Component {
         return (
           <Spinner />
         );
+      } else if (this.state.image && !this.state.longitude) {
+        <Text> </Text>
       } else {
         return (
         <View style={{ flex: 1 }}>
