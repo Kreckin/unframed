@@ -4,8 +4,9 @@ const express = require('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary'); // stores images
+const request = require('request');
 
-if (!process.env.cloud_name){
+if (!process.env.cloud_name) {
   cloudinary.config(require('./config').cloudinary);
 } else {
   const deploy = {
@@ -154,6 +155,18 @@ app.get('/downvote/:id', (req, res) => {
       console.log('rejecting with', reject);
       res.status(500).send(reject);
     });
+});
+app.get('/fetchLatLong/:address', (req, res) => {
+  const mapKey = 'AIzaSyDn8EQ2C2Wt_Dm1-AN4f18T0UpX41XJ0n8';
+  //const mapKey = process.env.mapKey || credentials.mapKey;
+  const address = req.params.address;
+  const url = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  request(`${url}&address=${address}&key=${mapKey}`, (err, response, body) => {
+    console.log(err);
+    if (!err && response.statusCode === 200) {
+      res.json(body);
+    }
+  });
 });
 
 // ----- LISTEN -----
