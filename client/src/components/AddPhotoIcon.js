@@ -17,9 +17,9 @@ const AddPhotoIcon = () => {
 			source={require('../icons/camera-big.png')}
 			/>
         </TouchableHighlight>
-        <TouchableHighlight style={{ marginTop: height-180 }}
-        //Need to check the style placement on this ^^ to make sure it works on other phones!!
-        
+        <TouchableHighlight 
+        //Need to check the style placement on this to make sure it works on other phones!!
+        style={{ marginTop: height - 180 }}
         //Actions.refresh() refreshes the page you're on (mapcontainer) and therefore brings you back "home"
         onPress={() => Actions.refresh()}
         >
