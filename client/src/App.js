@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-//import { Text } from 'react-native';
+import { TextInput } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
@@ -25,18 +25,25 @@ class App extends Component {
 // Just put it back into MapContainer before you push to master
     render() {
       return (
-          <Router>
+          <Router navigationBarStyle={{backgroundColor:'white'}}>
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
                 initial
                 component={MapContainer}
+                title={<TextInput style={{alignSelf: 'center', 
+    borderWidth: 1, 
+    borderRadius: 2,
+    borderColor: '#ccc', 
+    padding: 10, 
+    height: 40, 
+    width: 100}}/>}
                 renderRightButton={AddPhotoIcon}
               />
               <Scene 
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
-                title='Add a new spot'
+                
               />
               <Scene 
                 key='SpotInfo'

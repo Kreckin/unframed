@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Image, TouchableHighlight, Dimensions, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 const { height, width } = Dimensions.get('window');
 
@@ -17,6 +17,7 @@ const AddPhotoIcon = () => {
 			source={require('../icons/camera-big.png')}
 			/>
         </TouchableHighlight>
+      
         <TouchableHighlight 
         //Need to check the style placement on this to make sure it works on other phones!!
         style={{ marginTop: height - 180 }}
@@ -44,6 +45,16 @@ const styles = {
 		//marginTop: 400,
 		//marginRight: 10,
 		alignSelf: 'flex-end'
+	},
+	input: {
+		//alignSelf: 'center', 
+		backgroundColor: 'white',
+		borderWidth: 1, 
+		borderRadius: 2,
+		borderColor: '#ccc', 
+		padding: 10, 
+		height: 40, 
+		width: width - 30
 	}
 };
 
