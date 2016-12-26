@@ -31,14 +31,13 @@ class CategoryModal extends Component {
                     data={data}
                     initValue="Nature"
                     onChange={(option) => { this.props.onCategoryChange(option.label)}}
-                >
-                    
-                    <TextInput
-                        style={styles.inputStyle}
-                        editable={false}
-                        placeholder="Click to select your category"
-                        value={this.props.category} 
-                    />
+                >    
+                <TextInput
+                    style={styles.inputStyle}
+                    editable={false}
+                    placeholder="Click to select your category"
+                    value={this.props.category} 
+                />
                 </ModalPicker>
             </View>
         );
