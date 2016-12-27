@@ -52,7 +52,6 @@ class MapContainer extends Component {
       <View>
         <View style={styles.navBar}>
           <LocateSelfIcon />
-          
           <AddPhotoIcon />
         </View>
         <MapView 

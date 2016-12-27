@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-const { height, width } = Dimensions.get('window');
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
 const LocateSelfIcon = function () {
   return (
-
+	<View style={{ flex: 1 }}>
         <TouchableHighlight 
         //Actions.refresh() refreshes the page you're on (mapcontainer) 
         //and therefore brings you back "home"
@@ -18,7 +17,7 @@ const LocateSelfIcon = function () {
 			source={require('../icons/locate-user.png')}
 			/>
         </TouchableHighlight>
-
+    </View>
   );
 };
 const styles = {

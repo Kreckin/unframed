@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 //When you click it, it brings you to UploadPhotoContainer component where you can upload a new spot
 const AddPhotoIcon = function () {
   return (
-  	<View style={{ flex: 1}}>
+	<View style={{ flex: 1 }}>
         <TouchableHighlight
         onPress={() => Actions.UploadPhotoContainer()}
         >
