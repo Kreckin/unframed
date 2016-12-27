@@ -57,7 +57,10 @@ class MapContainer extends Component {
       <View>
         <View style={styles.navBar}>
           <LocateSelfIcon />
-          <ManualTextInput />
+          <ManualTextInput 
+            onManualLocationChange={this.onManualLocationChange.bind(this)} 
+            manualLoc
+          />
           <AddPhotoIcon />
         </View>
         <MapView 

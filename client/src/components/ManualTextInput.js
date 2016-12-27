@@ -1,24 +1,34 @@
-import React from 'react';
-import { View, TextInput, Dimensions, Image } from 'react-native';
+import React, { Component } from 'react';
+import { View, TextInput, Image } from 'react-native';
 
-const { width } = Dimensions.get('window');
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
-const ManualLocationInput = function () {
-  return (
-	<View style={{ flex: 1, flexDirection: 'row' }}>
-        <TextInput
-			style={styles.inputStyle}
-			multiline={false}
-        />
-        <Image
-			style={styles.searchIcon} 
-			source={require('../icons/search.png')}
-			/>	
+class ManualLocationInput extends Component {
+   constructor(props) {
+    super(props);
+    this.state = {
+    	address: ''
+    	};
+	}
 
-    </View>
-  );
-};
+	render() {
+		console.log(this.state.address);
+		return (
+			<View style={{ flex: 1, flexDirection: 'row' }}>
+				<TextInput
+					style={styles.inputStyle}
+					multiline={false}
+					onChangeText={address => this.setState({address:address})}
+					value={this.state.address}
+				/>
+				<Image
+					style={styles.searchIcon} 
+					source={require('../icons/search.png')}
+				/>	
+			</View>
+		);
+	}
+}
 const styles = {
 	inputStyle: {
 		alignSelf: 'flex-start', 
