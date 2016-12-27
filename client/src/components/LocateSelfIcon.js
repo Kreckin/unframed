@@ -22,6 +22,7 @@ const LocateSelfIcon = function () {
 };
 const styles = {
 	locatorIcon: {
+		marginLeft: 5,
 		width: 30,
 		height: 30,
 		justifyContent: 'center',

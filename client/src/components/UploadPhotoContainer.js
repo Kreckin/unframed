@@ -131,7 +131,7 @@ export default class UploadPhotoContainer extends Component {
     }
   render() {
     return (
-      <View style={{ marginTop: 65, alignItems: 'center', flex: 1 }}>
+      <View style={{alignItems: 'center', flex: 1 }}>
         {this.renderButtonOrPic()}
       </View> 
     );

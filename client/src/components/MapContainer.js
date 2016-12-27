@@ -8,6 +8,7 @@ import getSpots from '../lib/getSpots';
 import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
+import ManualTextInput from './ManualTextInput';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -16,9 +17,10 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showManualLocation: false,
       currentLocation: {},
       spots: [],
-      manualLocation: '',
+      manualLocation: {},
       loading: true
     };
     //commented out for now because re-rendering does not play nice with this currently
@@ -46,12 +48,16 @@ class MapContainer extends Component {
       console.log('Current location is', region);
       });
   }
+  onManualLocationChange(manualLocation) {
+    this.setState({ manualLocation });
+  }
   render() {
     return (
       this.state.loading ? <Spinner /> :
       <View>
         <View style={styles.navBar}>
           <LocateSelfIcon />
+          <ManualTextInput />
           <AddPhotoIcon />
         </View>
         <MapView 
@@ -70,7 +76,6 @@ class MapContainer extends Component {
               coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
               title={spot.title}
               description={spot.category}
-              //The image currently is hard coded in state
               image={spot.icon}
               //This adds the mini blurb on the screen
               //onPress={() => { reference[spot.id].showCallout(); }}
@@ -91,7 +96,8 @@ const styles = {
   },
   navBar: {
     backgroundColor: 'white', 
-    height: 60, 
+    marginTop: 30,
+    height: 45, 
     borderBottomWidth: 1, 
     flex: 1, 
     justifyContent: 'center', 
