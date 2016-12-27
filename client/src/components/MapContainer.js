@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
-import {
-  View,
-  Dimensions
-} from 'react-native';
-
+import { View, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
 import getSpots from '../lib/getSpots';
+
 import Spinner from './Spinner.js';
+import AddPhotoIcon from './AddPhotoIcon';
+import LocateSelfIcon from './LocateSelfIcon';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -18,6 +18,7 @@ class MapContainer extends Component {
     this.state = {
       currentLocation: {},
       spots: [],
+      manualLocation: '',
       loading: true
     };
     //commented out for now because re-rendering does not play nice with this currently
@@ -49,13 +50,17 @@ class MapContainer extends Component {
     return (
       this.state.loading ? <Spinner /> :
       <View>
+        <View style={styles.navBar}>
+          <LocateSelfIcon />
+          
+          <AddPhotoIcon />
+        </View>
         <MapView 
         style={styles.map}
-        showsUserLocation={true}
-        //this sets the region as Austin
+        showsUserLocation
         region={this.state.region}
         //this will change the region as the user moves around the map
-        onRegionChange={this.onRegionChange}
+        //onRegionChange={this.onRegionChange}
         >
         {this.state.spots.map(spot => (
             //This maps all the spots (passed down from app as props)
@@ -74,7 +79,6 @@ class MapContainer extends Component {
               onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
           ))}
-          {/*  <AddPhotoIcon />*/}
         </MapView>
       </View>
     );
@@ -85,6 +89,14 @@ const styles = {
   map: {
     width,
     height
+  },
+  navBar: {
+    backgroundColor: 'white', 
+    height: 60, 
+    borderBottomWidth: 1, 
+    flex: 1, 
+    justifyContent: 'center', 
+    flexDirection: 'row'
   }
 };
 

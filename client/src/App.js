@@ -20,24 +20,32 @@ import AddPhotoIcon from './components/AddPhotoIcon';
 // };
 
 class App extends Component {
+  onDescriptionChange(description) {
+    this.setState({ description });
+  }
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
     render() {
       return (
-          <Router navigationBarStyle={{backgroundColor:'white'}}>
+          <Router 
+          hideNavBar
+          //navigationBarStyle={{backgroundColor: 'transparent', borderWidth: 0, borderColor: 'blue' }}
+          >
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
                 initial
                 component={MapContainer}
-                title={<TextInput style={{alignSelf: 'center', 
-    borderWidth: 1, 
-    borderRadius: 2,
-    borderColor: '#ccc', 
-    padding: 10, 
-    height: 40, 
-    width: 100}}/>}
+                title={<TextInput multiline={true} style={{  
+                  borderWidth: 1, 
+                  borderRadius: 2,
+                  borderColor: '#ccc', 
+                  padding: 10, 
+                  height: 32, 
+                  fontSize: 12,
+                  width: 200,
+                  marginLeft: -70 }}/>}
                 renderRightButton={AddPhotoIcon}
               />
               <Scene 
