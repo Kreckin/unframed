@@ -4,15 +4,7 @@ import { View, TextInput, Image, TouchableOpacity } from 'react-native';
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
 class ManualLocationInput extends Component {
-   constructor(props) {
-    super(props);
-    this.state = {
-    	address: ''
-    	};
-	}
-
-	render() {
-		
+	render() {	
 		return (
 			<View style={{ flex: 1, flexDirection: 'row' }}>
 				<TextInput
@@ -35,7 +27,7 @@ class ManualLocationInput extends Component {
 }
 const styles = {
 	inputStyle: {
-		alignSelf: 'flex-start', 
+		marginLeft: -50,
 		borderWidth: 1, 
 		borderRadius: 2,
 		borderColor: '#ccc', 
@@ -44,6 +36,7 @@ const styles = {
 		width: 120
 	},
 	searchIcon: {
+		marginTop: 8,
 		height: 20,
 		width: 20,
 		alignSelf: 'flex-end',

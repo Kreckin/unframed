@@ -4,13 +4,13 @@ import { Actions } from 'react-native-router-flux';
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
-const LocateSelfIcon = function () {
+const LocateSelfIcon = function (props) {
   return (
 	<View style={{ flex: 1 }}>
         <TouchableHighlight 
         //Actions.refresh() refreshes the page you're on (mapcontainer) 
         //and therefore brings you back "home"
-        onPress={() => Actions.refresh()}
+        onPress={props.selectLocatorIcon}
         >
 			<Image
 			style={styles.locatorIcon} 

@@ -19,7 +19,6 @@ class MapContainer extends Component {
     super(props);
     this.state = {
       showManualLocation: false,
-      currentLocation: {},
       spots: [],
       manualAddress: '',
       manualLocation: {},
@@ -50,19 +49,26 @@ class MapContainer extends Component {
       console.log('Current location is', region);
       });
   }
+  selectLocatorIcon() {
+    this.setState({ showManualLocation: false });
+    Actions.refresh();
+  }
   onManualAddressChange(manualAddress) {
     this.setState({ manualAddress });
   }
   handleManualAddressInput() {
     getLatLong({ address: this.state.manualAddress }, (res) => {
-      console.log('the res is', res)
-      this.setState({ manualLocation: { latitude: res.lat, longitude: res.lng } });
-      // this.setState({ latlong: `${res.lat},${res.lng}` }, () => {
-      //   this.getNearbyRestaurants({ location:this.state.latlong, radius:this.state.radius });
-      // });
-       console.log("THE NEW STATE IS", { latitude: res.lat, longitude: res.lng })
+      this.setState({ 
+        manualLocation: { 
+          latitude: res.lat, 
+          longitude: res.lng, 
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421 },
+        showManualLocation: true,
+        manualAddress: '' 
+      });
+      console.log("The new location is", this.state.manualLocation.latitude, this.state.manualLocation.longitude);
     });
-   
   }
   
   render() {
@@ -70,7 +76,7 @@ class MapContainer extends Component {
       this.state.loading ? <Spinner /> :
       <View>
         <View style={styles.navBar}>
-          <LocateSelfIcon />
+          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
           <ManualTextInput 
             onManualAddressChange={this.onManualAddressChange.bind(this)}
             handleManualAddressInput={this.handleManualAddressInput.bind(this)}
@@ -81,7 +87,7 @@ class MapContainer extends Component {
         <MapView 
         style={styles.map}
         showsUserLocation
-        region={this.state.region}
+        region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
         >

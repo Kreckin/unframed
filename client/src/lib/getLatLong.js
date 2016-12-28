@@ -4,10 +4,10 @@ const getLatLong = (options, callback) => {
   fetch(`http://localhost:4040/fetchLatLong/${options.address}`)
   .then((response) => {
       //with fetch we gotta json it before we can use it
-      console.log("THE RESPONSE IS", response)
       return response.json();
       //we then call imageGetter on the data, and then send it back to the app
     })
+   .then((data) => callback(data.results[0].geometry.location))
   .catch((err) => console.log('Error in get lat long', err));
 };
 
