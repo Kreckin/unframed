@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity } from 'react-native';
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
@@ -12,19 +12,23 @@ class ManualLocationInput extends Component {
 	}
 
 	render() {
-		console.log(this.state.address);
+		
 		return (
 			<View style={{ flex: 1, flexDirection: 'row' }}>
 				<TextInput
 					style={styles.inputStyle}
 					multiline={false}
-					onChangeText={address => this.setState({address:address})}
-					value={this.state.address}
+					onChangeText={this.props.onManualAddressChange}
+					value={this.props.manualAddress}
 				/>
-				<Image
-					style={styles.searchIcon} 
-					source={require('../icons/search.png')}
-				/>	
+				<TouchableOpacity 
+				onPress={this.props.handleManualAddressInput}
+				>
+					<Image
+						style={styles.searchIcon} 
+						source={require('../icons/search.png')}
+					/>	
+				</TouchableOpacity>	
 			</View>
 		);
 	}
@@ -40,10 +44,9 @@ const styles = {
 		width: 120
 	},
 	searchIcon: {
-		marginTop: -80,
 		height: 20,
 		width: 20,
-		alignSelf: 'flex-end'
+		alignSelf: 'flex-end',
 	}
 };
 

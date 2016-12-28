@@ -4,6 +4,7 @@ import { View, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import getSpots from '../lib/getSpots';
+import getLatLong from '../lib/getLatLong';
 
 import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
@@ -20,6 +21,7 @@ class MapContainer extends Component {
       showManualLocation: false,
       currentLocation: {},
       spots: [],
+      manualAddress: '',
       manualLocation: {},
       loading: true
     };
@@ -48,9 +50,21 @@ class MapContainer extends Component {
       console.log('Current location is', region);
       });
   }
-  onManualLocationChange(manualLocation) {
-    this.setState({ manualLocation });
+  onManualAddressChange(manualAddress) {
+    this.setState({ manualAddress });
   }
+  handleManualAddressInput() {
+    getLatLong({ address: this.state.manualAddress }, (res) => {
+      console.log('the res is', res)
+      this.setState({ manualLocation: { latitude: res.lat, longitude: res.lng } });
+      // this.setState({ latlong: `${res.lat},${res.lng}` }, () => {
+      //   this.getNearbyRestaurants({ location:this.state.latlong, radius:this.state.radius });
+      // });
+       console.log("THE NEW STATE IS", { latitude: res.lat, longitude: res.lng })
+    });
+   
+  }
+  
   render() {
     return (
       this.state.loading ? <Spinner /> :
@@ -58,8 +72,9 @@ class MapContainer extends Component {
         <View style={styles.navBar}>
           <LocateSelfIcon />
           <ManualTextInput 
-            onManualLocationChange={this.onManualLocationChange.bind(this)} 
-            manualLoc
+            onManualAddressChange={this.onManualAddressChange.bind(this)}
+            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+            manualAddress={this.state.manualAddress}
           />
           <AddPhotoIcon />
         </View>

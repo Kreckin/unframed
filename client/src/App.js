@@ -37,16 +37,6 @@ class App extends Component {
                 key='MapContainer'
                 initial
                 component={MapContainer}
-                title={<TextInput multiline={true} style={{  
-                  borderWidth: 1, 
-                  borderRadius: 2,
-                  borderColor: '#ccc', 
-                  padding: 10, 
-                  height: 32, 
-                  fontSize: 12,
-                  width: 200,
-                  marginLeft: -70 }}/>}
-                renderRightButton={AddPhotoIcon}
               />
               <Scene 
                 key='UploadPhotoContainer'

@@ -1,18 +1,14 @@
 const getLatLong = (options, callback) => {
-  console.log(options);
+  console.log("The options are", options);
 //sends off an api request with options we pass in, this gets the closest address to our lat & long
-  fetch(`/fetchLatLong/${options.address}`)
-  .then((items) => {
-    // console.log(items)
-    items = JSON.parse(items);
-    //filtering it down so we just get what we need
-      callback(items.results[0].geometry.location);
-  })
-  .catch(({ responseJSON }) => {
-    responseJSON.error.errors.forEach((err) =>
-      console.error(err)
-    );
-  });
+  fetch(`http://localhost:4040/fetchLatLong/${options.address}`)
+  .then((response) => {
+      //with fetch we gotta json it before we can use it
+      console.log("THE RESPONSE IS", response)
+      return response.json();
+      //we then call imageGetter on the data, and then send it back to the app
+    })
+  .catch((err) => console.log('Error in get lat long', err));
 };
 
 export default getLatLong;
