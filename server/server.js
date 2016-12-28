@@ -156,18 +156,19 @@ app.get('/downvote/:id', (req, res) => {
       res.status(500).send(reject);
     });
 });
+
 app.get('/fetchLatLong/:address', (req, res) => {
-  const mapKey = 'AIzaSyDn8EQ2C2Wt_Dm1-AN4f18T0UpX41XJ0n8';
-  //const mapKey = process.env.mapKey || credentials.mapKey;
+  const mapKey = process.env.mapKey || require('./config').maps.mapKey;
   const address = req.params.address;
   const url = 'https://maps.googleapis.com/maps/api/geocode/json?';
   request(`${url}&address=${address}&key=${mapKey}`, (err, response, body) => {
-    console.log(err);
+    console.log('The error is', err);
     if (!err && response.statusCode === 200) {
-      res.json(body);
+      res.send(body);
     }
   });
 });
+
 
 // ----- LISTEN -----
 const port = process.env.PORT || 4040;
