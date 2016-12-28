@@ -9,7 +9,7 @@ class ManualLocationInput extends Component {
 			<View style={{ flex: 1, flexDirection: 'row' }}>
 				<TextInput
 					style={styles.inputStyle}
-					multiline={false}
+					multiline
 					onChangeText={this.props.onManualAddressChange}
 					value={this.props.manualAddress}
 				/>
@@ -33,7 +33,7 @@ const styles = {
 		borderColor: '#ccc', 
 		padding: 10, 
 		height: 35, 
-		width: 120
+		width: 150
 	},
 	searchIcon: {
 		marginTop: 8,
