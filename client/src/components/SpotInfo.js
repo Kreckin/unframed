@@ -39,13 +39,16 @@ class SpotInfo extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <View style={styles.cardStyle}>
           <Text style={styles.titleStyle}>
           {this.props.spot.title}
           </Text>
           <Image 
             style={styles.imageStyle}
             source={{ uri: `${this.props.spot.img_url}` }} 
+          />
+          <Image
+            style={styles.flagStyle}
+            source={require('../icons/flag.png')}
           />
           <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
           <Text style={styles.descriptionStyle}>
@@ -83,7 +86,6 @@ class SpotInfo extends Component {
           >
             <Text>Back to map</Text>
           </TouchableHighlight>
-        </View>
       </View>
     );
   }
@@ -92,7 +94,8 @@ class SpotInfo extends Component {
 const styles = {
   titleStyle: {
     fontSize: 34,
-    marginBottom: 3
+    marginBottom: 3,
+    alignSelf: 'center'
   },
   categoryStyle: {
     fontSize: 18,
@@ -160,14 +163,14 @@ const styles = {
     justifyContent: 'center'
   },
   viewStyle: {
-    backgroundColor: 'rgba(255, 255, 255, .65)',
-    height,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
+    marginTop: 10
   },
-  cardStyle: {
-    alignItems: 'center',
-    backgroundColor: 'white',
+  flagStyle: {
+    height: 20,
+    width: 20
   }
 };
 
