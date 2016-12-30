@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class SpotInfo extends Component {
             >
               <Image
                 style={styles.thumbImageStyle}
-                source={require('../buttonImages/thumbsDown.png')}
+                source={require('../icons/thumbsDown.png')}
               />
             </TouchableHighlight>
             <View>
@@ -73,7 +73,7 @@ class SpotInfo extends Component {
             >
               <Image
                 style={styles.thumbImageStyle}
-                source={require('../buttonImages/thumbsUp.png')}
+                source={require('../icons/thumbsUp.png')}
               />
             </TouchableHighlight>
           </View>
