@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-
-const { height } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -99,7 +97,7 @@ const styles = {
   },
   categoryStyle: {
     fontSize: 18,
-    alignSelf: 'center'
+    textAlign: 'center'
   },
   imageStyle: {
     height: 150,
@@ -110,7 +108,8 @@ const styles = {
   descriptionStyle: {
     paddingRight: 20,
     paddingLeft: 20,
-    height: 200
+    height: 200,
+    textAlign: 'center'
   }, 
   buttonStyle: {
     marginTop: 20,
