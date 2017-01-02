@@ -8,7 +8,7 @@ import getLatLong from '../lib/getLatLong';
 
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
-import ManualTextInput from './ManualTextInput';
+import LensIcon from './LensIcon';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 const Platform = require('react-native').Platform;
@@ -75,7 +75,8 @@ class MapContainer extends Component {
         <View style={styles.navBar}>
           {this.state.platform === 'ios' ? 
           <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)} /> : null }
-          <ManualTextInput 
+          
+          <LensIcon
             onManualAddressChange={this.onManualAddressChange.bind(this)}
             handleManualAddressInput={this.handleManualAddressInput.bind(this)}
             manualAddress={this.state.manualAddress}

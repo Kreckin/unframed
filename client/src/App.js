@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-import { TextInput } from 'react-native';
+//import { Text } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
+import SearchAndFilter from './components/SearchAndFilter';
+import FlaggedContent from './components/FlaggedContent';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
-import FlaggedContent from './components/FlaggedContent';
-
-// This displays a different color on the tab bar depending on whether the tab is selected or not, 
-// and it's uncommented out for the time being
-// const TabIcon = ({ selected, title }) => {
-//   return (
-//     <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
-//   );
-// };
 
 class App extends Component {
   onDescriptionChange(description) {
@@ -51,6 +44,12 @@ class App extends Component {
                 key='FlaggedContent'
                 component={FlaggedContent}
                 title='Flagged Content'
+              />
+              <Scene 
+                key='SearchAndFilter'
+                component={SearchAndFilter}
+                title='Search and Filter'
+                
               />
             </Scene>
           </Router>
@@ -86,8 +85,13 @@ export default App;
 //                          / /             `'     .' /
 //                         /,_\                  .',_(
 //                        /___(                 /___(
-
-
+// This displays a different color on the tab bar depending on whether the tab is selected or not, 
+// and it's uncommented out for the time being
+// const TabIcon = ({ selected, title }) => {
+//   return (
+//     <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
+//   );
+// };
 //Here is the tab bar with (unfinished) saved list and login pages connected
 // <Router>
 //             <Scene key='root'>
