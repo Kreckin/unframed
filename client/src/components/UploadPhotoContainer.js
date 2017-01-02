@@ -102,7 +102,7 @@ export default class UploadPhotoContainer extends Component {
             <Image style={styles.image} source={this.state.image} />
             <Text style={styles.error}>Unfortunately, we can't accept this photo because 
             it does not contain any meta data about the location of where it was taken.
-            Our app depends on the accuracy of the photos submitted by user, and without that data,
+            Our app depends on the accuracy of the photos submitted by users, and without that data,
             we can't verify where this photo was taken. You can change this setting in your phone. 
             In the meantime, why not try a new photo?
             </Text>
