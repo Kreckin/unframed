@@ -1,3 +1,5 @@
+import config from './config.js';
+
 const postSpot = (data) => {
   //we make an object for the photo so the form knows how to read it
   const photo = {
@@ -15,8 +17,8 @@ const postSpot = (data) => {
   form.append('longitude', data.longitude);
   form.append('spot_image', photo);
 
-  //a config object that tells the fetch function what to do
-  const config = {
+  //a postConfig object that tells the fetch function what to do
+  const postConfig = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -24,13 +26,11 @@ const postSpot = (data) => {
     },
     body: form,
   };
-  //send a fetch rquest with our config file, complete with a body that contains our simulated form
-  // fetch('http://localhost:4040/spots', config)
-  fetch('http://ec2-54-165-55-247.compute-1.amazonaws.com:4040/spots', config)
+  //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
+  fetch(`${config.apiUrl}/spots`, postConfig)
     .then((response) => {
       console.log(response);
     }).catch(error => console.log(error));
  };
-
 
 export default postSpot;
