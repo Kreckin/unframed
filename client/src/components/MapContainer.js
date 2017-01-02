@@ -81,15 +81,7 @@ class MapContainer extends Component {
     return (
       this.state.loading ? <Spinner /> :
       <View>
-        <View style={styles.navBar}>
-          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
-          <ManualTextInput 
-            onManualAddressChange={this.onManualAddressChange.bind(this)}
-            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-            manualAddress={this.state.manualAddress}
-          />
-          <AddPhotoIcon />
-        </View>
+        
         <MapView 
         style={styles.map}
         showsUserLocation

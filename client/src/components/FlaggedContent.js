@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 import ModalPicker from 'react-native-modal-picker';
+import { Actions } from 'react-native-router-flux';
 
 const { width } = Dimensions.get('window');
 
@@ -41,6 +42,12 @@ class FlaggedContent extends Component {
         </ModalPicker>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={() => Actions.pop()}
+        >
+          <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
       </View>
     );
