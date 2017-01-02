@@ -9,7 +9,7 @@ import UploadPhotoContainer from './components/UploadPhotoContainer';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
 //import SavedList from './components/SavedList';
-import AddPhotoIcon from './components/AddPhotoIcon';
+import FlaggedContent from './components/FlaggedContent';
 
 // This displays a different color on the tab bar depending on whether the tab is selected or not, 
 // and it's uncommented out for the time being
@@ -30,7 +30,7 @@ class App extends Component {
       return (
           <Router 
           hideNavBar
-          //navigationBarStyle={{backgroundColor: 'transparent', borderWidth: 0, borderColor: 'blue' }}
+          //navigationBarStyle={{}}
           >
             <Scene key='root'>
               <Scene 
@@ -41,12 +41,16 @@ class App extends Component {
               <Scene 
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
-                
               />
               <Scene 
                 key='SpotInfo'
                 component={SpotInfo}
                 title='SpotInfo'
+              />
+              <Scene 
+                key='FlaggedContent'
+                component={FlaggedContent}
+                title='Flagged Content'
               />
             </Scene>
           </Router>

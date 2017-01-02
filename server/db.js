@@ -7,7 +7,8 @@ const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
 
-//this will validate Spot whenever its updated/saved, anything not in this list will be removed 
+// ------ VALIDATION ------
+// this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
   title: { type: String, required: true },
   category: { type: String, required: true },
@@ -20,11 +21,11 @@ Spot.schema = {
   //we give it a "random" id since we can't use the built in one for some reason
   spot_id: { default: Math.floor(Math.random() * 10000000) }
 };
-//further improved validation, since empty strings would pass the schema check
+// further improved validation, since empty strings would pass the schema check
 const validateSpot = function (spot, callback) {
   if (!spot.title.length) {
     callback('enter a title');
-    //even though schema says lat/long are required, could submit it empty before without this for some reason
+    // even though schema says lat/long are required, could submit it empty before without this for some reason
   } else if (!spot.latitude || !spot.longitude) {
     callback('enter coordinates');
   } else if (!spot.img_url.length) {
@@ -38,15 +39,43 @@ const validateSpot = function (spot, callback) {
 
 Spot.on('validate', validateSpot);
 
+// ------ VALIDATION ------
+// adds the spot to the 'geom' layer after save
+const addSpotToGeomLayerAfterSave = function (spot) {
+  console.log('adding spot to layer after save!', spot); //TODO look into using db.query rather query from than seraph-model
+  Spot.query(`MATCH (n:Spot) WHERE id(n)=${spot.id}
+              CALL spatial.addNode("geom", n)
+              YIELD node`, (err) => {
+    if (err) {
+      console.log('Err in addSpotToGeomLayerAfterSave', err);
+    }
+  });
+};
+
+Spot.on('afterSave', addSpotToGeomLayerAfterSave);
+
 module.exports = {
   spots: {
-    get: () => {
-      return new Promise((resolve, reject) => {
-        Spot.findAll((err, allOfTheseModels) => {
-          if (err) reject(err);
-          else resolve(allOfTheseModels);
+    get: (query) => {
+      if (query.lat === undefined) {
+        console.log('is undefined', query)
+        return new Promise((resolve, reject) => {
+          Spot.findAll((err, spots) => {
+            if (err) reject(err);
+            else resolve(spots);
+          });
         });
-      });
+      } else {
+        console.log('query',query)
+        return new Promise((resolve, reject) => {
+          Spot.query('CALL spatial.withinDistance("geom", {coordinates}, {distance}) YIELD node',
+            { coordinates: { lat: parseFloat(query.lat), lon: parseFloat(query.lon) }, distance: parseFloat(query.distance) },
+            (err, spots) => {
+              if (err) reject(err);
+              else resolve(spots);
+          });
+        });
+      }
     },
     post: (obj) => {
       return new Promise((resolve, reject) => {
