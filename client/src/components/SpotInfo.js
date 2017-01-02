@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import config from '../lib/config.js';
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -18,19 +19,24 @@ class SpotInfo extends Component {
   }
 
   upVote() {
-    console.log(`spot ${this.props.spot}`);
-    fetch(`http://localhost:4040/upvote/${this.props.spot.spot_id}`)
+    fetch(`${config.apiUrl}/upvote/${this.props.spot.spot_id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ upvotes: res.upvotes });
+      })
+      .catch((err) => {
+        console.log('error in upvote', err);
       });
   }
   
   downVote() {
-    fetch(`http://localhost:4040/downvote/${this.props.spot.spot_id}`)
+    fetch(`${config.apiUrl}/downvote/${this.props.spot.spot_id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ downvotes: res.downvotes });
+      })
+      .catch((err) => {
+        console.log('error in upvote', err);
       });
   }
 
