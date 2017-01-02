@@ -21,11 +21,13 @@ class SpotInfo extends Component {
   }
 
   upVote() {
-    console.log(`spot ${this.props.spot}`);
     fetch(`${config.apiUrl}/upvote/${this.props.spot.spot_id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ upvotes: res.upvotes });
+      })
+      .catch((err) => {
+        console.log('error in upvote', err);
       });
   }
   
@@ -34,6 +36,9 @@ class SpotInfo extends Component {
       .then((res) => res.json())
       .then((res) => {
         this.setState({ downvotes: res.downvotes });
+      })
+      .catch((err) => {
+        console.log('error in upvote', err);
       });
   }
 
