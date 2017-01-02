@@ -24,6 +24,10 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		18DEA1C6D51D44469C828C16 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C8223CF2C43A8AC3F8AAD /* libRNImagePicker.a */; };
 		23997672F123B1B5B83BA5E4 /* Pods_unexpectedpony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB9E3F1F2D5A9FEBE53E3945 /* Pods_unexpectedpony.framework */; };
+		5147493F1E1AFFF7007A4E86 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5147493E1E1AFFF7007A4E86 /* Bolts.framework */; };
+		514749411E1B0000007A4E86 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514749401E1B0000007A4E86 /* FBSDKCoreKit.framework */; };
+		514749431E1B000A007A4E86 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514749421E1B000A007A4E86 /* FBSDKLoginKit.framework */; };
+		514749451E1B0011007A4E86 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514749441E1B0011007A4E86 /* FBSDKShareKit.framework */; };
 		54DFB2F38C3145568E0D6852 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD8DE2C22074AE69B1C274F /* libRCTCamera.a */; };
 		5D9A89A2DA954A9D864C2303 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE68C82DC8A44715B515785A /* libAirMaps.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -169,6 +173,10 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		215C8223CF2C43A8AC3F8AAD /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		4BD8DE2C22074AE69B1C274F /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
+		5147493E1E1AFFF7007A4E86 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../../Documents/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		514749401E1B0000007A4E86 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		514749421E1B000A007A4E86 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		514749441E1B0011007A4E86 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6B858BBF551745E08CE23BC8 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -197,6 +205,8 @@
 			files = (
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				514749431E1B000A007A4E86 /* FBSDKLoginKit.framework in Frameworks */,
+				514749411E1B0000007A4E86 /* FBSDKCoreKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -205,11 +215,13 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				514749451E1B0011007A4E86 /* FBSDKShareKit.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				23997672F123B1B5B83BA5E4 /* Pods_unexpectedpony.framework in Frameworks */,
 				5D9A89A2DA954A9D864C2303 /* libAirMaps.a in Frameworks */,
 				54DFB2F38C3145568E0D6852 /* libRCTCamera.a in Frameworks */,
 				18DEA1C6D51D44469C828C16 /* libRNImagePicker.a in Frameworks */,
+				5147493F1E1AFFF7007A4E86 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +404,10 @@
 		BA6790DC29933529C1CBCBD8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				514749441E1B0011007A4E86 /* FBSDKShareKit.framework */,
+				514749421E1B000A007A4E86 /* FBSDKLoginKit.framework */,
+				514749401E1B0000007A4E86 /* FBSDKCoreKit.framework */,
+				5147493E1E1AFFF7007A4E86 /* Bolts.framework */,
 				D019666E1E0466E000868881 /* AirMaps.xcodeproj */,
 				BB9E3F1F2D5A9FEBE53E3945 /* Pods_unexpectedpony.framework */,
 			);
@@ -846,10 +862,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D4586928943B71A2E9CB5F5 /* Pods-unexpectedpony.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = unexpectedpony/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -867,9 +885,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7CDBC810A4C7F5F9F9093355 /* Pods-unexpectedpony.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 1;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK";
 				INFOPLIST_FILE = unexpectedpony/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

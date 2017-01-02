@@ -10,6 +10,7 @@ import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 import ManualTextInput from './ManualTextInput';
+import Login from './loginButton';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -89,6 +90,7 @@ class MapContainer extends Component {
             manualAddress={this.state.manualAddress}
           />
           <AddPhotoIcon />
+          <Login />
         </View>
         <MapView 
         style={styles.map}
