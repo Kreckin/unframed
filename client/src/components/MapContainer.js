@@ -22,7 +22,13 @@ class MapContainer extends Component {
       spots: [],
       manualAddress: '',
       manualLocation: {},
-      loading: true
+      loading: false,
+      region:{
+         latitude: 30.2672,
+         longitude: -97.7431,
+         latitudeDelta: 0.0922,
+         longitudeDelta: 0.0421
+       }
     };
     //commented out for now because re-rendering does not play nice with this currently
 
@@ -32,7 +38,7 @@ class MapContainer extends Component {
   componentWillMount() {
     //when the map is first called it will get every spot from our database 
     //and change the spots state to use it
-    this.getUserLocation();
+    // this.getUserLocation();
     getSpots((data) => {
       this.setState({ spots: data });
     });

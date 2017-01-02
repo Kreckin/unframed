@@ -44,10 +44,14 @@ class SpotInfo extends Component {
             style={styles.imageStyle}
             source={{ uri: `${this.props.spot.img_url}` }} 
           />
-          <Image
-            style={styles.flagStyle}
-            source={require('../icons/flag.png')}
-          />
+          <TouchableHighlight
+            onPress={() => Actions.FlaggedContent({ title: this.props.spot.title})}
+          >
+            <Image
+              style={styles.flagStyle}
+              source={require('../icons/flag.png')}
+            />
+           </TouchableHighlight> 
           <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
           <Text style={styles.descriptionStyle}>
            
@@ -93,7 +97,7 @@ const styles = {
   titleStyle: {
     fontSize: 34,
     marginBottom: 3,
-    alignSelf: 'center'
+    textAlign: 'center'
   },
   categoryStyle: {
     fontSize: 18,

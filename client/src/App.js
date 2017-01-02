@@ -41,13 +41,16 @@ class App extends Component {
               <Scene 
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
-                //initial
-                
               />
               <Scene 
                 key='SpotInfo'
                 component={SpotInfo}
                 title='SpotInfo'
+              />
+              <Scene 
+                key='FlaggedContent'
+                component={FlaggedContent}
+                title='Flagged Content'
               />
             </Scene>
           </Router>

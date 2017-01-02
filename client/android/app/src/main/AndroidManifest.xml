@@ -1,3 +1,5 @@
+<!-- const mapKey require('./config').maps.androidKey;
+ -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unexpectedpony"
     android:versionCode="1"
@@ -17,6 +19,9 @@
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme">
+      <meta-data
+       android:name="com.google.android.geo.API_KEY"
+       android:value="AIzaSyCKspSGmpYn3GxZfIc_Sccu7x-8qXQcZkI"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
