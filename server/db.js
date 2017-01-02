@@ -42,7 +42,10 @@ Spot.on('validate', validateSpot);
 // ------ VALIDATION ------
 // adds the spot to the 'geom' layer after save
 const addSpotToGeomLayerAfterSave = function (spot) {
-  Spot.query('CALL spatial.addNode("geom", {spot})', { spot }, (err) => {
+  console.log('adding spot to layer after save!', spot); //TODO look into using db.query rather query from than seraph-model
+  Spot.query(`MATCH (n:Spot) WHERE id(n)=${spot.id}
+              CALL spatial.addNode("geom", n)
+              YIELD node`, (err) => {
     if (err) {
       console.log('Err in addSpotToGeomLayerAfterSave', err);
     }
@@ -53,13 +56,26 @@ Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 
 module.exports = {
   spots: {
-    get: () => {
-      return new Promise((resolve, reject) => {
-        Spot.findAll((err, allOfTheseModels) => {
-          if (err) reject(err);
-          else resolve(allOfTheseModels);
+    get: (query) => {
+      if (query.lat === undefined) {
+        console.log('is undefined', query)
+        return new Promise((resolve, reject) => {
+          Spot.findAll((err, spots) => {
+            if (err) reject(err);
+            else resolve(spots);
+          });
         });
-      });
+      } else {
+        console.log('query',query)
+        return new Promise((resolve, reject) => {
+          Spot.query('CALL spatial.withinDistance("geom", {coordinates}, {distance}) YIELD node',
+            { coordinates: { lat: parseFloat(query.lat), lon: parseFloat(query.lon) }, distance: parseFloat(query.distance) },
+            (err, spots) => {
+              if (err) reject(err);
+              else resolve(spots);
+          });
+        });
+      }
     },
     post: (obj) => {
       return new Promise((resolve, reject) => {
