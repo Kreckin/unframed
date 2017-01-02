@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
-import {
-  View,
-  Dimensions
-} from 'react-native';
-
+import { View, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
 import getSpots from '../lib/getSpots';
+import getLatLong from '../lib/getLatLong';
+
 import Spinner from './Spinner.js';
+import AddPhotoIcon from './AddPhotoIcon';
+import LocateSelfIcon from './LocateSelfIcon';
+import ManualTextInput from './ManualTextInput';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
@@ -16,8 +18,10 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentLocation: {},
+      showManualLocation: false,
       spots: [],
+      manualAddress: '',
+      manualLocation: {},
       loading: true
     };
     //commented out for now because re-rendering does not play nice with this currently
@@ -45,17 +49,47 @@ class MapContainer extends Component {
       console.log('Current location is', region);
       });
   }
+  selectLocatorIcon() {
+    this.setState({ showManualLocation: false });
+    Actions.refresh();
+  }
+  onManualAddressChange(manualAddress) {
+    this.setState({ manualAddress });
+  }
+  handleManualAddressInput() {
+    getLatLong({ address: this.state.manualAddress }, (res) => {
+      this.setState({ 
+        manualLocation: { 
+          latitude: res.lat, 
+          longitude: res.lng, 
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421 },
+        showManualLocation: true,
+        manualAddress: '' 
+      });
+      console.log("The new location is", this.state.manualLocation.latitude, this.state.manualLocation.longitude);
+    });
+  }
+  
   render() {
     return (
       this.state.loading ? <Spinner /> :
       <View>
+        <View style={styles.navBar}>
+          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
+          <ManualTextInput 
+            onManualAddressChange={this.onManualAddressChange.bind(this)}
+            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+            manualAddress={this.state.manualAddress}
+          />
+          <AddPhotoIcon />
+        </View>
         <MapView 
         style={styles.map}
-        showsUserLocation={true}
-        //this sets the region as Austin
-        region={this.state.region}
+        showsUserLocation
+        region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
-        onRegionChange={this.onRegionChange}
+        //onRegionChange={this.onRegionChange}
         >
         {this.state.spots.map(spot => (
             //This maps all the spots (passed down from app as props)
@@ -66,7 +100,6 @@ class MapContainer extends Component {
               coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
               title={spot.title}
               description={spot.category}
-              //The image currently is hard coded in state
               image={spot.icon}
               //This adds the mini blurb on the screen
               //onPress={() => { reference[spot.id].showCallout(); }}
@@ -74,7 +107,6 @@ class MapContainer extends Component {
               onCalloutPress={() => Actions.SpotInfo({ spot })}
             />
           ))}
-          {/*  <AddPhotoIcon />*/}
         </MapView>
       </View>
     );
@@ -85,6 +117,15 @@ const styles = {
   map: {
     width,
     height
+  },
+  navBar: {
+    backgroundColor: 'white', 
+    marginTop: 30,
+    height: 45, 
+    borderBottomWidth: 1, 
+    flex: 1, 
+    justifyContent: 'center', 
+    flexDirection: 'row'
   }
 };
 

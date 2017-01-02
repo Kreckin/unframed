@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-//import { Text } from 'react-native';
+import { TextInput } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
@@ -20,23 +20,28 @@ import AddPhotoIcon from './components/AddPhotoIcon';
 // };
 
 class App extends Component {
+  onDescriptionChange(description) {
+    this.setState({ description });
+  }
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
     render() {
       return (
-          <Router>
+          <Router 
+          hideNavBar
+          //navigationBarStyle={{backgroundColor: 'transparent', borderWidth: 0, borderColor: 'blue' }}
+          >
             <Scene key='root'>
               <Scene 
                 key='MapContainer'
                 initial
                 component={MapContainer}
-                renderRightButton={AddPhotoIcon}
               />
               <Scene 
                 key='UploadPhotoContainer'
                 component={UploadPhotoContainer}
-                title='Add a new spot'
+                
               />
               <Scene 
                 key='SpotInfo'

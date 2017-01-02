@@ -4,8 +4,9 @@ const express = require('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary'); // stores images
+const request = require('request');
 
-if (!process.env.cloud_name){
+if (!process.env.cloud_name) {
   cloudinary.config(require('./config').cloudinary);
 } else {
   const deploy = {
@@ -155,6 +156,19 @@ app.get('/downvote/:id', (req, res) => {
       res.status(500).send(reject);
     });
 });
+
+app.get('/fetchLatLong/:address', (req, res) => {
+  const mapKey = process.env.mapKey || require('./config').maps.mapKey;
+  const address = req.params.address;
+  const url = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  request(`${url}&address=${address}&key=${mapKey}`, (err, response, body) => {
+    console.log('The error is', err);
+    if (!err && response.statusCode === 200) {
+      res.send(body);
+    }
+  });
+});
+
 
 // ----- LISTEN -----
 const port = process.env.PORT || 4040;
