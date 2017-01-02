@@ -20,9 +20,7 @@ class MapContainer extends Component {
       spots: [],
       showManualLocation: false,
       manualAddress: '',
-      manualLocation: {},
-      loading: false,
-      region: {}
+      manualLocation: {}
     };
     //commented out for now because re-rendering does not play nice with this currently
 
@@ -54,7 +52,7 @@ class MapContainer extends Component {
     Actions.refresh();
   }
   onManualAddressChange(manualAddress) {
-    this.setState({ manualAddress });
+    this.setState({ manualAddress, showManualLocation: true });
   }
   handleManualAddressInput() {
     getLatLong({ address: this.state.manualAddress }, (res) => {
@@ -64,7 +62,7 @@ class MapContainer extends Component {
           longitude: res.lng, 
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421 },
-        showManualLocation: true,
+        showManualLocation: false,
         manualAddress: '' 
       });
     });
@@ -84,12 +82,12 @@ class MapContainer extends Component {
         </View>
         <MapView 
         style={styles.map}
-        showsUserLocation
-        showsScale
-        loadingEnabled
-        showsCompass
-        showsMyLocationButton
-region={this.state.region}
+        // showsUserLocation
+        // showsScale
+        // //loadingEnabled
+        // showsCompass
+        // showsMyLocationButton
+        region={this.state.region}
         //region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
