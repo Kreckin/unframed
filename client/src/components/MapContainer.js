@@ -17,17 +17,12 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showManualLocation: false,
       spots: [],
+      showManualLocation: false,
       manualAddress: '',
       manualLocation: {},
       loading: false,
-      region:{
-         latitude: 30.2672,
-         longitude: -97.7431,
-         latitudeDelta: 0.0922,
-         longitudeDelta: 0.0421
-       }
+      region: {}
     };
     //commented out for now because re-rendering does not play nice with this currently
 
@@ -37,7 +32,7 @@ class MapContainer extends Component {
   componentWillMount() {
     //when the map is first called it will get every spot from our database 
     //and change the spots state to use it
-    // this.getUserLocation();
+    this.getUserLocation();
     getSpots((data) => {
       this.setState({ spots: data });
     });
@@ -50,7 +45,7 @@ class MapContainer extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
         };
-      this.setState({ region, loading: false });
+      this.setState({ region });
       console.log('Current location is', region);
       });
   }
@@ -72,7 +67,6 @@ class MapContainer extends Component {
         showManualLocation: true,
         manualAddress: '' 
       });
-      console.log("The new location is", this.state.manualLocation.latitude, this.state.manualLocation.longitude);
     });
   }
   
@@ -93,7 +87,10 @@ class MapContainer extends Component {
         showsUserLocation
         showsScale
         loadingEnabled
-        region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
+        showsCompass
+        showsMyLocationButton
+region={this.state.region}
+        //region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
         >
