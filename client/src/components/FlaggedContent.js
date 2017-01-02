@@ -24,14 +24,13 @@ class FlaggedContent extends Component {
           { key: index++, label: 'Harmful to people or animals' },
           { key: index++, label: 'Other' },
       ];
-      console.log(this.state.category)
     return (
       <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>You've flagged "{this.props.title}" as innappropriate.
         Please tell us how this post breaks the rules. </Text>
         <ModalPicker
           data={data}
-          onChange={(option) => { this.setState({category: option.label})}}
+          onChange={(option) => { this.setState({ category: option.label })}}
         >    
         <TextInput
           style={styles.inputStyle}

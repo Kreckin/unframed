@@ -81,10 +81,19 @@ class MapContainer extends Component {
     return (
       this.state.loading ? <Spinner /> :
       <View>
-        
+        <View style={styles.navBar}>
+          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
+          <ManualTextInput 
+            onManualAddressChange={this.onManualAddressChange.bind(this)}
+            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+            manualAddress={this.state.manualAddress}
+          />
+          <AddPhotoIcon />
+        </View>
         <MapView 
         style={styles.map}
         showsUserLocation
+        showsCompass
         region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
