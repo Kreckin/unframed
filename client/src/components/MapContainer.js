@@ -11,6 +11,7 @@ import LocateSelfIcon from './LocateSelfIcon';
 import ManualTextInput from './ManualTextInput';
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
+const Platform = require('react-native').Platform;
 
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
@@ -20,10 +21,10 @@ class MapContainer extends Component {
       spots: [],
       showManualLocation: false,
       manualAddress: '',
-      manualLocation: {}
+      manualLocation: {},
+      platform: Platform.OS
     };
     //commented out for now because re-rendering does not play nice with this currently
-
     //this.onRegionChange = this.onRegionChange.bind(this);
   }
   //This changes the region when the user moves around
@@ -72,7 +73,8 @@ class MapContainer extends Component {
     return (
       <View>
         <View style={styles.navBar}>
-          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
+          {this.state.platform === 'ios' ? 
+          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)} /> : null }
           <ManualTextInput 
             onManualAddressChange={this.onManualAddressChange.bind(this)}
             handleManualAddressInput={this.handleManualAddressInput.bind(this)}
@@ -82,11 +84,11 @@ class MapContainer extends Component {
         </View>
         <MapView 
         style={styles.map}
-        // showsUserLocation
-        // showsScale
-        // //loadingEnabled
-        // showsCompass
-        // showsMyLocationButton
+        showsUserLocation
+        showsScale
+        loadingEnabled
+        showsCompass
+        showsMyLocationButton
         region={this.state.region}
         //region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
