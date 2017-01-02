@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, Image, TouchableHighlight, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+const { height, width } = Dimensions.get('window');
 
 //This is a button with a camera icon. 
 //It is currently 
@@ -12,18 +13,36 @@ const AddPhotoIcon = () => {
         onPress={() => Actions.UploadPhotoContainer()}
         >
 			<Image
-			style={styles.image} 
+			style={styles.cameraIcon} 
 			source={require('../icons/camera-big.png')}
+			/>
+        </TouchableHighlight>
+        <TouchableHighlight 
+        //Need to check the style placement on this to make sure it works on other phones!!
+        style={{ marginTop: height - 180 }}
+        //Actions.refresh() refreshes the page you're on (mapcontainer) and therefore brings you back "home"
+        onPress={() => Actions.refresh()}
+        >
+			<Image
+			style={styles.locatorIcon} 
+			source={require('../icons/locate-user.png')}
 			/>
         </TouchableHighlight>
     </View>
   );
 };
 const styles = {
-	image: {
+	cameraIcon: {
 		width: 50,
 		height: 50,
 		marginRight: 10,
+		alignSelf: 'flex-end'
+	},
+	locatorIcon: {
+		width: 35,
+		height: 35,
+		//marginTop: 400,
+		//marginRight: 10,
 		alignSelf: 'flex-end'
 	}
 };

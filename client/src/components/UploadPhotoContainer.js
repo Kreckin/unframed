@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
 import Spinner from './Spinner';
@@ -17,7 +19,7 @@ export default class UploadPhotoContainer extends Component {
       image: null,
       title: '',
       description: '',
-      category: 'nature',
+      category: null,
       latitude: null,
       longitude: null
     };
@@ -37,6 +39,7 @@ export default class UploadPhotoContainer extends Component {
     });
     //set the states to null so we get a blank slate again
     this.setState({ title: '', description: '', image: null });
+    Actions.MapContainer();
   }
 
   onTitleChange(title) {
@@ -70,6 +73,12 @@ export default class UploadPhotoContainer extends Component {
   }
   takePhoto() {
     ImagePicker.launchCamera({ noData: true }, this.setImage);
+    //this checks if your photo has geolocation data. If not, it takes your current location
+    if (!this.state.latitude || !this.state.longitude) {
+      navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+      });
+    }
   }
   chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
@@ -87,6 +96,22 @@ export default class UploadPhotoContainer extends Component {
         return (
           <Spinner />
         );
+      } else if (this.state.image && !this.state.longitude) {
+        return (
+          <View style={{ flex: 1 }}>
+            <Image style={styles.image} source={this.state.image} />
+            <Text style={styles.error}>Unfortunately, we can't accept this photo because 
+            it does not contain any meta data about the location of where it was taken.
+            Our app depends on the accuracy of the photos submitted by user, and without that data,
+            we can't verify where this photo was taken. You can change this setting in your phone. 
+            In the meantime, why not try a new photo?
+            </Text>
+            <CameraButtons 
+              chooseImage={this.chooseImage.bind(this)} 
+              takePhoto={this.takePhoto.bind(this)} 
+            />
+          </View>
+          );
       } else {
         return (
         <View style={{ flex: 1 }}>
@@ -116,18 +141,16 @@ export default class UploadPhotoContainer extends Component {
 const styles = {
   image: {
     //later look how to maintain the image's aspect ratio
-    height: 165,
+    marginTop: 10,
+    height: 150,
     //flex: 1,
-    width: 165,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonStyle: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 3,
-    padding: 4,
+    width: 150,
     alignSelf: 'center',
-    backgroundColor: '#007aff' 
+    justifyContent: 'center',
+  },
+  error: {
+    padding: 15,
+    fontSize: 18,
+    marginBottom: -10
   }
 };
