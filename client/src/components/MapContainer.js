@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 import getSpots from '../lib/getSpots';
 import getLatLong from '../lib/getLatLong';
 
-import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 import ManualTextInput from './ManualTextInput';
@@ -79,7 +78,6 @@ class MapContainer extends Component {
   
   render() {
     return (
-      this.state.loading ? <Spinner /> :
       <View>
         <View style={styles.navBar}>
           <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
@@ -93,7 +91,8 @@ class MapContainer extends Component {
         <MapView 
         style={styles.map}
         showsUserLocation
-        showsCompass
+        showsScale
+        loadingEnabled
         region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
