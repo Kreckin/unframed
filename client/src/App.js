@@ -48,6 +48,7 @@ class App extends Component {
                 title='SpotInfo'
               />
               <Scene 
+                initial
                 key='FlaggedContent'
                 component={FlaggedContent}
                 title='Flagged Content'
