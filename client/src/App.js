@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 //import { Text } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
+import Login from './components/Login';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
@@ -23,8 +24,12 @@ class App extends Component {
           >
             <Scene key='root'>
               <Scene 
-                key='MapContainer'
+                key='Login'
                 initial
+                component={Login}
+              />
+              <Scene 
+                key='MapContainer'
                 component={MapContainer}
               />
               <Scene 

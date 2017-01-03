@@ -9,7 +9,6 @@ import getLatLong from '../lib/getLatLong';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 
-// import FBLogin from './Login';
 
 import LensIcon from './LensIcon';
 
@@ -109,6 +108,9 @@ class MapContainer extends Component {
             />
           ))}
         </MapView>
+        <View>
+          <FBLogin />
+        </View>
       </View>
     );
   }
@@ -117,7 +119,6 @@ class MapContainer extends Component {
 const styles = {
   map: {
     width,
-    height
   },
   navBar: {
     backgroundColor: 'white', 
