@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import { View, TextInput, Image, TouchableOpacity, AlertIOS } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { View, Image, TouchableOpacity, AlertIOS } from 'react-native';
+
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
 class LensIcon extends Component {
-	constructor(props) {
-		super(props);
-		this.saveResponse = this.saveResponse.bind(this);
-		this.state = {
-      		promptValue: undefined,
-    	};
-    }
-
 	render() {	
 		return (
 			<View style={{ flex: 1, flexDirection: 'row' }}>
 				<TouchableOpacity 
-				onPress={() => AlertIOS.prompt('Type a value', null, this.saveResponse)}
-				//onPress={this.props.handleManualAddressInput}
+				onPress={() => AlertIOS.prompt(
+					'Go to different location',
+				  null,
+				  [{ text: 'Cancel', style: 'cancel' },
+				    { text: 'Search',
+				      onPress: (text) => {
+				        this.props.handleManualAddressInput(text)}
+				    }],
+				  'plain-text')}
 				>
 					<Image
 						style={styles.searchIcon} 

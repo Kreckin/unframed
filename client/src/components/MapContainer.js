@@ -20,7 +20,6 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       showManualLocation: false,
-      manualAddress: '',
       manualLocation: {},
       platform: Platform.OS
     };
@@ -52,19 +51,16 @@ class MapContainer extends Component {
     this.setState({ showManualLocation: false });
     Actions.refresh();
   }
-  onManualAddressChange(manualAddress) {
-    this.setState({ manualAddress, showManualLocation: true });
-  }
-  handleManualAddressInput() {
-    getLatLong({ address: this.state.manualAddress }, (res) => {
+ 
+  handleManualAddressInput(address) {
+    getLatLong({ address }, (res) => {
       this.setState({ 
         manualLocation: { 
           latitude: res.lat, 
           longitude: res.lng, 
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421 },
-        showManualLocation: false,
-        manualAddress: '' 
+        showManualLocation: true
       });
     });
   }
@@ -73,13 +69,13 @@ class MapContainer extends Component {
     return (
       <View>
         <View style={styles.navBar}>
+
           {this.state.platform === 'ios' ? 
+          //IOS does not show the home button, so we have a custom one here that shows only for 
+          //IOS phones (Android has their own)
           <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)} /> : null }
-          
           <LensIcon
-            onManualAddressChange={this.onManualAddressChange.bind(this)}
             handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-            manualAddress={this.state.manualAddress}
           />
           <AddPhotoIcon />
         </View>
@@ -90,8 +86,7 @@ class MapContainer extends Component {
         loadingEnabled
         showsCompass
         showsMyLocationButton
-        region={this.state.region}
-        //region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
+        region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
         >

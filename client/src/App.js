@@ -49,7 +49,7 @@ class App extends Component {
                 key='SearchAndFilter'
                 component={SearchAndFilter}
                 title='Search and Filter'
-                
+
               />
             </Scene>
           </Router>
