@@ -9,7 +9,6 @@ import getLatLong from '../lib/getLatLong';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 
-import ManualTextInput from './ManualTextInput';
 import FBLogin from './Login';
 
 import LensIcon from './LensIcon';
@@ -74,7 +73,6 @@ class MapContainer extends Component {
     return (
       <View>
         <View style={styles.navBar}>
-
           {this.state.platform === 'ios' ? 
           //IOS does not show the home button, so we have a custom one here that shows only for 
           //IOS phones (Android has their own)
