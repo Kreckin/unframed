@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
 import config from '../lib/config.js';
 
 class SpotInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      //This state is here just for the time being to test the save functionality
+      //Delete it once the lib functions are working
+      //saved: this.props.user
+      saved: true
+    };
   }
 
   componentWillMount() {
     //fetch the vote tally
-    console.log(this.props.spot);
     this.setState({
       upvotes: this.props.spot.upvotes,
       downvotes: this.props.spot.downvotes
     });
+    //checkIfSaved()
   }
+  // Uncomment the above and below once the routes are up for saved
+  // checkIfSaved() {
+  //   let saved = false;
+  //   const savedSpots = this.props.user.savedSpots;
+  //   for (let i = 0; i < savedSpots.length; i++) {
+  //     if (this.spot.spot_id === savedSpots[i]) {
+  //       saved = true;
+  //     }
+  //   }
+  //   this.setState({ saved });
+  // }
 
   upVote() {
     fetch(`${config.apiUrl}/upvote/${this.props.spot.spot_id}`)
@@ -39,7 +56,14 @@ class SpotInfo extends Component {
         console.log('error in upvote', err);
       });
   }
-
+  starClick() {
+    this.setState({ saved: !this.state.saved });
+    //if (saved){
+      //saveThisItem() <- a lib function
+    //} else {
+      //unsaveThisItem() <- a lib function
+    //}
+  }
   render() {
     return (
       <View style={styles.viewStyle}>
@@ -50,6 +74,7 @@ class SpotInfo extends Component {
             style={styles.imageStyle}
             source={{ uri: `${this.props.spot.img_url}` }} 
           />
+
           <TouchableHighlight
             onPress={() => Actions.FlaggedContent({ title: this.props.spot.title})}
           >
@@ -57,7 +82,24 @@ class SpotInfo extends Component {
               style={styles.flagStyle}
               source={require('../icons/flag.png')}
             />
-           </TouchableHighlight> 
+          </TouchableHighlight> 
+
+          <TouchableHighlight
+            onPress={this.starClick.bind(this)}
+          >
+          {this.state.saved ? 
+            <Image
+              style={styles.starStyle}
+              source={require('../icons/star-outline.jpg')}
+            />
+              :
+            <Image
+              style={styles.starStyle}
+              source={require('../icons/star-fill.png')}
+            />
+          }
+          </TouchableHighlight> 
+
           <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
           <Text style={styles.descriptionStyle}>
            
@@ -180,6 +222,10 @@ const styles = {
   flagStyle: {
     height: 20,
     width: 20
+  },
+  starStyle: {
+    height: 40,
+    width: 40
   }
 };
 

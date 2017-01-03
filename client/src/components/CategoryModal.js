@@ -19,9 +19,18 @@ class CategoryModal extends Component {
         const data = [
             //Later, if we want to use
             //{ key: index++, section: true, label: 'Outdoors' },
-            { key: index++, label: 'Nature' },
             { key: index++, label: 'Street art' },
-            { key: index++, label: 'Holiday' },
+            { key: index++, label: 'Mural' },
+            { key: index++, label: 'Installation' },
+            { key: index++, label: 'Sticker' },
+            { key: index++, label: 'Wheat paste' },
+            { key: index++, label: 'Tag' },
+            { key: index++, label: 'Piece' },
+            { key: index++, label: 'Stencil' },
+            { key: index++, label: 'Roller' },
+            { key: index++, label: 'Character' },
+            { key: index++, label: 'Yarn bomb' },
+            { key: index++, label: 'Other' },
         ];
  
         return (
