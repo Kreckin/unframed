@@ -1,24 +1,51 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-const Spinner = () => {
+const SavedItem = () => {
   return (
     <View style={styles.itemStyle}>
-      <Text style={styles.titleStyle}>A great title</Text>
-      <Text style={styles.distanceStyle}>1000 feet away</Text>
-      <Text style={styles.categoryStyle}>Street art</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.titleStyle}>A great title</Text>
+        <TouchableHighlight>
+          <Image
+            style={styles.trashStyle}
+            source={require('../icons/trash.png')}
+          />
+        </TouchableHighlight>
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.categoryStyle}>Street art</Text>
+        <Text style={styles.distanceStyle}>1000 feet away</Text>
+      </View>
     </View>
   );
 };
 const styles = {
   itemStyle: {
-    flex: 1,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    //flex: 1,
+    width: width - 20,
+    height: 60,
+    borderRadius: 4,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: 'blue'
   },
   titleStyle: {
-    fontSize: 18
+    fontSize: 28
+  },
+  distanceStyle: {
+    fontSize: 14
+  },
+  categoryStyle: {
+    fontSize: 14
+  },
+  trashStyle: {
+    height: 40,
+    width: 40,
+    alignSelf: 'flex-end'
   }
 };
-export default Spinner;
+export default SavedItem;
