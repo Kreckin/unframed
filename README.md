@@ -65,12 +65,18 @@ docker run \
 
 This will:
  - run the container in the background
- - expose ports 7474 and 7687
+ - expose ports 7474 and 7687 which are used to connect to the database
  - use the designated files for data and logs
  - name the container 'DB'
- - use the image `klaw/neo4j-spatial` image
+ - use the image `klaw/neo4j-spatial` image - it will download the image if it is not found on your computer
 
- Note: if this is your first time running with this directory you will need to log into the database, change the default password, and update config.js with this information.
+Note: if this is your first time running with this directory you will need to log into the database, change the default password, and update config.js with this information.
+
+Other usefull docker commands:
+`docker ps`  - show running containers
+`docker ps -a` - show all containers
+`docker stop DB` - stop the 'DB' container
+`docker start DB` - start the 'DB' container
 
  3. Start the server
 
