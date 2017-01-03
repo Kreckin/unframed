@@ -68,7 +68,6 @@ class MapContainer extends Component {
       });
     });
   }
-  
   render() {
     return (
       <View>
