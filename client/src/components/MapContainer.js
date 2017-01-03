@@ -108,9 +108,6 @@ class MapContainer extends Component {
             />
           ))}
         </MapView>
-        <View>
-          <FBLogin />
-        </View>
       </View>
     );
   }
@@ -119,6 +116,7 @@ class MapContainer extends Component {
 const styles = {
   map: {
     width,
+    height
   },
   navBar: {
     backgroundColor: 'white', 
@@ -128,6 +126,10 @@ const styles = {
     flex: 1, 
     justifyContent: 'center', 
     flexDirection: 'row'
+  }, 
+  logOutBar: {
+    marginBottom: 30,
+    height: 45,
   }
 };
 
