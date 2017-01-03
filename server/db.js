@@ -53,6 +53,15 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 };
 
 Spot.on('afterSave', addSpotToGeomLayerAfterSave);
+//------ VALIDATION ------
+User.schema = {
+  Name: { type: String, required: true },
+  Upvoted: { type: Array, default: [] },
+  // Downvoted: { type: Array, default: [] },
+  // SavedPlaces: { type: Array, default: [] },
+  //we give it a "random" id since we can't use the built in one for some reason
+  user_id: { default: Math.floor(Math.random() * 10000000) }
+};
 
 module.exports = {
   spots: {
