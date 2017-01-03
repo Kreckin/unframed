@@ -8,7 +8,12 @@ import getLatLong from '../lib/getLatLong';
 
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
+
+import ManualTextInput from './ManualTextInput';
+import FBLogin from './Login';
+
 import LensIcon from './LensIcon';
+
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 const Platform = require('react-native').Platform;
