@@ -7,9 +7,6 @@ import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
-//The following aren't used in our project (yet) so they are commented out
-//import Login from './components/Login';
-//import SavedList from './components/SavedList';
 
 class App extends Component {
   onDescriptionChange(description) {
@@ -43,12 +40,6 @@ class App extends Component {
                 key='FlaggedContent'
                 component={FlaggedContent}
                 title='Flagged Content'
-              />
-              <Scene 
-                key='SearchAndFilter'
-                component={SearchAndFilter}
-                title='Search and Filter'
-
               />
             </Scene>
           </Router>

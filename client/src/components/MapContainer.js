@@ -9,7 +9,7 @@ import getLatLong from '../lib/getLatLong';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 
-import FBLogin from './Login';
+// import FBLogin from './Login';
 
 import LensIcon from './LensIcon';
 
