@@ -5,9 +5,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
+  - __Product Owner__: Kelly Braun
   - __Scrum Master__: Kevin Sheehy
-  - __Development Team Members__: Robin Dykema, Casey Billman, Ethan Fourie, and Kelly Braun
+  - __Development Team Members__: Robin Dykema, Casey Billman, Ethan Fourie
 
 ## Table of Contents
 

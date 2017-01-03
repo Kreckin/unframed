@@ -6,42 +6,36 @@ import { Actions } from 'react-native-router-flux';
 import getSpots from '../lib/getSpots';
 import getLatLong from '../lib/getLatLong';
 
-import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
-import ManualTextInput from './ManualTextInput';
 
+import ManualTextInput from './ManualTextInput';
 import FBLogin from './Login';
+
+import LensIcon from './LensIcon';
 
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
+const Platform = require('react-native').Platform;
 
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showManualLocation: false,
       spots: [],
-      manualAddress: '',
+      showManualLocation: false,
       manualLocation: {},
-      loading: false,
-      region:{
-         latitude: 30.2672,
-         longitude: -97.7431,
-         latitudeDelta: 0.0922,
-         longitudeDelta: 0.0421
-       }
+      platform: Platform.OS
     };
     //commented out for now because re-rendering does not play nice with this currently
-
     //this.onRegionChange = this.onRegionChange.bind(this);
   }
   //This changes the region when the user moves around
   componentWillMount() {
     //when the map is first called it will get every spot from our database 
     //and change the spots state to use it
-    // this.getUserLocation();
+    this.getUserLocation();
     getSpots((data) => {
       this.setState({ spots: data });
     });
@@ -54,7 +48,7 @@ class MapContainer extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
         };
-      this.setState({ region, loading: false });
+      this.setState({ region });
       console.log('Current location is', region);
       });
   }
@@ -62,41 +56,41 @@ class MapContainer extends Component {
     this.setState({ showManualLocation: false });
     Actions.refresh();
   }
-  onManualAddressChange(manualAddress) {
-    this.setState({ manualAddress });
-  }
-  handleManualAddressInput() {
-    getLatLong({ address: this.state.manualAddress }, (res) => {
+ 
+  handleManualAddressInput(address) {
+    getLatLong({ address }, (res) => {
       this.setState({ 
         manualLocation: { 
           latitude: res.lat, 
           longitude: res.lng, 
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421 },
-        showManualLocation: true,
-        manualAddress: '' 
+        showManualLocation: true
       });
-      console.log("The new location is", this.state.manualLocation.latitude, this.state.manualLocation.longitude);
     });
   }
   
   render() {
     return (
-      this.state.loading ? <Spinner /> :
       <View>
         <View style={styles.navBar}>
-          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)}/>
-          <ManualTextInput 
-            onManualAddressChange={this.onManualAddressChange.bind(this)}
+
+          {this.state.platform === 'ios' ? 
+          //IOS does not show the home button, so we have a custom one here that shows only for 
+          //IOS phones (Android has their own)
+          <LocateSelfIcon selectLocatorIcon={this.selectLocatorIcon.bind(this)} /> : null }
+          <LensIcon
             handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-            manualAddress={this.state.manualAddress}
           />
           <AddPhotoIcon />
         </View>
         <MapView 
         style={styles.map}
         showsUserLocation
+        showsScale
+        loadingEnabled
         showsCompass
+        showsMyLocationButton
         region={this.state.showManualLocation ? this.state.manualLocation : this.state.region}
         //this will change the region as the user moves around the map
         //onRegionChange={this.onRegionChange}
