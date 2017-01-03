@@ -6,7 +6,6 @@ import { Router, Scene } from 'react-native-router-flux';
 import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
-import SearchAndFilter from './components/SearchAndFilter';
 import FlaggedContent from './components/FlaggedContent';
 //The following aren't used in our project (yet) so they are commented out
 //import Login from './components/Login';
