@@ -10,6 +10,9 @@ import Spinner from './Spinner.js';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 import ManualTextInput from './ManualTextInput';
+
+import FBLogin from './Login';
+
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 
