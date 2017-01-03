@@ -20,16 +20,15 @@ class CategoryModal extends Component {
             //Later, if we want to use
             //{ key: index++, section: true, label: 'Outdoors' },
             { key: index++, label: 'Street art' },
+            { key: index++, label: 'Piece' },
+            { key: index++, label: 'Tag' },           
             { key: index++, label: 'Mural' },
             { key: index++, label: 'Installation' },
-            { key: index++, label: 'Sticker' },
             { key: index++, label: 'Wheat paste' },
-            { key: index++, label: 'Tag' },
-            { key: index++, label: 'Piece' },
             { key: index++, label: 'Stencil' },
             { key: index++, label: 'Roller' },
             { key: index++, label: 'Character' },
-            { key: index++, label: 'Yarn bomb' },
+            { key: index++, label: 'Sticker' },
             { key: index++, label: 'Other' },
         ];
  
@@ -44,7 +43,7 @@ class CategoryModal extends Component {
                 <TextInput
                     style={styles.inputStyle}
                     editable={false}
-                    placeholder="Click to select your category"
+                    placeholder="Pick one category that best describes the photo"
                     value={this.props.category} 
                 />
                 </ModalPicker>
