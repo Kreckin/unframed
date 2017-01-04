@@ -182,7 +182,8 @@ module.exports = {
         db.relationships(uID, 'all', 'favorite', (err, relationships) => {
           const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
           db.rel.delete(relationship[0].id, (err) => {
-            if (!err) console.log('Relationship was deleted');
+            if (err) reject(err)
+            else resolve(console.log('Relationship was deleted'))
           });
         });
       });
