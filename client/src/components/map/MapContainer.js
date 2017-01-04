@@ -60,7 +60,6 @@ class MapContainer extends Component {
   }
 
   handleManualAddressInput(address) {
-    console.log('hi')
     getLatLong({ address }, (res) => {
       this.map.animateToRegion(
         { 
