@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/Login';
-import MapContainer from './components/MapContainer';
+import MapContainer from './components/map/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';

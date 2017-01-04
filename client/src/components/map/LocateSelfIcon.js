@@ -12,7 +12,7 @@ const LocateSelfIcon = function (props) {
         >
 			<Image
 			style={styles.locatorIcon} 
-			source={require('../icons/locate-user.png')}
+			source={require('../../icons/locate-user.png')}
 			/>
         </TouchableHighlight>
     </View>

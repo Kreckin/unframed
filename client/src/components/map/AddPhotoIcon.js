@@ -13,7 +13,7 @@ const AddPhotoIcon = function () {
         >
 			<Image
 			style={styles.cameraIcon} 
-			source={require('../icons/camera-big.png')}
+			source={require('../../icons/camera-big.png')}
 			/>
         </TouchableHighlight>
        </View>
