@@ -6,6 +6,7 @@ import {
   Text,
   View
 } from 'react-native';
+import getUser from '../../lib/getUser.js';
 
 const FBSDK = require('react-native-fbsdk');
 
@@ -30,7 +31,9 @@ var FBLogIOButton = React.createClass({
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     console.log(data);
-                    Actions.MapContainer();
+                    getUser(data.userID).then((user) => {
+                      Actions.MapContainer();
+                    });
                   }
                 );
               }
@@ -38,7 +41,7 @@ var FBLogIOButton = React.createClass({
           }
           onLogoutFinished={() => {
             alert('logged out');
-            Actions.Login();   
+            Actions.Profile();   
             }
           } 
         />
