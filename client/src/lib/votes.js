@@ -11,7 +11,7 @@ const Votes = {
       .catch((err) => {
         console.log('error in upvote', err);
       })),
-  // mehVote:
+  mehVote: (meh) => (console.log('meh vote cast', meh))
 };
 
 export default Votes;

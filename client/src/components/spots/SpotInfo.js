@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import config from '../../lib/config.js';
 import Votes from '../../lib/votes.js';
 
 class SpotInfo extends Component {
@@ -52,7 +51,7 @@ class SpotInfo extends Component {
 
   mehVote() {
     //TODO add server call 
-    console.log('meh vote cast');
+    Votes.mehVote('meh');
   }
 
   starClick() {
