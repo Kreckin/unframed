@@ -11,7 +11,11 @@ const Votes = {
       .catch((err) => {
         console.log('error in upvote', err);
       })),
-  mehVote: (meh) => (console.log('meh vote cast', meh))
+  mehVote: (spot) => (fetch(`${config.apiUrl}/mehvote/${spot}`)
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log('error in upvote', err);
+      })),
 };
 
 export default Votes;

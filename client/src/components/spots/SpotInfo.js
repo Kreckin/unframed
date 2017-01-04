@@ -19,7 +19,8 @@ class SpotInfo extends Component {
     //fetch the vote tally
     this.setState({
       upvotes: this.props.spot.upvotes,
-      downvotes: this.props.spot.downvotes
+      downvotes: this.props.spot.downvotes,
+      mehvotes: this.props.spot.mehvotes
     });
     //checkIfSaved()
   }
@@ -51,7 +52,10 @@ class SpotInfo extends Component {
 
   mehVote() {
     //TODO add server call 
-    Votes.mehVote('meh');
+    Votes.mehVote(this.props.spot.spot_id)
+      .then((res) => {
+        this.setState({ mehvotes: res.mehvotes });
+    });
   }
 
   starClick() {
