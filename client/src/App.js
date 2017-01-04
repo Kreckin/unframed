@@ -26,7 +26,7 @@ class App extends Component {
               <Scene 
                 key='MapContainer'
                 initial
-                component={SavedItem}
+                component={MapContainer}
               />
               <Scene 
                 key='UploadPhotoContainer'
@@ -41,6 +41,11 @@ class App extends Component {
                 key='FlaggedContent'
                 component={FlaggedContent}
                 title='Flagged Content'
+              />
+              <Scene 
+                key='SavedItem'
+                component={SavedItem}
+                title='Saved Item'
               />
             </Scene>
           </Router>
