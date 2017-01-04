@@ -159,6 +159,18 @@ app.get('/downvote/:id', (req, res) => {
     });
 });
 
+app.get('/mehvote/:id', (req, res) => {
+  db.votes.mehvote(parseFloat(req.params.id))
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+
 app.get('/fetchLatLong/:address', (req, res) => {
   const mapKey = process.env.mapKey || require('./config').maps.mapKey;
   const address = req.params.address;
