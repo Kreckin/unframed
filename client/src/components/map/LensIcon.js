@@ -21,7 +21,7 @@ class LensIcon extends Component {
 				>
 					<Image
 						style={styles.searchIcon} 
-						source={require('../icons/search.png')}
+						source={require('../../icons/search.png')}
 					/>	
 				</TouchableOpacity>	
 			</View>
