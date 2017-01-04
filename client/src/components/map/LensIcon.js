@@ -8,16 +8,18 @@ const LensIcon = function (props) {
 	return (
 		<View style={{ flex: 1, flexDirection: 'row' }}>
 			<TouchableOpacity 
+
 				onPress={() => AlertIOS.prompt(
 				'Go to different location',
 			  	null,
 			  	[{ text: 'Cancel', style: 'cancel' },
 			    { text: 'Search',
-			      onPress: (text) => {
-			      	//Because this is no longer located in mapcontainer, the functionality is weird.
-			      	//It's not working for the time being.
-			        //props.handleManualAddressInput(text)}
-			        console.log('WOW THIS DOESNT WORK ANYMORE BECAUSE YEAH')}
+			    	//onPress: (text) => {console.log(text)}
+			      onPress: (text) => { props.handleManualAddressInput(text)}
+			      	// Because this is no longer located in mapcontainer, the functionality is weird.
+			      	// It's not working for the time being.
+			        
+			       //  console.log('WOW THIS DOESNT WORK ANYMORE BECAUSE YEAH')}
 			    }],
 			  'plain-text')}
 			>
@@ -32,7 +34,9 @@ const LensIcon = function (props) {
 const styles = {
 	searchIcon: {
 		height: 45,
-		width: 42.5
+		width: 42.5,
+		marginLeft: 10,
+		marginTop: 31
 	}
 };
 

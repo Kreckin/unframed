@@ -43,7 +43,9 @@ class App extends Component {
       };
       return (
         <Router
-          navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
+          navigationBarStyle={{ backgroundColor: 'transparent', 
+            borderBottomColor: 'transparent', 
+            borderBottomWidth: 65 }}
           renderRightButton={AddPhotoIcon}
         >
               <Scene
@@ -56,12 +58,11 @@ class App extends Component {
                   <Scene 
                     key='MapContainer'
                     component={MapContainer}
-                    renderLeftButton={LensIcon}
+                    //renderLeftButton={LensIcon}
                   />
                   <Scene 
                     key='SpotInfo'
                     component={SpotInfo}
-                    title='SpotInfo'
                   />
                 </Scene>
               {/* Saved List Tab and its scenes */}
