@@ -41,16 +41,13 @@ class MapContainer extends Component {
   }
 
   onRegionChangeComplete(newRegion) {
-    console.log('onRegionChangeComplete', newRegion);
     // deets on latitude delta http://troybrant.net/blog/wp-content/uploads/2010/01/24-zoom-18-lat-lng-corners.png
     const distance = geolib.getDistance(
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
-    console.log('distance', distance);
 
     getSpots(newRegion.latitude, newRegion.longitude, distance)
           .then((data) => {
-            console.log('got spots!!', data.length);
             this.setState({
               spots: data,
             });
