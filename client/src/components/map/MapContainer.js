@@ -121,20 +121,9 @@ class MapContainer extends Component {
   render() {
     return (
       <View>
-        <View style={styles.navBar}>
-          {this.state.platform === 'ios' ? 
-          //IOS does not show the home button, so we have a custom one here that shows only for 
-          //IOS phones (Android has their own)
-          <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
-          <LensIcon
-            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-          />
-          <AddPhotoIcon />
-        </View>
         <MapView 
           style={styles.map}
           showsUserLocation
-          showsScale
           loadingEnabled
           showsCompass
           showsMyLocationButton
@@ -170,19 +159,18 @@ const styles = {
     width,
     height
   },
-  navBar: {
-    backgroundColor: 'white', 
-    marginTop: 30,
-    height: 45, 
-    borderBottomWidth: 1, 
-    flex: 1, 
-    justifyContent: 'center', 
-    flexDirection: 'row'
-  }, 
-  logOutBar: {
-    marginBottom: 30,
-    height: 45,
-  }
 };
 
 export default MapContainer;
+
+
+//        <View style={styles.navBar}>
+        //   {this.state.platform === 'ios' ? 
+        //   //IOS does not show the home button, so we have a custom one here that shows only for 
+        //   //IOS phones (Android has their own)
+        //   <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
+        //   <LensIcon
+        //     handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+        //   />
+        //   <AddPhotoIcon />
+        // </View>
