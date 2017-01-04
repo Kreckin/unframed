@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import React from 'react';
+import { View } from 'react-native';
 
 const SavedList = () => {
   return (
-    <View style={{ paddingTop: 65 }}>
-        <Text>You can't see your saved things because you aren't logged in.</Text>
+    <View style={{ flex: 1 }}>
+      
     </View>
   );
 };
-
+const styles = {
+ 
+};
 export default SavedList;

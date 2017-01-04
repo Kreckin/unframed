@@ -119,7 +119,6 @@ class MapContainer extends Component {
       });
     });
   }
-  
   render() {
     return (
       <View>
@@ -180,6 +179,10 @@ const styles = {
     flex: 1, 
     justifyContent: 'center', 
     flexDirection: 'row'
+  }, 
+  logOutBar: {
+    marginBottom: 30,
+    height: 45,
   }
 };
 

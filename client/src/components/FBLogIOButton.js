@@ -1,4 +1,5 @@
 import React from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   AppRegistry,
   StyleSheet,
@@ -13,7 +14,7 @@ const {
   AccessToken
 } = FBSDK;
 
-var Login = React.createClass({
+var FBLogIOButton = React.createClass({
   render: function() {
     return (
       <View>
@@ -28,16 +29,22 @@ var Login = React.createClass({
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(data.accessToken.toString())
+                    console.log(data);
+                    Actions.MapContainer();
                   }
-                )
+                );
               }
             }
           }
-          onLogoutFinished={() => alert("logout.")} />
+          onLogoutFinished={() => {
+            alert('logged out');
+            Actions.Login();   
+            }
+          } 
+        />
       </View>
     );
   }
 });
 
-export default Login;
+export default FBLogIOButton;

@@ -53,12 +53,16 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 };
 
 Spot.on('afterSave', addSpotToGeomLayerAfterSave);
+//------ VALIDATION ------
+User.schema = {
+  userID: { type: String, required: true },
+};
 
 module.exports = {
   spots: {
     get: (query) => {
       if (query.lat === undefined) {
-        console.log('is undefined', query)
+        console.log('is undefined', query);
         return new Promise((resolve, reject) => {
           Spot.findAll((err, spots) => {
             if (err) reject(err);
@@ -156,4 +160,34 @@ module.exports = {
       });
     }
   },
+  favorites: {
+    get: (userID) => {
+      return new Promise((resolve, reject) => {
+        db.query(`MATCH (u:User) -[r:favorite] -> (s:Spot) WHERE u.userID = '${userID}' RETURN s`, (error, favorites) => {
+          if (error) reject(error);
+          else resolve(favorites);
+        });
+      });
+    },
+    add: (uID, sID) => {
+      return new Promise((resolve, reject) => {
+        db.relate(uID, 'favorite', sID, {}, (err, relationship ) => {
+          if (err) reject(err);
+          else resolve(relationship);
+        });
+      });
+    },
+    remove: (uID, sID) => {
+      return new Promise((resolve, reject) => {
+        db.relationships(uID, 'all', 'favorite', (err, relationships) => {
+          const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
+          db.rel.delete(relationship[0].id, (err) => {
+            if (!err) console.log('Relationship was deleted');
+          });
+        });
+      });
+    }
+  }
 };
+
+

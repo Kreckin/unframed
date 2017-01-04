@@ -46,10 +46,3 @@ const styles = {
 };
 
 export default LensIcon;
-
-// <TextInput
-// 					style={styles.inputStyle}
-// 					multiline
-// 					onChangeText={this.props.onManualAddressChange}
-// 					value={this.props.manualAddress}
-// 				/>,

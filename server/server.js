@@ -169,6 +169,46 @@ app.get('/fetchLatLong/:address', (req, res) => {
     }
   });
 });
+//so for maxiumum confusion this route takes the userID prop on the user object
+app.get('/favorites', (req, res) => {
+  const uID = req.body.userID;
+  db.favorites.get(uID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+//while these two take the id property of the user and the spot
+app.post('/favorites/add', (req, res) => {
+  const uID = req.body.userID;
+  const sID = req.body.spotID;
+  db.favorites.add(uID, sID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+app.post('/favorites/remove', (req, res) => {
+  const uID = req.body.userID;
+  const sID = req.body.spotID;
+  db.favorites.remove(uID, sID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
 
 
 // ----- LISTEN -----
