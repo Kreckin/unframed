@@ -169,8 +169,8 @@ app.get('/fetchLatLong/:address', (req, res) => {
   });
 });
 //so for maxiumum confusion this route takes the userID prop on the user object
-app.get('/favorites', (req, res) => {
-  const uID = req.body.userID;
+app.get('/favorites/:userID', (req, res) => {
+  const uID = req.params.userID;
   db.favorites.get(uID)
     .then((resolve) => {
       console.log('sending', resolve);

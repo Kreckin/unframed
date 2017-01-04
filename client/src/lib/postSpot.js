@@ -17,8 +17,8 @@ const postSpot = (data) => {
   form.append('longitude', data.longitude);
   form.append('spot_image', photo);
 
-  //a postConfig object that tells the fetch function what to do
-  const postConfig = {
+  //a config object that tells the fetch function what to do
+  const config = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -26,7 +26,7 @@ const postSpot = (data) => {
     },
     body: form,
   };
-  //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
+  //send a fetch rquest with our config file, complete with a body that contains our simulated form
   fetch(`${config.apiUrl}/spots`, postConfig)
     .then((response) => {
       console.log(response);

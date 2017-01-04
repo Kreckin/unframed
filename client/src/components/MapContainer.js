@@ -8,7 +8,7 @@ import getLatLong from '../lib/getLatLong';
 
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
-
+import getFavorites from '../lib/getFavorites'
 
 import LensIcon from './LensIcon';
 
