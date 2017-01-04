@@ -8,6 +8,7 @@ import MapContainer from './components/MapContainer';
 import SpotInfo from './components/SpotInfo';
 import UploadPhotoContainer from './components/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
+import SavedItem from './components/SavedItem';
 
 class App extends Component {
   onDescriptionChange(description) {
@@ -45,6 +46,11 @@ class App extends Component {
                 key='FlaggedContent'
                 component={FlaggedContent}
                 title='Flagged Content'
+              />
+              <Scene 
+                key='SavedItem'
+                component={SavedItem}
+                title='Saved Item'
               />
             </Scene>
           </Router>
