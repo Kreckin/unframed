@@ -145,6 +145,7 @@ app.get('/upvote/:id', (req, res) => {
       res.status(500).send(reject);
     });
 });
+
 app.get('/downvote/:id', (req, res) => {
   db.votes.downvote(parseFloat(req.params.id))
     .then((resolve) => {
@@ -162,15 +163,15 @@ app.get('/fetchLatLong/:address', (req, res) => {
   const address = req.params.address;
   const url = 'https://maps.googleapis.com/maps/api/geocode/json?';
   request(`${url}&address=${address}&key=${mapKey}`, (err, response, body) => {
-    console.log('The error is', err);
+    if (err) res.status(500).send(err);
     if (!err && response.statusCode === 200) {
       res.send(body);
     }
   });
 });
 //so for maxiumum confusion this route takes the userID prop on the user object
-app.get('/favorites', (req, res) => {
-  const uID = req.body.userID;
+app.get('/favorites/:userID', (req, res) => {
+  const uID = req.params.userID;
   db.favorites.get(uID)
     .then((resolve) => {
       console.log('sending', resolve);

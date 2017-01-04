@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-import FBButton from './FBLogIOButton';
+import FBButton from './login/FBLogIOButton';
 
 const profile = () => {
   return (

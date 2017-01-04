@@ -181,9 +181,12 @@ module.exports = {
       return new Promise((resolve, reject) => {
         db.relationships(uID, 'all', 'favorite', (err, relationships) => {
           const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
-          db.rel.delete(relationship[0].id, (err) => {
-            if (!err) console.log('Relationship was deleted');
-          });
+          if (relationship.length) {
+           db.rel.delete(relationship[0].id, (err) => {
+             if (err) reject(err);
+             else resolve('Relationship was deleted');
+           });
+          } else reject('no relationship with this node');
         });
       });
     }
