@@ -17,6 +17,8 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+const mapPin = require('../../icons/map-pin.png');
+
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
   constructor(props) {
@@ -150,7 +152,7 @@ class MapContainer extends Component {
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
                 description={spot.category}
-                image={spot.icon}
+                image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}
                 //This changes the scene to the blurb with the spot passed down as props

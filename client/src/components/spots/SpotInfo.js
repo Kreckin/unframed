@@ -56,6 +56,12 @@ class SpotInfo extends Component {
         console.log('error in upvote', err);
       });
   }
+
+  mehVote() {
+    //TODO add server call 
+    console.log('meh vote cast');
+  }
+
   starClick() {
     this.setState({ saved: !this.state.saved });
     //if (saved){
@@ -105,7 +111,10 @@ class SpotInfo extends Component {
            
 {this.props.spot.description ? this.props.spot.description : 'No description currently available'}
           </Text>
-          
+          <View>
+              <Text style={styles.voteTotalStyle}>{ this.state.upvotes } upvotes</Text>
+              <Text style={styles.voteTotalStyle}>{ this.state.downvotes } downvotes</Text>
+          </View>
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
@@ -116,10 +125,12 @@ class SpotInfo extends Component {
                 source={require('../../icons/thumbsDown.png')}
               />
             </TouchableHighlight>
-            <View>
-              <Text style={styles.voteTotalStyle}>{ this.state.upvotes } upvotes</Text>
-              <Text style={styles.voteTotalStyle}>{ this.state.downvotes } downvotes</Text>
-            </View>
+            <TouchableHighlight
+              style={styles.mehVoteStyle}
+              onPress={this.mehVote.bind(this)}
+            >
+              <Text>Meh</Text>
+            </TouchableHighlight>
             <TouchableHighlight
               style={styles.upVoteStyle}
               onPress={this.upVote.bind(this)}
@@ -192,6 +203,17 @@ const styles = {
   upVoteStyle: {
     //marginTop: 3,
     backgroundColor: '#70db70',
+    //padding: 4,
+    borderWidth: 2,
+    borderRadius: 7,
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center'  
+  },
+  mehVoteStyle: {
+    //marginTop: 3,
+    backgroundColor: 'grey',
     //padding: 4,
     borderWidth: 2,
     borderRadius: 7,
