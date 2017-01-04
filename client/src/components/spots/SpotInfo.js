@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import config from '../../lib/config.js';
-import Votes from '../../lib/votes.js'
+import Votes from '../../lib/votes.js';
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -36,32 +36,18 @@ class SpotInfo extends Component {
   //   this.setState({ saved });
   // }
 
-  // upVote() {
-  //   fetch(`${config.apiUrl}/upvote/${this.props.spot.spot_id}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       this.setState({ upvotes: res.upvotes });
-  //     })
-  //     .catch((err) => {
-  //       console.log('error in upvote', err);
-  //     });
-  // }
   upVote() {
-      Votes.upVote(this.props.spot.spot_id)
+    Votes.upVote(this.props.spot.spot_id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes });
-      });
+    });
   }
   
   downVote() {
-    fetch(`${config.apiUrl}/downvote/${this.props.spot.spot_id}`)
-      .then((res) => res.json())
+    Votes.downVote(this.props.spot.spot_id)
       .then((res) => {
         this.setState({ downvotes: res.downvotes });
-      })
-      .catch((err) => {
-        console.log('error in upvote', err);
-      });
+    });
   }
 
   mehVote() {

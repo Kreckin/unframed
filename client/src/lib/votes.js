@@ -5,8 +5,12 @@ const Votes = {
       .then((res) => res.json())
       .catch((err) => {
         console.log('error in upvote', err);
-      }))
-  // downVote: ,
+      })),
+  downVote: (spot) => (fetch(`${config.apiUrl}/downvote/${spot}`)
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log('error in upvote', err);
+      })),
   // mehVote:
 };
 
