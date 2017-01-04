@@ -37,7 +37,7 @@ class App extends Component {
               source={iconMapper[title]}
               style={{ height: 30, width: 30 }}
             />
-            <Text style={{ margin: 3, fontSize: 12, color: selected ? 'red' : '#EFEFF4' }}>{title}</Text>
+            <Text style={{ margin: 3, fontSize: 12, color: selected ? 'black' : '#EFEFF4' }}>{title}</Text>
           </View>
         );
       };

@@ -1,47 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Image, TouchableOpacity, AlertIOS } from 'react-native';
 
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
-class LensIcon extends Component {
-	render() {	
-		return (
-			<View style={{ flex: 1, flexDirection: 'row' }}>
-				<TouchableOpacity 
+const LensIcon = function (props) {
+	return (
+		<View style={{ flex: 1, flexDirection: 'row' }}>
+			<TouchableOpacity 
 				onPress={() => AlertIOS.prompt(
-					'Go to different location',
-				  null,
-				  [{ text: 'Cancel', style: 'cancel' },
-				    { text: 'Search',
-				      onPress: (text) => {
-				        this.props.handleManualAddressInput(text)}
-				    }],
-				  'plain-text')}
-				>
-					<Image
-						style={styles.searchIcon} 
-						source={require('../../icons/search.png')}
-					/>	
-				</TouchableOpacity>	
-			</View>
-		);
-	}
-}
+				'Go to different location',
+			  	null,
+			  	[{ text: 'Cancel', style: 'cancel' },
+			    { text: 'Search',
+			      onPress: (text) => {
+			      	//Because this is no longer located in mapcontainer, the functionality is weird.
+			      	//It's not working for the time being.
+			        //props.handleManualAddressInput(text)}
+			        console.log('WOW THIS DOESNT WORK ANYMORE BECAUSE YEAH')}
+			    }],
+			  'plain-text')}
+			>
+				<Image
+					style={styles.searchIcon} 
+					source={require('../../icons/search.png')}
+				/>	
+			</TouchableOpacity>	
+		</View>
+	);
+};
 const styles = {
 	searchIcon: {
-		marginTop: 8,
-		height: 20,
-		width: 20,
-		alignSelf: 'flex-end',
-	},
-	inputStyle: {
-		borderWidth: 1, 
-		borderRadius: 2,
-		borderColor: '#ccc', 
-		padding: 10, 
-		height: 35, 
-		width: 150
+		height: 45,
+		width: 45
 	}
 };
 

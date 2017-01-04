@@ -124,7 +124,6 @@ class MapContainer extends Component {
         <MapView 
           style={styles.map}
           showsUserLocation
-          showsScale
           loadingEnabled
           showsCompass
           showsMyLocationButton
@@ -160,19 +159,6 @@ const styles = {
     width,
     height
   },
-  navBar: {
-    backgroundColor: 'white', 
-    marginTop: 30,
-    height: 45, 
-    borderBottomWidth: 1, 
-    flex: 1, 
-    justifyContent: 'center', 
-    flexDirection: 'row'
-  }, 
-  logOutBar: {
-    marginBottom: 30,
-    height: 45,
-  }
 };
 
 export default MapContainer;
