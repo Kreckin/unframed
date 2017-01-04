@@ -80,8 +80,19 @@ export default class UploadPhotoContainer extends Component {
       });
     }
   }
-  chooseImage() {
-    ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
+  // chooseImage() {
+  //   ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
+  //    this.setState({ loading: true });
+  // }
+   chooseImage() {
+    ImagePicker.launchImageLibrary({ noData: true }, (response) => {
+      if (response.didCancel) {
+        Actions.MapContainer();
+      } 
+      else {
+        this.setImage(response); 
+      }
+    });
      this.setState({ loading: true });
   }
   renderButtonOrPic() {
