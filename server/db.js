@@ -55,19 +55,19 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 //------ VALIDATION ------
 User.schema = {
-  Name: { type: String, required: true },
-  Upvoted: { type: Array, default: [] },
+  userID: { type: String, required: true },
+  //Upvoted: { type: Array, default: [] },
   // Downvoted: { type: Array, default: [] },
   // SavedPlaces: { type: Array, default: [] },
   //we give it a "random" id since we can't use the built in one for some reason
-  user_id: { default: Math.floor(Math.random() * 10000000) }
+  //user_id: { default: Math.floor(Math.random() * 10000000) }
 };
 
 module.exports = {
   spots: {
     get: (query) => {
       if (query.lat === undefined) {
-        console.log('is undefined', query)
+        console.log('is undefined', query);
         return new Promise((resolve, reject) => {
           Spot.findAll((err, spots) => {
             if (err) reject(err);
@@ -165,4 +165,37 @@ module.exports = {
       });
     }
   },
+  favorites: {
+    get: (userID) => {
+      return new Promise((resolve, reject) => {
+        db.query(`MATCH (u:User) -[r:favorite] -> (s:Spot) WHERE u.userID = '${userID}' RETURN s`, (error, favorites) => {
+          if (error) reject(error);
+          else resolve(favorites);
+        });
+      });
+    },
+    add: (uID, sID) => {
+      return new Promise((resolve, reject) => {
+        db.relate(uID, 'favorite', sID, {}, (err, relationship ) => {
+          if (err) reject(err);
+          else resolve(relationship);
+        });
+      });
+    },
+    remove: (uID, sID) => {
+      return new Promise((resolve, reject) => {
+        db.relationships(uID, 'all', 'favorite', (err, relationships) => {
+          console.log('these are the relationships ', relationships)
+          const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
+          console.log('this is the relationship', relationship)
+          db.rel.delete(relationship[0].id, (err) => {
+            if (!err) console.log('Relationship was deleted');
+          });
+        });
+      });
+    }
+  }
 };
+//module.exports.users.post({ userID: '222'});
+
+
