@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 import FBButton from './login/FBLogIOButton';
 
-const profile = () => {
+const Profile = () => {
   return (
     <View style={{ paddingTop: 65 }}>
         <Text>OMG This is totally a useless profile page</Text>

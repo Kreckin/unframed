@@ -5,12 +5,14 @@ import { Text, View, Image } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
+import LensIcon from './components/map/LensIcon';
 import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
-import FBLogin from './components/FBLogin';
+import AddPhotoIcon from './components/map/AddPhotoIcon';
+import Profile from './components/Profile';
 
 class App extends Component {
 
@@ -41,8 +43,9 @@ class App extends Component {
       };
       return (
         <Router
-          hideNavBar
-        //navigationBarStyle={{}}
+          navigationBarStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65  }}
+          renderRightButton={AddPhotoIcon}
+          rightButtonIconStyle={{ height: 50, width: 50 }}
         >
               <Scene
                 key="tabBar"
@@ -54,8 +57,7 @@ class App extends Component {
                   <Scene 
                     key='MapContainer'
                     component={MapContainer}
-                    title='MapContainer'
-                    //initial
+                    renderLeftButton={LensIcon}
                   />
                   <Scene 
                     key='SpotInfo'
@@ -68,18 +70,23 @@ class App extends Component {
                   <Scene 
                     key='SavedList'
                     component={SavedList}
-                    title='SavedList'
                   />
                 </Scene>
               {/* Profile Tab and its scenes */}
                 <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
                   <Scene 
                     key='Profile'
-                    //CHANGE THIS!
-                    component={FBLogin}
-                    title='Camera'
+                    component={Profile}
                   />
                 </Scene>
+                <Scene 
+                  key='UploadPhotoContainer'
+                  component={UploadPhotoContainer}
+                />
+                <Scene 
+                  key='FlaggedContent'
+                  component={FlaggedContent}
+                />  
               </Scene>
           </Router>
         );
