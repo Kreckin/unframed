@@ -15,7 +15,7 @@ const SavedItem = () => {
           />
         </TouchableHighlight>
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', borderWidth: 3 }}>
         <Text style={styles.categoryStyle}>Street art</Text>
         <Text style={styles.distanceStyle}>1000 feet away</Text>
       </View>
@@ -39,10 +39,13 @@ const styles = {
   },
   distanceStyle: {
     fontSize: 14,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    flex: 1
   },
   categoryStyle: {
-    fontSize: 14
+    fontSize: 14,
+    alignSelf: 'flex-start',
+    flex: 1
   },
   trashStyle: {
     height: 40,
