@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import { View, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import geolib from 'geolib';
 import getSpots from '../lib/getSpots';
 import getLatLong from '../lib/getLatLong';
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
-import FBLogin from './Login';
 import LensIcon from './LensIcon';
-import geolib from 'geolib';
 
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -32,8 +31,6 @@ class MapContainer extends Component {
         longitudeDelta: LONGITUDE_DELTA,
       }
     };
-    // store to determine 
-    this.previousRegion = {};
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
@@ -46,12 +43,9 @@ class MapContainer extends Component {
   onRegionChangeComplete(newRegion) {
     console.log('onRegionChangeComplete', newRegion);
     // deets on latitude delta http://troybrant.net/blog/wp-content/uploads/2010/01/24-zoom-18-lat-lng-corners.png
-    const distance = geolib.getDistance({
-          latitude: newRegion.latitude, longitude: newRegion.longitude
-        },
-        {
-          latitude: newRegion.latitude + newRegion.latitudeDelta/2, longitude: newRegion.longitude
-        }) / 1000;
+    const distance = geolib.getDistance(
+      { latitude: newRegion.latitude, longitude: newRegion.longitude },
+      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
     console.log('distance', distance);
 
     getSpots(newRegion.latitude, newRegion.longitude, distance)
