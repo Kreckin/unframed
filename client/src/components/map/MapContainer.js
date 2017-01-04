@@ -149,6 +149,10 @@ class MapContainer extends Component {
               />
             ))}
         </MapView>
+        <LensIcon 
+          style={styles.lensIcon}
+          handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+        />
       </View>
     );
   }
@@ -156,9 +160,15 @@ class MapContainer extends Component {
 // sets the map as the width and heigh of the screen
 const styles = {
   map: {
+    position: 'absolute',
+    top: 0,
     width,
     height
   },
+  lensIcon: {
+    marginLeft: 10,
+    marginTop: 10
+  }
 };
 
 export default MapContainer;
