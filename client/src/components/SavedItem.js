@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 const SavedItem = () => {
   return (
     <View style={styles.itemStyle}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', borderWidth: 3 }}>
         <Text style={styles.titleStyle}>A great title</Text>
         <TouchableHighlight>
           <Image
@@ -25,7 +25,7 @@ const SavedItem = () => {
 const styles = {
   itemStyle: {
     alignSelf: 'center',
-    //flex: 1,
+    flex: 1,
     width: width - 20,
     height: 60,
     borderRadius: 4,
@@ -34,10 +34,12 @@ const styles = {
     backgroundColor: 'blue'
   },
   titleStyle: {
-    fontSize: 28
+    fontSize: 28,
+    alignSelf: 'flex-start'
   },
   distanceStyle: {
-    fontSize: 14
+    fontSize: 14,
+    alignSelf: 'flex-end'
   },
   categoryStyle: {
     fontSize: 14
