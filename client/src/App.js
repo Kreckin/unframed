@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-import { Text , View, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/login/Login';
