@@ -185,7 +185,6 @@ app.get('/favorites/:userID', (req, res) => {
 app.post('/favorites/add', (req, res) => {
   const uID = req.body.userID;
   const sID = req.body.spotID;
-  console.log('this is the body', req)
   db.favorites.add(uID, sID)
     .then((resolve) => {
       console.log('sending', resolve);

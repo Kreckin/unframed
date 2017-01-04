@@ -8,7 +8,6 @@ import getLatLong from '../lib/getLatLong';
 
 import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
-import addFavorite from '../lib/addFavorite'
 
 import LensIcon from './LensIcon';
 
@@ -31,9 +30,6 @@ class MapContainer extends Component {
   }
   //This changes the region when the user moves around
   componentWillMount() {
-    addFavorite('7', '0', (data) => {
-      console.log(data)
-    })
     //when the map is first called it will get every spot from our database 
     //and change the spots state to use it
     this.getUserLocation();
