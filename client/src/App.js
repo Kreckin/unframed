@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-//import { Text } from 'react-native';
+import { Text , View, Image } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/login/Login';
@@ -9,50 +9,78 @@ import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
+import SavedList from './components/SavedList';
+import FBLogin from './components/FBLogin';
 
 class App extends Component {
-  onDescriptionChange(description) {
-    this.setState({ description });
-  }
+
+ 
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
     render() {
+      const map = require('./icons/map.png');
+      const saved = require('./icons/star.png');
+      const profile = require('./icons/profile.png');
+
+      const TabIcon = ({ selected, title }) => {
+        const iconMapper = {
+          Map: map,
+          Saved: saved,
+          Profile: profile
+        };
+        return (
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={iconMapper[title]}
+              style={{ height: 30, width: 30 }}
+            />
+            <Text style={{ margin: 3, fontSize: 12, color: selected ? 'red' : '#EFEFF4' }}>{title}</Text>
+          </View>
+        );
+      };
       return (
-          <Router
+        <Router
           hideNavBar
-          //navigationBarStyle={{}}
-          >
-            <Scene key='root'>
-              <Scene 
-                key='Login'
-                initial
-                component={Login}
-              />
-              <Scene 
-                key='MapContainer'
-                component={MapContainer}
-              />
-              <Scene 
-                key='UploadPhotoContainer'
-                component={UploadPhotoContainer}
-              />
-              <Scene 
-                key='SpotInfo'
-                component={SpotInfo}
-                title='SpotInfo'
-              />
-              <Scene 
-                key='FlaggedContent'
-                component={FlaggedContent}
-                title='Flagged Content'
-              />
-              <Scene 
-                key='SavedItem'
-                component={SavedItem}
-                title='Saved Item'
-              />
-            </Scene>
+        //navigationBarStyle={{}}
+        >
+              <Scene
+                key="tabBar"
+                tabs
+                tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
+              >
+              {/* Map Tab and its scenes */}
+                <Scene key='Map' title='Map' icon={TabIcon}>
+                  <Scene 
+                    key='MapContainer'
+                    component={MapContainer}
+                    title='MapContainer'
+                    //initial
+                  />
+                  <Scene 
+                    key='SpotInfo'
+                    component={SpotInfo}
+                    title='SpotInfo'
+                  />
+                </Scene>
+              {/* Saved List Tab and its scenes */}
+                <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                  <Scene 
+                    key='SavedList'
+                    component={SavedList}
+                    title='SavedList'
+                  />
+                </Scene>
+              {/* Profile Tab and its scenes */}
+                <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                  <Scene 
+                    key='Profile'
+                    //CHANGE THIS!
+                    component={FBLogin}
+                    title='Camera'
+                  />
+                </Scene>
+              </Scene>
           </Router>
         );
     }
@@ -86,52 +114,36 @@ export default App;
 //                          / /             `'     .' /
 //                         /,_\                  .',_(
 //                        /___(                 /___(
-// This displays a different color on the tab bar depending on whether the tab is selected or not, 
-// and it's uncommented out for the time being
-// const TabIcon = ({ selected, title }) => {
-//   return (
-//     <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
-//   );
-// };
+
 //Here is the tab bar with (unfinished) saved list and login pages connected
-// <Router>
+// <Router 
+//           hideNavBar
+//           //navigationBarStyle={{}}
+//           >
 //             <Scene key='root'>
-//               <Scene
-//                 key="tabBar"
-//                 tabs
-//                 tabBarStyle={{ backgroundColor: '#FFFFFF' }}
-//               >
-//               {/* Map Tab and its scenes */}
-//                 <Scene key='Map' title='Map' icon={TabIcon}>
-//                   <Scene 
-//                     key='MapContainer'
-//                     component={MapContainer}
-//                     title='Map'
-//                     spots={this.state.spots}
-//                     //initial
-//                   />
-//                   <Scene 
-//                     key='SpotInfo'
-//                     component={SpotInfo}
-//                     title='SpotInfo'
-//                   />
-//                 </Scene>
-//               {/* Login Tab and its scenes */}
-//                 <Scene key='LoginTab' title='Log In' icon={TabIcon}>
-//                   <Scene 
-//                     key='Login'
-//                     component={Login}
-//                     title='Log In'
-//                   />
-//                 </Scene>
-//               {/* Saved List Tab and its scenes */}
-//                 <Scene key='SavedListTab' title='Saved List' icon={TabIcon}>
-//                   <Scene 
-//                     key='Camera'
-//                     component={SavedList}
-//                     title='Camera'
-//                   />
-//                 </Scene>
-//               </Scene>
+//               <Scene 
+//                 key='MapContainer'
+//                 initial
+//                 component={MapContainer}
+//               />
+//               <Scene 
+//                 key='UploadPhotoContainer'
+//                 component={UploadPhotoContainer}
+//               />
+//               <Scene 
+//                 key='SpotInfo'
+//                 component={SpotInfo}
+//                 title='SpotInfo'
+//               />
+//               <Scene 
+//                 key='FlaggedContent'
+//                 component={FlaggedContent}
+//                 title='Flagged Content'
+//               />
+//               <Scene 
+//                 key='SavedItem'
+//                 component={SavedItem}
+//                 title='Saved Item'
+//               />
 //             </Scene>
 //           </Router>
