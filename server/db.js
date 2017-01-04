@@ -56,11 +56,6 @@ Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 //------ VALIDATION ------
 User.schema = {
   userID: { type: String, required: true },
-  //Upvoted: { type: Array, default: [] },
-  // Downvoted: { type: Array, default: [] },
-  // SavedPlaces: { type: Array, default: [] },
-  //we give it a "random" id since we can't use the built in one for some reason
-  //user_id: { default: Math.floor(Math.random() * 10000000) }
 };
 
 module.exports = {
@@ -185,9 +180,7 @@ module.exports = {
     remove: (uID, sID) => {
       return new Promise((resolve, reject) => {
         db.relationships(uID, 'all', 'favorite', (err, relationships) => {
-          console.log('these are the relationships ', relationships)
           const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
-          console.log('this is the relationship', relationship)
           db.rel.delete(relationship[0].id, (err) => {
             if (!err) console.log('Relationship was deleted');
           });
@@ -196,6 +189,5 @@ module.exports = {
     }
   }
 };
-//module.exports.users.post({ userID: '222'});
 
 
