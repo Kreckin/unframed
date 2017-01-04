@@ -92,12 +92,24 @@ module.exports = {
   },
 
   users: {
-    get: () => {
+    get: (id) => {
       return new Promise((resolve, reject) => {
-        User.findAll((err, allOfTheseModels) => {
+        User.where({ userID: id }, ((err, user) => {
           if (err) reject(err);
-          else resolve(allOfTheseModels);
-        });
+          else {
+            console.log('this is the user!', user);
+            if (user.length) {
+              resolve(user[0]);
+            } else {
+              console.log('New User alert!')
+              module.exports.users.post({ userID: id })
+              .then((obj) => {
+                console.log('this is the new user',obj)
+                resolve(obj)
+              });
+            }
+          }
+        }));
       });
     },
     post: (obj) => {

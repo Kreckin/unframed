@@ -105,8 +105,9 @@ app.post('/categories', (req, res) => {
     });
 });
 
-app.get('/users', (req, res) => {
-  db.users.get()
+app.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  db.users.get(id)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);

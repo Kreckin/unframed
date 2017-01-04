@@ -8,14 +8,16 @@ myHeaders.append('Content-Type', 'application/json');
 const favorites = {
   //for maximum confusion this will take the userID prop off the user object
     get: (userID, callback) => {
+      return new Promise((resolve, reject) => {
       //sends a fetch request to the url with the ID
       fetch(`${config.apiUrl}/favorites/${userID}`)
         .then((response) => {
           return response.json();
         })
         //returns an array of objects that the user has favorited
-        .then((data) => callback(data))
-        .catch((err) => console.log('Error in get favorites', err));
+        .then((data) => resolve(data))
+        .catch((err) => reject('Error in get favorites', err));
+      })
     },
     //this one takes the "node" id, or just like user.id, also spot.id NOT spot.spotid
     add: (userID, spotID) => {
