@@ -32,7 +32,7 @@ const LensIcon = function (props) {
 const styles = {
 	searchIcon: {
 		height: 45,
-		width: 45
+		width: 42.5
 	}
 };
 

@@ -35,7 +35,7 @@ class App extends Component {
           <View style={{ alignItems: 'center' }}>
             <Image
               source={iconMapper[title]}
-              style={{ height: 30, width: 30 }}
+              style={{ height: 30, width: 30, tintColor: selected ? 'black' : '#EFEFF4' }}
             />
             <Text style={{ margin: 3, fontSize: 12, color: selected ? 'black' : '#EFEFF4' }}>{title}</Text>
           </View>
@@ -43,9 +43,8 @@ class App extends Component {
       };
       return (
         <Router
-          navigationBarStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65  }}
+          navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
           renderRightButton={AddPhotoIcon}
-          rightButtonIconStyle={{ height: 50, width: 50 }}
         >
               <Scene
                 key="tabBar"
