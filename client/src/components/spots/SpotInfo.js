@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import config from '../lib/config.js';
+import config from '../../lib/config.js';
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class SpotInfo extends Component {
           >
             <Image
               style={styles.flagStyle}
-              source={require('../icons/flag.png')}
+              source={require('../../icons/flag.png')}
             />
           </TouchableHighlight> 
 
@@ -90,12 +90,12 @@ class SpotInfo extends Component {
           {this.state.saved ? 
             <Image
               style={styles.starStyle}
-              source={require('../icons/star-outline.jpg')}
+              source={require('../../icons/star-outline.jpg')}
             />
               :
             <Image
               style={styles.starStyle}
-              source={require('../icons/star-fill.png')}
+              source={require('../../icons/star-fill.png')}
             />
           }
           </TouchableHighlight> 
@@ -113,7 +113,7 @@ class SpotInfo extends Component {
             >
               <Image
                 style={styles.thumbImageStyle}
-                source={require('../icons/thumbsDown.png')}
+                source={require('../../icons/thumbsDown.png')}
               />
             </TouchableHighlight>
             <View>
@@ -126,7 +126,7 @@ class SpotInfo extends Component {
             >
               <Image
                 style={styles.thumbImageStyle}
-                source={require('../icons/thumbsUp.png')}
+                source={require('../../icons/thumbsUp.png')}
               />
             </TouchableHighlight>
           </View>

@@ -4,9 +4,9 @@ import { Actions } from 'react-native-router-flux';
 
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
-import Spinner from './Spinner';
+import Spinner from '../Spinner';
 
-import postSpot from '../lib/postSpot';
+import postSpot from '../../lib/postSpot';
 
 const Platform = require('react-native').Platform;
 const ImagePicker = require('react-native-image-picker');

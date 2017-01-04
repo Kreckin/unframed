@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 //import { Text } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
-import Login from './components/Login';
+import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
-import SpotInfo from './components/SpotInfo';
-import UploadPhotoContainer from './components/UploadPhotoContainer';
+import SpotInfo from './components/spots/SpotInfo';
+import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
 
@@ -19,7 +19,7 @@ class App extends Component {
 // Just put it back into MapContainer before you push to master
     render() {
       return (
-          <Router 
+          <Router
           hideNavBar
           //navigationBarStyle={{}}
           >
