@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //If you need any view or text, etc tags, import them below
-//import { Text } from 'react-native';
+import { Text, View, Image } from 'react-native';
 
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/login/Login';
@@ -15,6 +15,7 @@ import AddPhotoIcon from './components/map/AddPhotoIcon';
 import Profile from './components/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
+import FBLogIOButton from './components/login/FBLogIOButton';
 
 const map = require('./icons/map.png');
 const saved = require('./icons/star.png');
@@ -111,7 +112,7 @@ class App extends Component {
                 <Scene 
                   key='Login'
                   initial={!this.state.isLoggedIn}
-                  component={Login}
+                  component={FBLogIOButton}
                 />
               </Scene>
           </Router>

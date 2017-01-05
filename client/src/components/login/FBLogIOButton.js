@@ -16,10 +16,10 @@ const FBSDK = require('react-native-fbsdk');
 
 const FBLogIOButton = React.createClass({
   render: () => {
-    console.log('FBLogIOButton');
+    // console.log('FBLogIOButton');
 
     return (
-      <View>
+      <View style={styles.body}>
         <LoginButton
           readPermissions={['public_profile']}
           onLoginFinished={
@@ -34,15 +34,16 @@ const FBLogIOButton = React.createClass({
                 console.log('result', result);
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    console.log('access token data', data.userID);
+                    // console.log('access token data', data.userID);
                     // userService.postLogin(data);
                     const photoRequest = new GraphRequest(
                       `/${data.userID}/picture?redirect=false`,
                       null,
                       (err, res) => {
-                        if (error) console.log('Error from GraphRequest', err);
-                        if (result) {
-                          console.log('result from GraphRequest', res);
+                        if (err) console.log('Error from GraphRequest', err);
+                        if (res) {
+                          // console.log('result from GraphRequest', res);
+                          userService.currentUser.profileUrl = res.data.url;
                         }
                       },
                     );
@@ -51,7 +52,11 @@ const FBLogIOButton = React.createClass({
                       null,
                       (err, res) => {
                         if (error) console.log('Error from GraphRequest', err);
-                        if (result) console.log('result from GraphRequest', res);
+                        if (res) {
+                          // console.log('result from GraphRequest', res);
+                          userService.currentUser.displayName = res.name;
+                          userService.currentUser.userId = res.id;
+                        }
                       },
                     );
                           
@@ -61,8 +66,9 @@ const FBLogIOButton = React.createClass({
                       .addBatchCallback((err, res) => {
                         if (err) console.log('err in addBatchCallback', err);
                         if (res) {
-                          console.log('res in addBatchCallback', res);
-                          Actions.MapContainer();
+                          // console.log('res in addBatchCallback', res);
+                          // console.log('currentUser', userService.currentUser);
+                          Actions.Map();
                         }
                       })
                       .start();
@@ -86,6 +92,15 @@ const FBLogIOButton = React.createClass({
       </View>
     );
   }
+});
+
+const styles = StyleSheet.create({
+    body: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 });
 
 export default FBLogIOButton;

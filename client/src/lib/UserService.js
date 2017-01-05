@@ -5,10 +5,7 @@ const { AsyncStorage } = ReactNative;
 let isLoggedIn = false;
 
 const userService = {
-  logIn: () => {
-
-  },
-
+  currentUser: {},
   loggedIn: () => {
     var something;
     return isLoggedIn;
