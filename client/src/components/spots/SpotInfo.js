@@ -133,7 +133,6 @@ class SpotInfo extends Component {
               />
             </TouchableHighlight>
             <TouchableHighlight
-              disabled={disabled}
               style={styles.mehVoteStyle}
               onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
             >

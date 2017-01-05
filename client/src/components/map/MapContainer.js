@@ -50,7 +50,6 @@ class MapContainer extends Component {
 
     getSpots(newRegion.latitude, newRegion.longitude, distance)
           .then((data) => {
-            console.log('we got data!',data)
             this.setState({
               spots: data,
             });
