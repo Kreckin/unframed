@@ -9,7 +9,7 @@ const Category = model(db, 'Categories');
 
 const votePercentage = require('./controllers/calcVotePercent');
 
-// ------ VALIDATION ------
+// ------ SPOT VALIDATION ------
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
   title: { type: String, required: true },
@@ -42,10 +42,10 @@ const validateSpot = function (spot, callback) {
 
 Spot.on('validate', validateSpot);
 
-// ------ VALIDATION ------
+// ------ GEO VALIDATION? ------
 // adds the spot to the 'geom' layer after save
-const addSpotToGeomLayerAfterSave = function (spot) {
-  console.log('adding spot to layer after save!', spot); //TODO look into using db.query rather query from than seraph-model
+const addSpotToGeomLayerAfterSave = function (spot) { 
+// TODO look into using db.query rather query from than seraph-model
   Spot.query(`MATCH (n:Spot) WHERE id(n)=${spot.id}
               CALL spatial.addNode("geom", n)
               YIELD node`, (err) => {
@@ -56,7 +56,7 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 };
 
 //Spot.on('afterSave', addSpotToGeomLayerAfterSave);
-//------ VALIDATION ------
+//------ USER VALIDATION ------
 User.schema = {
   userID: { type: String, required: true },
 };
@@ -65,7 +65,6 @@ module.exports = {
   spots: {
     get: (query) => {
       if (query.lat === undefined) {
-        console.log('is undefined', query);
         return new Promise((resolve, reject) => {
           Spot.findAll((err, spots) => {
             if (err) reject(err);
@@ -73,7 +72,6 @@ module.exports = {
           });
         });
       } else {
-        console.log('query',query)
         return new Promise((resolve, reject) => {
           db.query('CALL spatial.withinDistance("geom", {coordinates}, {distance})',
             { coordinates: { lat: parseFloat(query.lat), lon: parseFloat(query.lon) }, distance: parseFloat(query.distance) },
@@ -89,8 +87,9 @@ module.exports = {
         Spot.save(obj, (err, savedObject) => {
           if (err) reject(err);
           else {
-            addSpotToGeomLayerAfterSave(savedObject)
-            resolve(savedObject)};
+            addSpotToGeomLayerAfterSave(savedObject);
+            resolve(savedObject);
+          }
         });
       });
     },
@@ -103,25 +102,23 @@ module.exports = {
           if (err) reject(err);
           else {
             console.log('this is the user!', user);
-            if (user.length) {
-              resolve(user[0]);
-            } else {
-              console.log('New User alert!')
-              module.exports.users.post({ userID: id })
-              .then((obj) => {
-                console.log('this is the new user',obj)
-                resolve(obj)
-              });
-            }
+            resolve(user[0]);
           }
         }));
       });
     },
     post: (obj) => {
       return new Promise((resolve, reject) => {
-        User.save(obj, (err, savedObject) => {
+        User.exists(obj, (err, doesExist) => {
           if (err) reject(err);
-          else resolve(savedObject);
+          else if (!doesExist) {
+            User.save(obj, (error, savedObject) => {
+              if (error) reject(error);
+              else resolve(savedObject);
+            });
+          } else {
+            resolve('User already exists');
+          }
         });
       });
     }

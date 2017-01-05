@@ -118,6 +118,7 @@ class App extends Component {
                     <Scene 
                       key='Profile'
                       component={Profile}
+                      loginCallback={this.loginCallback}
                       logoutCallback={this.logoutCallback}
                     />
                   </Scene>

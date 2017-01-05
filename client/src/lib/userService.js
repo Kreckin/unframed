@@ -57,7 +57,7 @@ const userService = {
   },
 
   loginHandler: (error, result, cb) => {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if (error) {
         console.log('error', error);
         // TODO handle error
@@ -109,7 +109,7 @@ const userService = {
           }
         );
       }
-    })
+    });
   } 
 };
 
