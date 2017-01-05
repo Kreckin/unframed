@@ -69,16 +69,18 @@ export default class UploadPhotoContainer extends Component {
         source = { uri: response.uri, isStatic: true };
       }
       this.setState({ image: source, latitude: response.latitude, longitude: response.longitude, loading: false });
+
+      //this checks if your photo has geolocation data. If not, it takes your current location
+      if (!this.state.latitude || !this.state.longitude) {
+        navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+        });
+      }
+
     }
   }
   takePhoto() {
     ImagePicker.launchCamera({ noData: true }, this.setImage);
-    //this checks if your photo has geolocation data. If not, it takes your current location
-    if (!this.state.latitude || !this.state.longitude) {
-      navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-      });
-    }
   }
   // chooseImage() {
   //   ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
