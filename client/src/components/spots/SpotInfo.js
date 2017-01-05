@@ -103,12 +103,12 @@ class SpotInfo extends Component {
           {this.state.saved ? 
             <Image
               style={styles.starStyle}
-              source={require('../../icons/star-outline.jpg')}
+              //source={require('../../icons/star-outline.jpg')}
             />
               :
             <Image
               style={styles.starStyle}
-              source={require('../../icons/star-fill.png')}
+              //source={require('../../icons/star-fill.png')}
             />
           }
           </TouchableHighlight> 
