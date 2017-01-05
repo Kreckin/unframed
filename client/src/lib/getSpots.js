@@ -8,7 +8,10 @@ const getSpots = (lat, lon, distance) => {
     .then((response) => {
       //with fetch we gotta json it before we can use it
       //we then call imageGetter on the data, and then send it back to the app
-      resolve(imageGetter(response.json()));
+      return response.json();
+    })
+    .then((data) => {
+      return resolve(distanceGetter(data));
     })
     .catch((err) => {
       console.log('Error in get spots', err); 
@@ -16,7 +19,12 @@ const getSpots = (lat, lon, distance) => {
     });
   });
 };
-
+const distanceGetter = (data) => {
+            data.forEach((item) => {
+              item.node.distance = item.distance;
+            })
+            return data.map(item => item = item.node);
+}
 //this will go through all of our data, check the category and tag it with an icon to later be used
 const imageGetter = (data) => {
   //Change these later as now they are all the same
