@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
-import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 import LensIcon from './LensIcon';
 
