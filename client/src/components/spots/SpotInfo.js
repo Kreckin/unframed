@@ -167,6 +167,20 @@ class SpotInfo extends Component {
               </View>
             )}
         </View>
+        <View style={styles.saveFlagContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableHighlight
+              //onPress={}
+            >
+              <Image
+                source={require('../../icons/star.png')}
+                style={styles.iconRating}
+              />
+            </TouchableHighlight>
+            <Text style={styles.textRating}>Save</Text>
+          </View>
+
+        </View>
         </View>
         <Toast
           ref="toast"
@@ -177,7 +191,7 @@ class SpotInfo extends Component {
           fadeOutDuration={1000}
           opacity={0.8}
           textStyle={{ color: 'black' }}
-          />
+        />
       </ScrollView>
     );
   }
@@ -234,14 +248,14 @@ const styles = {
     paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    fontSize: 20
+    fontSize: 24
   },
   descriptionStyle: {
     color: '#EFEFF4',
     paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    fontSize: 16
+    fontSize: 18
   },
   categoryContainer: {
     justifyContent: 'space-between',
@@ -257,8 +271,19 @@ const styles = {
   },
   categoryTextStyle: {
     color: '#EFEFF4',
-    fontSize: 14,
+    fontSize: 18,
     fontStyle: 'italic',
   },
+  saveFlagContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  saveFlagIcon: {
+    height: 30,
+    width: 30,
+  }
 };
 export default SpotInfo;
