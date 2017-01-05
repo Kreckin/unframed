@@ -44,12 +44,14 @@ class App extends Component {
     this.state = {
       isLoggedIn: null,
     };
+
+    this.loginCallback = this.loginCallback.bind(this);
+    this.logoutCallback = this.logoutCallback.bind(this);
   }
 
   componentWillMount() {
     userService.getLoginStatus()
       .then((resolve) => {
-        console.log('back from userService', resolve);
         this.setState({
           isLoggedIn: resolve,
         });
@@ -58,64 +60,79 @@ class App extends Component {
         console.log('Error in componentWillMount getLoginStatus', reject);
       });
   }
+
+  loginCallback(res) {
+    this.setState({
+      isLoggedIn: res,
+    });
+  }
+
+  logoutCallback(res) {
+    this.setState({
+      isLoggedIn: false,
+    });
+  }
+
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
     render() {
       if (this.state.isLoggedIn !== null) {
-        return (
-        <Router
-          navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
-          renderRightButton={AddPhotoIcon}
-        >
-              <Scene
-                key="tabBar"
-                tabs
-                tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
-              >
-              {/* Map Tab and its scenes */}
-                <Scene key='Map' title='Map' initial={this.state.isLoggedIn} icon={TabIcon}>
+        if (!this.state.isLoggedIn) {
+          return (
+            <Login loginCallback={this.loginCallback} logoutCallback={this.logoutCallback} />
+          );
+        } else {
+          return (
+          <Router
+            navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
+            renderRightButton={AddPhotoIcon}
+          >
+                <Scene
+                  key="tabBar"
+                  tabs
+                  tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
+                >
+                {/* Map Tab and its scenes */}
+                  <Scene key='Map' title='Map' icon={TabIcon}>
+                    <Scene 
+                      key='MapContainer'
+                      component={MapContainer}
+                      renderLeftButton={LensIcon}
+                    />
+                    <Scene 
+                      key='SpotInfo'
+                      component={SpotInfo}
+                      title='SpotInfo'
+                    />
+                  </Scene>
+                {/* Saved List Tab and its scenes */}
+                  <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                    <Scene 
+                      key='SavedList'
+                      component={SavedList}
+                    />
+                  </Scene>
+                {/* Profile Tab and its scenes */}
+                  <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                    <Scene 
+                      key='Profile'
+                      component={Profile}
+                      logoutCallback={this.logoutCallback}
+                    />
+                  </Scene>
                   <Scene 
-                    key='MapContainer'
-                    component={MapContainer}
-                    renderLeftButton={LensIcon}
+                    key='UploadPhotoContainer'
+                    component={UploadPhotoContainer}
                   />
                   <Scene 
-                    key='SpotInfo'
-                    component={SpotInfo}
-                    title='SpotInfo'
-                  />
+                    key='FlaggedContent'
+                    component={FlaggedContent}
+                  /> 
                 </Scene>
-              {/* Saved List Tab and its scenes */}
-                <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
-                  <Scene 
-                    key='SavedList'
-                    component={SavedList}
-                  />
-                </Scene>
-              {/* Profile Tab and its scenes */}
-                <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
-                  <Scene 
-                    key='Profile'
-                    component={Profile}
-                  />
-                </Scene>
-                <Scene 
-                  key='UploadPhotoContainer'
-                  component={UploadPhotoContainer}
-                />
-                <Scene 
-                  key='FlaggedContent'
-                  component={FlaggedContent}
-                /> 
-                <Scene 
-                  key='Login'
-                  initial={!this.state.isLoggedIn}
-                  component={Login}
-                />
-              </Scene>
-          </Router>
-        );
+            </Router>
+          );
+        }
       } else {
         return (
           <Spinner />

@@ -4,10 +4,10 @@ import { Actions } from 'react-native-router-flux';
 
 import FBLogIOButton from './FBLogIOButton';
 
-const Login = () => {
+const Login = (props) => {
   return (
     <View style={styles.body}>
-        <FBLogIOButton />
+        <FBLogIOButton loginCallback={props.loginCallback} logoutCallback={props.logoutCallback} />
     </View>
   );
 };

@@ -3,13 +3,13 @@ import { View, Text, StyleSheet} from 'react-native';
 import userService from '../../lib/userService';
 import FBButton from '../login/FBLogIOButton';
 
-const Profile = () => {
+const Profile = (props) => {
     if (userService.currentUser.displayName) {
         const displayName = userService.currentUser.displayName;
         return (
             <View style={styles.body}>
             <Text>Hello { displayName.slice(0, displayName.indexOf(' ')) }</Text>
-            <FBButton />
+            <FBButton logoutCallback={props.logoutCallback}/>
             </View>
         );
     }
