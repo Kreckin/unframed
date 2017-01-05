@@ -4,7 +4,7 @@
   "description": "hr thesis project",
   "main": "server.js",
   "scripts": {
-    "install": "(cd client && npm install) && (cd server && npm install) && (cd client/ios && pod install)",
+    "install": "(cd client && npm install) && (cd server && npm install)",
     "test": "jest",
     "start": "echo cd into client and server and run npm start separately"
   },
