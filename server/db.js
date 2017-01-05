@@ -55,7 +55,7 @@ const addSpotToGeomLayerAfterSave = function (spot) {
   });
 };
 
-Spot.on('afterSave', addSpotToGeomLayerAfterSave);
+//Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 //------ VALIDATION ------
 User.schema = {
   userID: { type: String, required: true },
@@ -75,7 +75,7 @@ module.exports = {
       } else {
         console.log('query',query)
         return new Promise((resolve, reject) => {
-          Spot.query('CALL spatial.withinDistance("geom", {coordinates}, {distance}) YIELD node',
+          db.query('CALL spatial.withinDistance("geom", {coordinates}, {distance})',
             { coordinates: { lat: parseFloat(query.lat), lon: parseFloat(query.lon) }, distance: parseFloat(query.distance) },
             (err, spots) => {
               if (err) reject(err);
@@ -88,7 +88,9 @@ module.exports = {
       return new Promise((resolve, reject) => {
         Spot.save(obj, (err, savedObject) => {
           if (err) reject(err);
-          else resolve(savedObject);
+          else {
+            addSpotToGeomLayerAfterSave(savedObject)
+            resolve(savedObject)};
         });
       });
     },
