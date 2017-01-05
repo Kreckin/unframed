@@ -12,10 +12,9 @@ import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
 import AddPhotoIcon from './components/map/AddPhotoIcon';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
-import FBLogIOButton from './components/login/FBLogIOButton';
 
 const map = require('./icons/map.png');
 const saved = require('./icons/star.png');
@@ -112,7 +111,7 @@ class App extends Component {
                 <Scene 
                   key='Login'
                   initial={!this.state.isLoggedIn}
-                  component={FBLogIOButton}
+                  component={Login}
                 />
               </Scene>
           </Router>
