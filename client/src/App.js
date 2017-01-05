@@ -83,6 +83,7 @@ class App extends Component {
           return (
           <Router
             navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
+            backButtonImage={require('./icons/backButton.png')}
           >
                 <Scene
                   key="tabBar"
@@ -98,7 +99,6 @@ class App extends Component {
                     <Scene 
                       key='SpotInfo'
                       component={SpotInfo}
-                      title='SpotInfo'
                     />
                   </Scene>
                   {/* Saved List Tab and its scenes */}
@@ -173,35 +173,3 @@ export default App;
 //                         /,_\                  .',_(
 //                        /___(                 /___(
 
-//Here is the tab bar with (unfinished) saved list and login pages connected
-// <Router 
-//           hideNavBar
-//           //navigationBarStyle={{}}
-//           >
-//             <Scene key='root'>
-//               <Scene 
-//                 key='MapContainer'
-//                 initial
-//                 component={MapContainer}
-//               />
-//               <Scene 
-//                 key='UploadPhotoContainer'
-//                 component={UploadPhotoContainer}
-//               />
-//               <Scene 
-//                 key='SpotInfo'
-//                 component={SpotInfo}
-//                 title='SpotInfo'
-//               />
-//               <Scene 
-//                 key='FlaggedContent'
-//                 component={FlaggedContent}
-//                 title='Flagged Content'
-//               />
-//               <Scene 
-//                 key='SavedItem'
-//                 component={SavedItem}
-//                 title='Saved Item'
-//               />
-//             </Scene>
-//           </Router>

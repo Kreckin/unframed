@@ -130,7 +130,7 @@ class MapContainer extends Component {
           ref={ref => { this.map = ref; }}
           //this will change the region as the user moves around the map
           onRegionChangeComplete={this.onRegionChangeComplete}
-          >
+        >
           {this.state.spots.map(spot => (
               //This maps all the spots (passed down from app as props)
               <MapView.Marker
