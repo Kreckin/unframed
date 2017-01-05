@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import FBLogIOButton from './FBLogIOButton';
 
 const Login = () => {
   return (
-    <View style={{ paddingTop: 65 }}>
-        <Text>OMG we're totally logging in right now</Text>
+    <View style={styles.body}>
         <FBLogIOButton />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+    body: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+});
 
 export default Login;

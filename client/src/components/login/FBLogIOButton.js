@@ -1,44 +1,83 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
+import { 
+  LoginButton, 
+  AccessToken, 
+  GraphRequest, 
+  GraphRequestManager } from 'react-native-fbsdk';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View } from 'react-native';
+import userService from '../../lib/userService';
 
-const FBSDK = require('react-native-fbsdk');
+const FBLogIOButton = React.createClass({
+  render: () => {
+    console.log('FBLogIOButton');
 
-const {
-  LoginButton,
-  AccessToken
-} = FBSDK;
-
-var FBLogIOButton = React.createClass({
-  render: function() {
     return (
       <View>
         <LoginButton
-          publishPermissions={["publish_actions"]}
+          readPermissions={['public_profile']}
           onLoginFinished={
             (error, result) => {
               if (error) {
-                alert("login has error: " + result.error);
+                console.log('error', error);
+                // TODO handle error
               } else if (result.isCancelled) {
-                alert("login is cancelled.");
+                console.log('login is cancelled.');
+                // TODO when user cancels
               } else {
+                console.log('result', result);
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    console.log(data);
-                    Actions.MapContainer();
+                    console.log('access token data', data.userID);
+                    // userService.postLogin(data);
+                    const photoRequest = new GraphRequest(
+                      `/${data.userID}/picture?redirect=false`,
+                      null,
+                      (err, res) => {
+                        if (error) console.log('Error from GraphRequest', err);
+                        if (result) {
+                          console.log('result from GraphRequest', res);
+                        }
+                      },
+                    );
+                    const infoRequest = new GraphRequest(
+                      '/me',
+                      null,
+                      (err, res) => {
+                        if (error) console.log('Error from GraphRequest', err);
+                        if (result) console.log('result from GraphRequest', res);
+                      },
+                    );
+                          
+                    new GraphRequestManager()
+                      .addRequest(photoRequest)
+                      .addRequest(infoRequest)
+                      .addBatchCallback((err, res) => {
+                        if (err) console.log('err in addBatchCallback', err);
+                        if (res) {
+                          console.log('res in addBatchCallback', res);
+                          Actions.MapContainer();
+                        }
+                      })
+                      .start();
                   }
                 );
               }
             }
           }
-          onLogoutFinished={() => {
-            alert('logged out');
-            Actions.Login();   
+          onLogoutFinished={ () => {
+              console.log('onLogoutFinished');
+              userService.logOut()
+                .then(() => {
+                  console.log('logged out');
+                })
+                .catch(() => {
+                  Actions.Login();   
+                });
             }
           } 
         />

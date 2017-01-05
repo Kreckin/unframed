@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 
 import FBButton from './login/FBLogIOButton';
 
-const profile = () => {
+const Profile = () => {
   return (
-    <View style={{ paddingTop: 65 }}>
-        <Text>OMG This is totally a useless profile page</Text>
+    <View style={styles.body}>
+        <Text>User Profile goes here</Text>
         <FBButton />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+    body: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+});
 
 export default Profile;
