@@ -1,9 +1,20 @@
+//How to get the top part of this to lock without scrolling?
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Image, TouchableHighlight, StatusBar } from 'react-native';
+import { 
+  View, 
+  ScrollView, 
+  Text, 
+  Image, 
+  TouchableHighlight, 
+  StatusBar, 
+  Dimensions 
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
+
+const { height, width } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -81,8 +92,56 @@ class SpotInfo extends Component {
     StatusBar.setBarStyle('light-content', true);
     return (
       <ScrollView >
-        <View style={styles.headerView}>
+    {/*Header*/}
+        <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText}>{this.props.spot.title}</Text>
+        </View>
+      {/*Picture*/}
+        <View style={styles.photoContainer}>
+          <Image 
+          source={require('../../icons/testGraffiti.jpg')}
+          />
+        </View>
+        <View style={styles.infoContainer}>
+      {/*Ratings*/}
+          <View style={styles.ratingsContainer}>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableHighlight
+                //onPress={}
+              >
+                <Image
+                  source={require('../../icons/thumbsDown.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <Text style={styles.textRating}>{this.state.downvotes}</Text>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <TouchableHighlight
+                //onPress={}
+              >
+                <Image
+                  source={require('../../icons/star.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <Text style={styles.textRating}>{this.state.mehvotes}</Text>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <TouchableHighlight
+                //onPress={}
+              >
+                <Image
+                  source={require('../../icons/thumbsUp.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <Text style={styles.textRating}>{this.state.upvotes}</Text>
+            </View>
+
+          </View>
         </View>
       </ScrollView>
     );
@@ -91,7 +150,7 @@ class SpotInfo extends Component {
 const styles = {
   headerView: {
     backgroundColor: '#00B89C',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   headerText: {
     fontSize: 36,
@@ -99,6 +158,33 @@ const styles = {
     color: '#EFEFF4',
     marginTop: 15,
     marginBottom: 5
-  }
+  },
+  photoContainer: {
+    backgroundColor: 'black',
+    width,
+    height: 300
+  },
+  infoContainer: {
+    backgroundColor: '#006F60',
+    width,
+    height: 300
+  },
+  ratingsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width,
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  iconRating: {
+    height: 25,
+    width: 25,
+    tintColor: '#EFEFF4'
+  },
+  textRating: {
+    paddingLeft: 10,
+    color: '#EFEFF4'
+  },
 };
 export default SpotInfo;

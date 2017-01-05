@@ -82,9 +82,9 @@ class App extends Component {
           );
         } else {
           return (
-
           <Router
             navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
+            //NEED TO FIGURE OUT A WAY TO REMOVE THIS FOR ANDROID
             backButtonImage={require('./icons/backButton.png')}
           >
             <Scene
