@@ -16,15 +16,13 @@ import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
 
-const map = require('./icons/map.png');
-const saved = require('./icons/star.png');
-const profile = require('./icons/profile.png');
 
 const TabIcon = ({ selected, title }) => {
   const iconMapper = {
-    Map: map,
-    Saved: saved,
-    Profile: profile
+    Map: require('./icons/map.png'),
+    Add: require('./icons/camera-big.png'),
+    Saved: require('./icons/star.png'),
+    Profile: require('./icons/profile.png')
   };
   return (
     <View style={{ alignItems: 'center' }}>
@@ -86,7 +84,6 @@ class App extends Component {
           return (
           <Router
             navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
-            renderRightButton={AddPhotoIcon}
           >
                 <Scene
                   key="tabBar"
@@ -98,12 +95,18 @@ class App extends Component {
                     <Scene 
                       key='MapContainer'
                       component={MapContainer}
-                      renderLeftButton={LensIcon}
                     />
                     <Scene 
                       key='SpotInfo'
                       component={SpotInfo}
                       title='SpotInfo'
+                    />
+                  </Scene>
+                  {/* Saved List Tab and its scenes */}
+                  <Scene key='CameraTab' title='Add' icon={TabIcon}>
+                    <Scene 
+                      key='UploadPhotoContainer'
+                      component={UploadPhotoContainer}
                     />
                   </Scene>
                 {/* Saved List Tab and its scenes */}

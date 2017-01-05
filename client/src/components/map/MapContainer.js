@@ -70,10 +70,17 @@ class MapContainer extends Component {
         },
         3
       );
+      // this.region = { 
+      //     latitude: res.lat, 
+      //     longitude: res.lng, 
+      //     latitudeDelta: LATITUDE_DELTA,
+      //     longitudeDelta: LONGITUDE_DELTA,
+      // };
     });
   }
 
   moveMapToCurrentPostion() {
+    console.log('moving map to current position!');
     navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
@@ -157,11 +164,9 @@ const styles = {
     top: 0,
     width,
     height
-  },
-  lensIcon: {
-    marginLeft: 10,
-    marginTop: 10
   }
+  //If you want to style the lens icon, go to SearchAddress to style because 
+  //for some reason it won't style in map container
 };
 
 export default MapContainer;

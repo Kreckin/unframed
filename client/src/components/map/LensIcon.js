@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, AlertIOS } from 'react-native';
+import { View, Image, TouchableOpacity, AlertIOS, Dimensions } from 'react-native';
 
+const { width } = Dimensions.get('window');
 
 //This is a button with a navigator icon. 
 //When you click it, it refreshs the map icon page (thus bringing you home)
@@ -35,7 +36,7 @@ const styles = {
 	searchIcon: {
 		height: 45,
 		width: 42.5,
-		marginLeft: 10,
+		marginLeft: width - 60,
 		marginTop: 31
 	}
 };
