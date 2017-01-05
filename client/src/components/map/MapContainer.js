@@ -70,17 +70,10 @@ class MapContainer extends Component {
         },
         3
       );
-      // this.region = { 
-      //     latitude: res.lat, 
-      //     longitude: res.lng, 
-      //     latitudeDelta: LATITUDE_DELTA,
-      //     longitudeDelta: LONGITUDE_DELTA,
-      // };
     });
   }
 
   moveMapToCurrentPostion() {
-    console.log('moving map to current position!');
     navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);

@@ -1,53 +1,34 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import getUser from '../../lib/getUser.js';
+import { LoginButton } from 'react-native-fbsdk';
+import { StyleSheet, View } from 'react-native';
+import userService from '../../lib/userService';
 
-const FBSDK = require('react-native-fbsdk');
-
-const {
-  LoginButton,
-  AccessToken
-} = FBSDK;
-
-var FBLogIOButton = React.createClass({
-  render: function() {
-    return (
-      <View>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("login has error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("login is cancelled.");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data);
-                    getUser(data.userID).then((user) => {
-                      Actions.MapContainer();
-                    });
-                  }
-                );
-              }
-            }
-          }
-          onLogoutFinished={() => {
-            alert('logged out');
-            Actions.Profile();   
-            }
-          } 
-        />
-      </View>
-    );
-  }
-});
+const FBLogIOButton = (props) => {
+  return (
+    <LoginButton
+      readPermissions={['public_profile']}
+      onLoginFinished={(error, result) => {
+        userService.loginHandler(error, result)
+          .then((res) => {
+            props.loginCallback(res);
+          })
+          .catch((res) => {
+            props.loginCallback(res);
+          });
+      }}
+      onLogoutFinished={() => {
+          userService.logOut()
+            .then(() => {
+              props.logoutCallback();
+            })
+            .catch(() => {
+              props.logoutCalback();
+            });
+        }
+      } 
+    />
+  );
+};
 
 export default FBLogIOButton;
