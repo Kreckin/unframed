@@ -107,7 +107,7 @@ class SpotInfo extends Component {
           <View style={styles.ratingsContainer}>
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
-                //onPress={}
+                onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
               >
                 <Image
                   source={require('../../icons/thumbsDown.png')}
@@ -119,7 +119,7 @@ class SpotInfo extends Component {
 
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
-                //onPress={}
+                onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
               >
                 <Image
                   source={require('../../icons/star.png')}
@@ -131,7 +131,7 @@ class SpotInfo extends Component {
 
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
-                //onPress={}
+                onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
               >
                 <Image
                   source={require('../../icons/thumbsUp.png')}
@@ -143,6 +143,16 @@ class SpotInfo extends Component {
 
           </View>
         </View>
+        <Toast
+          ref="toast"
+          style={{ backgroundColor: '#00B89C' }}
+          position='top'
+          positionValue={200}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{ color: 'black' }}
+          />
       </ScrollView>
     );
   }
