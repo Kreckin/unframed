@@ -96,10 +96,14 @@ class SpotInfo extends Component {
         <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText}>{this.props.spot.title}</Text>
         </View>
-      {/*Picture*/}
+      {/*Picture
+      Note: there is a black background that is currently not in use because 
+      I'm not sure how to style it based on image proportions
+      */}
         <View style={styles.photoContainer}>
           <Image 
-          source={require('../../icons/testGraffiti.jpg')}
+          source={{ uri: `${this.props.spot.img_url}` }} 
+          style={styles.imageStyle}
           />
         </View>
         <View style={styles.infoContainer}>
@@ -119,7 +123,7 @@ class SpotInfo extends Component {
 
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
-                onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
+                onPress={!disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
               >
                 <Image
                   source={require('../../icons/star.png')}
@@ -140,8 +144,11 @@ class SpotInfo extends Component {
               </TouchableHighlight>
               <Text style={styles.textRating}>{this.state.upvotes}</Text>
             </View>
-
           </View>
+          {/*Distance*/}
+          <Text style={styles.distanceStyle}>
+          [Calculate later] feet away
+          </Text>
         </View>
         <Toast
           ref="toast"
@@ -169,10 +176,17 @@ const styles = {
     marginTop: 15,
     marginBottom: 5
   },
+  //Change this to allow for varying photo types
   photoContainer: {
     backgroundColor: 'black',
     width,
     height: 300
+  },
+  //Also change this
+  imageStyle: {
+    height: null,
+    flex: 1, 
+    width,
   },
   infoContainer: {
     backgroundColor: '#006F60',
@@ -196,5 +210,13 @@ const styles = {
     paddingLeft: 10,
     color: '#EFEFF4'
   },
+  distanceStyle: {
+    color: '#EFEFF4',
+    fontStyle: 'italic',
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 16
+  }
 };
 export default SpotInfo;
