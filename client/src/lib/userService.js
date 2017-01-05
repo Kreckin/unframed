@@ -6,6 +6,7 @@ import {
   GraphRequest, 
   GraphRequestManager } from 'react-native-fbsdk';
 import { Actions } from 'react-native-router-flux';
+import config from './config.js';
 
 const userService = {
   currentUser: {},
@@ -29,17 +30,34 @@ const userService = {
     });
   },
 
-  cacheCurrentUser: () => {
-    return new Promise ((resolve, reject) => {
+  cacheAndPostCurrentUser: () => {
+    const postConfig = {
+      method: 'POST',
+      headers: {
+       'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userService.currentUser),
+    };
+
+    const cachePromise = new Promise ((resolve, reject) => {
       AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
       .then((data) => {
         resolve();
       })
       .catch((err) => {
-        console.log('err in cacheCurrentUser', err);
+        console.log('err in cacheAndPostCurrentUser', err);
         reject(err);
       });
     });
+
+    //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
+    const postPromise = fetch(`${config.apiUrl}/users`, postConfig)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(error => console.log(error))
+
+    return Promise.all([cachePromise, postPromise]);
   },
 
   logOut: () => {
@@ -57,7 +75,7 @@ const userService = {
   },
 
   loginHandler: (error, result, cb) => {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if (error) {
         console.log('error', error);
         // TODO handle error
@@ -68,7 +86,7 @@ const userService = {
         AccessToken.getCurrentAccessToken().then(
           (data) => {
             const photoRequest = new GraphRequest(
-              `/${data.userID}/picture?redirect=false`,
+              `/${data.userId}/picture?redirect=false`,
               null,
               (err, res) => {
                 if (err) console.log('Error from GraphRequest', err);
@@ -84,7 +102,7 @@ const userService = {
                 if (error) console.log('Error from GraphRequest', err);
                 if (res) {
                   userService.currentUser.displayName = res.name;
-                  userService.currentUser.userId = res.id;
+                  userService.currentUser.userID = res.id;
                 }
               },
             );
@@ -95,7 +113,7 @@ const userService = {
               .addBatchCallback((err, res) => {
                 if (err) console.log('err in addBatchCallback', err);
                 if (res) {
-                  userService.cacheCurrentUser()
+                  userService.cacheAndPostCurrentUser()
                     .then(() => {
                       resolve(true);
                     })
@@ -109,7 +127,7 @@ const userService = {
           }
         );
       }
-    })
+    });
   } 
 };
 
