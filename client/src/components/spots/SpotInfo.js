@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 import Votes from '../../lib/votes.js';
 
@@ -66,7 +67,17 @@ class SpotInfo extends Component {
       //unsaveThisItem() <- a lib function
     //}
   }
+  //our toast function, which surprisingingly shows toasts
+  toastAlert() {
+    //this takes two params, the text to show and for how long to show it
+    this.refs.toast.show('Come to this location to vote!', 2000);
+  }
   render() {
+      //we convert the distance we get from the spot to feet
+       const feet = (parseFloat(this.props.spot.distance) * 3280.84);
+       //this is an easy toggle but it checks if feet is greater than 1000
+       //this is used later when determining the onClick events to use
+       const disabled = feet > 1000;
     return (
       <View style={styles.viewStyle}>
           <Text style={styles.titleStyle}>
@@ -114,7 +125,7 @@ class SpotInfo extends Component {
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
-              onPress={this.downVote.bind(this)}
+              onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
             >
               <Image
                 style={styles.thumbImageStyle}
@@ -122,14 +133,15 @@ class SpotInfo extends Component {
               />
             </TouchableHighlight>
             <TouchableHighlight
+              disabled={disabled}
               style={styles.mehVoteStyle}
-              onPress={this.mehVote.bind(this)}
+              onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
             >
               <Text>Meh</Text>
             </TouchableHighlight>
             <TouchableHighlight
               style={styles.upVoteStyle}
-              onPress={this.upVote.bind(this)}
+              onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
             >
               <Image
                 style={styles.thumbImageStyle}
@@ -143,6 +155,16 @@ class SpotInfo extends Component {
           >
             <Text>Back to map</Text>
           </TouchableHighlight>
+          <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#00B89C' }}
+                    position='top'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: 'black' }}
+          />
       </View>
     );
   }
