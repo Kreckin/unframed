@@ -102,36 +102,33 @@ class App extends Component {
                   key='SpotInfo'
                   component={SpotInfo}
                 />
-              </Scene>
-                {/* Saved List Tab and its scenes */}
-                  <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
-                    <Scene 
-                      key='SavedList'
-                      component={SavedList}
-                    />
-                  </Scene>
-                {/* Profile Tab and its scenes */}
-                  <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
-                    <Scene 
-                      key='Profile'
-                      component={Profile}
-                      loginCallback={this.loginCallback}
-                      logoutCallback={this.logoutCallback}
-                    />
-                  </Scene>
-                  <Scene 
-                    key='UploadPhotoContainer'
-                    component={UploadPhotoContainer}
-                  />
-                </Scene>
-                <Scene 
-                  key='UploadPhotoContainer'
-                  component={UploadPhotoContainer}
-                />
                 <Scene 
                   key='FlaggedContent'
                   component={FlaggedContent}
                 /> 
+              </Scene>
+                {/* Saved List Tab and its scenes */}
+              <Scene key='CameraTab' title='Add' icon={TabIcon}>
+                <Scene 
+                  key='UploadPhotoContainer'
+                  component={UploadPhotoContainer}
+                />
+              </Scene>
+              {/* Saved List Tab and its scenes */}
+              <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                <Scene 
+                  key='SavedList'
+                  component={SavedList}
+                />
+              </Scene>
+              {/* Profile Tab and its scenes */}
+              <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                <Scene 
+                  key='Profile'
+                  component={Profile}
+                  logoutCallback={this.logoutCallback}
+                />
+                </Scene>
               </Scene>
             </Router>
           );
