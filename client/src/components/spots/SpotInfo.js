@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import config from '../../lib/config.js';
+import Votes from '../../lib/votes.js';
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class SpotInfo extends Component {
     //fetch the vote tally
     this.setState({
       upvotes: this.props.spot.upvotes,
-      downvotes: this.props.spot.downvotes
+      downvotes: this.props.spot.downvotes,
+      mehvotes: this.props.spot.mehvotes
     });
     //checkIfSaved()
   }
@@ -36,26 +37,27 @@ class SpotInfo extends Component {
   // }
 
   upVote() {
-    fetch(`${config.apiUrl}/upvote/${this.props.spot.spot_id}`)
-      .then((res) => res.json())
+    Votes.upVote(this.props.spot.spot_id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes });
-      })
-      .catch((err) => {
-        console.log('error in upvote', err);
-      });
+    });
   }
   
   downVote() {
-    fetch(`${config.apiUrl}/downvote/${this.props.spot.spot_id}`)
-      .then((res) => res.json())
+    Votes.downVote(this.props.spot.spot_id)
       .then((res) => {
         this.setState({ downvotes: res.downvotes });
-      })
-      .catch((err) => {
-        console.log('error in upvote', err);
-      });
+    });
   }
+
+  mehVote() {
+    //TODO add server call 
+    Votes.mehVote(this.props.spot.spot_id)
+      .then((res) => {
+        this.setState({ mehvotes: res.mehvotes });
+    });
+  }
+
   starClick() {
     this.setState({ saved: !this.state.saved });
     //if (saved){
@@ -105,7 +107,10 @@ class SpotInfo extends Component {
            
 {this.props.spot.description ? this.props.spot.description : 'No description currently available'}
           </Text>
-          
+          <View>
+              <Text style={styles.voteTotalStyle}>{ this.state.upvotes } upvotes</Text>
+              <Text style={styles.voteTotalStyle}>{ this.state.downvotes } downvotes</Text>
+          </View>
           <View style={styles.voteRowStyle}>
             <TouchableHighlight
               style={styles.downVoteStyle}
@@ -116,10 +121,12 @@ class SpotInfo extends Component {
                 source={require('../../icons/thumbsDown.png')}
               />
             </TouchableHighlight>
-            <View>
-              <Text style={styles.voteTotalStyle}>{ this.state.upvotes } upvotes</Text>
-              <Text style={styles.voteTotalStyle}>{ this.state.downvotes } downvotes</Text>
-            </View>
+            <TouchableHighlight
+              style={styles.mehVoteStyle}
+              onPress={this.mehVote.bind(this)}
+            >
+              <Text>Meh</Text>
+            </TouchableHighlight>
             <TouchableHighlight
               style={styles.upVoteStyle}
               onPress={this.upVote.bind(this)}
@@ -192,6 +199,17 @@ const styles = {
   upVoteStyle: {
     //marginTop: 3,
     backgroundColor: '#70db70',
+    //padding: 4,
+    borderWidth: 2,
+    borderRadius: 7,
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center'  
+  },
+  mehVoteStyle: {
+    //marginTop: 3,
+    backgroundColor: 'grey',
     //padding: 4,
     borderWidth: 2,
     borderRadius: 7,

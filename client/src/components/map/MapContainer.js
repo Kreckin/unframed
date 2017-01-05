@@ -17,6 +17,8 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+const mapPin = require('../../icons/map-pin.png');
+
 //Here is a map stripped down to it's very basic core
 class MapContainer extends Component {
   constructor(props) {
@@ -119,20 +121,9 @@ class MapContainer extends Component {
   render() {
     return (
       <View>
-        <View style={styles.navBar}>
-          {this.state.platform === 'ios' ? 
-          //IOS does not show the home button, so we have a custom one here that shows only for 
-          //IOS phones (Android has their own)
-          <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
-          <LensIcon
-            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-          />
-          <AddPhotoIcon />
-        </View>
         <MapView 
           style={styles.map}
           showsUserLocation
-          showsScale
           loadingEnabled
           showsCompass
           showsMyLocationButton
@@ -150,7 +141,7 @@ class MapContainer extends Component {
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
                 description={spot.category}
-                image={spot.icon}
+                image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}
                 //This changes the scene to the blurb with the spot passed down as props
@@ -158,6 +149,10 @@ class MapContainer extends Component {
               />
             ))}
         </MapView>
+        <LensIcon 
+          style={styles.lensIcon}
+          handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+        />
       </View>
     );
   }
@@ -165,22 +160,27 @@ class MapContainer extends Component {
 // sets the map as the width and heigh of the screen
 const styles = {
   map: {
+    position: 'absolute',
+    top: 0,
     width,
     height
   },
-  navBar: {
-    backgroundColor: 'white', 
-    marginTop: 30,
-    height: 45, 
-    borderBottomWidth: 1, 
-    flex: 1, 
-    justifyContent: 'center', 
-    flexDirection: 'row'
-  }, 
-  logOutBar: {
-    marginBottom: 30,
-    height: 45,
+  lensIcon: {
+    marginLeft: 10,
+    marginTop: 10
   }
 };
 
 export default MapContainer;
+
+
+//        <View style={styles.navBar}>
+        //   {this.state.platform === 'ios' ? 
+        //   //IOS does not show the home button, so we have a custom one here that shows only for 
+        //   //IOS phones (Android has their own)
+        //   <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
+        //   <LensIcon
+        //     handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+        //   />
+        //   <AddPhotoIcon />
+        // </View>

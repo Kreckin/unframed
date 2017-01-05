@@ -7,6 +7,8 @@ const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
 
+const votePercentage = require('./controllers/calcVotePercent');
+
 // ------ VALIDATION ------
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
@@ -17,6 +19,7 @@ Spot.schema = {
   longitude: { type: Number, required: true },
   upvotes: { type: Number, default: 1 },
   downvotes: { type: Number, default: 0 },
+  mehvotes: { type: Number, default: 0 }, 
   percentage: { type: Number, default: 1 },
   //we give it a "random" id since we can't use the built in one for some reason
   spot_id: { default: Math.floor(Math.random() * 10000000) }
@@ -92,12 +95,24 @@ module.exports = {
   },
 
   users: {
-    get: () => {
+    get: (id) => {
       return new Promise((resolve, reject) => {
-        User.findAll((err, allOfTheseModels) => {
+        User.where({ userID: id }, ((err, user) => {
           if (err) reject(err);
-          else resolve(allOfTheseModels);
-        });
+          else {
+            console.log('this is the user!', user);
+            if (user.length) {
+              resolve(user[0]);
+            } else {
+              console.log('New User alert!')
+              module.exports.users.post({ userID: id })
+              .then((obj) => {
+                console.log('this is the new user',obj)
+                resolve(obj)
+              });
+            }
+          }
+        }));
       });
     },
     post: (obj) => {
@@ -137,7 +152,7 @@ module.exports = {
           else {
             console.log('this is the spot!', spot);
             spot[0].upvotes++;
-            spot[0].percentage = spot[0].upvotes / (spot[0].upvotes + spot[0].downvotes);
+            spot[0].percentage = votePercentage(spot[0]);
             Spot.update(spot[0], (error, savedObject) => {
               console.log('this is the second spot, ', spot)
               if (error) reject(error);
@@ -151,7 +166,21 @@ module.exports = {
       return new Promise((resolve, reject) => {
         Spot.where({ spot_id: id }, (err, spot) => {
           spot[0].downvotes++;
-          spot[0].percentage = spot[0].upvotes / (spot[0].upvotes + spot[0].downvotes);
+          spot[0].percentage = votePercentage(spot[0]);
+          Spot.update(spot[0], (error, savedObject) => {
+            if (error) reject(error);
+            else resolve(savedObject);
+          });
+        });
+      });
+    },
+    mehvote: (id) => {
+      return new Promise((resolve, reject) => {
+        Spot.where({ spot_id: id }, (err, spot) => {
+          console.log('spot[0]', spot[0]);
+          spot[0].mehvotes++;
+          spot[0].percentage = votePercentage(spot[0]);
+          console.log(spot[0].percentage);
           Spot.update(spot[0], (error, savedObject) => {
             if (error) reject(error);
             else resolve(savedObject);

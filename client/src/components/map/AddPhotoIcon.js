@@ -21,11 +21,8 @@ const AddPhotoIcon = function () {
 };
 const styles = {
 	cameraIcon: {
-		width: 30,
-		height: 30,
-		marginRight: 5,
-		justifyContent: 'center',
-		alignSelf: 'flex-end'
+		width: 45,
+		height: 45,
 	}
 };
 

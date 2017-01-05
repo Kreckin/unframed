@@ -105,8 +105,9 @@ app.post('/categories', (req, res) => {
     });
 });
 
-app.get('/users', (req, res) => {
-  db.users.get()
+app.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  db.users.get(id)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
@@ -148,6 +149,18 @@ app.get('/upvote/:id', (req, res) => {
 
 app.get('/downvote/:id', (req, res) => {
   db.votes.downvote(parseFloat(req.params.id))
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+
+app.get('/mehvote/:id', (req, res) => {
+  db.votes.mehvote(parseFloat(req.params.id))
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);

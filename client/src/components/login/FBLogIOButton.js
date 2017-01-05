@@ -11,6 +11,8 @@ import {
   Text,
   View } from 'react-native';
 import userService from '../../lib/userService';
+import getUser from '../../lib/getUser.js';
+const FBSDK = require('react-native-fbsdk');
 
 const FBLogIOButton = React.createClass({
   render: () => {
