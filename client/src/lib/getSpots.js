@@ -1,8 +1,5 @@
 import config from './config.js';
 
-const tree = require('../icons/tree-small.png');
-const spraycan = require('../icons/spraycan-small.png');
-const wreath = require('../icons/wreath-small.png');
 
 const getSpots = (lat, lon, distance) => {
   return new Promise((resolve, reject) => {
@@ -25,22 +22,22 @@ const imageGetter = (data) => {
   //Change these later as now they are all the same
   const imgObj = {
     'Street art': {
-      new: spraycan,
-      top: spraycan,
-      middle: spraycan,
-      low: spraycan
+      new: '',
+      top: '',
+      middle: '',
+      low: ''
     },
     Holiday: {
-      new: wreath,
-      top: wreath,
-      middle: wreath,
-      low: wreath
+      new: '',
+      top: '',
+      middle: '',
+      low: ''
     },
     Nature: {
-      new: tree,
-      top: tree,
-      middle: tree,
-      low: tree
+      new: '',
+      top: '',
+      middle: '',
+      low: ''
     }
   };
   for (let i = 0; i < data.length; i++) {
