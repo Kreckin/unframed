@@ -9,7 +9,7 @@ const Profile = (props) => {
         return (
             <View style={styles.body}>
             <Text>Hello { displayName.slice(0, displayName.indexOf(' ')) }</Text>
-            <FBButton logoutCallback={props.logoutCallback}/>
+            <FBButton logoutCallback={props.logoutCallback} loginCallback={props.loginCallback} />
             </View>
         );
     }
