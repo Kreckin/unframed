@@ -20,10 +20,10 @@ class SpotInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //This state is here just for the time being to test the save functionality
-      //Delete it once the lib functions are working
-      //saved: this.props.user
-      saved: true
+      //These states are here just for the time being to test the save functionality
+      //Delete them once the lib functions are working and categories are up
+      saved: true,
+      categories: ['such art', 'the best', 'wooooow']
     };
   }
 
@@ -133,7 +133,7 @@ class SpotInfo extends Component {
               <Text style={styles.textRating}>{this.state.mehvotes}</Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <TouchableHighlight
                 onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
               >
@@ -149,6 +149,24 @@ class SpotInfo extends Component {
           <Text style={styles.distanceStyle}>
           [Calculate later] feet away
           </Text>
+          {/*Description*/}
+          <Text style={styles.descriptionStyle}>
+            {this.props.spot.description ? this.props.spot.description : 
+              'No description currently available for this location'}
+          </Text>
+        {/*Categories*/}
+        <View style={styles.categoryContainer}>
+
+          {this.state.categories.map(category =>
+              //This maps out all the dummy data categories into separate categories. 
+              <View 
+                key={category}
+                style={styles.categoryViewStyle}
+              > 
+                <Text style={styles.categoryTextStyle}>{category}</Text>
+              </View>
+            )}
+        </View>
         </View>
         <Toast
           ref="toast"
@@ -216,7 +234,31 @@ const styles = {
     paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
+    fontSize: 20
+  },
+  descriptionStyle: {
+    color: '#EFEFF4',
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     fontSize: 16
-  }
+  },
+  categoryContainer: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  categoryViewStyle: {
+    backgroundColor: '#00B89C',
+    padding: 5,
+    borderRadius: 8,
+  },
+  categoryTextStyle: {
+    color: '#EFEFF4',
+    fontSize: 14,
+    fontStyle: 'italic',
+  },
 };
 export default SpotInfo;
