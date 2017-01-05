@@ -11,7 +11,6 @@ import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
-import AddPhotoIcon from './components/map/AddPhotoIcon';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
