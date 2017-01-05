@@ -15,6 +15,7 @@ import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
 
+const Platform = require('react-native').Platform;
 
 const TabIcon = ({ selected, title }) => {
   const iconMapper = {
@@ -81,33 +82,27 @@ class App extends Component {
           );
         } else {
           return (
+
           <Router
             navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
             backButtonImage={require('./icons/backButton.png')}
           >
-                <Scene
-                  key="tabBar"
-                  tabs
-                  tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
-                >
-                {/* Map Tab and its scenes */}
-                  <Scene key='Map' title='Map' icon={TabIcon}>
-                    <Scene 
-                      key='MapContainer'
-                      component={MapContainer}
-                    />
-                    <Scene 
-                      key='SpotInfo'
-                      component={SpotInfo}
-                    />
-                  </Scene>
-                  {/* Saved List Tab and its scenes */}
-                  <Scene key='CameraTab' title='Add' icon={TabIcon}>
-                    <Scene 
-                      key='UploadPhotoContainer'
-                      component={UploadPhotoContainer}
-                    />
-                  </Scene>
+            <Scene
+              key="tabBar"
+              tabs
+              tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
+            >
+              {/* Map Tab and its scenes */}
+              <Scene key='Map' title='Map' icon={TabIcon}>
+                <Scene 
+                  key='MapContainer'
+                  component={MapContainer}
+                />
+                <Scene 
+                  key='SpotInfo'
+                  component={SpotInfo}
+                />
+              </Scene>
                 {/* Saved List Tab and its scenes */}
                   <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
                     <Scene 
@@ -128,11 +123,16 @@ class App extends Component {
                     key='UploadPhotoContainer'
                     component={UploadPhotoContainer}
                   />
-                  <Scene 
-                    key='FlaggedContent'
-                    component={FlaggedContent}
-                  /> 
                 </Scene>
+                <Scene 
+                  key='UploadPhotoContainer'
+                  component={UploadPhotoContainer}
+                />
+                <Scene 
+                  key='FlaggedContent'
+                  component={FlaggedContent}
+                /> 
+              </Scene>
             </Router>
           );
         }
