@@ -7,7 +7,7 @@ const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
 
-const votePercentage = require('./controllers/calcVotePercent');
+const spotUpdater = require('./controllers/spotUpdater');
 
 // ------ SPOT VALIDATION ------
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
@@ -108,6 +108,7 @@ module.exports = {
       });
     },
     post: (obj) => {
+      console.log('obj-----------', obj);
       return new Promise((resolve, reject) => {
         User.exists(obj, (err, doesExist) => {
           if (err) reject(err);
@@ -117,7 +118,7 @@ module.exports = {
               else resolve(savedObject);
             });
           } else {
-            resolve('User already exists');
+            resolve(module.exports.users.get(obj.userID));
           }
         });
       });
@@ -144,50 +145,110 @@ module.exports = {
   },
 
   votes: {
-    upvote: (id) => {
+    update: (uid, sid, voteType) => {
       return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, ((err, spot) => {
-          if (err) reject(err);
+        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, relationship) => {
+          if (error) { reject(error);} 
           else {
-            console.log('this is the spot!', spot);
-            spot[0].upvotes++;
-            spot[0].percentage = votePercentage(spot[0]);
-            Spot.update(spot[0], (error, savedObject) => {
-              console.log('this is the second spot, ', spot)
-              if (error) reject(error);
-              else resolve(savedObject);
+            console.log('relationship', relationship);
+            if(relationship.length){
+              relationship[0].properties.voteType = voteType;
+              db.rel.update(relationship[0], (error, savedObject) => {
+                if (error) reject(error);
+                else resolve(savedObject);
               });
+            }
+            else{
+              db.relate(uid, 'voted', sid, {voteType: voteType}, (err, res) => {
+                if (err) reject(err);
+                else resolve(res);
+              })
+            }
           }
-        }));
-      });
-    },
-    downvote: (id) => {
-      return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, (err, spot) => {
-          spot[0].downvotes++;
-          spot[0].percentage = votePercentage(spot[0]);
-          Spot.update(spot[0], (error, savedObject) => {
-            if (error) reject(error);
-            else resolve(savedObject);
-          });
         });
       });
     },
-    mehvote: (id) => {
+    updateSpotPercentage: (sid) => {
       return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, (err, spot) => {
-          console.log('spot[0]', spot[0]);
-          spot[0].mehvotes++;
-          spot[0].percentage = votePercentage(spot[0]);
-          console.log(spot[0].percentage);
-          Spot.update(spot[0], (error, savedObject) => {
-            if (error) reject(error);
-            else resolve(savedObject);
-          });
+        db.relationships(sid, 'in', 'voted', (err, votes) => {
+           if (err) { reject(err);}
+           else {
+            const voteInfo = spotUpdater(votes);
+            db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${sid} RETURN s`, (error, node) => {
+              if (err) { reject(err); }
+              else {
+                node[0].upvotes    = voteInfo.ups;
+                node[0].downvotes  = voteInfo.downs;
+                node[0].mehvotes   = voteInfo.mehs;
+                node[0].percentage = voteInfo.percent;
+
+                db.save(node[0], function(err,node){
+                  resolve(node);
+                });
+              }
+            });
+           }   
         });
       });
-    }
+    },
+    mehVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'mehvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
+    upVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'upvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
+    downVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'downvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
+
+
   },
+
+  // votes: {
+  //   upvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, ((err, spot) => {
+  //         if (err) reject(err);
+  //         else {
+  //           console.log('this is the spot!', spot);
+  //           spot[0].upvotes++;
+  //           spot[0].percentage = votePercentage(spot[0]);
+  //           Spot.update(spot[0], (error, savedObject) => {
+  //             console.log('this is the second spot, ', spot)
+  //             if (error) reject(error);
+  //             else resolve(savedObject);
+  //             });
+  //         }
+  //       }));
+  //     });
+  //   },
+  //   downvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, (err, spot) => {
+  //         spot[0].downvotes++;
+  //         spot[0].percentage = votePercentage(spot[0]);
+  //         Spot.update(spot[0], (error, savedObject) => {
+  //           if (error) reject(error);
+  //           else resolve(savedObject);
+  //         });
+  //       });
+  //     });
+  //   },
+  //   mehvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, (err, spot) => {
+  //         console.log('spot[0]', spot[0]);
+  //         spot[0].mehvotes++;
+  //         spot[0].percentage = votePercentage(spot[0]);
+  //         console.log(spot[0].percentage);
+  //         Spot.update(spot[0], (error, savedObject) => {
+  //           if (error) reject(error);
+  //           else resolve(savedObject);
+  //         });
+  //       });
+  //     });
+  //   }
+  // },
   favorites: {
     get: (userID) => {
       return new Promise((resolve, reject) => {
