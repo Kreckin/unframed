@@ -81,14 +81,11 @@ export default class UploadPhotoContainer extends Component {
   }
   takePhoto() {
     ImagePicker.launchCamera({ noData: true, allowsEditing: true }, (response) => {
-      console.log('in the post thingggy with response', response);
       //this checks if your photo has geolocation data. If not, it takes your current location
       if (response.latitude === undefined || response.longitude === undefined) {
-        console.log('no lat long in photo!');
         navigator.geolocation.getCurrentPosition((position) => {
           response.latitude = position.coords.latitude;
           response.longitude = position.coords.longitude;
-          console.log('using current location!');
           this.setImage(response);
         });
       }
