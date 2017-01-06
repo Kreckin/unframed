@@ -73,7 +73,7 @@ class App extends Component {
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
-    render() {
+render() {
       if (this.state.isLoggedIn !== null) {
         if (!this.state.isLoggedIn) {
           return (
@@ -107,31 +107,28 @@ class App extends Component {
                 /> 
               </Scene>
                 {/* Saved List Tab and its scenes */}
-                  <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
-                    <Scene 
-                      key='SavedList'
-                      component={SavedList}
-                      initial
-                    />
-                  </Scene>
-                {/* Profile Tab and its scenes */}
-                  <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
-                    <Scene 
-                      key='Profile'
-                      component={Profile}
-                      loginCallback={this.loginCallback}
-                      logoutCallback={this.logoutCallback}
-                    />
-                  </Scene>
-                  <Scene 
-                    key='UploadPhotoContainer'
-                    component={UploadPhotoContainer}
-                  />
-                  <Scene 
-                    key='FlaggedContent'
-                    component={FlaggedContent}
-                  /> 
+              <Scene key='CameraTab' title='Add' icon={TabIcon}>
+                <Scene 
+                  key='UploadPhotoContainer'
+                  component={UploadPhotoContainer}
+                />
+              </Scene>
+              {/* Saved List Tab and its scenes */}
+              <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                <Scene 
+                  key='SavedList'
+                  component={SavedList}
+                />
+              </Scene>
+              {/* Profile Tab and its scenes */}
+              <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                <Scene 
+                  key='Profile'
+                  component={Profile}
+                  logoutCallback={this.logoutCallback}
+                />
                 </Scene>
+              </Scene>
             </Router>
           );
         }
