@@ -163,7 +163,7 @@ class SpotInfo extends Component {
           </View>
           {/*Distance*/}
           <Text style={styles.distanceStyle}>
-          [Calculate later] feet away
+          {parseInt(feet)} feet away
           </Text>
           {/*Description*/}
           <Text style={styles.descriptionStyle}>
