@@ -107,28 +107,6 @@ class App extends Component {
                 /> 
               </Scene>
                 {/* Saved List Tab and its scenes */}
-<<<<<<< HEAD
-              <Scene key='CameraTab' title='Add' icon={TabIcon}>
-                <Scene 
-                  key='UploadPhotoContainer'
-                  component={UploadPhotoContainer}
-                />
-              </Scene>
-              {/* Saved List Tab and its scenes */}
-              <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
-                <Scene 
-                  key='SavedList'
-                  component={SavedList}
-                />
-              </Scene>
-              {/* Profile Tab and its scenes */}
-              <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
-                <Scene 
-                  key='Profile'
-                  component={Profile}
-                  logoutCallback={this.logoutCallback}
-                />
-=======
                   <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
                     <Scene 
                       key='SavedList'
@@ -153,9 +131,7 @@ class App extends Component {
                     key='FlaggedContent'
                     component={FlaggedContent}
                   /> 
->>>>>>> Saved Spots partially functional
                 </Scene>
-              </Scene>
             </Router>
           );
         }
