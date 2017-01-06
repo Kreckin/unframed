@@ -102,7 +102,7 @@ class App extends Component {
                       title='SpotInfo'
                     />
                   </Scene>
-                  {/* Saved List Tab and its scenes */}
+                {/* Saved List Tab and its scenes */}
                   <Scene key='CameraTab' title='Add' icon={TabIcon}>
                     <Scene 
                       key='UploadPhotoContainer'
