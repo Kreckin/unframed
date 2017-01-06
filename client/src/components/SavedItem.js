@@ -3,12 +3,12 @@ import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native'
 
 const { width } = Dimensions.get('window');
 
-const SavedItem = () => {
+const SavedItem = (props) => {
   return (
     <View style={styles.itemStyle}>
-      <View style={{ flexDirection: 'row', borderWidth: 3 }}>
-        <Text style={styles.titleStyle}>A great title</Text>
-        <TouchableHighlight>
+      <View style={styles.titleBarStyle}>
+        <Text style={styles.titleStyle}>{props.title}</Text>
+        <TouchableHighlight onPress={function () { props.removeSavedSpot(props.id); }}>
           <Image
             style={styles.trashStyle}
             source={require('../icons/trash.png')}
@@ -16,7 +16,7 @@ const SavedItem = () => {
         </TouchableHighlight>
       </View>
       <View style={{ flexDirection: 'row', borderWidth: 3 }}>
-        <Text style={styles.categoryStyle}>Street art</Text>
+        <Text style={styles.categoryStyle}>{props.description}</Text>
         <Text style={styles.distanceStyle}>1000 feet away</Text>
       </View>
     </View>
@@ -30,17 +30,22 @@ const styles = {
     height: 60,
     borderRadius: 4,
     borderColor: 'grey',
-    borderWidth: 2,
-    backgroundColor: 'blue'
+    borderWidth: 2
   },
   titleStyle: {
-    fontSize: 28,
+    fontSize: 12,
     alignSelf: 'flex-start'
+  },
+  titleBarStyle: {
+    flexDirection: 'row',
+    borderWidth: 3,
+    justifyContent: 'space-between'
   },
   distanceStyle: {
     fontSize: 14,
     alignSelf: 'flex-end',
-    flex: 1
+    flex: 1,
+    textAlign: 'right'
   },
   categoryStyle: {
     fontSize: 14,
@@ -48,8 +53,8 @@ const styles = {
     flex: 1
   },
   trashStyle: {
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
     alignSelf: 'flex-end'
   }
 };

@@ -9,7 +9,6 @@ import LensIcon from './components/map/LensIcon';
 import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
-import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
@@ -108,6 +107,7 @@ class App extends Component {
                 /> 
               </Scene>
                 {/* Saved List Tab and its scenes */}
+<<<<<<< HEAD
               <Scene key='CameraTab' title='Add' icon={TabIcon}>
                 <Scene 
                   key='UploadPhotoContainer'
@@ -128,6 +128,32 @@ class App extends Component {
                   component={Profile}
                   logoutCallback={this.logoutCallback}
                 />
+=======
+                  <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                    <Scene 
+                      key='SavedList'
+                      component={SavedList}
+                      initial
+                    />
+                  </Scene>
+                {/* Profile Tab and its scenes */}
+                  <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                    <Scene 
+                      key='Profile'
+                      component={Profile}
+                      loginCallback={this.loginCallback}
+                      logoutCallback={this.logoutCallback}
+                    />
+                  </Scene>
+                  <Scene 
+                    key='UploadPhotoContainer'
+                    component={UploadPhotoContainer}
+                  />
+                  <Scene 
+                    key='FlaggedContent'
+                    component={FlaggedContent}
+                  /> 
+>>>>>>> Saved Spots partially functional
                 </Scene>
               </Scene>
             </Router>
