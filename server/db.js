@@ -144,50 +144,83 @@ module.exports = {
   },
 
   votes: {
-    upvote: (id) => {
+    updateVote: (uid, sid, voteType) => {
       return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, ((err, spot) => {
-          if (err) reject(err);
+        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, relationship) => {
+          if (error) { reject(error);} 
           else {
-            console.log('this is the spot!', spot);
-            spot[0].upvotes++;
-            spot[0].percentage = votePercentage(spot[0]);
-            Spot.update(spot[0], (error, savedObject) => {
-              console.log('this is the second spot, ', spot)
-              if (error) reject(error);
-              else resolve(savedObject);
+            console.log('relationship', relationship);
+            if(relationship.length){
+              relationship[0].properties.voteType = voteType;
+              db.rel.update(relationship[0], (error, savedObject) => {
+                if (error) reject(error);
+                else resolve(savedObject);
               });
+            }
+            else{
+              db.relate(uid, 'voted', sid, {voteType: voteType}, (err, res) => {
+                if (err) reject(err);
+                else resolve(res);
+              })
+            }
           }
-        }));
-      });
-    },
-    downvote: (id) => {
-      return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, (err, spot) => {
-          spot[0].downvotes++;
-          spot[0].percentage = votePercentage(spot[0]);
-          Spot.update(spot[0], (error, savedObject) => {
-            if (error) reject(error);
-            else resolve(savedObject);
-          });
         });
       });
     },
-    mehvote: (id) => {
-      return new Promise((resolve, reject) => {
-        Spot.where({ spot_id: id }, (err, spot) => {
-          console.log('spot[0]', spot[0]);
-          spot[0].mehvotes++;
-          spot[0].percentage = votePercentage(spot[0]);
-          console.log(spot[0].percentage);
-          Spot.update(spot[0], (error, savedObject) => {
-            if (error) reject(error);
-            else resolve(savedObject);
-          });
-        });
-      });
-    }
+    updateSpot: (userID, spotID, voteType) => {
+ 
+    },
+    meh: (userID, spotID) => module.exports.votes.updateVote(userID, spotID, 'meh'),
+    upvote: (userID, spotID) => module.exports.votes.updateVote(userID, spotID, 'upvote'),
+
+
   },
+
+  // votes: {
+  //   upvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, ((err, spot) => {
+  //         if (err) reject(err);
+  //         else {
+  //           console.log('this is the spot!', spot);
+  //           spot[0].upvotes++;
+  //           spot[0].percentage = votePercentage(spot[0]);
+  //           Spot.update(spot[0], (error, savedObject) => {
+  //             console.log('this is the second spot, ', spot)
+  //             if (error) reject(error);
+  //             else resolve(savedObject);
+  //             });
+  //         }
+  //       }));
+  //     });
+  //   },
+  //   downvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, (err, spot) => {
+  //         spot[0].downvotes++;
+  //         spot[0].percentage = votePercentage(spot[0]);
+  //         Spot.update(spot[0], (error, savedObject) => {
+  //           if (error) reject(error);
+  //           else resolve(savedObject);
+  //         });
+  //       });
+  //     });
+  //   },
+  //   mehvote: (id) => {
+  //     return new Promise((resolve, reject) => {
+  //       Spot.where({ spot_id: id }, (err, spot) => {
+  //         console.log('spot[0]', spot[0]);
+  //         spot[0].mehvotes++;
+  //         spot[0].percentage = votePercentage(spot[0]);
+  //         console.log(spot[0].percentage);
+  //         Spot.update(spot[0], (error, savedObject) => {
+  //           if (error) reject(error);
+  //           else resolve(savedObject);
+  //         });
+  //       });
+  //     });
+  //   }
+  // },
   favorites: {
     get: (userID) => {
       return new Promise((resolve, reject) => {
@@ -220,5 +253,5 @@ module.exports = {
     }
   }
 };
-
+module.exports.votes.upvote(5,6);
 
