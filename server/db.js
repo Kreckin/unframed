@@ -144,7 +144,7 @@ module.exports = {
   },
 
   votes: {
-    updateVote: (uid, sid, voteType) => {
+    update: (uid, sid, voteType) => {
       return new Promise((resolve, reject) => {
         db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, relationship) => {
           if (error) { reject(error);} 
@@ -170,16 +170,16 @@ module.exports = {
     updateSpotPercentage: (sid) => {
       return new Promise((resolve, reject) => {
         db.relationships(sid, 'in', 'voted', (err, relationships) => {
-           console.log('got calleeed ');
            if (err) { reject(err);}
            else {
             let percentage = votePercentage(relationships);
+            console.log('--------percent-----------', percentage);
             db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${sid} RETURN s`, (error, node) => {
-              console.log('befooooore', node);
               if (err) { reject(err); }
               else {
-                node.percentage = percentage;
-                db.save(node, function(err,node){
+                node[0].percentage = percentage;
+                console.log('--------node.percent-----------', node.percentage);
+                db.save(node[0], function(err,node){
                   console.log('afffteeerrr', node);
                 });
               }
@@ -189,15 +189,15 @@ module.exports = {
       });
     },
     mehVote: (uid, sid) => {
-      module.exports.votes.updateVote(uid, sid, 'mehvote')
+      module.exports.votes.update(uid, sid, 'mehvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
     upVote: (uid, sid) => {
-      module.exports.votes.updateVote(uid, sid, 'upvote')
+      module.exports.votes.update(uid, sid, 'upvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
     downVote: (uid, sid) => {
-      module.exports.votes.updateVote(uid, sid, 'downvote')
+      module.exports.votes.update(uid, sid, 'downvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
 
@@ -282,5 +282,5 @@ module.exports = {
   }
 };
 
-module.exports.votes.mehVote(5, 6);
+module.exports.votes.upVote(5, 6);
 
