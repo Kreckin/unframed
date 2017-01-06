@@ -1,18 +1,29 @@
+//How to get the top part of this to lock without scrolling?
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight } from 'react-native';
+import { 
+  View, 
+  ScrollView, 
+  Text, 
+  Image, 
+  TouchableHighlight, 
+  StatusBar, 
+  Dimensions 
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Toast, {DURATION} from 'react-native-easy-toast'
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
+
+const { width } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //This state is here just for the time being to test the save functionality
-      //Delete it once the lib functions are working
-      //saved: this.props.user
-      saved: true
+      //These states are here just for the time being to test the save functionality
+      //Delete them once the lib functions are working and categories are up
+      saved: true,
+      categories: ['such art', 'the best', 'wooooow']
     };
   }
 
@@ -78,194 +89,228 @@ class SpotInfo extends Component {
        //this is an easy toggle but it checks if feet is greater than 1000
        //this is used later when determining the onClick events to use
        const disabled = feet > 1000;
+    StatusBar.setBarStyle('light-content', true);
     return (
-      <View style={styles.viewStyle}>
-          <Text style={styles.titleStyle}>
-          {this.props.spot.title}
-          </Text>
+      <ScrollView >
+    {/*Header*/}
+        <View style={styles.headerView} scrollEnabled={false}>
+          <Text style={styles.headerText}>{this.props.spot.title}</Text>
+        </View>
+      {/*Picture
+      Note: there is a black background that is currently not in use because 
+      I'm not sure how to style it based on image proportions
+      */}
+        <View style={styles.photoContainer}>
           <Image 
-            style={styles.imageStyle}
-            source={{ uri: `${this.props.spot.img_url}` }} 
+          source={{ uri: `${this.props.spot.img_url}` }} 
+          style={styles.imageStyle}
           />
+        </View>
+        <View style={styles.infoContainer}>
+      {/*Ratings*/}
+          <View style={styles.ratingsContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableHighlight
+                onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
+              >
+                <Image
+                  source={require('../../icons/sad.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                <Text style={styles.textRating}>{this.state.downvotes}</Text>
+              </View>
+            </View>
 
-          <TouchableHighlight
-            onPress={() => Actions.FlaggedContent({ title: this.props.spot.title})}
-          >
-            <Image
-              style={styles.flagStyle}
-              source={require('../../icons/flag.png')}
-            />
-          </TouchableHighlight> 
+            <View style={{flexDirection: 'row'}}>
+              <TouchableHighlight
+                onPress={!disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
+              >
+                <Image
+                  source={require('../../icons/meh.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                <Text style={styles.textRating}>{this.state.mehvotes}</Text>
+              </View>
+            </View>
 
-          <TouchableHighlight
-            onPress={this.starClick.bind(this)}
-          >
-          {this.state.saved ? 
-            <Image
-              style={styles.starStyle}
-              //source={require('../../icons/star-outline.jpg')}
-            />
-              :
-            <Image
-              style={styles.starStyle}
-              //source={require('../../icons/star-fill.png')}
-            />
-          }
-          </TouchableHighlight> 
-
-          <Text style={styles.categoryStyle}>{this.props.spot.category}</Text>
-          <Text style={styles.descriptionStyle}>
-           
-{this.props.spot.description ? this.props.spot.description : 'No description currently available'}
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableHighlight
+                onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
+              >
+                <Image
+                  source={require('../../icons/happy.png')}
+                  style={styles.iconRating}
+                />
+              </TouchableHighlight>
+              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                <Text style={styles.textRating}>{this.state.upvotes}</Text>
+              </View>
+            </View>
+          </View>
+          {/*Distance*/}
+          <Text style={styles.distanceStyle}>
+          [Calculate later] feet away
           </Text>
-          <View>
-              <Text style={styles.voteTotalStyle}>{ this.state.upvotes } upvotes</Text>
-              <Text style={styles.voteTotalStyle}>{ this.state.downvotes } downvotes</Text>
-          </View>
-          <View style={styles.voteRowStyle}>
+          {/*Description*/}
+          <Text style={styles.descriptionStyle}>
+            {this.props.spot.description ? this.props.spot.description : 
+              'No description currently available for this location'}
+          </Text>
+        {/*Categories*/}
+        <View style={styles.categoryContainer}>
+
+          {this.state.categories.map(category =>
+              //This maps out all the dummy data categories into separate categories. 
+              <View 
+                key={category}
+                style={styles.categoryViewStyle}
+              > 
+                <Text style={styles.categoryTextStyle}>{category}</Text>
+              </View>
+            )}
+        </View>
+        <View style={styles.saveFlagContainer}>
             <TouchableHighlight
-              style={styles.downVoteStyle}
-              onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
+              onPress={this.starClick.bind(this)}
             >
-              <Image
-                style={styles.thumbImageStyle}
-                source={require('../../icons/thumbsDown.png')}
-              />
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  source={require('../../icons/star.png')}
+                  style={styles.saveFlagIcon}
+                />
+                <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                  <Text style={styles.saveFlagText}>Save</Text>
+              </View>
+            </View>
             </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.mehVoteStyle}
-              onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
-            >
-              <Text>Meh</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.upVoteStyle}
-              onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
-            >
-              <Image
-                style={styles.thumbImageStyle}
-                source={require('../../icons/thumbsUp.png')}
-              />
-            </TouchableHighlight>
-          </View>
-          <TouchableHighlight 
-            onPress={() => Actions.MapContainer()}
-            style={styles.buttonStyle} 
+          <TouchableHighlight
+            onPress={() => Actions.FlaggedContent({ spotTitle: this.props.spot.title })}
           >
-            <Text>Back to map</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                source={require('../../icons/flag.png')}
+                style={styles.saveFlagIcon}
+              />
+              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                <Text style={styles.saveFlagText}>Flag</Text>
+              </View>
+            </View>
           </TouchableHighlight>
-          <Toast
-                    ref="toast"
-                    style={{ backgroundColor: '#00B89C' }}
-                    position='top'
-                    positionValue={200}
-                    fadeInDuration={750}
-                    fadeOutDuration={1000}
-                    opacity={0.8}
-                    textStyle={{ color: 'black' }}
-          />
+        </View>
       </View>
+        <Toast
+          ref="toast"
+          style={{ backgroundColor: '#00B89C' }}
+          position='top'
+          positionValue={200}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{ color: 'black' }}
+        />
+      </ScrollView>
     );
   }
 }
-
 const styles = {
-  titleStyle: {
-    fontSize: 34,
-    marginBottom: 3,
-    textAlign: 'center'
+  headerView: {
+    backgroundColor: '#00B89C',
+    alignItems: 'center',
   },
-  categoryStyle: {
-    fontSize: 18,
-    textAlign: 'center'
+  headerText: {
+    fontSize: 36,
+    textAlign: 'center',
+    color: '#EFEFF4',
+    marginTop: 15,
+    marginBottom: 5
   },
+  //Change this to allow for varying photo types
+  photoContainer: {
+    backgroundColor: 'black',
+    width,
+    height: 300
+  },
+  //Also change this
   imageStyle: {
-    height: 150,
-    width: 150,
-    borderWidth: 2,
-    borderRadius: 4
+    height: null,
+    flex: 1, 
+    width,
+  },
+  infoContainer: {
+    backgroundColor: '#006F60',
+    width,
+    height: 300
+  },
+  ratingsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width,
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  iconRating: {
+    height: 30,
+    width: 30,
+    tintColor: '#EFEFF4'
+  },
+  textRating: {
+    paddingLeft: 10,
+    color: '#EFEFF4',
+    fontSize: 22
+  },
+  distanceStyle: {
+    color: '#EFEFF4',
+    fontStyle: 'italic',
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 24
   },
   descriptionStyle: {
-    paddingRight: 20,
+    color: '#EFEFF4',
+    paddingTop: 10,
     paddingLeft: 20,
-    height: 200,
-    textAlign: 'center'
-  }, 
-  buttonStyle: {
-    marginTop: 20,
-    backgroundColor: '#4286f4',
-    padding: 4,
-    borderWidth: 2,
-    borderRadius: 7
+    paddingRight: 20,
+    fontSize: 18
   },
-  voteRowStyle: {
+  categoryContainer: {
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    width: 350,
-    paddingTop: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    justifyContent: 'space-around'
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
   },
-  downVoteStyle: {
-    //marginTop: 3,
-    backgroundColor: '#FF704D',
-    //padding: 4,
-    borderWidth: 2,
-    borderRadius: 7,
-    height: 45,
-    width: 45,
-    alignItems: 'center',
-    justifyContent: 'center'
+  categoryViewStyle: {
+    backgroundColor: '#00B89C',
+    padding: 5,
+    borderRadius: 8,
   },
-  upVoteStyle: {
-    //marginTop: 3,
-    backgroundColor: '#70db70',
-    //padding: 4,
-    borderWidth: 2,
-    borderRadius: 7,
-    height: 45,
-    width: 45,
-    alignItems: 'center',
-    justifyContent: 'center'  
-  },
-  mehVoteStyle: {
-    //marginTop: 3,
-    backgroundColor: 'grey',
-    //padding: 4,
-    borderWidth: 2,
-    borderRadius: 7,
-    height: 45,
-    width: 45,
-    alignItems: 'center',
-    justifyContent: 'center'  
-  },
-  thumbImageStyle: {
-    height: 30,
-    width: 30
-  },
-  voteTotalStyle: {
-    //marginTop: 3,
-    //padding: 4,
-    //borderWidth: 2,
-    //borderRadius: 7,
+  categoryTextStyle: {
+    color: '#EFEFF4',
     fontSize: 18,
-    alignItems: 'center',
-    justifyContent: 'center'
+    fontStyle: 'italic',
   },
-  viewStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    marginTop: 10
+  saveFlagContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20
   },
-  flagStyle: {
-    height: 20,
-    width: 20
-  },
-  starStyle: {
+  saveFlagIcon: {
     height: 40,
-    width: 40
+    width: 40,
+    tintColor: '#EFEFF4'
+  },
+  saveFlagText: {
+    fontSize: 20,
+    paddingLeft: 5,
+    color: '#EFEFF4'
   }
 };
-
 export default SpotInfo;

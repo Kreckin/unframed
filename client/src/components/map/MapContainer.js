@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
-import AddPhotoIcon from './AddPhotoIcon';
 import LocateSelfIcon from './LocateSelfIcon';
 import LensIcon from './LensIcon';
 
@@ -131,7 +130,7 @@ class MapContainer extends Component {
           ref={ref => { this.map = ref; }}
           //this will change the region as the user moves around the map
           onRegionChangeComplete={this.onRegionChangeComplete}
-          >
+        >
           {this.state.spots.map(spot => (
               //This maps all the spots (passed down from app as props)
               <MapView.Marker

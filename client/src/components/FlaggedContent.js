@@ -26,7 +26,7 @@ class FlaggedContent extends Component {
       ];
     return (
       <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>You've flagged "{this.props.title}" as innappropriate.
+        <Text style={styles.textStyle}>You've flagged "{this.props.spotTitle}" as innappropriate.
         Please tell us how this post breaks the rules. </Text>
         <ModalPicker
           data={data}
