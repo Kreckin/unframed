@@ -7,7 +7,7 @@ const Spot = model(db, 'Spot');
 const User = model(db, 'User');
 const Category = model(db, 'Categories');
 
-const votePercentage = require('./controllers/calcVotePercent');
+const spotUpdater = require('./controllers/spotUpdater');
 
 // ------ SPOT VALIDATION ------
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
@@ -169,18 +169,20 @@ module.exports = {
     },
     updateSpotPercentage: (sid) => {
       return new Promise((resolve, reject) => {
-        db.relationships(sid, 'in', 'voted', (err, relationships) => {
+        db.relationships(sid, 'in', 'voted', (err, votes) => {
            if (err) { reject(err);}
            else {
-            let percentage = votePercentage(relationships);
-            console.log('--------percent-----------', percentage);
+            const voteInfo = spotUpdater(votes);
             db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${sid} RETURN s`, (error, node) => {
               if (err) { reject(err); }
               else {
-                node[0].percentage = percentage;
-                console.log('--------node.percent-----------', node.percentage);
+                node[0].upvotes    = voteInfo.ups;
+                node[0].downvotes  = voteInfo.downs;
+                node[0].mehvotes   = voteInfo.mehs;
+                node[0].percentage = voteInfo.percent;
+
                 db.save(node[0], function(err,node){
-                  console.log('afffteeerrr', node);
+                  console.log('updated node', node);
                 });
               }
             });
@@ -282,5 +284,4 @@ module.exports = {
   }
 };
 
-module.exports.votes.upVote(5, 6);
 

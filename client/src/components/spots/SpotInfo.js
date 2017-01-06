@@ -49,24 +49,29 @@ class SpotInfo extends Component {
   // }
 
   upVote() {
-    Votes.upVote(this.props.spot.spot_id)
+    Votes.upVote(this.props.spot.id)
       .then((res) => {
-        this.setState({ upvotes: res.upvotes });
+        this.setState({ upvotes: res.upvotes, 
+                        downvotes: res.downvotes,
+                        mehvotes: res.mehvotes});
     });
   }
   
   downVote() {
-    Votes.downVote(this.props.spot.spot_id)
+    Votes.downVote(this.props.spot.id)
       .then((res) => {
-        this.setState({ downvotes: res.downvotes });
+        this.setState({ upvotes: res.upvotes, 
+                        downvotes: res.downvotes,
+                        mehvotes: res.mehvotes});
     });
   }
 
   mehVote() {
-    //TODO add server call 
-    Votes.mehVote(this.props.spot.spot_id)
+    Votes.mehVote(this.props.spot.id)
       .then((res) => {
-        this.setState({ mehvotes: res.mehvotes });
+        this.setState({ upvotes: res.upvotes, 
+                        downvotes: res.downvotes,
+                        mehvotes: res.mehvotes });
     });
   }
 
