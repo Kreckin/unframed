@@ -11,11 +11,11 @@ import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
-import AddPhotoIcon from './components/map/AddPhotoIcon';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 import userService from './lib/userService';
 
+const Platform = require('react-native').Platform;
 
 const TabIcon = ({ selected, title }) => {
   const iconMapper = {
@@ -84,56 +84,52 @@ class App extends Component {
           return (
           <Router
             navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
+            //NEED TO FIGURE OUT A WAY TO REMOVE THIS FOR ANDROID
+            backButtonImage={require('./icons/backButton.png')}
           >
-                <Scene
-                  key="tabBar"
-                  tabs
-                  tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
-                >
-                {/* Map Tab and its scenes */}
-                  <Scene key='Map' title='Map' icon={TabIcon}>
-                    <Scene 
-                      key='MapContainer'
-                      component={MapContainer}
-                    />
-                    <Scene 
-                      key='SpotInfo'
-                      component={SpotInfo}
-                      title='SpotInfo'
-                    />
-                  </Scene>
-                  {/* Saved List Tab and its scenes */}
-                  <Scene key='CameraTab' title='Add' icon={TabIcon}>
-                    <Scene 
-                      key='UploadPhotoContainer'
-                      component={UploadPhotoContainer}
-                    />
-                  </Scene>
+            <Scene
+              key="tabBar"
+              tabs
+              tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
+            >
+              {/* Map Tab and its scenes */}
+              <Scene key='Map' title='Map' icon={TabIcon}>
+                <Scene 
+                  key='MapContainer'
+                  component={MapContainer}
+                />
+                <Scene 
+                  key='SpotInfo'
+                  component={SpotInfo}
+                />
+                <Scene 
+                  key='FlaggedContent'
+                  component={FlaggedContent}
+                /> 
+              </Scene>
                 {/* Saved List Tab and its scenes */}
-                  <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
-                    <Scene 
-                      key='SavedList'
-                      component={SavedList}
-                    />
-                  </Scene>
-                {/* Profile Tab and its scenes */}
-                  <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
-                    <Scene 
-                      key='Profile'
-                      component={Profile}
-                      loginCallback={this.loginCallback}
-                      logoutCallback={this.logoutCallback}
-                    />
-                  </Scene>
-                  <Scene 
-                    key='UploadPhotoContainer'
-                    component={UploadPhotoContainer}
-                  />
-                  <Scene 
-                    key='FlaggedContent'
-                    component={FlaggedContent}
-                  /> 
+              <Scene key='CameraTab' title='Add' icon={TabIcon}>
+                <Scene 
+                  key='UploadPhotoContainer'
+                  component={UploadPhotoContainer}
+                />
+              </Scene>
+              {/* Saved List Tab and its scenes */}
+              <Scene key='SavedListTab' title='Saved' icon={TabIcon}>
+                <Scene 
+                  key='SavedList'
+                  component={SavedList}
+                />
+              </Scene>
+              {/* Profile Tab and its scenes */}
+              <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                <Scene 
+                  key='Profile'
+                  component={Profile}
+                  logoutCallback={this.logoutCallback}
+                />
                 </Scene>
+              </Scene>
             </Router>
           );
         }
@@ -174,35 +170,3 @@ export default App;
 //                         /,_\                  .',_(
 //                        /___(                 /___(
 
-//Here is the tab bar with (unfinished) saved list and login pages connected
-// <Router 
-//           hideNavBar
-//           //navigationBarStyle={{}}
-//           >
-//             <Scene key='root'>
-//               <Scene 
-//                 key='MapContainer'
-//                 initial
-//                 component={MapContainer}
-//               />
-//               <Scene 
-//                 key='UploadPhotoContainer'
-//                 component={UploadPhotoContainer}
-//               />
-//               <Scene 
-//                 key='SpotInfo'
-//                 component={SpotInfo}
-//                 title='SpotInfo'
-//               />
-//               <Scene 
-//                 key='FlaggedContent'
-//                 component={FlaggedContent}
-//                 title='Flagged Content'
-//               />
-//               <Scene 
-//                 key='SavedItem'
-//                 component={SavedItem}
-//                 title='Saved Item'
-//               />
-//             </Scene>
-//           </Router>
