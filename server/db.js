@@ -167,11 +167,39 @@ module.exports = {
         });
       });
     },
-    updateSpot: (userID, spotID, voteType) => {
- 
+    updateSpotPercentage: (sid) => {
+      return new Promise((resolve, reject) => {
+        db.relationships(sid, 'in', 'voted', (err, relationships) => {
+           console.log('got calleeed ');
+           if (err) { reject(err);}
+           else {
+            let percentage = votePercentage(relationships);
+            db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${sid} RETURN s`, (error, node) => {
+              console.log('befooooore', node);
+              if (err) { reject(err); }
+              else {
+                node.percentage = percentage;
+                db.save(node, function(err,node){
+                  console.log('afffteeerrr', node);
+                });
+              }
+            });
+           }   
+        });
+      });
     },
-    meh: (userID, spotID) => module.exports.votes.updateVote(userID, spotID, 'meh'),
-    upvote: (userID, spotID) => module.exports.votes.updateVote(userID, spotID, 'upvote'),
+    mehVote: (uid, sid) => {
+      module.exports.votes.updateVote(uid, sid, 'mehvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
+    upVote: (uid, sid) => {
+      module.exports.votes.updateVote(uid, sid, 'upvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
+    downVote: (uid, sid) => {
+      module.exports.votes.updateVote(uid, sid, 'downvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    },
 
 
   },
@@ -253,5 +281,6 @@ module.exports = {
     }
   }
 };
-module.exports.votes.upvote(5,6);
+
+module.exports.votes.mehVote(5, 6);
 
