@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, Text, Image} from 'react-native';
 
-const Spinner = () => {
+const NoLocationError = () => {
   return (
-    <View style={styles.spinnerStyle}>
-      <ActivityIndicator size='large' />
+    <View style={{ flex: 1 }}>
+      <View style={styles.headerView} />
     </View>
   );
 };
 const styles = {
-  spinnerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+   headerView: {
+    backgroundColor: '#006F60',
+    alignItems: 'center',
+    height: 65
+  },
 };
-export default Spinner;
+export default NoLocationError;
