@@ -66,6 +66,7 @@ export default class CameraButtons extends Component {
             <Image style={styles.imageStyle} source={require('../../images/water.jpg')} />
           </View>
         </Carousel>
+        
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={this.props.takePhoto}>
             <Text style={styles.buttonText}>Take a picture</Text>

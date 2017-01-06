@@ -11,7 +11,7 @@ import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
-import NoLocationError from './components/map/NoLocationError';
+import NoLocationError from './components/spots/NoLocationError';
 import userService from './lib/userService';
 
 const Platform = require('react-native').Platform;

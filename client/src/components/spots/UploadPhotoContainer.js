@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, View, Image, StatusBar, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import CameraButtons from './CameraButtons';
@@ -146,6 +146,7 @@ export default class UploadPhotoContainer extends Component {
       } 
     }
   render() {
+    StatusBar.setBarStyle('light-content', true);
     return (
       <View style={styles.body}>
         {this.renderButtonOrPic()}
@@ -156,9 +157,8 @@ export default class UploadPhotoContainer extends Component {
 
 const styles = StyleSheet.create({
   body: {
-    //alignItems: 'center',
-    //flex: 1,
-    //backgroundColor: '#006F60',
+    alignItems: 'center',
+    flex: 1,
   },
   image: {
     //later look how to maintain the image's aspect ratio
