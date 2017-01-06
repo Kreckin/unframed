@@ -9,7 +9,6 @@ import LensIcon from './components/map/LensIcon';
 import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
-import SavedItem from './components/SavedItem';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
@@ -74,7 +73,7 @@ class App extends Component {
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
-    render() {
+render() {
       if (this.state.isLoggedIn !== null) {
         if (!this.state.isLoggedIn) {
           return (
