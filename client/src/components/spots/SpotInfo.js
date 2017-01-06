@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
+import userService from '../../lib/userService';
 
 const { width } = Dimensions.get('window');
 
@@ -49,7 +50,8 @@ class SpotInfo extends Component {
   // }
 
   upVote() {
-    Votes.upVote(this.props.spot.id)
+    console.log('SPOT PROPS', this.props.spot);
+    Votes.upVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
@@ -58,7 +60,8 @@ class SpotInfo extends Component {
   }
   
   downVote() {
-    Votes.downVote(this.props.spot.id)
+    console.log('SPOT PROPS', this.props.spot);
+    Votes.downVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
@@ -67,7 +70,8 @@ class SpotInfo extends Component {
   }
 
   mehVote() {
-    Votes.mehVote(this.props.spot.id)
+    console.log('SPOT PROPS', this.props.spot);
+    Votes.mehVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
@@ -95,6 +99,7 @@ class SpotInfo extends Component {
        //this is used later when determining the onClick events to use
        const disabled = feet > 1000;
     StatusBar.setBarStyle('light-content', true);
+    console.log('userService current', userService.currentUser);
     return (
       <ScrollView >
     {/*Header*/}
@@ -130,7 +135,7 @@ class SpotInfo extends Component {
 
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight
-                onPress={!disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
+                onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
               >
                 <Image
                   source={require('../../icons/meh.png')}
