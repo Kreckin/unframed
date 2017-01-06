@@ -108,6 +108,7 @@ module.exports = {
       });
     },
     post: (obj) => {
+      console.log('obj-----------', obj);
       return new Promise((resolve, reject) => {
         User.exists(obj, (err, doesExist) => {
           if (err) reject(err);
@@ -117,7 +118,7 @@ module.exports = {
               else resolve(savedObject);
             });
           } else {
-            resolve('User already exists');
+            resolve(module.exports.users.get(obj.userID));
           }
         });
       });
@@ -182,7 +183,7 @@ module.exports = {
                 node[0].percentage = voteInfo.percent;
 
                 db.save(node[0], function(err,node){
-                  console.log('updated node', node);
+                  resolve(node);
                 });
               }
             });
@@ -190,16 +191,13 @@ module.exports = {
         });
       });
     },
-    mehVote: (uid, sid) => {
-      module.exports.votes.update(uid, sid, 'mehvote')
+    mehVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'mehvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
-    upVote: (uid, sid) => {
-      module.exports.votes.update(uid, sid, 'upvote')
+    upVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'upvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
-    downVote: (uid, sid) => {
-      module.exports.votes.update(uid, sid, 'downvote')
+    downVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'downvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
 

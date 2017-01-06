@@ -15,7 +15,7 @@ const SpotUpdater = function (voteArray) {
 
     for (let i = 0; i < voteArray.length; i++) {
         if (voteArray[i].properties.voteType === 'upvote') voteInfo.ups++;
-        else if (voteArray[i].properties.voteType === 'upvote') voteInfo.downs++;
+        else if (voteArray[i].properties.voteType === 'downvote') voteInfo.downs++;
         else voteInfo.mehs++;
     }
 

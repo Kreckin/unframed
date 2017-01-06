@@ -135,8 +135,9 @@ app.post('/users', (req, res) => {
 //     res.send(data);
 //   })
 // })
-app.get('/upvote/:id', (req, res) => {
-  db.votes.upvote(parseFloat(req.params.id))
+app.get('/upvote/:uid/:sid', (req, res) => {
+  console.log('req.params', req.params);
+  db.votes.upVote(parseFloat(req.params.uid), parseFloat(req.params.sid))
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
@@ -147,8 +148,8 @@ app.get('/upvote/:id', (req, res) => {
     });
 });
 
-app.get('/downvote/:id', (req, res) => {
-  db.votes.downvote(parseFloat(req.params.id))
+app.get('/downvote/:uid/:sid', (req, res) => {
+  db.votes.downVote(parseFloat(req.params.uid), parseFloat(req.params.sid))
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
@@ -159,8 +160,8 @@ app.get('/downvote/:id', (req, res) => {
     });
 });
 
-app.get('/mehvote/:id', (req, res) => {
-  db.votes.mehvote(parseFloat(req.params.id))
+app.get('/mehvote/:uid/:sid', (req, res) => {
+  db.votes.mehVote(parseFloat(req.params.uid), parseFloat(req.params.sid))
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
