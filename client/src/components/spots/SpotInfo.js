@@ -167,7 +167,7 @@ class SpotInfo extends Component {
           </View>
           {/*Distance*/}
           <Text style={styles.distanceStyle}>
-          [Calculate later] feet away
+          {parseInt(feet)} feet away
           </Text>
           {/*Description*/}
           <Text style={styles.descriptionStyle}>
@@ -177,7 +177,7 @@ class SpotInfo extends Component {
         {/*Categories*/}
         <View style={styles.categoryContainer}>
 
-          {this.state.categories.map(category =>
+          {this.props.spot.categories.map(category =>
               //This maps out all the dummy data categories into separate categories. 
               <View 
                 key={category}

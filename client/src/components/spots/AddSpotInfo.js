@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Dimensions } from 'react-native';
-import CategoryModal from './CategoryModal';
+import CategoryCheckbox from './CategoryCheckbox';
 
 const { width } = Dimensions.get('window');
 
@@ -26,11 +26,10 @@ class AddSpotInfo extends Component {
                 value={this.props.description}
                 onChangeText={this.props.onDescriptionChange}
                 />
-
-                <Text style={styles.labelStyle}>Categories</Text>
-                <CategoryModal 
-                onCategoryChange={this.props.onCategoryChange} 
-                category={this.props.category}
+                <Text style={styles.labelStyle}>Categories:</Text>
+                <CategoryCheckbox 
+                    onCategoryChange={this.props.onCategoryChange} 
+                    category={this.props.category}
                 />
 
                 <TouchableHighlight 
@@ -70,7 +69,8 @@ const styles = {
     borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'center',
-    marginTop: 30
+    marginTop: 30,
+    marginBottom:50
   },
   buttonTextStyle: {
     color: '#EFEFF4',
