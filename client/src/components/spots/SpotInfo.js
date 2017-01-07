@@ -202,7 +202,7 @@ class SpotInfo extends Component {
             </View>
             </TouchableHighlight>
           <TouchableHighlight
-            onPress={() => Actions.FlaggedContent({ spotTitle: this.props.spot.title })}
+            onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
           >
             <View style={{ flexDirection: 'row' }}>
               <Image
