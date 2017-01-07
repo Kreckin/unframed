@@ -93,11 +93,9 @@ class SpotInfo extends Component {
     this.refs.toast.show('Come to this location to vote!', 2000);
   }
   render() {
-      //we convert the distance we get from the spot to feet
-       const feet = (parseFloat(this.props.spot.distance) * 3280.84);
-       //this is an easy toggle but it checks if feet is greater than 1000
-       //this is used later when determining the onClick events to use
-       const disabled = feet > 1000;
+    let feet = this.props.spot.distance.toFixed(2);
+    const disabled = (feet * 5280) > 1000
+    feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
     console.log('userService current', userService.currentUser);
     return (
@@ -167,7 +165,7 @@ class SpotInfo extends Component {
           </View>
           {/*Distance*/}
           <Text style={styles.distanceStyle}>
-          {parseInt(feet)} feet away
+          {feet}
           </Text>
           {/*Description*/}
           <Text style={styles.descriptionStyle}>

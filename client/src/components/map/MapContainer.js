@@ -47,7 +47,7 @@ class MapContainer extends Component {
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance)
+    getSpots(newRegion.latitude, newRegion.longitude, distance,this.state.initialRegion)
           .then((data) => {
             this.setState({
               spots: data,
