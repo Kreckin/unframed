@@ -5,13 +5,13 @@ import { Text, View, Image } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
-import LensIcon from './components/map/LensIcon';
 import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
+import NoLocationError from './components/spots/NoLocationError';
 import userService from './lib/userService';
 
 const Platform = require('react-native').Platform;

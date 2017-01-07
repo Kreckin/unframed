@@ -29,7 +29,7 @@ export default class CameraButtons extends Component {
           style={this.state.size}
           autoplay
           //pageInfo
-          onAnimateNextPage={(p) => console.log(p)}
+          // onAnimateNextPage={(p) => console.log(p)}
         >
           
           <View style={[{ backgroundColor: 'black' }, this.state.size]}>
@@ -66,6 +66,7 @@ export default class CameraButtons extends Component {
             <Image style={styles.imageStyle} source={require('../../images/water.jpg')} />
           </View>
         </Carousel>
+        
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={this.props.takePhoto}>
             <Text style={styles.buttonText}>Take a picture</Text>
