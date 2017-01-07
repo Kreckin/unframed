@@ -29,7 +29,7 @@ export default class CameraButtons extends Component {
           style={this.state.size}
           autoplay
           //pageInfo
-          onAnimateNextPage={(p) => console.log(p)}
+          // onAnimateNextPage={(p) => console.log(p)}
         >
           
           <View style={[{ backgroundColor: 'black' }, this.state.size]}>
