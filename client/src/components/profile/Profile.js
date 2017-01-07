@@ -8,7 +8,7 @@ import {
   Animated,
   TouchableHighlight } from 'react-native';
 import userService from '../../lib/userService';
-import FBButton from '../login/FBLogIOButton';
+import FBLogIOButton from '../login/FBLogIOButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -53,7 +53,7 @@ class Profile extends Component {
                     />
                 <View style={styles.profileDetails} >
                     <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
-                    <FBButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
+                    <FBLogIOButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
                 </View>
             </View>
         );
