@@ -114,7 +114,11 @@ class SpotInfo extends Component {
           <Image 
           source={{ uri: `${this.props.spot.img_url}` }} 
           style={styles.imageStyle}
-          />
+          >
+          {disabled ? <Image source={require('../../icons/Lock.png')}
+          style={styles.lockStyle} 
+          /> : null}
+          </Image>
         </View>
         <View style={styles.infoContainer}>
       {/*Ratings*/}
@@ -247,6 +251,8 @@ const styles = {
   },
   //Also change this
   imageStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
     height: null,
     flex: 1, 
     width,

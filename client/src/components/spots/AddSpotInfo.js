@@ -26,18 +26,10 @@ class AddSpotInfo extends Component {
                 value={this.props.description}
                 onChangeText={this.props.onDescriptionChange}
                 />
-
-<<<<<<< HEAD
-                <Text style={styles.labelStyle}>Categories</Text>
-                <CategoryModal 
-                onCategoryChange={this.props.onCategoryChange} 
-                category={this.props.category}
-=======
-                <Text style={styles.labelStyle}>Category:</Text>
+                <Text style={styles.labelStyle}>Categories:</Text>
                 <CategoryCheckbox 
                     onCategoryChange={this.props.onCategoryChange} 
                     category={this.props.category}
->>>>>>> updated categories to be arrays, updated spot schema, and refactored spotinfo to use spots.categories..also renamed every category to categories, oh and that checkbox thing was added
                 />
 
                 <TouchableHighlight 
