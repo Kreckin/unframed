@@ -6,14 +6,23 @@ const { width, height } = Dimensions.get('window');
 const NoLocationError = (props) => {
   StatusBar.setBarStyle('light-content', true);
   return (
-    <View style={styles.background}>
+    <View>
       <View style={styles.navBar} />
-      <Text style={styles.text}>Sorry. {'\n'} {'\n'}
-      We can't accept this photo. {'\n'} {'\n'} {'\n'} {'\n'}
-      It doesn't have the geolocation data we need to ensure the accuracy of the app.
-      {'\n'} {'\n'} 
-      Why not try a different photo?
-      </Text>
+      <View style={styles.background}>
+      <View style={styles.middleContainer}>
+        <Image 
+          source={require('../../images/sadClown.png')}
+          style={styles.imageStyle} 
+        >
+          <Text style={styles.text}>Sorry. {'\n'} {'\n'} {'\n'}
+            We can't accept this photo. {'\n'} {'\n'} {'\n'}
+            It doesn't have the geolocation data we need to ensure the accuracy of the app.
+            {'\n'} {'\n'} {'\n'}
+            Why not try a different photo?
+          </Text>
+        </Image>
+        <View style={styles.textContainer}>
+      </View>
       <View style={styles.buttonContainer} >
         <TouchableOpacity style={styles.button} onPress={props.takePhoto}>
           <Text style={styles.buttonText}>Take a picture</Text>
@@ -21,31 +30,48 @@ const NoLocationError = (props) => {
         <TouchableOpacity style={styles.button} onPress={props.chooseImage}>
           <Text style={styles.buttonText}>Choose from gallery</Text>
         </TouchableOpacity>
+        </View>
+        </View>
       </View>
     </View>
   );
 };
 const styles = {
   navBar: {
+    position: 'absolute',
     width,
+    top: 0,
     backgroundColor: '#006F60',
-    height: 65
+    height: 65,
+    zIndex: 2
   },
    background: {
     flex: 1,
     width,
-    backgroundColor: '#2F2F2F',
+    height: height - 65,
+    backgroundColor: 'black',
     alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  middleContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  textContainer: {
     
   },
   text: {
+    fontSize: 20,
+    color: '#EFEFF4',
+    backgroundColor: 'rgba(0,0,0,0)',
+    marginTop: 25,
     marginLeft: 15,
     marginRight: 15,
-    fontSize: 20,
-    color: '#EFEFF4'
   },
   buttonContainer: {
-    top: height - 170, 
+    position: 'absolute',
+    top: height - 290, 
     flexDirection: 'row'
   },
   button: {
@@ -62,10 +88,8 @@ const styles = {
     textAlign: 'center'
   },
   imageStyle: {
-    height,
     width,
-    opacity: 0.6,
-    resizeMode: 'cover'
+    height: height / 2,
   }
 };
 export default NoLocationError;
