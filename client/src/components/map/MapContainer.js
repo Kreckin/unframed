@@ -138,7 +138,7 @@ class MapContainer extends Component {
                 key={spot.id}
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
-                description={spot.category}
+                description={spot.description}
                 image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}

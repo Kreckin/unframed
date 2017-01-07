@@ -13,7 +13,7 @@ const spotUpdater = require('./controllers/spotUpdater');
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
   title: { type: String, required: true },
-  category: { type: String, required: true },
+  categories: { type: Array, required: true },
   img_url: { type: String, required: true },
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
@@ -33,8 +33,8 @@ const validateSpot = function (spot, callback) {
     callback('enter coordinates');
   } else if (!spot.img_url.length) {
     callback('enter a photo');
-  } else if (!spot.category.length) {
-    callback('enter a category');
+  } else if (!spot.categories.length) {
+    callback('enter some categories');
   } else {
     callback();
   }
