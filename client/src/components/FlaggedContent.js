@@ -1,91 +1,140 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TextInput, TouchableOpacity } from 'react-native';
-import ModalPicker from 'react-native-modal-picker';
+import { View, Text, Dimensions, TouchableOpacity, StatusBar, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import CheckBox from 'react-native-check-box';
 
-const { width } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
+
+const data = [{ name: "It's not street art", key: 1, checked: false }, 
+{ name: "It's inappropriate", key: 2, checked: false },
+{ name: "It's a duplicate", key: 3, checked: false }, 
+{ name: "It's no longer there", key: 4, checked: false }];
 
 class FlaggedContent extends Component {
  
   constructor() {
     super();
     this.state = {
-        category: ''
+      flaggedCategories: ''
     };
   }
+  onSubmit() {
+    //Need to write a function here to send us the photo and the category
+    //sendToAppOwners(this.state.category, this.props.spot)
+    Actions.MapContainer();
+  }
+  
   render() {
-      let index = 0;
-      const data = [
-
-          { key: index++, label: 'Nudity' },
-          { key: index++, label: 'Profanity' },
-          { key: index++, label: 'Copywritten' },
-          { key: index++, label: 'Offensive' },
-          { key: index++, label: 'Harmful to people or animals' },
-          { key: index++, label: 'Other' },
-      ];
+    StatusBar.setBarStyle('light-content', true);
     return (
-      <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>You've flagged "{this.props.spotTitle}" as innappropriate.
-        Please tell us how this post breaks the rules. </Text>
-        <ModalPicker
-          data={data}
-          onChange={(option) => { this.setState({ category: option.label })}}
-        >    
-        <TextInput
-          style={styles.inputStyle}
-          editable={false}
-          placeholder="Click to select a category"
-          value={this.state.category} 
+      <View style={{ flex: 1 }}>
+        <View style={styles.navBar}>
+          <Text style={styles.navBarText}>
+          Why should "{this.props.spot.title}" be removed?
+          </Text>
+        </View>
+        <View style={styles.containerStyle}>
+        <Image
+          source={require('../images/monkey2.png')}
+          style={styles.imageStyle}
         />
-        </ModalPicker>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
+        { data.map((item) => {
+          return(
+            <View key={item.key}>
+          <CheckBox
+           style={styles.checkboxView}
+           onClick={() => {
+            item.checked = !item.checked;
+            this.setState({flaggedCategories: (data.filter((item) => item.checked === true)
+              .map((item) => item = item.name))
+            })
+          }}
+           isChecked={item.checked}
+           key={item.key}
+           rightText={item.name}
+           rightTextStyle={styles.checkboxText}
+           checkedImage={<Image source={require('../icons/check.png')} style={styles.checkboxIcon} />}
+           unCheckedImage={<Image source={require('../icons/unchecked.png')} style={styles.checkboxIcon} />}
+          />
+          </View>
+          )
+        })}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
         <TouchableOpacity 
           style={styles.button}
-          onPress={() => Actions.pop()}
+          onPress={Actions.pop}
         >
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={this.onSubmit}
+        >
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        </View>
+        </View>
       </View>
     );
   }
 }
 const styles = {
-    inputStyle: {
-      alignSelf: 'center', 
-      borderWidth: 1, 
-      borderRadius: 2,
-      borderColor: '#ccc', 
-      padding: 10, 
-      height: 40, 
-      width: width - 30
-    },
-    viewStyle: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    textStyle: {
-      textAlign: 'center',
-      fontSize: 18,
-      marginBottom: 15
-    },
-    button: {
-      backgroundColor: 'gray',
-      width: 120,
-      height: 40,
-      borderRadius: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: 10
-    },
-    buttonText: {
-      color: 'white',
-      fontSize: 18,
-      alignItems: 'center'
-    }
-  };
+  navBar: {
+    backgroundColor: '#006F60',
+    alignItems: 'center',
+    //height: 65
+  },
+  navBarText: {
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#EFEFF4',
+    marginTop: 30,
+    marginBottom: 12
+  },
+  containerStyle: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    backgroundColor: '#006F60',
+    height
+  },
+  button: {
+    backgroundColor: '#00B89C',
+    width: 90,
+    borderRadius: 5,
+    margin: 10,
+    alignSelf: 'center',
+    marginBottom: 150
+  },
+  imageStyle: {
+    height: height*2/5,
+    width
+  },
+  buttonText: {
+    color: '#EFEFF4',
+    fontSize: 20,
+    margin: 10,
+    textAlign: 'center'
+  },
+  checkboxView: {
+    flex: 1, 
+    padding: 7, 
+    backgroundColor: '#EFEFF4', 
+    borderWidth: 2,
+    borderColor: 'grey',
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 6
+  },
+  checkboxText: {
+    color: '#006F60',
+    fontSize: 20,
+    textAlign: 'left'
+  },
+  checkboxIcon: {
+    tintColor: '#006F60',
+    height: 18,
+    width: 18
+  }
+};
 export default FlaggedContent;
 
