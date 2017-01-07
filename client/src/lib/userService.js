@@ -13,11 +13,11 @@ const userService = {
 
   getLoginStatus: () => {
     return new Promise((resolve, reject) => {
-      // console.log('lets try something');
       AsyncStorage.getItem('@MySuperStore:user')
         .then((value) => {
           if (value !== null) {
             // We have data!!
+            // console.log('from local cache', value);
             userService.currentUser = JSON.parse(value);
             resolve(true);
           } else {
@@ -95,11 +95,12 @@ const userService = {
         AccessToken.getCurrentAccessToken().then(
           (data) => {
             const photoRequest = new GraphRequest(
-              `/${data.userId}/picture?redirect=false`,
+              `/${data.userID}/picture?redirect=0&type=large`,
               null,
               (err, res) => {
                 if (err) console.log('Error from GraphRequest', err);
                 if (res) {
+                  console.log('got profile url', res);
                   userService.currentUser.profileUrl = res.data.url;
                 }
               },
