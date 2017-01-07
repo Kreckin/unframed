@@ -16,8 +16,8 @@ const postSpot = (data) => {
   if (data.description) {
     form.append('description', data.description);
   }
-  if (data.category) {
-    form.append('category', data.category);
+  if (data.categories) {
+    form.append('categories', JSON.stringify(data.categories));
   }
   if (data.latitude) {
     form.append('latitude', data.latitude);

@@ -8,12 +8,25 @@ import Spinner from '../Spinner';
 import NoLocationError from './NoLocationError';
 
 import postSpot from '../../lib/postSpot';
-
 const { width, height } = Dimensions.get('window');
 
 const Platform = require('react-native').Platform; // do we need this separate?
 const ImagePicker = require('react-native-image-picker');
 // info: https://github.com/marcshilling/react-native-image-picker
+
+const categories = [
+    { key: 0, name: 'Street art', checked: false },
+    { key: 1, name: 'Piece', checked: false },
+    { key: 2, name: 'Tag', checked: false },
+    { key: 3, name: 'Mural', checked: false },
+    { key: 4, name: 'Installation', checked: false },
+    { key: 5, name: 'Wheat paste', checked: false },
+    { key: 6, name: 'Stencil', checked: false },
+    { key: 7, name: 'Roller', checked: false },
+    { key: 8, name: 'Character', checked: false },
+    { key: 9, name: 'Sticker', checked: false },
+    { key: 10, name: 'Other', checked: false }
+    ];
 
 export default class UploadPhotoContainer extends Component {
   constructor(props) {
@@ -23,7 +36,7 @@ export default class UploadPhotoContainer extends Component {
       image: null,
       title: '',
       description: '',
-      category: null,
+      categories: null,
       latitude: null,
       longitude: null,
     };
@@ -36,13 +49,14 @@ export default class UploadPhotoContainer extends Component {
     postSpot({ 
       title: this.state.title, 
       description: this.state.description, 
-      category: this.state.category, 
+      categories: this.state.categories, 
       latitude: this.state.latitude, 
       longitude: this.state.longitude,
       uri: this.state.image.uri 
     });
     //set the states to null so we get a blank slate again
-    this.setState({ title: '', description: '', image: null });
+    this.setState({ title: '', description: '', image: null, categories: null });
+    categories.forEach((item) => item.checked = false);
     Actions.MapContainer();
   }
 
@@ -52,8 +66,8 @@ export default class UploadPhotoContainer extends Component {
   onDescriptionChange(description) {
     this.setState({ description });
   }
-  onCategoryChange(category) {
-    this.setState({ category });
+  onCategoryChange(categories) {
+    this.setState({ categories: categories });
   }
   setImage(response) {
     console.log('Response = ', response);
@@ -91,7 +105,7 @@ export default class UploadPhotoContainer extends Component {
         });
       }
     });
-  }
+ }
   // chooseImage() {
   //   ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
   //    this.setState({ loading: true });
@@ -138,7 +152,7 @@ export default class UploadPhotoContainer extends Component {
             onDescriptionChange={this.onDescriptionChange.bind(this)}
             description={this.state.description}
             onCategoryChange={this.onCategoryChange.bind(this)}
-            category={this.state.category}
+            category={categories}
             onSubmit={this.onSubmit.bind(this)}
           />
         </ScrollView>

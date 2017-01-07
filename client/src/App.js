@@ -106,7 +106,6 @@ render() {
                   component={FlaggedContent}
                 /> 
               </Scene>
-                {/* Saved List Tab and its scenes */}
               <Scene key='CameraTab' title='Add' icon={TabIcon}>
                 <Scene 
                   key='UploadPhotoContainer'
