@@ -18,7 +18,6 @@ class SavedList extends Component {
   getSpots() {
     favorites.get('10207534965827573').then(favoritesArray => {
       this.setState({ favorites: favoritesArray });
-      console.log('favoritesArray', favoritesArray);
     });
   }
 

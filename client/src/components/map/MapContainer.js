@@ -79,7 +79,6 @@ class MapContainer extends Component {
   }
 
   moveMapToCurrentPostion() {
-    console.log('moving map to current position!');
     navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);

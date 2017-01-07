@@ -228,8 +228,9 @@ class SpotInfo extends Component {
 }
 const styles = {
   headerView: {
-    backgroundColor: '#00B89C',
+    backgroundColor: '#006F60',
     alignItems: 'center',
+    height: 65
   },
   headerText: {
     fontSize: 36,
