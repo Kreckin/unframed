@@ -39,25 +39,34 @@ const userService = {
       body: JSON.stringify(userService.currentUser),
     };
 
-    const cachePromise = new Promise ((resolve, reject) => {
+    console.log('before CachePromis Definition')
+    function cachePromise()  { new Promise ((resolve, reject) => {
+      console.log('inside cachePromise-----', userService.currentUser);
       AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
       .then((data) => {
-        resolve();
+        return;
       })
       .catch((err) => {
         console.log('err in cacheAndPostCurrentUser', err);
         reject(err);
       });
     });
-
+}
+    console.log('before postPromise Definition');
     //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
     const postPromise = fetch(`${config.apiUrl}/users`, postConfig)
         .then((response) => {
-          console.log(response);
+          return response.json()
         })
-        .catch(error => console.log(error))
+        .then((response) =>{
+          console.log('userid?', response);
+          userService.currentUser = response; 
+        })
+        .then(() => {
+          return cachePromise() })
+        .catch(error => console.log(error));
 
-    return Promise.all([cachePromise, postPromise]);
+    return postPromise;
   },
 
   logOut: () => {

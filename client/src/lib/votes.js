@@ -1,17 +1,17 @@
 import config from './config.js';
 
 const Votes = {
-  upVote: (spot) => (fetch(`${config.apiUrl}/upvote/${spot}`)
+  upVote: (user, spot) => (fetch(`${config.apiUrl}/upvote/${user}/${spot}`)
       .then((res) => res.json())
       .catch((err) => {
         console.log('error in upvote', err);
       })),
-  downVote: (spot) => (fetch(`${config.apiUrl}/downvote/${spot}`)
+  downVote: (user, spot) => (fetch(`${config.apiUrl}/downvote/${user}/${spot}`)
       .then((res) => res.json())
       .catch((err) => {
         console.log('error in upvote', err);
       })),
-  mehVote: (spot) => (fetch(`${config.apiUrl}/mehvote/${spot}`)
+  mehVote: (user, spot) => (fetch(`${config.apiUrl}/mehvote/${user}/${spot}`)
       .then((res) => res.json())
       .catch((err) => {
         console.log('error in upvote', err);
