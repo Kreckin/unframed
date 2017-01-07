@@ -33,6 +33,7 @@ class MapContainer extends Component {
       }
     };
 
+    this.firstRegionChangeComplete = false; // used for debouncing
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
   }
@@ -47,15 +48,19 @@ class MapContainer extends Component {
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance)
-          .then((data) => {
-            this.setState({
-              spots: data,
+    if (this.firstRegionChangeComplete) {
+      getSpots(newRegion.latitude, newRegion.longitude, distance)
+            .then((data) => {
+              this.setState({
+                spots: data,
+              });
+            })
+            .catch((reject) => {
+              console.log('Error getting spots', reject);
             });
-          })
-          .catch((reject) => {
-            console.log('Error getting spots', reject);
-          });
+    } else {
+      this.firstRegionChangeComplete = true;
+    }
   }
 
   handleManualAddressInput(address) {
