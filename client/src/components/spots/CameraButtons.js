@@ -20,10 +20,22 @@ export default class CameraButtons extends Component {
   }
 
   render() {
+    const carouselImages = [
+            require('../../images/alley.jpg'),
+            require('../../images/balloon.jpg'),
+            require('../../images/dance.jpg'),
+            require('../../images/dead.jpg'),
+            require('../../images/heart.jpg'),
+            require('../../images/icecream.jpg'),
+            require('../../images/imagine.jpg'),
+            require('../../images/rushmore.jpg'),
+            require('../../images/skull.png'),
+            require('../../images/tree.jpg'),
+            require('../../images/water.jpg'),
+    ];
+
     return (
       <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
-
-        
         <Carousel
           delay={2000}
           style={this.state.size}
@@ -31,42 +43,14 @@ export default class CameraButtons extends Component {
           //pageInfo
           // onAnimateNextPage={(p) => console.log(p)}
         >
-          
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/alley.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/balloon.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/dance.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/dead.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/heart.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/icecream.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/imagine.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/rushmore.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/skull.png')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/tree.jpg')} />
-          </View>
-          <View style={[{ backgroundColor: 'black' }, this.state.size]}>
-            <Image style={styles.imageStyle} source={require('../../images/water.jpg')} />
-          </View>
+          {
+            carouselImages.map((image, idx) => (
+              <View style={[{ backgroundColor: 'black' }, this.state.size]} key={idx}>
+                <Image style={styles.imageStyle} source={image} />
+              </View>
+            ))
+          }
         </Carousel>
-        
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={this.props.takePhoto}>
             <Text style={styles.buttonText}>Take a picture</Text>

@@ -39,9 +39,8 @@ const userService = {
       body: JSON.stringify(userService.currentUser),
     };
 
-    console.log('before CachePromis Definition')
     function cachePromise()  { new Promise ((resolve, reject) => {
-      console.log('inside cachePromise-----', userService.currentUser);
+      // console.log('inside cachePromise-----', userService.currentUser);
       AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
       .then((data) => {
         return;
@@ -52,14 +51,14 @@ const userService = {
       });
     });
 }
-    console.log('before postPromise Definition');
+    // console.log('before postPromise Definition');
     //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
     const postPromise = fetch(`${config.apiUrl}/users`, postConfig)
         .then((response) => {
           return response.json()
         })
         .then((response) =>{
-          console.log('userid?', response);
+          // console.log('userid?', response);
           userService.currentUser = response; 
         })
         .then(() => {
@@ -100,7 +99,7 @@ const userService = {
               (err, res) => {
                 if (err) console.log('Error from GraphRequest', err);
                 if (res) {
-                  console.log('got profile url', res);
+                  // console.log('got profile url', res);
                   userService.currentUser.profileUrl = res.data.url;
                 }
               },

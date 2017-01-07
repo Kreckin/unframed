@@ -7,6 +7,10 @@ import userService from '../../lib/userService';
 const FBLogIOButton = (props) => {
   return (
     <LoginButton
+      style={{
+        height: 48,
+        width: 288,
+      }}
       readPermissions={['public_profile']}
       onLoginFinished={(error, result) => {
         userService.loginHandler(error, result)
