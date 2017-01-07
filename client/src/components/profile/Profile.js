@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import { 
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Animated,
+  TouchableHighlight } from 'react-native';
 import userService from '../../lib/userService';
 import FBButton from '../login/FBLogIOButton';
 
@@ -13,7 +20,6 @@ class Profile extends Component {
         };
     }
     componentDidMount() {
-      console.log('ppppppppp')
         this.state.bounceValue.setValue(1.4);     // Start large
         Animated.spring(                          // Base: spring, decay, timing
           this.state.bounceValue,                 // Animate `bounceValue`
@@ -23,11 +29,8 @@ class Profile extends Component {
           }
         ).start();                                // Start the animation
     }
-    componentWillUnmount() {
-      console.log('unmounting!!');
-    }
+
     render() {
-      console.log('jjjjjjjj')
         const displayName = userService.currentUser.displayName || 'anon';
         // console.log('img url', userService.currentUser.profileUrl);
 
@@ -40,30 +43,40 @@ class Profile extends Component {
                             { scale: this.state.bounceValue },  // Map `bounceValue` to `scale`
                           ],
                           marginTop: height * 0.05,
-                          height: 150,
-                          width: 150,
+                          height: 155,
+                          width: 155,
                           resizeMode: 'stretch',
-                          borderRadius: 50,
+                          borderRadius: 30,
+                          borderColor: 'white',
+                          borderWidth: 5,
                         }}
                     />
                 <View style={styles.profileDetails} >
-                    <FBButton logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
-                    <View style={styles.userDetails}>
-                      <Text>Votes</Text>
-                      <Text>Posts</Text>
-                      <Text>xyz</Text>
-                    </View>
+                    <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
+                    <FBButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
                 </View>
             </View>
         );
     }
-}
-               // <View style={styles.profilePicture} >
-               // </View>
+};
 
-                    // <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
 
-        // <Image source={{ uri: userService.currentUser.profileUrl }} style={styles.image} />
+
+//                    <View style={styles.userDetails}>
+//                      <TouchableHighlight style={styles.button}>
+//                        <Text style={styles.text}>Votes</Text>
+//                      </TouchableHighlight>
+//                      <TouchableHighlight style={styles.button}>
+//                        <Text style={styles.text}>Posts</Text>
+//                      </TouchableHighlight>
+//                      <TouchableHighlight style={styles.button}>
+//                        <Text style={styles.text}>Spots Visited</Text>
+//                      </TouchableHighlight>
+//                      <TouchableHighlight style={styles.button}>
+//                        <Text style={styles.text}>xyz</Text>
+//                      </TouchableHighlight>
+//                    </View>
+
 
 const styles = StyleSheet.create({
     body: {
@@ -79,22 +92,33 @@ const styles = StyleSheet.create({
         // height: 200,
         // width: 200,
         resizeMode: 'cover',
-        borderRadius: 20
+        borderRadius: 20,
+        borderColor: 'white',
+        borderWidth: 5,
     },
     profileDetails: {
         marginTop: height * 0.02,
-        flex: 4
+        flex: 4,
     },  
     text: {
-        alignSelf: 'center',
-        color: '#EFEFF4',
-        fontSize: 28
+        textAlign: 'center',
+        color: '#000000',
+        fontSize: 28,
+    },
+    button: {
+        // alignSelf: 'center',
+        backgroundColor: '#EFEFF4',
+        marginTop: height * 0.02,
+        marginBottom: height * 0.02,
+        width: 200,
+        borderRadius: 50,
+        borderWidth: 2,
     },
     userDetails: {
-      marginTop: height * 0.02,
-      flex: 1,
-      flexDirection: 'column',
-      marginBottom: 70,
+        marginTop: height * 0.02,
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 70,
     },
 });
 
