@@ -125,6 +125,7 @@ render() {
                   key='Profile'
                   component={Profile}
                   logoutCallback={this.logoutCallback}
+                  loginCallback={this.loginCallback}
                 />
                 </Scene>
               </Scene>
