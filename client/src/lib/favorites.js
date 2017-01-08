@@ -15,7 +15,7 @@ const favorites = {
           return response.json();
         })
         //returns an array of objects that the user has favorited
-        .then((data) => resolve(data))
+        .then((data) => resolve(distanceGetter(data)))
         .catch((err) => reject('Error in get favorites', err));
       })
     },
@@ -46,5 +46,28 @@ const favorites = {
         }).catch(error => console.log(error));
     }
   };
+  function distanceGetter(data) {
+  navigator.geolocation.getCurrentPosition((position, err) => {
+        if (err) {
+          console.log('Err getting current postion in moveMapToCurrentPostion', err);
+        } else {
+            data.forEach((item) => {
+             item.distance = distance(item.latitude, item.longitude, position.coords.latitude, position.coords.longitude);
+            });
+            return data;
+        }
+      });
+}
+function distance(lat1, lon1, lat2, lon2) {
+  const radlat1 = Math.PI * lat1 / 180;
+  const radlat2 = Math.PI * lat2 / 180;
+  const theta = lon1 - lon2;
+  const radtheta = Math.PI * theta / 180;
+  let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist);
+  dist = dist * 180 / Math.PI;
+  dist = dist * 60 * 1.1515;
+  return dist;
+}
     
     export default favorites;
