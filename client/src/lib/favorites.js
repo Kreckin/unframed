@@ -7,18 +7,17 @@ myHeaders.append('Content-Type', 'application/json');
 
 const favorites = {
   //for maximum confusion this will take the userID prop off the user object
-    get: (userID, callback) => {
+    get: (userID) => {
       return new Promise((resolve, reject) => {
       //sends a fetch request to the url with the ID
       fetch(`${config.apiUrl}/favorites/${userID}`)
-        .then((response) => {
-          return response.json();
-        })
+        .then((response) => response.json())
         //returns an array of objects that the user has favorited
-        .then((data) => resolve(distanceGetter(data)))
+        .then((data) => resolve(data))
         .catch((err) => reject('Error in get favorites', err));
-      })
+      });
     },
+
     //this one takes the "node" id, or just like user.id, also spot.id NOT spot.spotid
     add: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
@@ -32,6 +31,7 @@ const favorites = {
           console.log(response);
         }).catch(error => console.log(error));
     },
+
     //this one takes the "node" id, or just like user.id, also spot.id NOT spot.spotid
     remove: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
@@ -41,13 +41,14 @@ const favorites = {
         body: JSON.stringify({ spotID: spotID, userID: userID }),
       };
       fetch(`${config.apiUrl}/favorites/remove`, postConfig)
-        .then((response) => {
-          console.log(response);
-        }).catch(error => console.log(error));
+        .then((response) => console.log(response))
+        .catch(error => console.log(error));
     }
   };
+
   function distanceGetter(data) {
-  navigator.geolocation.getCurrentPosition((position, err) => {
+    if (data.length === 0) { return []; }
+    navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
         } else {
@@ -58,6 +59,7 @@ const favorites = {
         }
       });
 }
+
 function distance(lat1, lon1, lat2, lon2) {
   const radlat1 = Math.PI * lat1 / 180;
   const radlat2 = Math.PI * lat2 / 180;

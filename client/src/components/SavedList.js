@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import SavedItem from './SavedItem';
 import favorites from '../lib/favorites';
+import userService from '../lib/userService';
 
 class SavedList extends Component {
 
@@ -16,9 +17,14 @@ class SavedList extends Component {
   }
 
   getSpots() {
-    favorites.get('10207534965827573').then(favoritesArray => {
-      this.setState({ favorites: favoritesArray });
-    });
+    favorites.get(userService.currentUser.userID)
+      .then(favoritesArray => {
+        console.log('got favs', favoritesArray)
+        this.setState({ favorites: favoritesArray });
+      })
+      .catch(err => {
+        console.log('error getting favorites in saved list:', err);
+      });
   }
 
   removeSavedSpot(id) {
