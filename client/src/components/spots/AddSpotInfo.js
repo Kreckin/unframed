@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
+import { Modal, View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import CategoryCheckbox from './CategoryCheckbox';
 
 const { width, height } = Dimensions.get('window');
 
@@ -8,7 +9,8 @@ class AddSpotInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: ''
+            title: '',
+            modalVisible: false,
         };
     }
     render() {
@@ -20,6 +22,22 @@ class AddSpotInfo extends Component {
                         style={styles.imageStyle}
                         source={this.props.imageSource}
                     />
+                    <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    >
+                     <CategoryCheckbox 
+                        onCategoryChange={this.props.onCategoryChange} 
+                        category={this.props.category}
+                     />
+                    <TouchableHighlight 
+                        style={styles.buttonStyle}
+                        onPress={() => this.setState({ modalVisible: false })}
+                    >
+                        <Text style={styles.buttonTextStyle}>Done</Text>
+                    </TouchableHighlight>
+                </Modal>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.labelStyle}>Title:</Text>
                         
@@ -55,13 +73,19 @@ class AddSpotInfo extends Component {
                     </View>
                     <Text style={styles.labelStyle}>Categories:</Text>
                     <View style={styles.inputView}>
-                        <TextInput 
-                        style={styles.textInputStyle}
-                        label='categories'
-                        placeholder='  Tap to select categories'
-                        placeholderTextColor={'gray'}
-                        selectionColor={'#00B89C'}
-                        />
+                        <TouchableHighlight
+                        style={styles.modalButton}
+                        onPress={() => this.setState({ modalVisible: true })}
+                        >
+                            <Text
+                            style={styles.textInputStyle}
+                            label='categories'
+                            color={'gray'}
+                            selectionColor={'#00B89C'}
+                            >
+                            {this.props.categories.length ? this.props.categories.join(' ') : 'Tap to select Categories'}
+                            </Text>
+                      </TouchableHighlight>
                     </View>
                    
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
@@ -71,7 +95,6 @@ class AddSpotInfo extends Component {
                     >
                         <Text style={styles.buttonTextStyle}>Choose different picture</Text>
                     </TouchableHighlight>
-
                     <TouchableHighlight 
                         style={styles.buttonStyle}
                         onPress={this.props.onSubmit}
@@ -124,6 +147,11 @@ const styles = {
     textInputStyle: { 
         height: 40,
         color: '#006F60',
+    },
+    modalButton: {
+        padding:10,
+        height:40,
+        width: width-30,
     },
     buttonStyle: {
         backgroundColor: 'gray',

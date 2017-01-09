@@ -36,7 +36,7 @@ export default class UploadPhotoContainer extends Component {
       image: null,
       title: '',
       description: '',
-      categories: null,
+      categories: [],
       latitude: null,
       longitude: null,
     };
@@ -63,7 +63,7 @@ export default class UploadPhotoContainer extends Component {
         uri: this.state.image.uri 
       });
       //set the states to null so we get a blank slate again
-      this.setState({ title: '', description: '', image: null, categories: null });
+      this.setState({ title: '', description: '', image: null, categories: [] });
       categories.forEach((item) => item.checked = false);
       Actions.MapContainer();
     }
@@ -162,6 +162,7 @@ export default class UploadPhotoContainer extends Component {
             category={categories}
             onSubmit={this.onSubmit.bind(this)}
             backToAddPhoto={this.backToAddPhoto.bind(this)}
+            categories={this.state.categories}
           />
         );
       } 
