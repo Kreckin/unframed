@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, StatusBar, Dimensions } from 'react-native';
+import { View, ScrollView, Text, StatusBar, Dimensions, TouchableHighlight } from 'react-native';
 import SavedItem from './SavedItem';
 import favorites from '../lib/favorites';
 import userService from '../lib/userService';
@@ -42,14 +42,19 @@ class SavedList extends Component {
   removeSavedSpot(spotID) {
     favorites.remove(userService.currentUser.id, spotID);
     var newFavorites = this.state.favorites.filter(savedSpot =>
-      savedSpot.id !== id);
+      savedSpot.id !== spotID);
     this.setState({ favorites: newFavorites });
   }
 
   orderBy(attribute) {
-    if (this.state.displayOrder !== attribute) {
-      this.setState({ displayOrder: attribute });
-    }
+    // if (this.state.displayOrder !== attribute) {
+    //   this.setState({ displayOrder: attribute });
+
+    //   //now sort the favorites array in state
+    //   var favorites = this.state.favorites.sort
+
+    // }
+    this.setState({ favorites: this.state.favorites.reverse });
   }
 
   render() {
@@ -64,9 +69,15 @@ class SavedList extends Component {
           barStyle='light-content'
         />
         <View style={styles.titleBarStyle}>
-          <Text style={styles.titleStyle} onPress={function () { this.orderBy('closest'); }}>Closest</Text>
-          <Text style={styles.titleStyle} onPress={function () { this.orderBy('popular'); }}>Popular</Text>
-          <Text style={styles.titleStyle} onPress={function () { this.orderBy('recent'); }}>Recent</Text>
+          <TouchableHighlight onPress={function () { this.orderBy('closest'); }}>
+            <Text style={styles.titleStyle}>Closest</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={function () { this.orderBy('popular'); }}>
+            <Text style={styles.titleStyle}>Popular</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={function () { this.orderBy('recent'); }}>
+            <Text style={styles.titleStyle}>Recent</Text>
+          </TouchableHighlight>
         </View>
         <ScrollView 
           style={styles.listStyle}
@@ -82,6 +93,7 @@ class SavedList extends Component {
               removeSavedSpot={this.removeSavedSpot.bind(this)}
               distance={spot.distance}
               id={spot.id}
+              spot={spot}
             />)
           }
         </ScrollView>

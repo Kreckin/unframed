@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const { width } = Dimensions.get('window');
 
 const SavedItem = (props) => {
   return (
-    <TouchableHighlight onPress={function () { console.log('Saved Item pressed!'); }}>
+    <TouchableHighlight onPress={function () { Actions.SpotInfo(props); }}>
       <View style={styles.itemStyle}>
         <View style={styles.imageContainerStyle}>
           <Image
@@ -33,15 +34,13 @@ const SavedItem = (props) => {
               style={styles.descriptionStyle}
               numberOfLines={2}
             >
-              {/*props.description*/}
-              This is a really long sample description to
-              test how much text can fit in the SavedItem.
+              {props.description}
             </Text>
             <Text
               style={styles.distanceStyle}
               numberOfLines={2}
             >
-              1000 feet
+              {Math.round(props.distance * 10) / 10} miles
             </Text>
           </View>
         </View>
@@ -77,7 +76,7 @@ const styles = {
   distanceStyle: {
     fontSize: 12,
     alignSelf: 'flex-end',
-    textAlign: 'right',
+    textAlign: 'center',
     color: '#006F60',
     width: 40,
     fontStyle: 'italic'
