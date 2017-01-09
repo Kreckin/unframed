@@ -1,38 +1,52 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
 import CategoryCheckbox from './CategoryCheckbox';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class AddSpotInfo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
     render() {
         return (
-            <View>
-                <Text style={styles.labelStyle}>Title</Text>
-                <TextInput 
-                style={styles.textInputStyle}
-                label='title'
-                placeholder='required'
-                //autocorrect={false}
-                value={this.props.title}
-                onChangeText={this.props.onTitleChange}
+            <View style={styles.viewStyle}>
+                <Image
+                    style={styles.imageStyle}
+                    source={this.props.imageSource}
                 />
-
+                <Text style={styles.labelStyle}>Title</Text>
+                <View style={styles.inputView}>
+                    <TextInput 
+                    style={styles.textInputStyle}
+                    label='title'
+                    placeholder='required'
+                    //autocorrect={false}
+                    value={this.props.title}
+                    onChangeText={this.props.onTitleChange}
+                    />
+                </View>
                 <Text style={styles.labelStyle}>Description</Text>
                 <View style={styles.inputView}>
-                <TextInput 
-                style={styles.textInputStyle}
-                label='description'
-                placeholder='optional'
-                value={this.props.description}
-                onChangeText={this.props.onDescriptionChange}
-                />
+                    <TextInput 
+                    style={styles.textInputStyle}
+                    label='description'
+                    placeholder='optional'
+                    value={this.props.description}
+                    onChangeText={this.props.onDescriptionChange}
+                    />
                 </View>
                 <Text style={styles.labelStyle}>Categories:</Text>
-                <CategoryCheckbox 
-                    onCategoryChange={this.props.onCategoryChange} 
-                    category={this.props.category}
-                />
+                <View style={styles.inputView}>
+                    <TextInput 
+                    style={styles.textInputStyle}
+                    label='categories'
+                    placeholder='Tap to select'
+                    //value={It was this.props.description, but Ethan will change this}
+                    />
+                </View>
+               
 
                 <TouchableHighlight 
                 style={styles.buttonStyle}
@@ -45,44 +59,55 @@ class AddSpotInfo extends Component {
     }
 }
 
+//ETHAN:
+ //<CategoryCheckbox 
+//     onCategoryChange={this.props.onCategoryChange} 
+//     category={this.props.category}
+// />
+
 const styles = {
-  labelStyle: {
-    fontSize: 18,
-    // paddingBottom: 5,
-    paddingTop: 20,
-    flex: 1,
-    alignSelf: 'center',
-    color: '#EFEFF4',
-  },
-  inputView: {
-    borderBottomWidth: 1,
-    borderColor: '#ccc'
-  },
-  textInputStyle: {
-    alignSelf: 'center', 
-    //borderWidth: 1, 
-    //borderRadius: 5,
-    //borderColor: '#ccc', 
-    padding: 10, 
-    height: 40,
-    width: width - 30,
-    color: '#006F60',
-  },
-  buttonStyle: {
-    backgroundColor: 'gray',
-    width: width * 0.5,
-    height: 40,
-    borderRadius: 8,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 30,
-    marginBottom: 50
-  },
-  buttonTextStyle: {
-    color: '#EFEFF4',
-    fontSize: 24,
-    alignSelf: 'center'
-  }
+    viewStyle: {
+        //flex: 1, 
+        width, 
+        backgroundColor: '#006F60',
+        paddingLeft: 15,
+        paddingRight: 15,
+        height: height - 60
+    },
+    imageStyle: {
+        height: 200,
+        width: 200
+    },
+    labelStyle: {
+        fontSize: 18,
+        flex: 1,
+        color: '#EFEFF4',
+    },
+    inputView: {
+        borderBottomWidth: 2,
+        borderColor: '#EFEFF4'
+    },
+    textInputStyle: {
+        padding: 10, 
+        height: 40,
+        width: width - 30,
+        color: '#006F60',
+    },
+    buttonStyle: {
+        backgroundColor: 'gray',
+        width: width * 0.5,
+        height: 40,
+        borderRadius: 8,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        marginTop: 30,
+        marginBottom: 50
+      },
+    buttonTextStyle: {
+        color: '#EFEFF4',
+        fontSize: 24,
+        alignSelf: 'center'
+    }
 };
 
 export default AddSpotInfo;

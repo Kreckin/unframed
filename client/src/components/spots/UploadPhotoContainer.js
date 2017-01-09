@@ -144,9 +144,8 @@ export default class UploadPhotoContainer extends Component {
           );
       } else {
         return (
-        <ScrollView>
-          <Image style={styles.image} source={this.state.image} />
-          <AddSpotInfo 
+          <AddSpotInfo
+            imageSource={this.state.image}
             onTitleChange={this.onTitleChange.bind(this)}
             title={this.state.title}
             onDescriptionChange={this.onDescriptionChange.bind(this)}
@@ -155,7 +154,6 @@ export default class UploadPhotoContainer extends Component {
             category={categories}
             onSubmit={this.onSubmit.bind(this)}
           />
-        </ScrollView>
         );
       } 
     }
@@ -173,17 +171,6 @@ const styles = StyleSheet.create({
   body: {
     alignItems: 'center',
     flex: 1,
-  },
-  image: {
-    //later look how to maintain the image's aspect ratio
-    marginTop: height * 0.05,
-    height: 200,
-    flex: 1,
-    width: 200,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    resizeMode: 'cover',
-    borderRadius: 20
   },
   error: {
     padding: 15,
