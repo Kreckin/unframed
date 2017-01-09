@@ -77,12 +77,15 @@ class SpotInfo extends Component {
   }
   renderCategories() {
     const categories = this.props.spot.categories;
-    let block;
-    for (let i = 0; i < categories.length; i++) {
-      block += <View style={{ flexDirection: "row", justifyContent: "space-between" }}>;
-      block += <View style={styles.categoryViewStyle} key={categories[i]}>;
-      block += <Text style={styles.categoryTextStyle}>categories[i]</Text>;
-      block += </View>;
+    const block = [];
+    for (let i = 0; i < categories.length; i += 4) {
+      block.push(<View style={styles.categoryContainer}>
+        {categories.slice(i, i + 4).map(category => 
+          <View style={styles.categoryViewStyle}>
+            <Text style={styles.categoryTextStyle}>{category}</Text>
+          </View>
+          )}
+      </View>);
     }
     return block;
   }
@@ -101,7 +104,7 @@ class SpotInfo extends Component {
   }
   render() {
     let feet = this.props.spot.distance.toFixed(2);
-    const disabled = (feet * 5280) > 1000
+    const disabled = (feet * 5280) > 1000;
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
     console.log('userService current', userService.currentUser);
@@ -144,7 +147,7 @@ class SpotInfo extends Component {
               </View>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <TouchableHighlight
                 onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
               >
@@ -184,7 +187,7 @@ class SpotInfo extends Component {
         {/*Categories*/}
         {this.renderCategories()}
 
-        
+        {/*Save*/}
         <View style={styles.saveFlagContainer}>
             <TouchableHighlight
               onPress={this.starClick.bind(this)}
@@ -199,6 +202,8 @@ class SpotInfo extends Component {
               </View>
             </View>
             </TouchableHighlight>
+            
+          {/*Flag*/}
           <TouchableHighlight
             onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
           >
@@ -296,7 +301,7 @@ const styles = {
     fontSize: 18
   },
   categoryContainer: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'row',
     paddingTop: 10,
     paddingLeft: 20,
@@ -306,6 +311,7 @@ const styles = {
     backgroundColor: '#00B89C',
     padding: 5,
     borderRadius: 8,
+    margin: 5
   },
   categoryTextStyle: {
     color: '#EFEFF4',
