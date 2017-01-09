@@ -3,7 +3,9 @@ const db = require('seraph')(deploy);
 const model = require('seraph-model');
 
 const Spot = model(db, 'Spot');
+Spot.userTimestamps();
 const User = model(db, 'User');
+User.userTimestamps();
 const Category = model(db, 'Categories');
 
 const spotUpdater = require('./controllers/spotUpdater');
@@ -249,14 +251,14 @@ module.exports = {
     get: (userID, spotID) => {
       if (spotID === undefined) { // just a call to get all favs
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
             if (error) reject(error);
             else resolve(favorites);
           });
         });
       } else {
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
             if (error) reject(error);
             else resolve(favorites);
           });
