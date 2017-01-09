@@ -13,7 +13,7 @@ const favorites = {
       fetch(`${config.apiUrl}/favorites/${userID}`)
         .then((response) => response.json())
         //returns an array of objects that the user has favorited
-        .then((data) => resolve(distranceGetter(data)))
+        .then((data) => resolve(distanceGetter(data)))
         .catch((err) => reject('Error in get favorites', err));
       });
     },
