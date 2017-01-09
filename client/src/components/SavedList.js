@@ -72,7 +72,8 @@ class SavedList extends Component {
           style={styles.listStyle}
           contentContainerStyle={styles.listContainerStyle}
         >
-          { this.state.favorites.map(spot => 
+          {
+            this.state.favorites.map(spot => 
             <SavedItem
               key={spot.title}
               title={spot.title}
