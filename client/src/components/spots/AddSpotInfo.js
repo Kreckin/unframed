@@ -19,6 +19,7 @@ class AddSpotInfo extends Component {
                 />
 
                 <Text style={styles.labelStyle}>Description</Text>
+                <View style={styles.inputView}>
                 <TextInput 
                 style={styles.textInputStyle}
                 label='description'
@@ -26,6 +27,7 @@ class AddSpotInfo extends Component {
                 value={this.props.description}
                 onChangeText={this.props.onDescriptionChange}
                 />
+                </View>
                 <Text style={styles.labelStyle}>Categories:</Text>
                 <CategoryCheckbox 
                     onCategoryChange={this.props.onCategoryChange} 
@@ -52,15 +54,19 @@ const styles = {
     alignSelf: 'center',
     color: '#EFEFF4',
   },
+  inputView: {
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
+  },
   textInputStyle: {
     alignSelf: 'center', 
-    borderWidth: 1, 
-    borderRadius: 5,
-    borderColor: '#ccc', 
+    //borderWidth: 1, 
+    //borderRadius: 5,
+    //borderColor: '#ccc', 
     padding: 10, 
     height: 40,
     width: width - 30,
-    color: '#EFEFF4',
+    color: '#006F60',
   },
   buttonStyle: {
     backgroundColor: 'gray',
@@ -70,7 +76,7 @@ const styles = {
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 30,
-    marginBottom:50
+    marginBottom: 50
   },
   buttonTextStyle: {
     color: '#EFEFF4',
