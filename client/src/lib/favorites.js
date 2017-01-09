@@ -6,7 +6,7 @@ const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
 const favorites = {
-    get: (userID, callback) => {
+    get: (userID) => {
       return new Promise((resolve, reject) => {
       //sends a fetch request to the url with the ID
       fetch(`${config.apiUrl}/users/${userID}/favorites`)
@@ -16,7 +16,7 @@ const favorites = {
         //returns an array of objects that the user has favorited
         .then((data) => resolve(distanceGetter(data)))
         .catch((err) => reject('Error in get favorites', err));
-      })
+      });
     },
     add: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
@@ -25,10 +25,12 @@ const favorites = {
         headers: myHeaders,
         body: JSON.stringify({ spotID: spotID }),
       };
-      fetch(`${config.apiUrl}/users/${userID}/favorites/add`, postConfig)
-        .then((response) => {
-          console.log(response);
-        }).catch(error => console.log(error));
+      return new Promise((resolve, reject) => {
+        fetch(`${config.apiUrl}/users/${userID}/favorites/add`, postConfig)
+          .then((response) => {
+            console.log(response);
+          }).catch(error => console.log(error));
+      });
     },
     remove: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
@@ -84,5 +86,5 @@ function distance(lat1, lon1, lat2, lon2) {
   dist = dist * 60 * 1.1515;
   return dist;
 }
-    
-    export default favorites;
+
+export default favorites;

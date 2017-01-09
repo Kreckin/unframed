@@ -121,9 +121,6 @@ module.exports = {
         });
       });
     },
-    getFavorites: {
-
-    }
   },
 
   categories: {
@@ -146,9 +143,9 @@ module.exports = {
   },
 
   votes: {
-    update: (uid, sid, voteType) => {
+    update: (userID, spotID, voteType) => {
       return new Promise((resolve, reject) => {
-        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, relationship) => {
+        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${userID} AND ID(s) = ${spotID} RETURN r`, (error, relationship) => {
           if (error) { reject(error); } 
           else {
             console.log('relationship', relationship);
@@ -159,7 +156,7 @@ module.exports = {
                 else resolve(savedObject);
               });
             } else {
-              db.relate(uid, 'voted', sid, { voteType: voteType }, (err, res) => {
+              db.relate(userID, 'voted', spotID, { voteType: voteType }, (err, res) => {
                 if (err) reject(err);
                 else resolve(res);
               });
@@ -168,13 +165,13 @@ module.exports = {
         });
       });
     },
-    updateSpotPercentage: (sid) => {
+    updateSpotPercentage: (spotID) => {
       return new Promise((resolve, reject) => {
-        db.relationships(sid, 'in', 'voted', (err, votes) => {
+        db.relationships(spotID, 'in', 'voted', (err, votes) => {
            if (err) { reject(err);}
            else {
             const voteInfo = spotUpdater(votes);
-            db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${sid} RETURN s`, (error, node) => {
+            db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(s) = ${spotID} RETURN s`, (error, node) => {
               if (err) { reject(err); }
               else {
                 node[0].upvotes    = voteInfo.ups;
@@ -191,14 +188,14 @@ module.exports = {
         });
       });
     },
-    mehVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'mehvote')
-      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    mehVote: (userID, spotID) => { return module.exports.votes.update(userID, spotID, 'mehvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(spotID)));
     },
-    upVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'upvote')
-      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    upVote: (userID, spotID) => { return module.exports.votes.update(userID, spotID, 'upvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(spotID)));
     },
-    downVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'downvote')
-      .then(() => (module.exports.votes.updateSpotPercentage(sid)));
+    downVote: (userID, spotID) => { return module.exports.votes.update(userID, spotID, 'downvote')
+      .then(() => (module.exports.votes.updateSpotPercentage(spotID)));
     },
   },
 
@@ -249,26 +246,36 @@ module.exports = {
   // },
 
   favorites: {
-    get: (userID) => {
-      return new Promise((resolve, reject) => {
-        db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = '${userID}' RETURN s LIMIT 25`, (error, favorites) => {
-          if (error) reject(error);
-          else resolve(favorites);
+    get: (userID, spotID) => {
+      console.log('userID', userID);
+      if (spotID === undefined) { // just a call to get all favs
+        return new Promise((resolve, reject) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+            if (error) reject(error);
+            else resolve(favorites);
+          });
         });
-      });
+      } else {
+        return new Promise((resolve, reject) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+            if (error) reject(error);
+            else resolve(favorites);
+          });
+        });
+      }
     },
-    add: (uID, sID) => {
+    add: (userID, spotID) => {
       return new Promise((resolve, reject) => {
-        db.relate(uID, 'favorite', sID, {}, (err, relationship ) => {
+        db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
           if (err) reject(err);
           else resolve(relationship);
         });
       });
     },
-    remove: (uID, sID) => {
+    remove: (userID, spotID) => {
       return new Promise((resolve, reject) => {
-        db.relationships(uID, 'all', 'favorite', (err, relationships) => {
-          const relationship = relationships.filter((rel) => rel.end === parseInt(sID, 10));
+        db.relationships(userID, 'all', 'favorite', (err, relationships) => {
+          const relationship = relationships.filter((rel) => rel.end === parseInt(spotID, 10));
           if (relationship.length) {
            db.rel.delete(relationship[0].id, (err) => {
              if (err) reject(err);

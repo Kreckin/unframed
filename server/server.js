@@ -186,8 +186,8 @@ app.get('/fetchLatLong/:address', (req, res) => {
   });
 });
 
-app.get('/users/:userID/favorites/', (req, res) => {
-  db.favorites.get(req.params.userID)
+app.get('/users/:userID/favorites/:spotID', (req, res) => {
+  db.favorites.get(req.params.userID, req.params.spotID)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
@@ -198,10 +198,8 @@ app.get('/users/:userID/favorites/', (req, res) => {
     });
 });
 
-app.post('/favorites/add', (req, res) => {
-  const uID = req.body.userID;
-  const sID = req.body.spotID;
-  db.favorites.add(uID, sID)
+app.post('users/:userID/favorites/add', (req, res) => {
+  db.favorites.add(req.params.userID, req.body.spotID)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);
@@ -212,10 +210,8 @@ app.post('/favorites/add', (req, res) => {
     });
 });
 
-app.post('/favorites/remove', (req, res) => {
-  const uID = req.body.userID;
-  const sID = req.body.spotID;
-  db.favorites.remove(uID, sID)
+app.post('uers/:userID/favorites/remove', (req, res) => {
+  db.favorites.remove(req.params.userID, req.body.spotID)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);

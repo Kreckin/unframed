@@ -14,6 +14,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
 import userService from '../../lib/userService';
+import favorites from '../../lib/favorites';
 
 const { width } = Dimensions.get('window');
 
@@ -29,16 +30,17 @@ class SpotInfo extends Component {
   }
 
   componentWillMount() {
-    this.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id);
-  }
-
-  checkIfSavedSpot() {
-    for (let i = 0; i < savedSpots.length; i++) {
-      if (this.spot.spot_id === savedSpots[i]) {
-        saved = true;
-      }
-    }
-    this.setState({ saved });
+    // favorites.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id)
+    //   .then((response) => {
+    //     if (response.length > 0) {
+    //       this.setState({
+    //         saved: true,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log('Error getting checkIfSavedSpot', error);
+    //   });
   }
 
   upVote() {
@@ -71,7 +73,27 @@ class SpotInfo extends Component {
     });
   }
 
-  starClick() {
+  saveOrUnSaveSpot() {
+    // check if already saved
+    if (this.state.saved) {
+      // unsave
+      favorites.remove(userService.currentUser.id, this.props.spot.id)
+        .then((resolve) => {
+          console.log('saveOrUnSaveSpot remove', resolve);
+        })
+        .catch((reject) => {
+          console.log('saveOrUnSaveSpot remove', reject);
+        });
+    } else {
+      //save
+      favorites.add(userService.currentUser.id, this.props.spot.id)
+        .then((resolve) => {
+          console.log('saveOrUnSaveSpot add', resolve);
+        })
+        .catch((reject) => {
+          console.log('saveOrUnSaveSpot add', reject);
+        });
+    }
     this.setState({ saved: !this.state.saved });
     //if (saved){
       //saveThisItem() <- a lib function
@@ -84,6 +106,7 @@ class SpotInfo extends Component {
     //this takes two params, the text to show and for how long to show it
     this.refs.toast.show('Come to this location to vote!', 2000);
   }
+
   render() {
     let feet = this.props.spot.distance.toFixed(2);
     const disabled = (feet * 5280) > 1000
@@ -179,7 +202,7 @@ class SpotInfo extends Component {
         </View>
         <View style={styles.saveFlagContainer}>
             <TouchableHighlight
-              onPress={this.starClick.bind(this)}
+              onPress={this.saveOrUnSaveSpot.bind(this)}
             >
               <View style={{ flexDirection: 'row' }}>
                 <Image
