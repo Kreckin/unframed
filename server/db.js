@@ -99,7 +99,7 @@ module.exports = {
           if (error) { reject(error); }
           else { 
             console.log(Boolean(votes.length));
-            resolve(Boolean(votes.length)); } 
+            resolve({value:Boolean(votes.length)}); } 
         });  
       });
     }

@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
+import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 
 const { width } = Dimensions.get('window');
@@ -26,12 +27,16 @@ class SpotInfo extends Component {
   }
 
   componentWillMount() {
-    //fetch the vote tally
-    this.setState({
+    // first see if user has visited spot before
+    // (If they've voted, they've visited )
+    Visited(userService.currentUser.id, this.props.spot.id)
+     //then fetch vote tally
+      .then((data) => this.setState({
+      visited: data.value,
       upvotes: this.props.spot.upvotes,
       downvotes: this.props.spot.downvotes,
       mehvotes: this.props.spot.mehvotes
-    });
+    }));
     //checkIfSaved()
   }
   // Uncomment the above and below once the routes are up for saved
@@ -104,7 +109,7 @@ class SpotInfo extends Component {
   }
   render() {
     let feet = this.props.spot.distance.toFixed(2);
-    const disabled = (feet * 5280) > 1000;
+    const disabled = !this.state.visited && ((feet * 5280) > 1000);
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
     console.log('userService current', userService.currentUser);
