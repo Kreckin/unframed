@@ -14,7 +14,7 @@ class SavedList extends Component {
       favorites: [],
       displayOrder: 'recent',
     };
-	this.recentOrPendingRequest = false;
+    this.recentOrPendingRequest = false;
   }
 
   componentWillMount() {
@@ -26,7 +26,6 @@ class SavedList extends Component {
   getFavoriteSpots() {
     favorites.get(userService.currentUser.id)
       .then(favoritesArray => {
-        this.fromTabNavigaion = true;
         console.log('got favs', favoritesArray);
         this.setState({ 
           favorites: favoritesArray,
@@ -48,7 +47,7 @@ class SavedList extends Component {
   }
 
   orderBy(attribute) {
-    if(this.state.displayOrder !== attribute) {
+    if (this.state.displayOrder !== attribute) {
       this.setState({ displayOrder: attribute });
     }
   }

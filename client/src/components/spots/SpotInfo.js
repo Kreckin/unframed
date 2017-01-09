@@ -21,33 +21,25 @@ class SpotInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //These states are here just for the time being to test the save functionality
-      //Delete them once the lib functions are working and categories are up
-      saved: true,
-      categories: ['such art', 'the best', 'wooooow']
+      upvotes: this.props.spot.upvotes,
+      downvotes: this.props.spot.downvotes,
+      mehvotes: this.props.spot.mehvotes,
+      saved: false,
     };
   }
 
   componentWillMount() {
-    //fetch the vote tally
-    this.setState({
-      upvotes: this.props.spot.upvotes,
-      downvotes: this.props.spot.downvotes,
-      mehvotes: this.props.spot.mehvotes
-    });
-    //checkIfSaved()
+    this.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id);
   }
-  // Uncomment the above and below once the routes are up for saved
-  // checkIfSaved() {
-  //   let saved = false;
-  //   const savedSpots = this.props.user.savedSpots;
-  //   for (let i = 0; i < savedSpots.length; i++) {
-  //     if (this.spot.spot_id === savedSpots[i]) {
-  //       saved = true;
-  //     }
-  //   }
-  //   this.setState({ saved });
-  // }
+
+  checkIfSavedSpot() {
+    for (let i = 0; i < savedSpots.length; i++) {
+      if (this.spot.spot_id === savedSpots[i]) {
+        saved = true;
+      }
+    }
+    this.setState({ saved });
+  }
 
   upVote() {
     console.log('SPOT PROPS', this.props.spot);

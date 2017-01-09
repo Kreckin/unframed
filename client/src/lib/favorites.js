@@ -18,7 +18,6 @@ const favorites = {
         .catch((err) => reject('Error in get favorites', err));
       })
     },
-    //this one takes the "node" id, or just like user.id, also spot.id NOT spot.spotid
     add: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
       const postConfig = {
@@ -26,23 +25,37 @@ const favorites = {
         headers: myHeaders,
         body: JSON.stringify({ spotID: spotID }),
       };
-      fetch(`${config.apiUrl}/users/${userID}/favorites/add`, postConfig) //TODO
+      fetch(`${config.apiUrl}/users/${userID}/favorites/add`, postConfig)
         .then((response) => {
           console.log(response);
         }).catch(error => console.log(error));
     },
-    //this one takes the "node" id, or just like user.id, also spot.id NOT spot.spotid
     remove: (userID, spotID) => {
       //a postConfig object that tells the fetch function what to do
       const postConfig = {
         method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify({ spotID: spotID}),
+        body: JSON.stringify({ spotID }),
       };
-      fetch(`${config.apiUrl}/users/${userID}favorites/remove`, postConfig) //TODO
-        .then((response) => {
-          console.log(response);
-        }).catch(error => console.log(error));
+      return new Promise((resolve, reject) => {
+        fetch(`${config.apiUrl}/users/${userID}/favorites/remove`, postConfig)
+              .then((response) => {
+                console.log(response);
+                resolve(response);
+              }).catch((error) => {
+                console.log(error);
+                reject(error);
+              });
+        }
+      );
+    },
+    checkIfFavorite: (userID, spotID) => {
+      return new Promise((resolve, reject) => {
+        fetch(`${config.apiUrl}/users/${userID}/favorites/${spotID}`)
+          .then((response) => {
+            console.log(response);
+          }).catch(error => console.log(error));
+      });
     }
   };
 
