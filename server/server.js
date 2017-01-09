@@ -50,6 +50,12 @@ app.get('/spots', (req, res) => {
     });
 });
 
+// app.get('/spots/:spotId', function (req, res) {
+//   db.spots.get(req.params, function(err, data){
+//     res.send(data);
+//   })
+// })
+
 app.post('/spots', upload.single('spot_image'), (req, res) => {
   //we parse the latitude and longitude we get here so we save a number in our database
   req.body.categories = JSON.parse(req.body.categories)
@@ -131,11 +137,6 @@ app.post('/users', (req, res) => {
     });
 });
 
-// app.get('/spots/:spotId', function (req, res) {
-//   db.spots.get(req.params, function(err, data){
-//     res.send(data);
-//   })
-// })
 app.get('/upvote/:uid/:sid', (req, res) => {
   console.log('req.params', req.params);
   db.votes.upVote(parseFloat(req.params.uid), parseFloat(req.params.sid))
@@ -184,10 +185,10 @@ app.get('/fetchLatLong/:address', (req, res) => {
     }
   });
 });
+
 //so for maxiumum confusion this route takes the userID prop on the user object
-app.get('/favorites/:userID', (req, res) => {
-  const uID = req.params.userID;
-  db.favorites.get(uID)
+app.get('/users/:userID/favorites/', (req, res) => {
+  db.favorites.get(req.params.userID)
     .then((resolve) => {
       console.log('sending', resolve);
       res.send(resolve);

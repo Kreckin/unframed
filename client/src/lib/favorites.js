@@ -6,11 +6,10 @@ const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
 const favorites = {
-  //for maximum confusion this will take the userID prop off the user object
     get: (userID, callback) => {
       return new Promise((resolve, reject) => {
       //sends a fetch request to the url with the ID
-      fetch(`${config.apiUrl}/favorites/${userID}`)
+      fetch(`${config.apiUrl}/users/${userID}/favorites`)
         .then((response) => {
           return response.json();
         })
@@ -25,9 +24,9 @@ const favorites = {
       const postConfig = {
         method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify({ spotID: spotID, userID: userID }),
+        body: JSON.stringify({ spotID: spotID }),
       };
-      fetch(`${config.apiUrl}/favorites/add`, postConfig)
+      fetch(`${config.apiUrl}/users/${userID}/favorites/add`, postConfig) //TODO
         .then((response) => {
           console.log(response);
         }).catch(error => console.log(error));
@@ -38,16 +37,18 @@ const favorites = {
       const postConfig = {
         method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify({ spotID: spotID, userID: userID }),
+        body: JSON.stringify({ spotID: spotID}),
       };
-      fetch(`${config.apiUrl}/favorites/remove`, postConfig)
+      fetch(`${config.apiUrl}/users/${userID}favorites/remove`, postConfig) //TODO
         .then((response) => {
           console.log(response);
         }).catch(error => console.log(error));
     }
   };
+
   function distanceGetter(data) {
-  navigator.geolocation.getCurrentPosition((position, err) => {
+    if (data.length === 0) { return []; }
+    navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
         } else {
@@ -56,8 +57,9 @@ const favorites = {
             });
             return data;
         }
-      });
+    });
 }
+
 function distance(lat1, lon1, lat2, lon2) {
   const radlat1 = Math.PI * lat1 / 180;
   const radlat2 = Math.PI * lat2 / 180;

@@ -58,7 +58,7 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 //Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 //------ USER VALIDATION ------
 User.schema = {
-  userID: { type: String, required: true },
+  facebookID: { type: String, required: true },
 };
 
 module.exports = {
@@ -98,10 +98,9 @@ module.exports = {
   users: {
     get: (id) => {
       return new Promise((resolve, reject) => {
-        User.where({ userID: id }, ((err, user) => {
+        User.read(id, ((err, user) => {
           if (err) reject(err);
           else {
-            console.log('this is the user!', user);
             resolve(user[0]);
           }
         }));
@@ -118,10 +117,13 @@ module.exports = {
               else resolve(savedObject);
             });
           } else {
-            resolve(module.exports.users.get(obj.userID));
+            resolve(module.exports.users.get(obj.id));
           }
         });
       });
+    },
+    getFavorites: {
+
     }
   },
 
@@ -252,7 +254,7 @@ module.exports = {
   favorites: {
     get: (userID) => {
       return new Promise((resolve, reject) => {
-        db.query(`MATCH (u:User) -[r:favorite] -> (s:Spot) WHERE u.userID = '${userID}' RETURN s`, (error, favorites) => {
+        db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = '${userID}' RETURN s LIMIT 25`, (error, favorites) => {
           if (error) reject(error);
           else resolve(favorites);
         });

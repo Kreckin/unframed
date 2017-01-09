@@ -97,7 +97,7 @@ class SpotInfo extends Component {
     const disabled = (feet * 5280) > 1000
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
-    console.log('userService current', userService.currentUser);
+    // console.log('userService current', userService.currentUser);
     return (
       <ScrollView >
     {/*Header*/}

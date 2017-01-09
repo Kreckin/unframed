@@ -2,27 +2,42 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import SavedItem from './SavedItem';
 import favorites from '../lib/favorites';
+import userService from '../lib/userService';
 
 class SavedList extends Component {
-
-  constructor() {
-    super();
-    this.state = { favorites: [] };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      favorites: [],
+    };
+    this.recentOrPendingRequest = false;
   }
 
   componentWillMount() {
     //favorites.add(1, 2);
-    this.getSpots();
+    this.getFavoriteSpots();
+    this.recentOrPendingRequest = true;
   }
 
-  getSpots() {
-    favorites.get('10207534965827573').then(favoritesArray => {
-      this.setState({ favorites: favoritesArray });
-    });
+  getFavoriteSpots() {
+    favorites.get(userService.currentUser.id)
+      .then(favoritesArray => {
+        this.fromTabNavigaion = true;
+        console.log('got favs', favoritesArray);
+        this.setState({ 
+          favorites: favoritesArray,
+        });
+        setTimeout(() => {
+          this.recentOrPendingRequest = false;
+        }, 1000);
+      })
+      .catch(err => {
+        console.log('error getting favorites in saved list:', err);
+      });
   }
 
-  removeSavedSpot(id) {
-    favorites.remove(1, id);
+  removeSavedSpot(spotID) {
+    favorites.remove(userService.currentUser.id, spotID);
     //var index = this.state.favorites.indexOf()
     var newFavorites = this.state.favorites.filter(savedSpot =>
       savedSpot.id !== id);
@@ -30,6 +45,11 @@ class SavedList extends Component {
   }
 
   render() {
+    if (!this.recentOrPendingRequest) {
+      this.getFavoriteSpots();
+      this.recentOrPendingRequest = true;
+    }
+
     return (
       <View>
         <Text style={styles.titleStyle}>Saved Spots</Text>

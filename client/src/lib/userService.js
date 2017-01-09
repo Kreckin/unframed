@@ -17,7 +17,7 @@ const userService = {
         .then((value) => {
           if (value !== null) {
             // We have data!!
-            // console.log('from local cache', value);
+            console.log('from local cache', value);
             userService.currentUser = JSON.parse(value);
             resolve(true);
           } else {
@@ -40,7 +40,7 @@ const userService = {
     };
 
     function cachePromise()  { new Promise ((resolve, reject) => {
-      // console.log('inside cachePromise-----', userService.currentUser);
+      console.log('inside cachePromise-----', userService.currentUser);
       AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
       .then((data) => {
         return;
@@ -111,7 +111,7 @@ const userService = {
                 if (error) console.log('Error from GraphRequest', err);
                 if (res) {
                   userService.currentUser.displayName = res.name;
-                  userService.currentUser.userID = res.id;
+                  userService.currentUser.facebookID = res.id;
                 }
               },
             );
