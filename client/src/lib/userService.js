@@ -1,11 +1,8 @@
-import React from 'react';
 import { AsyncStorage } from 'react-native';
-import { 
-  LoginButton, 
+import {
   AccessToken, 
   GraphRequest, 
   GraphRequestManager } from 'react-native-fbsdk';
-import { Actions } from 'react-native-router-flux';
 import config from './config.js';
 
 const userService = {
@@ -17,7 +14,7 @@ const userService = {
         .then((value) => {
           if (value !== null) {
             // We have data!!
-            console.log('from local cache', value);
+            // console.log('from local cache', value);
             userService.currentUser = JSON.parse(value);
             resolve(true);
           } else {

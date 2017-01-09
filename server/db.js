@@ -1,4 +1,3 @@
-const neo4j = require('neo4j-driver').v1;
 const deploy = !process.env.server ? require('./config').graph_local : { server: process.env.server, user: process.env.user, pass: process.env.pass }; 
 const db = require('seraph')(deploy);
 const model = require('seraph-model');
@@ -150,21 +149,20 @@ module.exports = {
     update: (uid, sid, voteType) => {
       return new Promise((resolve, reject) => {
         db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, relationship) => {
-          if (error) { reject(error);} 
+          if (error) { reject(error); } 
           else {
             console.log('relationship', relationship);
-            if(relationship.length){
+            if (relationship.length) {
               relationship[0].properties.voteType = voteType;
               db.rel.update(relationship[0], (error, savedObject) => {
                 if (error) reject(error);
                 else resolve(savedObject);
               });
-            }
-            else{
-              db.relate(uid, 'voted', sid, {voteType: voteType}, (err, res) => {
+            } else {
+              db.relate(uid, 'voted', sid, { voteType: voteType }, (err, res) => {
                 if (err) reject(err);
                 else resolve(res);
-              })
+              });
             }
           }
         });
@@ -184,7 +182,7 @@ module.exports = {
                 node[0].mehvotes   = voteInfo.mehs;
                 node[0].percentage = voteInfo.percent;
 
-                db.save(node[0], function(err,node){
+                db.save(node[0], (err, node) => {
                   resolve(node);
                 });
               }
@@ -202,8 +200,6 @@ module.exports = {
     downVote: (uid, sid) => { return module.exports.votes.update(uid, sid, 'downvote')
       .then(() => (module.exports.votes.updateSpotPercentage(sid)));
     },
-
-
   },
 
   // votes: {
@@ -251,6 +247,7 @@ module.exports = {
   //     });
   //   }
   // },
+
   favorites: {
     get: (userID) => {
       return new Promise((resolve, reject) => {
@@ -271,17 +268,15 @@ module.exports = {
     remove: (uID, sID) => {
       return new Promise((resolve, reject) => {
         db.relationships(uID, 'all', 'favorite', (err, relationships) => {
-          const relationship = relationships.filter((rel) => rel.end === parseInt(sID));
+          const relationship = relationships.filter((rel) => rel.end === parseInt(sID, 10));
           if (relationship.length) {
            db.rel.delete(relationship[0].id, (err) => {
              if (err) reject(err);
              else resolve('Relationship was deleted');
            });
-          } else reject('no relationship with this node');
+          } else reject('No relationship with this node');
         });
       });
     }
   }
 };
-
-

@@ -58,7 +58,7 @@ app.get('/spots', (req, res) => {
 
 app.post('/spots', upload.single('spot_image'), (req, res) => {
   //we parse the latitude and longitude we get here so we save a number in our database
-  req.body.categories = JSON.parse(req.body.categories)
+  req.body.categories = JSON.parse(req.body.categories);
   req.body.latitude = parseFloat(req.body.latitude);
   req.body.longitude = parseFloat(req.body.longitude);
   if (req.file !== undefined) {
@@ -186,7 +186,6 @@ app.get('/fetchLatLong/:address', (req, res) => {
   });
 });
 
-//so for maxiumum confusion this route takes the userID prop on the user object
 app.get('/users/:userID/favorites/', (req, res) => {
   db.favorites.get(req.params.userID)
     .then((resolve) => {
@@ -198,7 +197,7 @@ app.get('/users/:userID/favorites/', (req, res) => {
       res.status(500).send(reject);
     });
 });
-//while these two take the id property of the user and the spot
+
 app.post('/favorites/add', (req, res) => {
   const uID = req.body.userID;
   const sID = req.body.spotID;
@@ -212,6 +211,7 @@ app.post('/favorites/add', (req, res) => {
       res.status(500).send(reject);
     });
 });
+
 app.post('/favorites/remove', (req, res) => {
   const uID = req.body.userID;
   const sID = req.body.spotID;
