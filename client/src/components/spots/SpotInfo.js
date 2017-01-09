@@ -21,10 +21,7 @@ class SpotInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //These states are here just for the time being to test the save functionality
-      //Delete them once the lib functions are working and categories are up
-      saved: true,
-      categories: ['such art', 'the best', 'wooooow']
+      saved: true
     };
   }
 
@@ -55,7 +52,7 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes});
+                        mehvotes: res.mehvotes });
     });
   }
   
@@ -65,7 +62,7 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes});
+                        mehvotes: res.mehvotes });
     });
   }
 
@@ -78,7 +75,17 @@ class SpotInfo extends Component {
                         mehvotes: res.mehvotes });
     });
   }
-
+  renderCategories() {
+    const categories = this.props.spot.categories;
+    let block;
+    for (let i = 0; i < categories.length; i++) {
+      block += <View style={{ flexDirection: "row", justifyContent: "space-between" }}>;
+      block += <View style={styles.categoryViewStyle} key={categories[i]}>;
+      block += <Text style={styles.categoryTextStyle}>categories[i]</Text>;
+      block += </View>;
+    }
+    return block;
+  }
   starClick() {
     this.setState({ saved: !this.state.saved });
     //if (saved){
@@ -102,7 +109,9 @@ class SpotInfo extends Component {
       <ScrollView >
     {/*Header*/}
         <View style={styles.headerView} scrollEnabled={false}>
-          <Text style={styles.headerText}>{this.props.spot.title}</Text>
+          <Text style={styles.headerText} numberOfLines={1}>
+            {this.props.spot.title}
+          </Text>
         </View>
       {/*Picture
       Note: there is a black background that is currently not in use because 
@@ -173,18 +182,9 @@ class SpotInfo extends Component {
               'No description currently available for this location'}
           </Text>
         {/*Categories*/}
-        <View style={styles.categoryContainer}>
+        {this.renderCategories()}
 
-          {this.props.spot.categories.map(category =>
-              //This maps out all the dummy data categories into separate categories. 
-              <View 
-                key={category}
-                style={styles.categoryViewStyle}
-              > 
-                <Text style={styles.categoryTextStyle}>{category}</Text>
-              </View>
-            )}
-        </View>
+        
         <View style={styles.saveFlagContainer}>
             <TouchableHighlight
               onPress={this.starClick.bind(this)}
@@ -239,7 +239,9 @@ const styles = {
     textAlign: 'center',
     color: '#EFEFF4',
     marginTop: 15,
-    marginBottom: 5
+    marginBottom: 5,
+    marginLeft: 20,
+    width: width - 50
   },
   //Change this to allow for varying photo types
   photoContainer: {
