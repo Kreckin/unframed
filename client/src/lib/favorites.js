@@ -11,6 +11,7 @@ const favorites = {
       //sends a fetch request to the url with the ID
       fetch(`${config.apiUrl}/users/${userID}/favorites`)
         .then((response) => {
+          console.log('response from server on get favorites', response);
           return response.json();
         })
         //returns an array of objects that the user has favorited
@@ -63,15 +64,18 @@ const favorites = {
 
   function distanceGetter(data) {
     if (data.length === 0) { return []; }
-    navigator.geolocation.getCurrentPosition((position, err) => {
-        if (err) {
-          console.log('Err getting current postion in moveMapToCurrentPostion', err);
-        } else {
-            data.forEach((item) => {
-             item.distance = distance(item.latitude, item.longitude, position.coords.latitude, position.coords.longitude);
-            });
-            return data;
-        }
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position, err) => {
+          if (err) {
+            console.log('Err getting current postion in moveMapToCurrentPostion', err);
+            reject(err);
+          } else {
+              data.forEach((item) => {
+               item.distance = distance(item.latitude, item.longitude, position.coords.latitude, position.coords.longitude);
+              });
+              resolve(data);
+          }
+      });
     });
 }
 

@@ -186,6 +186,18 @@ app.get('/fetchLatLong/:address', (req, res) => {
   });
 });
 
+app.get('/users/:userID/favorites', (req, res) => {
+  db.favorites.get(req.params.userID, req.params.spotID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+
 app.get('/users/:userID/favorites/:spotID', (req, res) => {
   db.favorites.get(req.params.userID, req.params.spotID)
     .then((resolve) => {
@@ -198,19 +210,19 @@ app.get('/users/:userID/favorites/:spotID', (req, res) => {
     });
 });
 
-app.post('users/:userID/favorites/add', (req, res) => {
+app.post('/users/:userID/favorites/add', (req, res) => {
   db.favorites.add(req.params.userID, req.body.spotID)
     .then((resolve) => {
-      console.log('sending', resolve);
+      console.log('add sending', resolve);
       res.send(resolve);
     })
     .catch((reject) => {
-      console.log('rejecting with', reject);
+      console.log('add rejecting with', reject);
       res.status(500).send(reject);
     });
 });
 
-app.post('uers/:userID/favorites/remove', (req, res) => {
+app.post('/users/:userID/favorites/remove', (req, res) => {
   db.favorites.remove(req.params.userID, req.body.spotID)
     .then((resolve) => {
       console.log('sending', resolve);

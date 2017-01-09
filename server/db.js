@@ -247,7 +247,6 @@ module.exports = {
 
   favorites: {
     get: (userID, spotID) => {
-      console.log('userID', userID);
       if (spotID === undefined) { // just a call to get all favs
         return new Promise((resolve, reject) => {
           db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
