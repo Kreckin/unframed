@@ -3,7 +3,9 @@ const db = require('seraph')(deploy);
 const model = require('seraph-model');
 
 const Spot = model(db, 'Spot');
+Spot.useTimestamps();
 const User = model(db, 'User');
+User.useTimestamps();
 const Category = model(db, 'Categories');
 
 const spotUpdater = require('./controllers/spotUpdater');
@@ -249,14 +251,14 @@ module.exports = {
     get: (userID, spotID) => {
       if (spotID === undefined) { // just a call to get all favs
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
             if (error) reject(error);
             else resolve(favorites);
           });
         });
       } else {
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 25`, (error, favorites) => {
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
             if (error) reject(error);
             else resolve(favorites);
           });
@@ -265,9 +267,19 @@ module.exports = {
     },
     add: (userID, spotID) => {
       return new Promise((resolve, reject) => {
-        db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
-          if (err) reject(err);
-          else resolve(relationship);
+        db.relationships(userID, 'all', 'favorite', (err, relationships) => {
+          if (err) {
+            console.log('error adding relationship', err);
+            reject(err);
+          } else {
+            const relationship = relationships.filter((rel) => rel.end === parseInt(spotID, 10));
+            if (!relationship.length) {
+              db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
+                if (err) reject(err);
+                else resolve(relationship);
+              });
+            } else reject('Already a relationship with this node');
+          }
         });
       });
     },

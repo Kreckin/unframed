@@ -50,6 +50,7 @@ app.get('/spots', (req, res) => {
     });
 });
 
+// TODO below
 // app.get('/spots/:spotId', function (req, res) {
 //   db.spots.get(req.params, function(err, data){
 //     res.send(data);
