@@ -14,7 +14,7 @@ const spotUpdater = require('./controllers/spotUpdater');
 // this will validate Spot whenever its updated/saved, anything not in this list will be removed 
 Spot.schema = {
   title: { type: String, required: true },
-  categories: { type: Array, required: true },
+  categories: { type: Array, required: false },
   img_url: { type: String, required: true },
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
