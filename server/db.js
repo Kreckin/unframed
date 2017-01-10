@@ -93,6 +93,16 @@ module.exports = {
         });
       });
     },
+    visited: (uid, sid) => {
+      return new Promise((resolve, reject) => {
+        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${uid} AND ID(s) = ${sid} RETURN r`, (error, votes) => {
+          if (error) { reject(error); }
+          else { 
+            console.log(Boolean(votes.length));
+            resolve({value:Boolean(votes.length)}); } 
+        });  
+      });
+    }
   },
 
   users: {
@@ -281,5 +291,3 @@ module.exports = {
     }
   }
 };
-
-
