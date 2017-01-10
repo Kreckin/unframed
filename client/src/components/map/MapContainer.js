@@ -38,7 +38,12 @@ class MapContainer extends Component {
   }
 
   componentWillMount() {
-    this.moveMapToCurrentPostion();
+    
+    if (this.props.ManualAddress){
+      this.handleManualAddressInput(this.props.ManualAddress);
+    } else {
+      this.moveMapToCurrentPostion();
+    }
   }
 
   onRegionChangeComplete(newRegion) {
@@ -147,10 +152,6 @@ class MapContainer extends Component {
               />
             ))}
         </MapView>
-        <LensIcon 
-          style={styles.lensIcon}
-          handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-        />
       </View>
     );
   }
@@ -159,7 +160,6 @@ class MapContainer extends Component {
 const styles = {
   map: {
     position: 'absolute',
-    top: 0,
     width,
     height
   }
