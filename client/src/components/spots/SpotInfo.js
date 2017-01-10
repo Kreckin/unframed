@@ -146,7 +146,7 @@ class SpotInfo extends Component {
           <Image 
           source={{ uri: `${this.props.spot.img_url}` }} 
           style={styles.imageStyle}
-          {disabled ? blurRadius={10} : null}
+          
           >
           {disabled ? <Image source={require('../../icons/Lock.png')}
           style={styles.lockStyle} 
