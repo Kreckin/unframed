@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
+import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Modal from 'react-native-simple-modal'
 import CategoryCheckbox from './CategoryCheckbox';
 
 const { width, height } = Dimensions.get('window');
@@ -26,10 +27,9 @@ class AddSpotInfo extends Component {
                         source={this.props.imageSource}
                     />
                     <Modal
-                    
-                    animationType={'slide'}
-                    transparent={false}
-                    visible={this.state.modalVisible}
+                    open={this.state.modalVisible}
+                    modalDidClose={()=> this.setState({modalVisible: false})}
+                    style={{alignItems:'center'}}
                     >
                      <CategoryCheckbox 
                         onCategoryChange={this.props.onCategoryChange} 
