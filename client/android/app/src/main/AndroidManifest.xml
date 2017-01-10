@@ -22,6 +22,8 @@
       <meta-data
        android:name="com.google.android.geo.API_KEY"
        android:value="AIzaSyCKspSGmpYn3GxZfIc_Sccu7x-8qXQcZkI"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -31,6 +33,11 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
