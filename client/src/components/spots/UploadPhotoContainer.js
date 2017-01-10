@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image, StatusBar, StyleSheet, Dimensions } from 'react-native';
+import { View, StatusBar, StyleSheet, Dimensions, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import CameraButtons from './CameraButtons';
@@ -45,19 +45,28 @@ export default class UploadPhotoContainer extends Component {
     this.setImage = this.setImage.bind(this);
   }
   onSubmit() {
-    //we take everything we need for the postSpot function and pass it in as an object
-    postSpot({ 
-      title: this.state.title, 
-      description: this.state.description, 
-      categories: this.state.categories, 
-      latitude: this.state.latitude, 
-      longitude: this.state.longitude,
-      uri: this.state.image.uri 
-    });
-    //set the states to null so we get a blank slate again
-    this.setState({ title: '', description: '', image: null, categories: null });
-    categories.forEach((item) => item.checked = false);
-    Actions.MapContainer();
+    if (!this.state.title) {
+      Alert.alert(
+    'Please add a title',
+    [
+      { text: 'OK' },
+    ]
+  );
+    } else {
+      //we take everything we need for the postSpot function and pass it in as an object
+      postSpot({ 
+        title: this.state.title, 
+        description: this.state.description, 
+        categories: this.state.categories, 
+        latitude: this.state.latitude, 
+        longitude: this.state.longitude,
+        uri: this.state.image.uri 
+      });
+      //set the states to null so we get a blank slate again
+      this.setState({ title: '', description: '', image: null, categories: null });
+      categories.forEach((item) => item.checked = false);
+      Actions.MapContainer();
+    }
   }
 
   onTitleChange(title) {
@@ -106,10 +115,9 @@ export default class UploadPhotoContainer extends Component {
       }
     });
  }
-  // chooseImage() {
-  //   ImagePicker.launchImageLibrary({ noData: true }, this.setImage);
-  //    this.setState({ loading: true });
-  // }
+  backToAddPhoto() {
+    this.setState({ image: '', loading: false });
+  }
    chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, (response) => {
       if (response.didCancel) {
@@ -144,9 +152,8 @@ export default class UploadPhotoContainer extends Component {
           );
       } else {
         return (
-        <ScrollView>
-          <Image style={styles.image} source={this.state.image} />
-          <AddSpotInfo 
+          <AddSpotInfo
+            imageSource={this.state.image}
             onTitleChange={this.onTitleChange.bind(this)}
             title={this.state.title}
             onDescriptionChange={this.onDescriptionChange.bind(this)}
@@ -154,8 +161,8 @@ export default class UploadPhotoContainer extends Component {
             onCategoryChange={this.onCategoryChange.bind(this)}
             category={categories}
             onSubmit={this.onSubmit.bind(this)}
+            backToAddPhoto={this.backToAddPhoto.bind(this)}
           />
-        </ScrollView>
         );
       } 
     }
@@ -174,20 +181,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  image: {
-    //later look how to maintain the image's aspect ratio
-    marginTop: height * 0.05,
-    height: 200,
-    flex: 1,
-    width: 200,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    resizeMode: 'cover',
-    borderRadius: 20
-  },
-  error: {
-    padding: 15,
-    fontSize: 18,
-    marginBottom: -10
-  }
 });
