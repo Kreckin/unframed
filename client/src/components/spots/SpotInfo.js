@@ -39,7 +39,7 @@ class SpotInfo extends Component {
         visited: data.value,
     }));
 
-    favorites.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id)
+    favorites.checkIfFavorite(userService.currentUser.id, this.props.spot.id)
        .then((response) => {
          if (response.length > 0) {
            this.setState({

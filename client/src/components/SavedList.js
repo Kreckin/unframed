@@ -87,12 +87,7 @@ class SavedList extends Component {
             this.state.favorites.map(spot => 
             <SavedItem
               key={spot.title}
-              title={spot.title}
-              description={spot.description}
-              img_url={spot.img_url}
               removeSavedSpot={this.removeSavedSpot.bind(this)}
-              distance={spot.distance}
-              id={spot.id}
               spot={spot}
             />)
           }

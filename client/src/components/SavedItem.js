@@ -11,7 +11,7 @@ const SavedItem = (props) => {
         <View style={styles.imageContainerStyle}>
           <Image
             style={{ width: 50, height: 50 }}
-            source={{ uri: props.img_url }}
+            source={{ uri: props.spot.img_url }}
           />
         </View>
         <View style={styles.textContainerStyle}>
@@ -20,9 +20,9 @@ const SavedItem = (props) => {
               style={styles.titleStyle}
               numberOfLines={1}
             >
-              {props.title}
+              {props.spot.title}
             </Text>
-            <TouchableHighlight onPress={function () { props.removeSavedSpot(props.id); }}>
+            <TouchableHighlight onPress={function () { props.removeSavedSpot(props.spot.id); }}>
               <Image
                 style={styles.trashStyle}
                 source={require('../icons/trash.png')}
@@ -34,13 +34,13 @@ const SavedItem = (props) => {
               style={styles.descriptionStyle}
               numberOfLines={2}
             >
-              {props.description}
+              {props.spot.description}
             </Text>
             <Text
               style={styles.distanceStyle}
               numberOfLines={2}
             >
-              {Math.round(props.distance * 10) / 10} miles
+              {Math.round(props.spot.distance * 10) / 10} miles
             </Text>
           </View>
         </View>
