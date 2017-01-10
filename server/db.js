@@ -59,7 +59,14 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 //Spot.on('afterSave', addSpotToGeomLayerAfterSave);
 //------ USER VALIDATION ------
 User.schema = {
+<<<<<<< HEAD
   facebookID: { type: String, required: true },
+=======
+  userID: { type: String, required: true },
+  settings: {
+    showAllSpots: { type: Boolean, default: false }
+  },
+>>>>>>> merging new database code
 };
 
 module.exports = {
@@ -133,6 +140,35 @@ module.exports = {
         });
       });
     },
+<<<<<<< HEAD
+=======
+    settings: {
+      showAllSpots: {
+        get: (id) => {
+          return new Promise((resolve, reject) => {
+            User.where({ userID: id }, ((err, user) => {
+              if (err) reject(err);
+              else resolve(user[0].settings.showAllSpots);
+            }));
+          });
+        },
+        modify: (id) => {
+          return new Promise((resolve, reject) => {
+            User.where({ userID: id }, ((err, user) => {
+              if (err) reject(err);
+              else {
+                user[0].settings.showAllSpots = !user[0].settings.showAllSpots;
+                User.update(user[0], (error, updatedUser) => {
+                  if (err) reject(err);
+                  else resolve(updatedUser);
+                });
+              }
+            }));
+          });
+        }
+      },
+    },
+>>>>>>> merging new database code
   },
 
   categories: {
