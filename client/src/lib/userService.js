@@ -14,7 +14,7 @@ const userService = {
         .then((value) => {
           if (value !== null) {
             // We have data!!
-            console.log('from local cache', value);
+            // console.log('from local cache', value);
             userService.currentUser = JSON.parse(value);
             resolve(true);
           } else {
