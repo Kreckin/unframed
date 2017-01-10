@@ -5,7 +5,8 @@ import { Text, View, Image } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
-import SpotInfo from './components/spots/SpotInfo';
+import MapSpot from './components/spots/MapSpot';
+import SavedSpot from './components/spots/SavedSpot';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
@@ -98,8 +99,8 @@ render() {
                     component={MapContainer}
                   />
                   <Scene 
-                    key='SpotInfo'
-                    component={SpotInfo}
+                    key='MapSpot'
+                    component={MapSpot}
                   />
                   <Scene 
                     key='FlaggedContent'
@@ -125,6 +126,11 @@ render() {
                     key='SavedList'
                     component={SavedList}
                   />
+                  <Scene 
+                    key='SavedSpot'
+                    component={SavedSpot}
+                    type={ActionConst.RESET}
+                  />
                 </Scene>
                 {/* Profile Tab and its scenes */}
                 <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
@@ -134,8 +140,8 @@ render() {
                     logoutCallback={this.logoutCallback}
                     loginCallback={this.loginCallback}
                   />
-                  </Scene>
                 </Scene>
+              </Scene>
             </Router>
           );
         }

@@ -53,32 +53,32 @@ class SpotInfo extends Component {
   }
 
   upVote() {
-    console.log('SPOT PROPS', this.props.spot);
     Votes.upVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes});
+                        mehvotes: res.mehvotes
+                      });
     });
   }
   
   downVote() {
-    console.log('SPOT PROPS', this.props.spot);
     Votes.downVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes});
+                        mehvotes: res.mehvotes
+                      });
     });
   }
 
   mehVote() {
-    console.log('SPOT PROPS', this.props.spot);
     Votes.mehVote(userService.currentUser.id, this.props.spot.id)
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes });
+                        mehvotes: res.mehvotes 
+                      });
     });
   }
   saveOrUnSaveSpot() {
@@ -109,8 +109,8 @@ class SpotInfo extends Component {
     const block = [];
     for (let i = 0; i < categories.length; i += 4) {
       block.push(<View style={styles.categoryContainer}>
-        {categories.slice(i, i + 4).map(category => 
-          <View style={styles.categoryViewStyle}>
+        {categories.slice(i, i + 4).map((category, idx) => 
+          <View style={styles.categoryViewStyle} key={idx}>
             <Text style={styles.categoryTextStyle}>{category}</Text>
           </View>
           )}
@@ -132,7 +132,7 @@ class SpotInfo extends Component {
     // console.log('userService current', userService.currentUser);
     return (
       <ScrollView >
-    {/*Header*/}
+      {/*Header*/}
         <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText} numberOfLines={1}>
             {this.props.spot.title}

@@ -26,7 +26,6 @@ class SavedList extends Component {
   getFavoriteSpots() {
     favorites.get(userService.currentUser.id)
       .then(favoritesArray => {
-        console.log('got favs', favoritesArray);
         this.setState({ 
           favorites: favoritesArray,
         });

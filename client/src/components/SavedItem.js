@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 
 const SavedItem = (props) => {
   return (
-    <TouchableHighlight onPress={function () { Actions.SpotInfo(props); }}>
+    <TouchableHighlight onPress={function () { Actions.SavedSpot(props); }}>
       <View style={styles.itemStyle}>
         <View style={styles.imageContainerStyle}>
           <Image
