@@ -13,6 +13,9 @@ class AddSpotInfo extends Component {
             modalVisible: false,
         };
     }
+    modalClose(){
+        this.setState({ modalVisible: false })
+    }
     render() {
         return (
             <View>
@@ -23,6 +26,7 @@ class AddSpotInfo extends Component {
                         source={this.props.imageSource}
                     />
                     <Modal
+                    
                     animationType={'slide'}
                     transparent={false}
                     visible={this.state.modalVisible}
@@ -30,13 +34,8 @@ class AddSpotInfo extends Component {
                      <CategoryCheckbox 
                         onCategoryChange={this.props.onCategoryChange} 
                         category={this.props.category}
+                        modalClose={this.modalClose.bind(this)}
                      />
-                    <TouchableHighlight 
-                        style={styles.buttonStyle}
-                        onPress={() => this.setState({ modalVisible: false })}
-                    >
-                        <Text style={styles.buttonTextStyle}>Done</Text>
-                    </TouchableHighlight>
                 </Modal>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.labelStyle}>Title:</Text>
@@ -83,7 +82,7 @@ class AddSpotInfo extends Component {
                             color={'gray'}
                             selectionColor={'#00B89C'}
                             >
-                            {this.props.categories.length ? this.props.categories.join(' ') : 'Tap to select Categories'}
+                            {this.props.categories.length ? this.props.categories.join(', ') : 'Tap to select Categories'}
                             </Text>
                       </TouchableHighlight>
                     </View>
@@ -109,6 +108,11 @@ class AddSpotInfo extends Component {
 }
 
 const styles = {
+    modalContainer: {
+        justifyContent: 'center',
+        height: height,
+
+    },
     containerStyle: {
         width, 
         backgroundColor: '#EFEFF4',
