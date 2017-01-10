@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import Votes from '../../lib/votes.js';
+import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 import favorites from '../../lib/favorites';
 
@@ -30,17 +31,25 @@ class SpotInfo extends Component {
   }
 
   componentWillMount() {
-    // favorites.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id)
-    //   .then((response) => {
-    //     if (response.length > 0) {
-    //       this.setState({
-    //         saved: true,
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error getting checkIfSavedSpot', error);
-    //   });
+    // first see if user has visited spot before
+    // (If they've voted, they've visited )
+    Visited(userService.currentUser.id, this.props.spot.id)
+     //then fetch vote tally
+      .then((data) => this.setState({
+        visited: data.value,
+    }));
+
+    favorites.checkIfSavedSpot(userService.currentUser.id, this.props.spot.id)
+       .then((response) => {
+         if (response.length > 0) {
+           this.setState({
+             saved: true,
+           });
+         }
+       })
+       .catch((error) => {
+         console.log('Error getting checkIfSavedSpot', error);
+       });
   }
 
   upVote() {
@@ -117,7 +126,7 @@ class SpotInfo extends Component {
 
   render() {
     let feet = this.props.spot.distance.toFixed(2);
-    const disabled = (feet * 5280) > 1000;
+    const disabled = !this.state.visited && ((feet * 5280) > 1000);
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
     // console.log('userService current', userService.currentUser);
@@ -137,6 +146,7 @@ class SpotInfo extends Component {
           <Image 
           source={{ uri: `${this.props.spot.img_url}` }} 
           style={styles.imageStyle}
+          {disabled ? blurRadius={10} : null}
           >
           {disabled ? <Image source={require('../../icons/Lock.png')}
           style={styles.lockStyle} 

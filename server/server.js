@@ -89,6 +89,19 @@ app.post('/spots', upload.single('spot_image'), (req, res) => {
   }
 });
 
+app.get('/spots/visited/:uid/:sid', (req, res) => {
+  console.log('params, ', req.params);
+  db.spots.visited(parseFloat(req.params.uid), parseFloat(req.params.sid))
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+
 app.get('/categories', (req, res) => {
   db.categories.get()
     .then((resolve) => {

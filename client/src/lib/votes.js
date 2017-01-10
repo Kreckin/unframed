@@ -9,12 +9,12 @@ const Votes = {
   downVote: (user, spot) => (fetch(`${config.apiUrl}/downvote/${user}/${spot}`)
       .then((res) => res.json())
       .catch((err) => {
-        console.log('error in upvote', err);
+        console.log('error in downvote', err);
       })),
   mehVote: (user, spot) => (fetch(`${config.apiUrl}/mehvote/${user}/${spot}`)
       .then((res) => res.json())
       .catch((err) => {
-        console.log('error in upvote', err);
+        console.log('error in mehvote', err);
       })),
 };
 
