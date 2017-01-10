@@ -26,17 +26,6 @@ class AddSpotInfo extends Component {
                         style={styles.imageStyle}
                         source={this.props.imageSource}
                     />
-                    <Modal
-                    open={this.state.modalVisible}
-                    modalDidClose={()=> this.setState({modalVisible: false})}
-                    style={{alignItems:'center'}}
-                    >
-                     <CategoryCheckbox 
-                        onCategoryChange={this.props.onCategoryChange} 
-                        category={this.props.category}
-                        modalClose={this.modalClose.bind(this)}
-                     />
-                </Modal>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.labelStyle}>Title:</Text>
                         
@@ -102,6 +91,17 @@ class AddSpotInfo extends Component {
                     </TouchableHighlight>
                 </View>
             </View>
+            <Modal
+                open={this.state.modalVisible}
+                modalDidClose={()=> this.setState({modalVisible: false})}
+                style={{alignItems:'center'}}
+            >
+                 <CategoryCheckbox 
+                    onCategoryChange={this.props.onCategoryChange} 
+                    category={this.props.category}
+                    modalClose={this.modalClose.bind(this)}
+                 />
+            </Modal>
         </View>
       );
     }

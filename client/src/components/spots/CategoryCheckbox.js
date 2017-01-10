@@ -66,12 +66,6 @@ class CategoryCheckbox extends Component {
   }
 }
 const styles = {
-    modalContainer: {
-        justifyContent: 'center',
-        height: height,
-        backgroundColor: 'black',
-
-    },
      item: {
         flexDirection: 'row',
     },
