@@ -3,9 +3,9 @@ const db = require('seraph')(deploy);
 const model = require('seraph-model');
 
 const Spot = model(db, 'Spot');
-Spot.userTimestamps();
+Spot.useTimestamps();
 const User = model(db, 'User');
-User.userTimestamps();
+User.useTimestamps();
 const Category = model(db, 'Categories');
 
 const spotUpdater = require('./controllers/spotUpdater');
@@ -267,9 +267,19 @@ module.exports = {
     },
     add: (userID, spotID) => {
       return new Promise((resolve, reject) => {
-        db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
-          if (err) reject(err);
-          else resolve(relationship);
+        db.relationships(userID, 'all', 'favorite', (err, relationships) => {
+          if (err) {
+            console.log('error adding relationship', err);
+            reject(err);
+          } else {
+            const relationship = relationships.filter((rel) => rel.end === parseInt(spotID, 10));
+            if (!relationship.length) {
+              db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
+                if (err) reject(err);
+                else resolve(relationship);
+              });
+            } else reject('Already a relationship with this node');
+          }
         });
       });
     },
