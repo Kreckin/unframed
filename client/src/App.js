@@ -51,7 +51,7 @@ class App extends Component {
     this.viewingSpotInMap = null;
     this.viewingSpotInSavedList = null;
 
-
+    // login/logout callbacks
     this.loginCallback = this.loginCallback.bind(this);
     this.logoutCallback = this.logoutCallback.bind(this);
 
