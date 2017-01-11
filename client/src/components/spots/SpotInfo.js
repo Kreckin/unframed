@@ -108,9 +108,10 @@ class SpotInfo extends Component {
     const categories = this.props.spot.categories;
     const block = [];
     for (let i = 0; i < categories.length; i += 4) {
-      block.push(<View style={styles.categoryContainer}>
-        {categories.slice(i, i + 4).map((category, idx) => 
-          <View style={styles.categoryViewStyle} key={idx}>
+
+      block.push(<View key={i} style={styles.categoryContainer}>
+        {categories.slice(i, i + 4).map(category => 
+          <View key={category} style={styles.categoryViewStyle}>
             <Text style={styles.categoryTextStyle}>{category}</Text>
           </View>
           )}
@@ -132,8 +133,8 @@ class SpotInfo extends Component {
      console.log('userService current', userService.currentUser);
      console.log('disabled is ',disabled)
     return (
-      <ScrollView >
-      {/*Header*/}
+      <ScrollView>
+    {/*Header*/}
         <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText} numberOfLines={1}>
             {this.props.spot.title}
