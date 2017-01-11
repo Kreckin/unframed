@@ -204,8 +204,7 @@ render() {
                   />
                   <Scene 
                     key='SavedSpot'
-                    component={SpotInfo}
-                    clone
+                    component={SavedSpot}
                   />
                 </Scene>
                 {/* Profile Tab and its scenes */}
