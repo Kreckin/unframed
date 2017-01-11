@@ -84,9 +84,9 @@ class SpotInfo extends Component {
     const categories = this.props.spot.categories;
     const block = [];
     for (let i = 0; i < categories.length; i += 4) {
-      block.push(<View style={styles.categoryContainer}>
+      block.push(<View key={i} style={styles.categoryContainer}>
         {categories.slice(i, i + 4).map(category => 
-          <View style={styles.categoryViewStyle}>
+          <View key={category} style={styles.categoryViewStyle}>
             <Text style={styles.categoryTextStyle}>{category}</Text>
           </View>
           )}
