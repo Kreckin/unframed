@@ -114,7 +114,7 @@ class SpotInfo extends Component {
     StatusBar.setBarStyle('light-content', true);
     console.log('userService current', userService.currentUser);
     return (
-      <ScrollView >
+      <ScrollView>
     {/*Header*/}
         <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText} numberOfLines={1}>
