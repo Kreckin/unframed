@@ -28,20 +28,26 @@ const userService = {
   },
 
   cacheAndPostCurrentUser: () => {
-
-
+    const postConfig = {
+      method: 'POST',
+      headers: {
+       'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userService.currentUser),
+    };
     // console.log('before postPromise Definition');
     //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
     const postPromise = fetch(`${config.apiUrl}/users`, postConfig)
         .then((response) => {
-          return response.json()
+          return response.json();
         })
-        .then((response) =>{
+        .then((response) => {
           // console.log('userid?', response);
           userService.currentUser = response; 
         })
         .then(() => {
-          return cachePromise() })
+          return cachePromise();
+        })
         .catch(error => console.log(error));
 
     return postPromise;
@@ -118,6 +124,14 @@ const userService = {
     });
   },
   changeShowSpots: (userID) => {
+    const postConfig = {
+      method: 'POST',
+      headers: {
+       'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userService.currentUser),
+    };
+
     return fetch(`${config.apiUrl}/users/${userID}/settings/showAllSpots`, postConfig)
           .then((response) => response.json())
           .then((user) => {
@@ -128,13 +142,7 @@ const userService = {
           });
   } 
 };
-const postConfig = {
-  method: 'POST',
-  headers: {
-   'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(userService.currentUser),
-};
+
 function cachePromise()  { 
   new Promise ((resolve, reject) => {
     AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
