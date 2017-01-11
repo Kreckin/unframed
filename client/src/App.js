@@ -78,12 +78,12 @@ class App extends Component {
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
 render() {
-      // if (this.state.isLoggedIn !== null) {
-      //   if (!this.state.isLoggedIn) {
-      //     return (
-      //       <Login loginCallback={this.loginCallback} logoutCallback={this.logoutCallback} />
-      //     );
-      //   } else {
+      if (this.state.isLoggedIn !== null) {
+        if (!this.state.isLoggedIn) {
+          return (
+            <Login loginCallback={this.loginCallback} logoutCallback={this.logoutCallback} />
+          );
+        } else {
           return (
             <Router
               navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
@@ -102,8 +102,8 @@ render() {
                     component={MapContainer}
                   />
                   <Scene 
-                    key='SpotInfo'
-                    component={SpotInfo}
+                    key='MapSpot'
+                    component={MapSpot}
                   />
                   <Scene 
                     key='FlaggedContent'
@@ -116,12 +116,14 @@ render() {
                     component={UploadPhotoContainer}
                   />
                 </Scene>
+
                 {/* Search bar and its scenes */}
                 <Scene key='SearchTab' title='Search' icon={TabIcon}>
                   <Scene 
                     key='Search'
                     component={SearchWorld}
                   />
+                </Scene>
                 {/* Saved List Tab and its scenes */}
                 <Scene 
                   key='SavedListTab' 
@@ -135,14 +137,11 @@ render() {
                     key='SavedList'
                     component={SavedList}
                   />
-<<<<<<< HEAD
                   <Scene 
                     key='SavedSpot'
                     component={SavedSpot}
                     type={ActionConst.RESET}
                   />
-=======
->>>>>>> master
                 </Scene>
                 {/* Profile Tab and its scenes */}
                 <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
@@ -152,19 +151,16 @@ render() {
                     logoutCallback={this.logoutCallback}
                     loginCallback={this.loginCallback}
                   />
-<<<<<<< HEAD
-=======
                   </Scene>
->>>>>>> master
                 </Scene>
             </Router>
           );
-    //     }
-    //   } else {
-    //     return (
-    //       <Spinner />
-    //     );
-    //   }
+        }
+      } else {
+        return (
+          <Spinner />
+        );
+      }
     }
 }
 

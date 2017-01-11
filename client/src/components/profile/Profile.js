@@ -30,6 +30,7 @@ class Profile extends Component {
           visited: res.length
         });
       });
+      this.setState({ showAllSpots: userService.currentUser.showAllSpots });
     }
     componentDidMount() {
         this.state.bounceValue.setValue(1.4);     // Start large
@@ -40,7 +41,6 @@ class Profile extends Component {
             friction: 4,                          // Bouncier spring
           }
         ).start();                                // Start the animation
-        this.setState({ showAllSpots: userService.currentUser.showAllSpots });
     }
 
     render() {
@@ -48,7 +48,6 @@ class Profile extends Component {
         // console.log('img url', userService.currentUser.profileUrl);
 
         return (
-          <View>
             <View style={styles.body}>
                     <Animated.Image                         // Base: Image, Text, View
                         source={{ uri: userService.currentUser.profileUrl }}
@@ -70,19 +69,18 @@ class Profile extends Component {
                     <Text style={styles.text}>visited, { this.state.visited }</Text>
                     <FBLogIOButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
                 </View>
-             
-            </View>
-             <View>
+              <Text>Show all Spots</Text>
                 <Switch
-                
+                style={{marginBottom: 300}}
                 onValueChange={() => {
                   userService.changeShowSpots(userService.currentUser.id);
                   this.setState({showAllSpots: !this.state.showAllSpots });
                 }}
                  value={this.state.showAllSpots}
                 />
-              </View>
-          </View>
+             
+            </View>
+            
         );
     }
 };

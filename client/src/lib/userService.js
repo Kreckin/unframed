@@ -119,10 +119,10 @@ const userService = {
   },
   changeShowSpots: (userID) => {
     return fetch(`${config.apiUrl}/users/${userID}/settings/showAllSpots`, postConfig)
-          .then((response) => response.JSON())
+          .then((response) => response.json())
           .then((user) => {
-            userService.currentUser = user
-            cachePromise()
+            userService.currentUser = user;
+            cachePromise();
           }).catch((err) => {
             console.log('error in showSpots in userService',err)
           });
