@@ -32,6 +32,8 @@ class MapContainer extends Component {
         longitudeDelta: LONGITUDE_DELTA,
       }
     };
+    // beacuse this isn't set in app.js
+    this.props.setCurrentView('map');
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
@@ -148,7 +150,11 @@ class MapContainer extends Component {
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}
                 //This changes the scene to the blurb with the spot passed down as props
-                onCalloutPress={() => Actions.SpotInfo({ spot })}
+                onCalloutPress={() => {
+                  this.props.setMapSpotState(spot);
+                  this.props.setCurrentView('mapSpot');
+                  Actions.MapSpot({ spot });
+                }}
               />
             ))}
         </MapView>

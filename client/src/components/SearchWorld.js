@@ -8,9 +8,9 @@ class SearchWorld extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: ''
-      }
+      address: '',
     };
+  }
   onIconSelect(){
     Actions.MapContainer({ ManualAddress:this.state.address });
     this.setState({ address: '' });
