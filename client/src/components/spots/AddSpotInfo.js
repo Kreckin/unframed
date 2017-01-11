@@ -3,7 +3,20 @@ import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 're
 import { Actions } from 'react-native-router-flux';
 import Modal from 'react-native-simple-modal'
 import CategoryCheckbox from './CategoryCheckbox';
+const MK = require('react-native-material-kit');
 
+const {
+  MKButton,
+  MKColor,
+} = MK;
+
+const PlainRaisedButton = MKButton.button()
+  //.withText('Take a picture')
+  .withOnPress(() => {
+    console.log("Hi, it's a colored button!");
+  })
+  .withStyle({backgroundColor: '#00B89C', borderColor: 'black'})
+  .build();
 const { width, height } = Dimensions.get('window');
 
 class AddSpotInfo extends Component {
@@ -75,7 +88,9 @@ class AddSpotInfo extends Component {
                             </Text>
                       </TouchableHighlight>
                     </View>
-                   
+                   <PlainRaisedButton>
+                   <Text pointerEvents="none" style={{color: 'white'}}>Choose a different picture</Text>
+                   </PlainRaisedButton>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <TouchableHighlight 
                         style={styles.buttonStyle}

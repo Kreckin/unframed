@@ -7,6 +7,20 @@ import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
 import LocateSelfIcon from './LocateSelfIcon';
 
+const MK = require('react-native-material-kit');
+
+const {
+  MKButton,
+  MKColor,
+} = MK;
+
+const PlainRaisedButton = MKButton.button()
+  //.withText('Take a picture')
+  .withOnPress(() => {
+    console.log("Hi, it's a colored button!");
+  })
+  .withStyle({ backgroundColor: '#00B89C', borderColor: 'black' })
+  .build();
 
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -41,7 +55,7 @@ class MapContainer extends Component {
   }
 
   componentWillMount() {
-
+    console.log("This triggered component will mount")
     if (this.props.ManualAddress) {
       this.handleManualAddressInput(this.props.ManualAddress);
       //
@@ -76,6 +90,7 @@ class MapContainer extends Component {
   }
 
   handleManualAddressInput(address) {
+    console.log("this is in handlemanualaddress is", this)
     getLatLong({ address }, (res) => {
       this.map.animateToRegion(
         { 
@@ -95,7 +110,7 @@ class MapContainer extends Component {
     });
   }
   getNewLocation() {
-    console.log("this is", this)
+    console.log("this from getNewLocationt is", this);
     this.map.animateToRegion(
       { 
         latitude: this.props.newLocation.latitude,
@@ -111,7 +126,7 @@ class MapContainer extends Component {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
         } else {
-          console.log("this", this)
+          console.log("this from moveMapToCurrentPosition is", this)
           this.map.animateToRegion(
             { 
               latitude: position.coords.latitude,
