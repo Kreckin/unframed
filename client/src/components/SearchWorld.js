@@ -29,39 +29,50 @@ class SearchWorld extends Component {
       </View> 
       <Image source={require('../images/greenMap.png')} style={styles.backgroundPic}>
         <View style={styles.blackContainer}>
-          <View style={styles.searchContainer}>
-            <View style={styles.inputView}>
-              <TextInput 
-              style={styles.textInputStyle}
-              autoCapitalize={'sentences'}
-              label='address'
-              placeholder=' Type any address here'
-              value={this.state.address}
-              onChangeText={(address) => this.setState({address})}
-              placeholderTextColor={'#EFEFF4'}
-              selectionColor={'#006F60'}
-              clearButtonMode={'while-editing'}
-              />
-            </View>
-            <TouchableOpacity
-              onPress={this.onIconSelect.bind(this)}
-            >
+          <View style={styles.carouselContainer}>
+            <Text style={styles.locationHeaderText}>Tap to select a location</Text>
+            <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
               <Image
-                source={require('../icons/search.png')}
-                style={styles.iconStyle}
+                style={styles.imageStyle}
+                source={require('../images/london.png')}
               />
-          </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.locationHeaderText}>Hot locations (tap to select)</Text>
-            <Carousel style={{ alignSelf: 'center', height: 200, width: 200 }}>
-            <View style={styles.hotSpotView}>
-              <Text style={{color:'white', backgroundColor: 'transparent',}}>Hi</Text>
-            </View>
-            <View style={styles.hotSpotView}>
-              <Text style={{color:'white', backgroundColor: 'transparent',}}>Hey</Text>
-            </View>
+              <Image
+                style={styles.imageStyle}
+                source={require('../images/paris.png')}
+              />
+             <Image
+                style={styles.imageStyle}
+                source={require('../images/berlin.png')}
+              />
             </Carousel>
+          </View>
+          
+          <View style={{ }}>
+            <Text style={styles.differentPlaceText}>Or choose somewhere else</Text>
+            <View style={styles.searchContainer}>
+              
+              <View style={styles.inputView}>
+                <TextInput 
+                style={styles.textInputStyle}
+                autoCapitalize={'sentences'}
+                label='address'
+                placeholder='  Type any address here'
+                value={this.state.address}
+                onChangeText={(address) => this.setState({address})}
+                placeholderTextColor={'#EFEFF4'}
+                selectionColor={'#006F60'}
+                clearButtonMode={'while-editing'}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={this.onIconSelect.bind(this)}
+              >
+                <Image
+                  source={require('../icons/search.png')}
+                  style={styles.iconStyle}
+                />
+            </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Image>
@@ -78,7 +89,7 @@ const styles = {
     flexDirection: 'column'
   },
   navBarText: {
-    marginTop: 5,
+    marginTop: 10,
     color: '#EFEFF4',
     fontSize: 24,
     textAlign: 'center'
@@ -101,12 +112,12 @@ const styles = {
     borderBottomWidth: 2,
     width: width-80,
     borderColor: '#EFEFF4',
-    marginBottom: 5,
+    marginBottom: 50,
   },
   textInputStyle: { 
-      backgroundColor: 'transparent',
-      height: 40,
-      color: '#EFEFF4',
+    backgroundColor: 'transparent',
+    height: 40,
+    color: '#EFEFF4',
   },
   iconStyle: {
     marginLeft: 10,
@@ -114,19 +125,26 @@ const styles = {
     width: 42.5,
     tintColor: '#EFEFF4',
   },
+  carouselContainer: {
+    width: width-30,
+  },
   locationHeaderText: {
     backgroundColor: 'transparent',
     color: '#EFEFF4',
-    fontSize: 18,
-    textAlign: 'center'
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 10,
   },
-  hotSpotView: {
-    borderColor: '#EFEFF4',
-    borderWidth: 3,
-    borderRadius: 5,
-    height: 100,
-    width: 100,
-    alignSelf: 'center'
+  differentPlaceText: {
+    backgroundColor: 'transparent',
+    color: '#EFEFF4',
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 20,
+    marginRight: 30
+  },
+  imageStyle:{
+    alignSelf: 'center',
   }
 };
 export default SearchWorld;
