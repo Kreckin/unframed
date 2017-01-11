@@ -18,7 +18,8 @@
     "react-native-image-picker": "^0.24.1",
     "react-native-looped-carousel": "^0.1.4",
     "react-native-maps": "0.12.2",
-    "react-native-router-flux": "^3.37.0"
+    "react-native-router-flux": "^3.37.0",
+    "react-native-simple-modal": "^4.0.1"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",

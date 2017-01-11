@@ -1,9 +1,9 @@
 //import ModalPicker from 'react-native-modal-picker';
 import CheckBox from 'react-native-check-box';
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Image, TouchableHighlight, Text } from 'react-native';
  
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class CategoryCheckbox extends Component {
 
@@ -36,21 +36,30 @@ class CategoryCheckbox extends Component {
         const leftText = data.name;
         return (
             <CheckBox
-                style={{ flex: 1, padding: 10 }}
+                style={styles.checkboxView}
                 onClick={() => {
                     data.checked = !data.checked;
                     this.props.onCategoryChange(this.props.category.filter((item) => item.checked ===true)
                         .map((item) => item = item.name));
                 }}
+                checkedImage={<Image source={require('../../icons/check.png')} style={styles.checkboxIcon} />}
+                unCheckedImage={<Image source={require('../../icons/unchecked.png')} style={styles.checkboxIcon} />}
                 isChecked={data.checked}
                 leftText={leftText}
+                rightTextStyle={styles.checkboxText}
             />);
     }
   render() {
     return (
-        <View>
+        <View style={styles.modalContainer}>
             
-                {this.renderView()}
+        {this.renderView()}
+                <TouchableHighlight 
+                    style={styles.buttonStyle}
+                    onPress={this.props.modalClose}
+                >
+                    <Text style={styles.buttonTextStyle}>Done</Text>
+                </TouchableHighlight>
             
         </View>
     );
@@ -78,10 +87,36 @@ const styles = {
         borderBottomColor: '#cccccc',
         backgroundColor: '#ffffff'
     },
-    checkbox: {
-        width: 24,
-        height: 24,
-        marginRight: 5
-    } 
+    checkboxView: {
+        flex: 1, 
+        padding: 7, 
+        backgroundColor: '#EFEFF4', 
+        borderWidth: 2,
+        borderColor: 'grey',
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 6
+  },
+    checkboxIcon: {
+        tintColor: '#006F60',
+        height: 18,
+        width: 18
+  },
+    checkboxText: {
+        color: '#006F60',
+        fontSize: 20,
+        textAlign: 'left'
+  },
+    buttonTextStyle: {
+        color: '#EFEFF4',
+        fontSize: 24,
+        alignSelf: 'center'
+    },
+    buttonStyle: {
+        backgroundColor: 'gray',
+        width: 150,
+        borderRadius: 8,
+        alignSelf: 'center',
+      },
   };
 export default CategoryCheckbox;

@@ -11,7 +11,9 @@ import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
-import NoLocationError from './components/spots/NoLocationError';
+
+import SearchWorld from './components/SearchWorld';
+
 import userService from './lib/userService';
 
 const Platform = require('react-native').Platform;
@@ -21,7 +23,8 @@ const TabIcon = ({ selected, title }) => {
     Map: require('./icons/map.png'),
     Add: require('./icons/camera-big.png'),
     Saved: require('./icons/star.png'),
-    Profile: require('./icons/profile.png')
+    Profile: require('./icons/profile.png'),
+    Search: require('./icons/globe.png'),
   };
   return (
     <View style={{ alignItems: 'center' }}>
@@ -163,7 +166,15 @@ render() {
                     component={FlaggedContent}
                   /> 
                 </Scene>
-                <Scene 
+                {/* Search bar and its scenes */}
+                <Scene key='SearchTab' title='Search' icon={TabIcon}>
+                  <Scene 
+                    key='Search'
+                    component={SearchWorld}
+                  />
+                </Scene>
+                {/* Add Spot Tab and its scenes */}
+				<Scene 
                 key='CameraTab' 
                 title='Add' 
                 icon={TabIcon}
