@@ -24,6 +24,7 @@ const NoLocationError = (props) => {
         <View style={styles.textContainer}>
       </View>
       <View style={styles.buttonContainer} >
+              
         <TouchableOpacity style={styles.button} onPress={props.takePhoto}>
           <Text style={styles.buttonText}>Take a picture</Text>
         </TouchableOpacity>
@@ -90,6 +91,6 @@ const styles = {
   imageStyle: {
     width,
     height: height / 2,
-  }
+  },
 };
 export default NoLocationError;

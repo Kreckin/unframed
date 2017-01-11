@@ -6,7 +6,6 @@ import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
 import LocateSelfIcon from './LocateSelfIcon';
-import LensIcon from './LensIcon';
 
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -25,12 +24,12 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
-      initialRegion: {
-        latitude: 30.2729,
-        longitude: -97.7444,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      }
+      // initialRegion: {
+      //   latitude: 30.2729,
+      //   longitude: -97.7444,
+      //   latitudeDelta: LATITUDE_DELTA,
+      //   longitudeDelta: LONGITUDE_DELTA,
+      // }
     };
     // beacuse this isn't set in app.js
     this.props.setCurrentView('map');
@@ -39,10 +38,11 @@ class MapContainer extends Component {
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
   }
 
-  componentWillMount() {
-    
-    if (this.props.ManualAddress){
-      this.handleManualAddressInput(this.props.ManualAddress);
+  componentDidMount() {
+    //check if search world has passed us some props for a different location.
+    //otherwise, check the location
+    if (this.props.newLocation) {
+      this.handleAddressProps(this.props.newLocation);
     } else {
       this.moveMapToCurrentPostion();
     }
@@ -54,7 +54,7 @@ class MapContainer extends Component {
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance,this.state.initialRegion)
+    getSpots(newRegion.latitude, newRegion.longitude, distance, this.state.initialRegion)
           .then((data) => {
             this.setState({
               spots: data,
@@ -65,24 +65,30 @@ class MapContainer extends Component {
           });
   }
 
-  handleManualAddressInput(address) {
-    getLatLong({ address }, (res) => {
-      this.map.animateToRegion(
+  handleAddressProps(address) {
+    let self = this;
+    if (!address.latitude || !address.longitude) {
+      getLatLong({ address }, (res) => {
+        self.map.animateToRegion(
+          { 
+            latitude: res.lat, 
+            longitude: res.lng, 
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+          3
+        )}
+      );
+    } else {
+      self.map.animateToRegion(
         { 
-          latitude: res.lat, 
-          longitude: res.lng, 
+          latitude: address.latitude, 
+          longitude: address.longitude, 
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         },
-        3
-      );
-      // this.region = { 
-      //     latitude: res.lat, 
-      //     longitude: res.lng, 
-      //     latitudeDelta: LATITUDE_DELTA,
-      //     longitudeDelta: LONGITUDE_DELTA,
-      // };
-    });
+      3
+      )};
   }
 
   moveMapToCurrentPostion() {
@@ -99,17 +105,18 @@ class MapContainer extends Component {
             },
             3
           );
+          this.updateMapWithCurrentPosition(position)
         }
       });
   }
 
-  updateMapWithCurrentPosition() {
+  updateMapWithCurrentPosition(position) {
     console.log('updating map with current position!');
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position, err) => {
-        if (err) {
-          reject(err);
-        } else {
+    // return new Promise((resolve, reject) => {
+      // navigator.geolocation.getCurrentPosition((position, err) => {
+      //   if (err) {
+      //     reject(err);
+      //   } else {
           this.setState({
             initialRegion: {
               latitude: position.coords.latitude,
@@ -118,10 +125,10 @@ class MapContainer extends Component {
               longitudeDelta: LONGITUDE_DELTA,
             }
           });
-          resolve(position.coords);
-        }
-      });
-    });
+    //       resolve(position.coords);
+    //     }
+    //   });
+    // });
   }
   render() {
     return (
