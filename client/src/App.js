@@ -5,8 +5,6 @@ import { Text, View, Image } from 'react-native';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
-import MapSpot from './components/spots/MapSpot';
-import SavedSpot from './components/spots/SavedSpot';
 import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
@@ -96,8 +94,8 @@ class App extends Component {
       this.viewingSpotInSavedList = null;
       this.setCurrentView('savedList');
     }
-    this.currentData = null;
-    Actions.pop();
+
+    Actions.pop(); // now go back
   }
 
   setMapSpotState(newStateData) {
@@ -204,7 +202,7 @@ render() {
                   />
                   <Scene 
                     key='SavedSpot'
-                    component={SavedSpot}
+                    component={SpotInfo}
                   />
                 </Scene>
                 {/* Profile Tab and its scenes */}
