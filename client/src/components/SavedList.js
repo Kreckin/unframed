@@ -85,7 +85,7 @@ class SavedList extends Component {
             <Text style={styles.titleStyle}>Closest</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => this.orderBy(this.highestRated)}>
-            <Text style={styles.titleStyle}>Popular</Text>
+            <Text style={styles.titleStyle}>Highest Rated</Text>
           </TouchableHighlight>
         </View>
         <ScrollView 
@@ -127,7 +127,8 @@ const styles = {
   backgroundColor: '#006F60',
   height: 90,
   paddingTop: 58,
-  paddingBottom: 12
+  paddingBottom: 12,
+  paddingLeft: 15
  },
  titleStyle: {
   fontSize: 18,
