@@ -24,6 +24,12 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
+      // initialRegion: {
+      //   latitude: 30.2729,
+      //   longitude: -97.7444,
+      //   latitudeDelta: LATITUDE_DELTA,
+      //   longitudeDelta: LONGITUDE_DELTA,
+      // }
     };
     // beacuse this isn't set in app.js
     this.props.setCurrentView('map');
@@ -99,17 +105,18 @@ class MapContainer extends Component {
             },
             3
           );
+          this.updateMapWithCurrentPosition(position)
         }
       });
   }
 
-  updateMapWithCurrentPosition() {
+  updateMapWithCurrentPosition(position) {
     console.log('updating map with current position!');
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position, err) => {
-        if (err) {
-          reject(err);
-        } else {
+    // return new Promise((resolve, reject) => {
+      // navigator.geolocation.getCurrentPosition((position, err) => {
+      //   if (err) {
+      //     reject(err);
+      //   } else {
           this.setState({
             initialRegion: {
               latitude: position.coords.latitude,
@@ -118,10 +125,10 @@ class MapContainer extends Component {
               longitudeDelta: LONGITUDE_DELTA,
             }
           });
-          resolve(position.coords);
-        }
-      });
-    });
+    //       resolve(position.coords);
+    //     }
+    //   });
+    // });
   }
   render() {
     return (
