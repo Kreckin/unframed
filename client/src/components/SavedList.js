@@ -12,7 +12,7 @@ class SavedList extends Component {
     super(props);
     this.state = {
       favorites: [],
-      displayOrder: 'recent',
+      sortFunction: this.distance
     };
     this.recentOrPendingRequest = false;
   }
@@ -27,7 +27,7 @@ class SavedList extends Component {
     favorites.get(userService.currentUser.id)
       .then(favoritesArray => {
         this.setState({ 
-          favorites: favoritesArray,
+          favorites: favoritesArray.sort(this.state.sortFunction)
         });
         setTimeout(() => {
           this.recentOrPendingRequest = false;
@@ -45,15 +45,25 @@ class SavedList extends Component {
     this.setState({ favorites: newFavorites });
   }
 
-  orderBy(attribute) {
-    // if (this.state.displayOrder !== attribute) {
-    //   this.setState({ displayOrder: attribute });
+  orderBy(callback) {
+    if (this.state.sortFunction !== callback) {
+      this.setState({ sortFunction: callback });
 
-    //   //now sort the favorites array in state
-    //   var favorites = this.state.favorites.sort
+      //now sort the favorites array in state
+      //var favorites = this.state.favorites.sort(callback)
 
-    // }
-    this.setState({ favorites: this.state.favorites.reverse });
+      this.setState({ favorites: this.state.favorites.sort(callback) });
+    }
+  }
+
+  highestRated(a, b) {
+    if (a.percentage < b.percentage) return 1;
+    return -1;
+  }
+
+  distance(a, b) {
+    if (a.distance < b.distance) return -1;
+    return 1;
   }
 
   render() {
@@ -61,20 +71,21 @@ class SavedList extends Component {
       this.getFavoriteSpots();
       this.recentOrPendingRequest = true;
     }
+    this.orderBy.bind(this);
+
+    console.log(this.state.favorites);
 
     return (
       <View>
-        <StatusBar
-          barStyle='light-content'
-        />
+        <StatusBar barStyle='light-content' />
         <View style={styles.titleBarStyle}>
-          <TouchableHighlight onPress={function () { this.orderBy('closest'); }}>
+          <TouchableHighlight onPress={() => this.orderBy(this.distance)} style={styles.buttonStyle}>
             <Text style={styles.titleStyle}>Closest</Text>
           </TouchableHighlight>
-          <TouchableHighlight onPress={function () { this.orderBy('popular'); }}>
+          <TouchableHighlight onPress={() => this.orderBy(this.highestRated)} style={styles.buttonStyle}>
             <Text style={styles.titleStyle}>Popular</Text>
           </TouchableHighlight>
-          <TouchableHighlight onPress={function () { this.orderBy('recent'); }}>
+          <TouchableHighlight onPress={() => { console.log('recent'); }} style={styles.buttonStyle}>
             <Text style={styles.titleStyle}>Recent</Text>
           </TouchableHighlight>
         </View>
@@ -83,6 +94,10 @@ class SavedList extends Component {
           contentContainerStyle={styles.listContainerStyle}
         >
           {
+            // .sort( (a, b) => {
+            //   if(a.distance < b.distance) return -1;
+            //   else return 1;
+            //   })
             this.state.favorites.map(spot => 
             <SavedItem
               key={spot.title}
@@ -98,7 +113,6 @@ class SavedList extends Component {
 
 const styles = {
  listStyle: {
-  flex: 1,
   paddingTop: 5,
   //height: 500,
   height: height - 140,
@@ -106,15 +120,21 @@ const styles = {
  },
  listContainerStyle: {
  },
+ buttonStyle: {
+  //marginTop: 31,
+  //marginBottom: 18
+ },
  titleBarStyle: {
   flexDirection: 'row',
   justifyContent: 'space-around',
   backgroundColor: '#006F60',
-  height: 75
+  height: 75,
+  paddingTop: 31,
+  paddingBottom: 18
  },
  titleStyle: {
-  paddingTop: 31,
-  paddingBottom: 18,
+  //marginTop: 31,
+  //marginBottom: 18,
   fontSize: 18,
   alignSelf: 'center',
   color: '#EFEFF4'

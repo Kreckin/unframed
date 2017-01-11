@@ -129,7 +129,6 @@ render() {
                   <Scene 
                     key='SavedSpot'
                     component={SavedSpot}
-                    type={ActionConst.RESET}
                   />
                 </Scene>
                 {/* Profile Tab and its scenes */}
