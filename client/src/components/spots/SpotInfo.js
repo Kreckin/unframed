@@ -87,7 +87,7 @@ class SpotInfo extends Component {
       // unsave
       favorites.remove(userService.currentUser.id, this.props.spot.id)
         .then((resolve) => {
-          console.log('saveOrUnSaveSpot remove', resolve);
+          // console.log('saveOrUnSaveSpot remove', resolve);
         })
         .catch((reject) => {
           console.log('saveOrUnSaveSpot remove', reject);
@@ -96,7 +96,7 @@ class SpotInfo extends Component {
       //save
       favorites.add(userService.currentUser.id, this.props.spot.id)
         .then((resolve) => {
-          console.log('saveOrUnSaveSpot add', resolve);
+          // console.log('saveOrUnSaveSpot add', resolve);
         })
         .catch((reject) => {
           console.log('saveOrUnSaveSpot add', reject);

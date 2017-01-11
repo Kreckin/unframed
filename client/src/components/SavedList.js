@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StatusBar, Dimensions, TouchableHighlight } from 'react-native';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import SavedItem from './SavedItem';
 import favorites from '../lib/favorites';
 import userService from '../lib/userService';
@@ -15,6 +16,7 @@ class SavedList extends Component {
       displayOrder: 'recent',
     };
     this.recentOrPendingRequest = false;
+    this.hasChildInViewStack = false;
   }
 
   componentWillMount() {
@@ -88,6 +90,8 @@ class SavedList extends Component {
               key={spot.title}
               removeSavedSpot={this.removeSavedSpot.bind(this)}
               spot={spot}
+              setSavedListState={this.props.setSavedListState}
+              setCurrentView={this.props.setCurrentView}
             />)
           }
         </ScrollView>

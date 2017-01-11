@@ -7,6 +7,7 @@ import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
 import MapSpot from './components/spots/MapSpot';
 import SavedSpot from './components/spots/SavedSpot';
+import SpotInfo from './components/spots/SpotInfo';
 import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
 import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
@@ -43,8 +44,18 @@ class App extends Component {
       isLoggedIn: null,
     };
 
+    this.currentView = null;
+    this.previousView = null;
+    this.mapSpotInView = null;
+    this.viewingSpotInMap = null;
+    this.viewingSpotInSavedList = null;
+
     this.loginCallback = this.loginCallback.bind(this);
     this.logoutCallback = this.logoutCallback.bind(this);
+    this.setCurrentView = this.setCurrentView.bind(this);
+    this.backButtonHandler = this.backButtonHandler.bind(this);
+    this.setMapSpotState = this.setMapSpotState.bind(this);
+    this.setSavedListState = this.setSavedListState.bind(this);
   }
 
   componentWillMount() {
@@ -71,6 +82,31 @@ class App extends Component {
     });
   }
 
+  // this is used to store current view state as we don't know when someone may hit back
+  setCurrentView(newView, newViewData = null) {
+    // console.log('setting current view to ', newView);
+    this.previousView = this.currentView;
+    this.currentView = newView;
+  }
+  backButtonHandler() {
+    if (this.currentView === 'mapSpot') {
+      this.viewingSpotInMap = null;
+      this.setCurrentView('map');
+    } else if (this.currentView === 'savedSpot') {
+      this.viewingSpotInSavedList = null;
+      this.setCurrentView('savedList');
+    }
+    this.currentData = null;
+    Actions.pop();
+  }
+
+  setMapSpotState(newStateData) {
+    this.viewingSpotInMap = newStateData;
+  }
+  setSavedListState(newStateData) {
+    this.viewingSpotInSavedList = newStateData;
+  }
+
 // Note: if you want to make the app render something different than the map on initial load, 
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
@@ -86,6 +122,10 @@ render() {
               navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
               //NEED TO FIGURE OUT A WAY TO REMOVE THIS FOR ANDROID
               backButtonImage={require('./icons/backButton.png')}
+              onBack={this.backButtonHandler}
+              setCurrentView={this.setCurrentView}
+              setCurrentView={this.setMapSpotState}
+              setCurrentView={this.setSavedListState}
             >
               <Scene
                 key="tabBar"
@@ -93,21 +133,47 @@ render() {
                 tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
               >
                 {/* Map Tab and its scenes */}
-                <Scene key='Map' title='Map' icon={TabIcon}>
+                <Scene key='Map'
+                  title='Map'
+                  icon={TabIcon}
+                  onPress={() => {
+                    if (this.viewingSpotInMap !== null && this.currentView === 'mapSpot') {
+                      this.backButtonHandler();
+                    } else if (this.viewingSpotInMap !== null && this.currentView !== 'mapSpot') { // refresh with spot in state
+                      // saved spot in state
+                      this.setCurrentView('mapSpot');
+                      Actions.MapSpot({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
+                    } else { // user is going back
+                      // no map spot in state
+                      this.setCurrentView('map');
+                      Actions.MapContainer({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
+                    }
+                  }}
+                >
                   <Scene 
                     key='MapContainer'
                     component={MapContainer}
+                    setMapSpotState={this.setMapSpotState}
+                    setCurrentView={this.setCurrentView}
                   />
                   <Scene 
                     key='MapSpot'
-                    component={MapSpot}
+                    component={SpotInfo}
                   />
                   <Scene 
                     key='FlaggedContent'
                     component={FlaggedContent}
                   /> 
                 </Scene>
-                <Scene key='CameraTab' title='Add' icon={TabIcon}>
+                <Scene 
+                key='CameraTab' 
+                title='Add' 
+                icon={TabIcon}
+                onPress={() => {
+                  this.setCurrentView('uploadPhotoContainer');
+                  Actions.CameraTab();
+                }}
+                >
                   <Scene 
                     key='UploadPhotoContainer'
                     component={UploadPhotoContainer}
@@ -115,11 +181,21 @@ render() {
                 </Scene>
                 {/* Saved List Tab and its scenes */}
                 <Scene 
-                  key='SavedListTab' 
+                  key='SavedListTab'
                   title='Saved' 
                   icon={TabIcon}
                   onPress={() => {
-                      Actions.SavedList({ type: ActionConst.REFRESH });
+                    if (this.viewingSpotInSavedList !== null && this.currentView === 'savedSpot') {
+                      this.backButtonHandler();
+                    } else if (this.viewingSpotInSavedList !== null && this.currentView !== 'savedSpot') { 
+                      // refresh with spot in state
+                      this.setCurrentView('savedSpot');
+                      Actions.SavedSpot({ type: ActionConst.REFRESH, setSavedListState: this.setSavedListState, setCurrentView: this.setCurrentView });
+                    } else {
+                      // no saved spot in state
+                      this.setCurrentView('savedList');
+                      Actions.SavedList({ type: ActionConst.REFRESH, setSavedListState: this.setSavedListState, setCurrentView: this.setCurrentView });
+                    }
                   }}
                 >
                   <Scene 
@@ -128,12 +204,20 @@ render() {
                   />
                   <Scene 
                     key='SavedSpot'
-                    component={SavedSpot}
-                    type={ActionConst.RESET}
+                    component={SpotInfo}
+                    clone
                   />
                 </Scene>
                 {/* Profile Tab and its scenes */}
-                <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
+                <Scene 
+                  key='ProfileTab' 
+                  title='Profile'
+                  icon={TabIcon}
+                  onPress={() => {
+                    this.setCurrentView('profile');
+                    Actions.ProfileTab();
+                  }}
+                >
                   <Scene 
                     key='Profile'
                     component={Profile}

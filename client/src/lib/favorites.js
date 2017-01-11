@@ -11,7 +11,7 @@ const favorites = {
       //sends a fetch request to the url with the ID
       fetch(`${config.apiUrl}/users/${userID}/favorites`)
         .then((response) => {
-          console.log('response from server on get favorites', response);
+          // console.log('response from server on get favorites', response);
           return response.json();
         })
         //returns an array of objects that the user has favorited
@@ -43,7 +43,7 @@ const favorites = {
       return new Promise((resolve, reject) => {
         fetch(`${config.apiUrl}/users/${userID}/favorites/remove`, postConfig)
               .then((response) => {
-                console.log(response);
+                // console.log(response);
                 resolve(response);
               }).catch((error) => {
                 console.log(error);
@@ -56,7 +56,7 @@ const favorites = {
       return new Promise((resolve, reject) => {
         fetch(`${config.apiUrl}/users/${userID}/favorites/${spotID}`)
           .then((response) => {
-            console.log(response);
+            // console.log(response);
           }).catch(error => console.log(error));
       });
     }
