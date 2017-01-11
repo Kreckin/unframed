@@ -45,14 +45,17 @@ class App extends Component {
       isLoggedIn: null,
     };
 
+    // view states
     this.currentView = null;
     this.previousView = null;
-    this.mapSpotInView = null;
     this.viewingSpotInMap = null;
     this.viewingSpotInSavedList = null;
 
+
     this.loginCallback = this.loginCallback.bind(this);
     this.logoutCallback = this.logoutCallback.bind(this);
+
+    // view state funcs
     this.setCurrentView = this.setCurrentView.bind(this);
     this.backButtonHandler = this.backButtonHandler.bind(this);
     this.setMapSpotState = this.setMapSpotState.bind(this);
@@ -89,6 +92,7 @@ class App extends Component {
     this.previousView = this.currentView;
     this.currentView = newView;
   }
+  // overwrites normal back button handler to update the state in current view
   backButtonHandler() {
     if (this.currentView === 'mapSpot') {
       this.viewingSpotInMap = null;
@@ -104,6 +108,7 @@ class App extends Component {
   setMapSpotState(newStateData) {
     this.viewingSpotInMap = newStateData;
   }
+
   setSavedListState(newStateData) {
     this.viewingSpotInSavedList = newStateData;
   }
