@@ -81,14 +81,11 @@ class SavedList extends Component {
       <View>
         <StatusBar barStyle='light-content' />
         <View style={styles.titleBarStyle}>
-          <TouchableHighlight onPress={() => this.orderBy(this.distance)} style={styles.buttonStyle}>
+          <TouchableHighlight onPress={() => this.orderBy(this.distance)}>
             <Text style={styles.titleStyle}>Closest</Text>
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.orderBy(this.highestRated)} style={styles.buttonStyle}>
+          <TouchableHighlight onPress={() => this.orderBy(this.highestRated)}>
             <Text style={styles.titleStyle}>Popular</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => { console.log('recent'); }} style={styles.buttonStyle}>
-            <Text style={styles.titleStyle}>Recent</Text>
           </TouchableHighlight>
         </View>
         <ScrollView 
@@ -119,26 +116,20 @@ const styles = {
  listStyle: {
   paddingTop: 5,
   //height: 500,
-  height: height - 140,
+  height: height - 155,
   backgroundColor: '#EFEFF4'
  },
  listContainerStyle: {
- },
- buttonStyle: {
-  //marginTop: 31,
-  //marginBottom: 18
  },
  titleBarStyle: {
   flexDirection: 'row',
   justifyContent: 'space-around',
   backgroundColor: '#006F60',
-  height: 75,
-  paddingTop: 31,
-  paddingBottom: 18
+  height: 90,
+  paddingTop: 58,
+  paddingBottom: 12
  },
  titleStyle: {
-  //marginTop: 31,
-  //marginBottom: 18,
   fontSize: 18,
   alignSelf: 'center',
   color: '#EFEFF4'
