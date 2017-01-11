@@ -1,19 +1,5 @@
 import React from 'react';
 import { View, Text, Image, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
-const MK = require('react-native-material-kit');
-
-const {
-  MKButton,
-  MKColor,
-} = MK;
-
-const PlainRaisedButton = MKButton.button()
-  //.withText('Take a picture')
-  .withOnPress(() => {
-    console.log("Hi, it's a colored button!");
-  })
-  .withStyle({backgroundColor: '#00B89C', borderColor: 'black'})
-  .build();
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,11 +23,6 @@ const NoLocationError = (props) => {
         </Image>
         <View style={styles.textContainer}>
       </View>
-
-                    
-                   <PlainRaisedButton>
-                   <Text pointerEvents="none" style={{color: 'white'}}>Take a picture</Text>
-                   </PlainRaisedButton>
       <View style={styles.buttonContainer} >
               
         <TouchableOpacity style={styles.button} onPress={props.takePhoto}>

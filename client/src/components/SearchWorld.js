@@ -13,22 +13,22 @@ class SearchWorld extends Component {
     };
   }
   onIconSelect(){
-    Actions.MapContainer({ ManualAddress:this.state.address });
+    Actions.MapContainer({ newLocation:this.state.address });
     this.setState({ address: '' });
   }
   
   render(){
     const carouselImages = [
       {source: require('../images/polaroids/paris.png'),
-      location: {longitude: 48.8566, latitude: 2.3522}},
+      location: {latitude: 48.8566, longitude: 2.3522}},
       {source: require('../images/polaroids/berlin.png'),
-      location: {longitude: 52.52, latitude: 13.405 }},
+      location: {latitude: 52.52, longitude: 13.405 }},
       {source: require('../images/polaroids/newyork.png'), 
-      location: {longitude: 40.7128, latitude: -74.0059}},
+      location: {latitude: 40.7128, longitude: -74.0059}},
       {source: require('../images/polaroids/mexicocity.png'), 
-      location: {longitude: 19.4326, latitude: -99.1332}},
+      location: {latitude: 19.4326, longitude: -99.1332}},
       {source: require('../images/polaroids/london.png'), 
-      location: {longitude: 51.5074, latitude: -0.1278}},
+      location: {latitude: 51.5074, longitude: -0.1278}},
     ];
     return (
     <View>

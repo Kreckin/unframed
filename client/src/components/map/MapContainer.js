@@ -7,21 +7,6 @@ import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
 import LocateSelfIcon from './LocateSelfIcon';
 
-const MK = require('react-native-material-kit');
-
-const {
-  MKButton,
-  MKColor,
-} = MK;
-
-const PlainRaisedButton = MKButton.button()
-  //.withText('Take a picture')
-  .withOnPress(() => {
-    console.log("Hi, it's a colored button!");
-  })
-  .withStyle({ backgroundColor: '#00B89C', borderColor: 'black' })
-  .build();
-
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
 const Platform = require('react-native').Platform;
@@ -39,34 +24,19 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
-      initialRegion: {
-        latitude: 30.2729,
-        longitude: -97.7444,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      }
     };
     // beacuse this isn't set in app.js
     this.props.setCurrentView('map');
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
-    this.getNewLocation = this.getNewLocation.bind(this);
   }
 
-  componentWillMount() {
-    console.log("This triggered component will mount")
-    if (this.props.ManualAddress) {
-      this.handleManualAddressInput(this.props.ManualAddress);
-      //
-      // DO STUFF HERE
-      //
-      //
-    } else if (this.props.newLocation) {
-
-      //WHY DOESNT THIS WORK???
-
-     this.getNewLocation(this.props.newLocation);
+  componentDidMount() {
+    //check if search world has passed us some props for a different location.
+    //otherwise, check the location
+    if (this.props.newLocation) {
+      this.handleAddressProps(this.props.newLocation);
     } else {
       this.moveMapToCurrentPostion();
     }
@@ -89,44 +59,37 @@ class MapContainer extends Component {
           });
   }
 
-  handleManualAddressInput(address) {
-    console.log("this is in handlemanualaddress is", this)
-    getLatLong({ address }, (res) => {
-      this.map.animateToRegion(
+  handleAddressProps(address) {
+    let self = this;
+    if (!address.latitude || !address.longitude) {
+      getLatLong({ address }, (res) => {
+        self.map.animateToRegion(
+          { 
+            latitude: res.lat, 
+            longitude: res.lng, 
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+          3
+        )}
+      );
+    } else {
+      self.map.animateToRegion(
         { 
-          latitude: res.lat, 
-          longitude: res.lng, 
+          latitude: address.latitude, 
+          longitude: address.longitude, 
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         },
-        3
-      );
-      // this.region = { 
-      //     latitude: res.lat, 
-      //     longitude: res.lng, 
-      //     latitudeDelta: LATITUDE_DELTA,
-      //     longitudeDelta: LONGITUDE_DELTA,
-      // };
-    });
-  }
-  getNewLocation() {
-    console.log("this from getNewLocationt is", this);
-    this.map.animateToRegion(
-      { 
-        latitude: this.props.newLocation.latitude,
-        longitude: this.props.newLocation.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
       3
-    );
+      )};
   }
+
   moveMapToCurrentPostion() {
     navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
         } else {
-          console.log("this from moveMapToCurrentPosition is", this)
           this.map.animateToRegion(
             { 
               latitude: position.coords.latitude,
