@@ -37,14 +37,22 @@ class MapContainer extends Component {
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
+    this.getNewLocation = this.getNewLocation.bind(this);
   }
 
   componentWillMount() {
 
     if (this.props.ManualAddress) {
       this.handleManualAddressInput(this.props.ManualAddress);
+      //
+      // DO STUFF HERE
+      //
+      //
     } else if (this.props.newLocation) {
-     this.onRegionChangeComplete(this.props.newLocation);
+
+      //WHY DOESNT THIS WORK???
+
+     this.getNewLocation(this.props.newLocation);
     } else {
       this.moveMapToCurrentPostion();
     }
@@ -86,12 +94,24 @@ class MapContainer extends Component {
       // };
     });
   }
-
+  getNewLocation() {
+    console.log("this is", this)
+    this.map.animateToRegion(
+      { 
+        latitude: this.props.newLocation.latitude,
+        longitude: this.props.newLocation.longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      3
+    );
+  }
   moveMapToCurrentPostion() {
     navigator.geolocation.getCurrentPosition((position, err) => {
         if (err) {
           console.log('Err getting current postion in moveMapToCurrentPostion', err);
         } else {
+          console.log("this", this)
           this.map.animateToRegion(
             { 
               latitude: position.coords.latitude,
