@@ -12,7 +12,7 @@
   "repository": "https://github.com/Kreckin/unexpectedpony",
   "license": "ISC",
   "dependencies": {
-    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git"
   },
   "devDependencies": {
     "eslint-config-rallycoding": "^3.1.0",
