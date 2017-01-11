@@ -247,6 +247,28 @@ app.post('/users/:userID/favorites/remove', (req, res) => {
       res.status(500).send(reject);
     });
 });
+app.get('/users/:userID/settings/showAllSpots', (req, res) => {
+  db.users.settings.showAllSpots.get(req.params.userID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
+app.post('/users/:userID/settings/showAllSpots', (req, res) => {
+  db.users.settings.showAllSpots.modify(req.params.userID)
+    .then((resolve) => {
+      console.log('sending', resolve);
+      res.send(resolve);
+    })
+    .catch((reject) => {
+      console.log('rejecting with', reject);
+      res.status(500).send(reject);
+    });
+});
 
 
 // ----- LISTEN -----

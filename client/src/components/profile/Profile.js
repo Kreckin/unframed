@@ -6,9 +6,12 @@ import {
   Image,
   Dimensions,
   Animated,
-  TouchableHighlight } from 'react-native';
+  TouchableHighlight,
+  Switch } from 'react-native';
+//import Switch from 'react-native-material-switch';
 import userService from '../../lib/userService';
 import FBLogIOButton from '../login/FBLogIOButton';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,6 +20,7 @@ class Profile extends Component {
         super(props);
         this.state = {
           bounceValue: new Animated.Value(0),
+          showAllSpots: false
         };
     }
     componentDidMount() {
@@ -28,6 +32,7 @@ class Profile extends Component {
             friction: 4,                          // Bouncier spring
           }
         ).start();                                // Start the animation
+        this.setState({ showAllSpots: userService.currentUser.showAllSpots });
     }
 
     render() {
@@ -35,6 +40,7 @@ class Profile extends Component {
         // console.log('img url', userService.currentUser.profileUrl);
 
         return (
+          <View>
             <View style={styles.body}>
                     <Animated.Image                         // Base: Image, Text, View
                         source={{ uri: userService.currentUser.profileUrl }}
@@ -55,12 +61,22 @@ class Profile extends Component {
                     <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
                     <FBLogIOButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
                 </View>
+             
             </View>
+             <View>
+                <Switch
+                
+                onValueChange={() => {
+                  userService.changeShowSpots(userService.currentUser.id);
+                  this.setState({showAllSpots: !this.state.showAllSpots });
+                }}
+                 value={this.state.showAllSpots}
+                />
+              </View>
+          </View>
         );
     }
 };
-
-
 
 //                    <View style={styles.userDetails}>
 //                      <TouchableHighlight style={styles.button}>
