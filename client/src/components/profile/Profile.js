@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { 
   View,
   Text,
-  StyleSheet,
+  StatusBar,
   Image,
   Dimensions,
   Animated,
@@ -35,12 +35,44 @@ class Profile extends Component {
     }
     render(){
     return (
-      <View style={styles.container}>
+      <View>
+      <StatusBar barStyle='light-content' />
         <Image
           source={require('../../images/greenBackground.png')}
           style={styles.backgroundImage}
         >
-        <Text style={styles.name}>{displayName.slice(0, displayName.indexOf(' '))}</Text>
+          <View style={styles.container}>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{displayName.slice(0, displayName.indexOf(' '))}</Text>
+              <Image
+                style={styles.profilePic}
+                source={{ uri: userService.currentUser.profileUrl }}
+              />
+              <Text style={styles.unlocked}>
+                Total spots unlocked: {this.state.visited}
+              </Text>
+            </View>
+            <Text style={styles.directions}>
+              To permanently unlock a photo, you must come within 1000 feet and rate it. 
+              Or, you can choose to show all photos on default.
+            </Text>
+            <View style={styles.switchRow}>
+              <Text style={styles.switchText}>
+                Butts
+              </Text>
+              <Switch
+                // style={{marginBottom: 300}}
+                onValueChange={() => {
+                  userService.changeShowSpots(userService.currentUser.id);
+                  this.setState({ showAllSpots: !this.state.showAllSpots });
+                }}
+                 value={this.state.showAllSpots}
+              />
+              <Text style={styles.switchText}>
+                Butts
+              </Text>
+            </View>
+          </View>
         </Image>
       </View>
 
@@ -51,20 +83,58 @@ class Profile extends Component {
 
 
 const styles = {
-  container: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: height - 65,
-  },
   backgroundImage: {
     height,
     width
+  },
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: height - 65,
+    marginHorizontal: 15
+  },
+  nameContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   name: {
     backgroundColor: 'transparent',
     textAlign: 'center',
     color: '#EFEFF4',
-    fontSize: 30,
+    fontSize: 36,
+    marginBottom: 5
+  },
+  profilePic: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    borderWidth: 5,
+    borderColor: '#EFEFF4',
+    alignSelf: 'center'
+  },
+  unlocked: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 26,
+    marginTop: 5
+  },
+  directions: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 20,
+  },
+  switchRow: {
+    flexDirection: 'row',
+    alignSelf: 'center'
+  },
+  switchText: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 14,
+    marginHorizontal: 20
   }
 };
 
