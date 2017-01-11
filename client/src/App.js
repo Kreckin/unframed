@@ -12,7 +12,9 @@ import FlaggedContent from './components/FlaggedContent';
 import SavedList from './components/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
-import NoLocationError from './components/spots/NoLocationError';
+
+import SearchWorld from './components/SearchWorld';
+
 import userService from './lib/userService';
 
 const Platform = require('react-native').Platform;
@@ -22,7 +24,8 @@ const TabIcon = ({ selected, title }) => {
     Map: require('./icons/map.png'),
     Add: require('./icons/camera-big.png'),
     Saved: require('./icons/star.png'),
-    Profile: require('./icons/profile.png')
+    Profile: require('./icons/profile.png'),
+    Search: require('./icons/globe.png'),
   };
   return (
     <View style={{ alignItems: 'center' }}>
@@ -75,12 +78,12 @@ class App extends Component {
 // use the 'initial' keyword inside that scene
 // Just put it back into MapContainer before you push to master
 render() {
-      if (this.state.isLoggedIn !== null) {
-        if (!this.state.isLoggedIn) {
-          return (
-            <Login loginCallback={this.loginCallback} logoutCallback={this.logoutCallback} />
-          );
-        } else {
+      // if (this.state.isLoggedIn !== null) {
+      //   if (!this.state.isLoggedIn) {
+      //     return (
+      //       <Login loginCallback={this.loginCallback} logoutCallback={this.logoutCallback} />
+      //     );
+      //   } else {
           return (
             <Router
               navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
@@ -99,8 +102,8 @@ render() {
                     component={MapContainer}
                   />
                   <Scene 
-                    key='MapSpot'
-                    component={MapSpot}
+                    key='SpotInfo'
+                    component={SpotInfo}
                   />
                   <Scene 
                     key='FlaggedContent'
@@ -113,6 +116,12 @@ render() {
                     component={UploadPhotoContainer}
                   />
                 </Scene>
+                {/* Search bar and its scenes */}
+                <Scene key='SearchTab' title='Search' icon={TabIcon}>
+                  <Scene 
+                    key='Search'
+                    component={SearchWorld}
+                  />
                 {/* Saved List Tab and its scenes */}
                 <Scene 
                   key='SavedListTab' 
@@ -126,11 +135,14 @@ render() {
                     key='SavedList'
                     component={SavedList}
                   />
+<<<<<<< HEAD
                   <Scene 
                     key='SavedSpot'
                     component={SavedSpot}
                     type={ActionConst.RESET}
                   />
+=======
+>>>>>>> master
                 </Scene>
                 {/* Profile Tab and its scenes */}
                 <Scene key='ProfileTab' title='Profile' icon={TabIcon}>
@@ -140,16 +152,19 @@ render() {
                     logoutCallback={this.logoutCallback}
                     loginCallback={this.loginCallback}
                   />
+<<<<<<< HEAD
+=======
+                  </Scene>
+>>>>>>> master
                 </Scene>
-              </Scene>
             </Router>
           );
-        }
-      } else {
-        return (
-          <Spinner />
-        );
-      }
+    //     }
+    //   } else {
+    //     return (
+    //       <Spinner />
+    //     );
+    //   }
     }
 }
 
@@ -181,4 +196,3 @@ export default App;
 //                          / /             `'     .' /
 //                         /,_\                  .',_(
 //                        /___(                 /___(
-

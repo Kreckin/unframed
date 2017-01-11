@@ -10,6 +10,7 @@ import {
   Switch } from 'react-native';
 //import Switch from 'react-native-material-switch';
 import userService from '../../lib/userService';
+import Visited from '../../lib/totalSpotsVisited';
 import FBLogIOButton from '../login/FBLogIOButton';
 
 
@@ -22,6 +23,13 @@ class Profile extends Component {
           bounceValue: new Animated.Value(0),
           showAllSpots: false
         };
+    }
+    componentWillMount() {
+      Visited(userService.currentUser.id).then((res) => {
+        this.setState({
+          visited: res.length
+        });
+      });
     }
     componentDidMount() {
         this.state.bounceValue.setValue(1.4);     // Start large
@@ -59,6 +67,7 @@ class Profile extends Component {
                     />
                 <View style={styles.profileDetails} >
                     <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
+                    <Text style={styles.text}>visited, { this.state.visited }</Text>
                     <FBLogIOButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
                 </View>
              
