@@ -87,7 +87,7 @@ render() {
             <Router
               navigationBarStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderBottomWidth: 65 }}
               //NEED TO FIGURE OUT A WAY TO REMOVE THIS FOR ANDROID
-              backButtonImage={this.state.platform === 'ios' ? 
+              backButtonImage={Platform.OS === 'ios' ? 
               require('./icons/backButton.png') : null}
             >
               <Scene
