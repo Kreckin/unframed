@@ -16,34 +16,40 @@ class SearchWorld extends Component {
     Actions.MapContainer({ ManualAddress:this.state.address });
     this.setState({ address: '' });
   }
+  
   render(){
+    const carouselImages = [
+      {source: require('../images/polaroids/paris.png'),
+      location: {longitude: 48.8566, latitude: 2.3522}},
+      {source: require('../images/polaroids/berlin.png'),
+      location: {longitude: 52.52, latitude: 13.405 }},
+      {source: require('../images/polaroids/newyork.png'), 
+      location: {longitude: 40.7128, latitude: -74.0059}},
+      {source: require('../images/polaroids/mexicocity.png'), 
+      location: {longitude: 19.4326, latitude: -99.1332}},
+      {source: require('../images/polaroids/london.png'), 
+      location: {longitude: 51.5074, latitude: -0.1278}},
+    ];
     return (
     <View>
       <StatusBar
         barStyle='light-content'
       />
-      <View style={styles.navBar}>
-        <Text style={styles.navBarText}>
-          Go to a different location
-        </Text>
-      </View> 
       <Image source={require('../images/greenMap.png')} style={styles.backgroundPic}>
         <View style={styles.blackContainer}>
           <View style={styles.carouselContainer}>
             <Text style={styles.locationHeaderText}>Tap to select a location</Text>
             <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
-              <Image
-                style={styles.imageStyle}
-                source={require('../images/london.png')}
-              />
-              <Image
-                style={styles.imageStyle}
-                source={require('../images/paris.png')}
-              />
-             <Image
-                style={styles.imageStyle}
-                source={require('../images/berlin.png')}
-              />
+             {
+              carouselImages.map((image, idx) => (
+                <TouchableOpacity 
+                  key={idx}
+                  onPress={() => Actions.MapContainer({ newLocation: image.location })}
+                >
+                  <Image style={styles.imageStyle} source={image.source} key={idx} />
+                </TouchableOpacity>
+              ))
+            }
             </Carousel>
           </View>
           
@@ -96,7 +102,7 @@ const styles = {
   },
   blackContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     height: height - 130,
     width,
     marginHorizontal: 15
@@ -112,7 +118,6 @@ const styles = {
     borderBottomWidth: 2,
     width: width-80,
     borderColor: '#EFEFF4',
-    marginBottom: 50,
   },
   textInputStyle: { 
     backgroundColor: 'transparent',
@@ -127,6 +132,7 @@ const styles = {
   },
   carouselContainer: {
     width: width-30,
+    marginTop: 50
   },
   locationHeaderText: {
     backgroundColor: 'transparent',

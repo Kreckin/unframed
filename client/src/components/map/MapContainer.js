@@ -6,7 +6,7 @@ import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
 import LocateSelfIcon from './LocateSelfIcon';
-import LensIcon from './LensIcon';
+
 
 //This gets the dimensions from the user's screen
 const { height, width } = Dimensions.get('window');
@@ -40,9 +40,11 @@ class MapContainer extends Component {
   }
 
   componentWillMount() {
-    
-    if (this.props.ManualAddress){
+
+    if (this.props.ManualAddress) {
       this.handleManualAddressInput(this.props.ManualAddress);
+    } else if (this.props.newLocation) {
+     this.onRegionChangeComplete(this.props.newLocation);
     } else {
       this.moveMapToCurrentPostion();
     }
@@ -54,7 +56,7 @@ class MapContainer extends Component {
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance,this.state.initialRegion)
+    getSpots(newRegion.latitude, newRegion.longitude, distance, this.state.initialRegion)
           .then((data) => {
             this.setState({
               spots: data,
