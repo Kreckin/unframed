@@ -32,15 +32,9 @@ export default class HotLocation extends Component {
         );
     }
 }
- function wp(percentage) {
-    const value = (percentage * viewportWidth) / 100;
-    return Math.round(value);
-  }
+
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 const slideHeight = viewportHeight * 0.4;
-
-const sliderWidth = viewportWidth;
-const itemHorizontalMargin = wp(2);
 
 const entryBorderRadius = 6;
 
