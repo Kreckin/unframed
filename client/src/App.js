@@ -125,8 +125,8 @@ render() {
               backButtonImage={require('./icons/backButton.png')}
               onBack={this.backButtonHandler}
               setCurrentView={this.setCurrentView}
-              setCurrentView={this.setMapSpotState}
-              setCurrentView={this.setSavedListState}
+              setMapSpotState={this.setMapSpotState}
+              setSavedListState={this.setSavedListState}
             >
               <Scene
                 key="tabBar"
@@ -167,14 +167,22 @@ render() {
                   /> 
                 </Scene>
                 {/* Search bar and its scenes */}
-                <Scene key='SearchTab' title='Search' icon={TabIcon}>
+                <Scene 
+                key='SearchTab' 
+                title='Search' 
+                icon={TabIcon}
+                onPress={() => {
+                  this.setCurrentView('search');
+                  Actions.SearchTab();
+                }}
+                >
                   <Scene 
                     key='Search'
                     component={SearchWorld}
                   />
                 </Scene>
                 {/* Add Spot Tab and its scenes */}
-				<Scene 
+                <Scene 
                 key='CameraTab' 
                 title='Add' 
                 icon={TabIcon}
@@ -273,4 +281,3 @@ export default App;
 //                          / /             `'     .' /
 //                         /,_\                  .',_(
 //                        /___(                 /___(
-
