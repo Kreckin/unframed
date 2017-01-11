@@ -1,12 +1,16 @@
 import React from 'react';
 import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 const { width } = Dimensions.get('window');
 
 const SavedItem = (props) => {
   return (
-    <TouchableHighlight onPress={function () { Actions.SavedSpot(props); }}>
+    <TouchableHighlight onPress={() => {
+      props.setSavedListState(props.spot);
+      props.setCurrentView('savedSpot');
+      Actions.SavedSpot({ spot: props.spot });
+    }}>
       <View style={styles.itemStyle}>
         <View style={styles.imageContainerStyle}>
           <Image

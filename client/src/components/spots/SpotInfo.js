@@ -87,7 +87,7 @@ class SpotInfo extends Component {
       // unsave
       favorites.remove(userService.currentUser.id, this.props.spot.id)
         .then((resolve) => {
-          console.log('saveOrUnSaveSpot remove', resolve);
+          // console.log('saveOrUnSaveSpot remove', resolve);
         })
         .catch((reject) => {
           console.log('saveOrUnSaveSpot remove', reject);
@@ -96,7 +96,7 @@ class SpotInfo extends Component {
       //save
       favorites.add(userService.currentUser.id, this.props.spot.id)
         .then((resolve) => {
-          console.log('saveOrUnSaveSpot add', resolve);
+          // console.log('saveOrUnSaveSpot add', resolve);
         })
         .catch((reject) => {
           console.log('saveOrUnSaveSpot add', reject);
@@ -108,7 +108,6 @@ class SpotInfo extends Component {
     const categories = this.props.spot.categories;
     const block = [];
     for (let i = 0; i < categories.length; i += 4) {
-
       block.push(<View key={i} style={styles.categoryContainer}>
         {categories.slice(i, i + 4).map(category => 
           <View key={category} style={styles.categoryViewStyle}>
@@ -133,8 +132,8 @@ class SpotInfo extends Component {
      console.log('userService current', userService.currentUser);
      console.log('disabled is ',disabled)
     return (
-      <ScrollView>
-    {/*Header*/}
+      <ScrollView >
+      {/*Header*/}
         <View style={styles.headerView} scrollEnabled={false}>
           <Text style={styles.headerText} numberOfLines={1}>
             {this.props.spot.title}
