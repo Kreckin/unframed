@@ -60,6 +60,7 @@ const addSpotToGeomLayerAfterSave = function (spot) {
 //------ USER VALIDATION ------
 User.schema = {
   facebookID: { type: String, required: true },
+  showAllSpots: { type: Boolean, default: false }
 };
 
 module.exports = {
@@ -133,6 +134,32 @@ module.exports = {
           }
         });
       });
+    },
+    settings: {
+      showAllSpots: {
+        get: (id) => {
+          return new Promise((resolve, reject) => {
+            User.read(id, ((err, user) => {
+              if (err) reject(err);
+              else resolve(user.showAllSpots);
+            }));
+          });
+        },
+        modify: (id) => {
+          return new Promise((resolve, reject) => {
+            User.read(id, ((err, user) => {
+              if (err) reject(err);
+              else {
+                user.showAllSpots = !user.showAllSpots;
+                User.update(user, (error, updatedUser) => {
+                  if (err) reject(err);
+                  else resolve(updatedUser);
+                });
+              }
+            }));
+          });
+        }
+      },
     },
   },
 

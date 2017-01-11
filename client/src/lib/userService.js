@@ -28,26 +28,8 @@ const userService = {
   },
 
   cacheAndPostCurrentUser: () => {
-    const postConfig = {
-      method: 'POST',
-      headers: {
-       'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userService.currentUser),
-    };
 
-    function cachePromise()  { new Promise ((resolve, reject) => {
-      console.log('inside cachePromise-----', userService.currentUser);
-      AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
-      .then((data) => {
-        return;
-      })
-      .catch((err) => {
-        console.log('err in cacheAndPostCurrentUser', err);
-        reject(err);
-      });
-    });
-}
+
     // console.log('before postPromise Definition');
     //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
     const postPromise = fetch(`${config.apiUrl}/users`, postConfig)
@@ -134,7 +116,36 @@ const userService = {
         );
       }
     });
+  },
+  changeShowSpots: (userID) => {
+    return fetch(`${config.apiUrl}/users/${userID}/settings/showAllSpots`, postConfig)
+          .then((response) => response.json())
+          .then((user) => {
+            userService.currentUser = user;
+            cachePromise();
+          }).catch((err) => {
+            console.log('error in showSpots in userService',err)
+          });
   } 
 };
+const postConfig = {
+  method: 'POST',
+  headers: {
+   'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(userService.currentUser),
+};
+function cachePromise()  { 
+  new Promise ((resolve, reject) => {
+    AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
+    .then((data) => {
+      return;
+    })
+    .catch((err) => {
+      console.log('err in cacheAndPostCurrentUser', err);
+      reject(err);
+    });
+  });
+}
 
 export default userService;
