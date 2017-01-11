@@ -126,10 +126,11 @@ class SpotInfo extends Component {
 
   render() {
     let feet = this.props.spot.distance.toFixed(2);
-    const disabled = !this.state.visited && ((feet * 5280) > 1000);
+    const disabled = !this.state.visited && ((feet * 5280) > 1000) && !userService.currentUser.showAllSpots;
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
-    // console.log('userService current', userService.currentUser);
+     console.log('userService current', userService.currentUser);
+     console.log('disabled is ',disabled)
     return (
       <ScrollView >
       {/*Header*/}

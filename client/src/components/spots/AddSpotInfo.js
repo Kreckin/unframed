@@ -75,7 +75,6 @@ class AddSpotInfo extends Component {
                             </Text>
                       </TouchableHighlight>
                     </View>
-                   
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <TouchableHighlight 
                         style={styles.buttonStyle}
