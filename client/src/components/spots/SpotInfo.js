@@ -128,13 +128,21 @@ class SpotInfo extends Component {
   render() {
     let feet = this.props.spot.distance.toFixed(2);
     const disabled = !this.state.visited && ((feet * 5280) > 1000) && !userService.currentUser.showAllSpots;
+<<<<<<< 5aed6b8a11757627696cd8c2c84730e67871c0aa
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
     
+=======
+     console.log('userService current', userService.currentUser);
+     console.log('disabled is ', disabled)
+>>>>>>> styyyyle
     return (
       <ScrollView >
       {/*Header*/}
-        <View style={styles.headerView} scrollEnabled={false}>
+        <View style={styles.headerView}>
+         <StatusBar
+            barStyle='light-content'
+          />
           <Text style={styles.headerText} numberOfLines={1}>
             {this.props.spot.title}
           </Text>
@@ -157,6 +165,25 @@ class SpotInfo extends Component {
         <View style={styles.infoContainer}>
       {/*Ratings*/}
           <View style={styles.ratingsContainer}>
+
+             {/*Flag*/}
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
+                onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.bottomButton}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+              >
+
+                <Image
+                    source={require('../../icons/flag.png')}
+                    style={styles.saveFlagIcon}
+                />  
+              </Button>
               {/*downvotes*/}
             <View style={{ flexDirection: 'row' }}>
               <Button
@@ -175,8 +202,8 @@ class SpotInfo extends Component {
                   style={styles.iconRating}
               />
               {'   ' + this.state.downvotes}    
-          </Button>
-            </View>
+            </Button>
+          </View>
           {/*mehvotes*/}
              <View style={{ flexDirection: 'row' }}>
               <Button
@@ -194,9 +221,9 @@ class SpotInfo extends Component {
                   source={require('../../icons/meh.png')}
                   style={styles.iconRating}
               />
-              {'   ' + this.state.mehvotes}    
-          </Button>
-            </View>
+              {'   ' + this.state.mehvotes}
+            </Button>
+          </View>
           {/*upvotes*/}
             <View style={{ flexDirection: 'row' }}>
               <Button
@@ -217,23 +244,8 @@ class SpotInfo extends Component {
                 />
                 {'   ' + this.state.upvotes}    
               </Button>
-            </View>
-          </View>
-          {/*Distance*/}
-          <Text style={styles.distanceStyle}>
-          {feet}
-          </Text>
-          {/*Description*/}
-          <Text style={styles.descriptionStyle}>
-            {this.props.spot.description ? this.props.spot.description : 
-              'No description currently available for this location'}
-          </Text>
-        {/*Categories*/}
-        {this.renderCategories()}
-
-        {/*Save*/}
-        <View style={styles.saveFlagContainer}>
-          <View style={{ flexDirection: 'row' }}>
+              </View>
+               {/*Save*/}
               <Button
                 type="custom"
                 backgroundColor={'#00B89C'}
@@ -248,33 +260,21 @@ class SpotInfo extends Component {
                 <Image
                     source={require('../../icons/star.png')}
                     style={styles.saveFlagIcon}
-                />
-                {this.state.saved === true ? 'Saved!' : 'Save'}   
+                />   
               </Button>
             </View>
-            
-          {/*Flag*/}
-          <View style={{ flexDirection: 'row' }}>
-              <Button
-                type="custom"
-                backgroundColor={'#00B89C'}
-                borderColor={'#008E7A'}
-                onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
-                borderRadius={6}
-                shadowHeight={8}
-                activeOpacity={0.5}
-                containerStyle={styles.bottomButton}
-                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
-              >
-
-                <Image
-                    source={require('../../icons/flag.png')}
-                    style={styles.saveFlagIcon}
-                />
-                Flag    
-              </Button>
-            </View>
-          </View>  
+          {/*Distance*/}
+          <Text style={styles.distanceStyle}>
+          Currently {feet} miles away
+          </Text>
+          {/*Description*/}
+          <Text style={styles.descriptionStyle}>
+            {this.props.spot.description ? this.props.spot.description : 
+              'No description currently available for this location'}
+          </Text>
+        {/*Categories*/}
+        {this.renderCategories()}
+          <View style={{ height: 200, width, backgroundColor: '#006F60' }}/>
       </View>
         <Toast
           ref="toast"
@@ -297,7 +297,7 @@ const styles = {
     height: 65
   },
   headerText: {
-    fontSize: 36,
+    fontSize: 34,
     textAlign: 'center',
     color: '#EFEFF4',
     marginTop: 15,
@@ -326,22 +326,16 @@ const styles = {
   },
   ratingsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width,
     paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20
+    marginRight: 5
   },
   iconRating: {
     height: 33,
     width: 30,
     tintColor: '#EFEFF4',
     marginTop: 3
-  },
-  textRating: {
-    paddingLeft: 10,
-    color: '#EFEFF4',
-    fontSize: 22
   },
   distanceStyle: {
     color: '#EFEFF4',
@@ -376,27 +370,20 @@ const styles = {
     fontSize: 18,
     fontStyle: 'italic',
   },
-  saveFlagContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20
-  },
   saveFlagIcon: {
-    height: 35,
-    width: 35,
-    tintColor: '#EFEFF4'
+    height: 25,
+    width: 25,
+    tintColor: '#EFEFF4',
   },
   button: {
-    width: width / 4,
-    height: 50,
-    marginHorizontal: 10
+    width: width / 6,
+    height: 45,
+    marginHorizontal: 8
   },
   bottomButton: {
-    width: width / 3,
-    height: 50,
-    marginHorizontal: 10
+    width: width / 8,
+    height: 45,
+    marginHorizontal: 8
   }
 };
 export default SpotInfo;
