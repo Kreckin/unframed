@@ -41,7 +41,6 @@ class MapContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.getCurrentPosition()
     .then((resolve) => {
       this.moveMapToCurrentPostion();
@@ -49,20 +48,9 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('componentWillReceiveProps');
-    console.log('new location', newProps.newLocation);
      if (newProps.newLocation) {
-      console.log('use new location');
       this.handleAddressProps(newProps.newLocation);
     }
-  }
-
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
-  }
-
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
   }
 
   onRegionChangeComplete(newRegion) {
@@ -115,7 +103,6 @@ class MapContainer extends Component {
   }
 
   getCurrentPosition(callback) {
-    console.log('get current postion');
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition((position, err) => {
           if (err) {
@@ -130,7 +117,6 @@ class MapContainer extends Component {
   }
 
   moveMapToCurrentPostion() {
-    console.log('move map to current position');
     this.map.animateToRegion(
       { 
         latitude: this.currentDevicePosition.latitude,
@@ -143,7 +129,6 @@ class MapContainer extends Component {
   }
 
   setCurrentDevicePosition(position) {
-    console.log('set current position');
     this.currentDevicePosition = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -153,8 +138,6 @@ class MapContainer extends Component {
   }
 
   render() {
-    console.log('map container render');
-
     return (
       <View>
         <MapView 

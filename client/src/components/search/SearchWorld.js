@@ -16,14 +16,8 @@ class SearchWorld extends Component {
   }
   onSearch() {
     console.log('viewing spot in map', this.props.getMapSpotState());
-    // if (this.props.getMapSpotState() !== null) {
-    //   console.log('not null!');
-    //   Actions.MapContainer({ type: ActionConst.REPLACE, newLocation: this.state.address });
-    // } else {
-    //   console.log('null!');
-      Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: this.state.address });
-      this.setState({ address: '' });
-    // }
+    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: this.state.address });
+    this.setState({ address: '' });
   }
   
   render() {
@@ -54,8 +48,6 @@ class SearchWorld extends Component {
                 <TouchableOpacity 
                   key={idx}
                   onPress={() => {
-                    console.log('relocate!');
-                    // Actions.MapContainer({ newLocation: image.location });
                     Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: image.location });
                   }}
                 >

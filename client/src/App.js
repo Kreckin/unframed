@@ -107,11 +107,10 @@ class App extends Component {
   }
 
   setMapSpotState(newStateData) {
-    console.log('updateing map spot view state')
     this.viewingSpotInMap = newStateData;
   }
-  getMapSpotState(newStateData) {
-    return (this.viewingSpotInMap);
+  getMapSpotState() {
+    return this.viewingSpotInMap;
   }
 
   setSavedListState(newStateData) {
