@@ -29,6 +29,8 @@ class MapContainer extends Component {
     // beacuse this isn't set in app.js when the app first loads
     this.props.setCurrentView('map');
 
+    this.firstRegionChangeComplete = false; // used for debouncing
+
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
   }
@@ -49,15 +51,19 @@ class MapContainer extends Component {
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
       { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to kms
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance, this.state.initialRegion)
-      .then((data) => {
-        this.setState({
-          spots: data,
-        });
-      })
-      .catch((reject) => {
-        console.log('Error getting spots', reject);
-      });
+    if (this.firstRegionChangeComplete) {
+      getSpots(newRegion.latitude, newRegion.longitude, distance)
+            .then((data) => {
+              this.setState({
+                spots: data,
+              });
+            })
+            .catch((reject) => {
+              console.log('Error getting spots', reject);
+            });
+    } else {
+      this.firstRegionChangeComplete = true;
+    }
   }
 
   handleAddressProps(address) {
