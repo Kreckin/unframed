@@ -65,7 +65,7 @@ class Profile extends Component {
               </View>
               <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Switch
-                  // style={{marginBottom: 300}}
+                  style={styles.switch}
                   onValueChange={() => {
                     userService.changeShowSpots(userService.currentUser.id);
                     this.setState({ showAllSpots: !this.state.showAllSpots });
@@ -149,6 +149,9 @@ const styles = {
     fontSize: 16,
     marginHorizontal: 20,
     width: width / 4,
+  },
+  switch: {
+    marginTop: 20
   }
 };
 
