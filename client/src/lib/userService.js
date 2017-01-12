@@ -138,15 +138,15 @@ const userService = {
             userService.currentUser = user;
             cachePromise();
           }).catch((err) => {
-            console.log('error in showSpots in userService',err)
+            console.log('error in showSpots in userService', err);
           });
   } 
 };
 
-function cachePromise()  { 
+function cachePromise() { 
   new Promise ((resolve, reject) => {
     AsyncStorage.setItem('@MySuperStore:user', JSON.stringify(userService.currentUser))
-    .then((data) => {
+    .then(() => {
       return;
     })
     .catch((err) => {
