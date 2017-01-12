@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Dimensions, Image } from 'react-native';
 import Carousel from 'react-native-looped-carousel';
 import Button from 'react-native-flat-button';
 
@@ -56,7 +56,7 @@ export default class CameraButtons extends Component {
         <Button
           type="custom"
           backgroundColor={'#00B89C'}
-          borderColor={'#006F60'}
+          borderColor={'#008E7A'}
           onPress={this.props.takePhoto}
           borderRadius={6}
           shadowHeight={8}
@@ -69,7 +69,7 @@ export default class CameraButtons extends Component {
         <Button
           type="custom"
           backgroundColor={'#00B89C'}
-          borderColor={'#006F60'}
+          borderColor={'#008E7A'}
           onPress={this.props.chooseImage}
           borderRadius={6}
           shadowHeight={8}

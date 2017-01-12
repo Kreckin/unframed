@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import Button from 'react-native-flat-button';
 
 import Votes from '../../lib/votes.js';
 import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 import favorites from '../../lib/favorites';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -121,7 +122,7 @@ class SpotInfo extends Component {
   //our toast function, which surprisingingly shows toasts
   toastAlert() {
     //this takes two params, the text to show and for how long to show it
-    this.refs.toast.show('Come to this location to vote!', 2000);
+    this.refs.toast.show('You must be within 1000 feet to vote and unlock this photo', 2000);
   }
 
   render() {
@@ -130,7 +131,7 @@ class SpotInfo extends Component {
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
      console.log('userService current', userService.currentUser);
-     console.log('disabled is ',disabled)
+     console.log('disabled is ', disabled)
     return (
       <ScrollView >
       {/*Header*/}
@@ -186,16 +187,26 @@ class SpotInfo extends Component {
             </View>
 
             <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
-                <Image
+              <Image
                   source={require('../../icons/happy.png')}
                   style={styles.iconRating}
-                />
-              </TouchableHighlight>
+              />
+           {'   ' + this.state.upvotes}
+          </Button>
+              
               <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.upvotes}</Text>
+                <Text style={styles.textRating}></Text>
               </View>
             </View>
           </View>
@@ -276,7 +287,7 @@ const styles = {
   photoContainer: {
     backgroundColor: 'black',
     width,
-    height: 300
+    height: height * 2 / 5
   },
   //Also change this
   imageStyle: {
@@ -302,7 +313,8 @@ const styles = {
   iconRating: {
     height: 30,
     width: 30,
-    tintColor: '#EFEFF4'
+    tintColor: '#EFEFF4',
+    marginTop: 2
   },
   textRating: {
     paddingLeft: 10,
@@ -332,13 +344,13 @@ const styles = {
     paddingRight: 20
   },
   categoryViewStyle: {
-    backgroundColor: '#00B89C',
+    backgroundColor: '#EFEFF4',
     padding: 5,
     borderRadius: 8,
     margin: 5
   },
   categoryTextStyle: {
-    color: '#EFEFF4',
+    color: '#006F60',
     fontSize: 18,
     fontStyle: 'italic',
   },
@@ -358,6 +370,11 @@ const styles = {
     fontSize: 20,
     paddingLeft: 5,
     color: '#EFEFF4'
-  }
+  },
+  button: {
+    width: width / 4,
+    height: 50,
+    marginHorizontal: 10
+  },
 };
 export default SpotInfo;

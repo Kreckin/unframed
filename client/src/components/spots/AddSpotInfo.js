@@ -80,7 +80,7 @@ class AddSpotInfo extends Component {
                     <Button
                       type="custom"
                       backgroundColor={'#00B89C'}
-                      borderColor={'#006F60'}
+                      borderColor={'#008E7A'}
                       onPress={this.props.backToAddPhoto}
                       borderRadius={6}
                       shadowHeight={8}
@@ -93,7 +93,7 @@ class AddSpotInfo extends Component {
                     <Button
                       type="custom"
                       backgroundColor={'#00B89C'}
-                      borderColor={'#006F60'}
+                      borderColor={'#008E7A'}
                       onPress={this.props.onSubmit}
                       borderRadius={6}
                       shadowHeight={8}
