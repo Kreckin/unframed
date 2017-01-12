@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import Button from 'react-native-flat-button';
 
 import Votes from '../../lib/votes.js';
 import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 import favorites from '../../lib/favorites';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class SpotInfo extends Component {
   constructor(props) {
@@ -121,7 +122,7 @@ class SpotInfo extends Component {
   //our toast function, which surprisingingly shows toasts
   toastAlert() {
     //this takes two params, the text to show and for how long to show it
-    this.refs.toast.show('Come to this location to vote!', 2000);
+    this.refs.toast.show('You must be within 1000 feet to vote and unlock this photo', 2000);
   }
 
   render() {
@@ -130,7 +131,7 @@ class SpotInfo extends Component {
     feet = `${feet} miles away`;
     StatusBar.setBarStyle('light-content', true);
      console.log('userService current', userService.currentUser);
-     console.log('disabled is ',disabled)
+     console.log('disabled is ', disabled)
     return (
       <ScrollView >
       {/*Header*/}
@@ -157,46 +158,66 @@ class SpotInfo extends Component {
         <View style={styles.infoContainer}>
       {/*Ratings*/}
           <View style={styles.ratingsContainer}>
+              {/*downvotes*/}
             <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
-                <Image
+              <Image
                   source={require('../../icons/sad.png')}
                   style={styles.iconRating}
-                />
-              </TouchableHighlight>
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.downvotes}</Text>
-              </View>
+              />
+              {'   ' + this.state.downvotes}    
+          </Button>
             </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+          {/*mehvotes*/}
+             <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
-                <Image
+              <Image
                   source={require('../../icons/meh.png')}
                   style={styles.iconRating}
-                />
-              </TouchableHighlight>
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.mehvotes}</Text>
-              </View>
+              />
+              {'   ' + this.state.mehvotes}    
+          </Button>
             </View>
-
+          {/*upvotes*/}
             <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
+
                 <Image
-                  source={require('../../icons/happy.png')}
-                  style={styles.iconRating}
+                    source={require('../../icons/happy.png')}
+                    style={styles.iconRating}
                 />
-              </TouchableHighlight>
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.upvotes}</Text>
-              </View>
+                {'   ' + this.state.upvotes}    
+              </Button>
             </View>
           </View>
           {/*Distance*/}
@@ -213,35 +234,48 @@ class SpotInfo extends Component {
 
         {/*Save*/}
         <View style={styles.saveFlagContainer}>
-            <TouchableHighlight
-              onPress={this.saveOrUnSaveSpot.bind(this)}
-            >
-              <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
+                onPress={this.saveOrUnSaveSpot.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.bottomButton}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+              >
                 <Image
-                  source={require('../../icons/star.png')}
-                  style={styles.saveFlagIcon}
+                    source={require('../../icons/star.png')}
+                    style={styles.saveFlagIcon}
                 />
-                <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                  <Text style={styles.saveFlagText}>Save</Text>
-              </View>
+                {this.state.saved === true ? 'Saved!' : 'Save'}   
+              </Button>
             </View>
-            </TouchableHighlight>
             
           {/*Flag*/}
-          <TouchableHighlight
-            onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../../icons/flag.png')}
-                style={styles.saveFlagIcon}
-              />
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.saveFlagText}>Flag</Text>
-              </View>
+          <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
+                onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.bottomButton}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+              >
+
+                <Image
+                    source={require('../../icons/flag.png')}
+                    style={styles.saveFlagIcon}
+                />
+                Flag    
+              </Button>
             </View>
-          </TouchableHighlight>
-        </View>
+          </View>  
       </View>
         <Toast
           ref="toast"
@@ -276,7 +310,7 @@ const styles = {
   photoContainer: {
     backgroundColor: 'black',
     width,
-    height: 300
+    height: height * 2 / 5
   },
   //Also change this
   imageStyle: {
@@ -300,9 +334,10 @@ const styles = {
     paddingRight: 20
   },
   iconRating: {
-    height: 30,
+    height: 33,
     width: 30,
-    tintColor: '#EFEFF4'
+    tintColor: '#EFEFF4',
+    marginTop: 3
   },
   textRating: {
     paddingLeft: 10,
@@ -332,13 +367,13 @@ const styles = {
     paddingRight: 20
   },
   categoryViewStyle: {
-    backgroundColor: '#00B89C',
-    padding: 5,
+    backgroundColor: '#EFEFF4',
+    padding: 6,
     borderRadius: 8,
     margin: 5
   },
   categoryTextStyle: {
-    color: '#EFEFF4',
+    color: '#006F60',
     fontSize: 18,
     fontStyle: 'italic',
   },
@@ -350,14 +385,19 @@ const styles = {
     paddingRight: 20
   },
   saveFlagIcon: {
-    height: 40,
-    width: 40,
+    height: 35,
+    width: 35,
     tintColor: '#EFEFF4'
   },
-  saveFlagText: {
-    fontSize: 20,
-    paddingLeft: 5,
-    color: '#EFEFF4'
+  button: {
+    width: width / 4,
+    height: 50,
+    marginHorizontal: 10
+  },
+  bottomButton: {
+    width: width / 3,
+    height: 50,
+    marginHorizontal: 10
   }
 };
 export default SpotInfo;

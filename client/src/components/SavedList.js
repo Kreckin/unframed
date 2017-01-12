@@ -13,7 +13,8 @@ class SavedList extends Component {
     super(props);
     this.state = {
       favorites: [],
-      sortFunction: this.distance
+      sortFunction: this.distance,
+      trianglePosition: 'this.distance'
     };
     this.recentOrPendingRequest = false;
     this.hasChildInViewStack = false;
@@ -42,12 +43,14 @@ class SavedList extends Component {
 
   removeSavedSpot(spotID) {
     favorites.remove(userService.currentUser.id, spotID);
-    var newFavorites = this.state.favorites.filter(savedSpot =>
+    const newFavorites = this.state.favorites.filter(savedSpot =>
       savedSpot.id !== spotID);
     this.setState({ favorites: newFavorites });
   }
 
   orderBy(callback) {
+    console.log("I got here with a callback of ", callback)
+    this.setState({ trianglePosition: callback });
     if (this.state.sortFunction !== callback) {
       this.setState({ sortFunction: callback });
 
@@ -81,13 +84,21 @@ class SavedList extends Component {
       <View>
         <StatusBar barStyle='light-content' />
         <View style={styles.titleBarStyle}>
+        <View style={styles.triangleRow}>
           <TouchableHighlight onPress={() => this.orderBy(this.distance)}>
             <Text style={styles.titleStyle}>Closest</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => this.orderBy(this.highestRated)}>
             <Text style={styles.titleStyle}>Highest Rated</Text>
           </TouchableHighlight>
+          </View>
+          <View style={styles.triangleRow}>
+            <View style={this.state.trianglePosition === 'this.distance' ? styles.triangle : null } />
+            <View style={this.state.trianglePosition === 'this.highestRated' ? styles.triangle : null } />
+          </View>
         </View>
+        
+     
         <ScrollView 
           style={styles.listStyle}
           contentContainerStyle={styles.listContainerStyle}
@@ -113,21 +124,35 @@ class SavedList extends Component {
 }
 
 const styles = {
+ triangle: {
+  height: 0, 
+  width: 0, 
+  borderLeftWidth: 15, 
+  borderLeftColor: 'transparent',
+  borderRightWidth: 15, 
+  borderRightColor: 'transparent', 
+  borderBottomWidth: 15, 
+  borderBottomColor: '#EFEFF4',
+  marginLeft: -30
+ },
+ triangleRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-around'
+ },
  listStyle: {
   paddingTop: 5,
   //height: 500,
-  height: height - 155,
+  height: height - 120,
   backgroundColor: '#EFEFF4'
  },
  listContainerStyle: {
  },
  titleBarStyle: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
+  //flexDirection: 'row',
+  //justifyContent: 'space-around',
   backgroundColor: '#006F60',
-  height: 90,
+  height: 100,
   paddingTop: 58,
-  paddingBottom: 12,
   paddingLeft: 15
  },
  titleStyle: {

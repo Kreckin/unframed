@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions, TouchableOpacity, StatusBar, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CheckBox from 'react-native-check-box';
+import Button from 'react-native-flat-button';
 
 const { height, width } = Dimensions.get('window');
 
@@ -39,7 +40,7 @@ class FlaggedContent extends Component {
           style={styles.imageStyle}
         />
         { data.map((item) => {
-          return(
+          return (
             <View key={item.key}>
           <CheckBox
            style={styles.checkboxView}
@@ -47,7 +48,7 @@ class FlaggedContent extends Component {
             item.checked = !item.checked;
             this.setState({flaggedCategories: (data.filter((item) => item.checked === true)
               .map((item) => item = item.name))
-            })
+            });
           }}
            isChecked={item.checked}
            key={item.key}
@@ -57,21 +58,35 @@ class FlaggedContent extends Component {
            unCheckedImage={<Image source={require('../icons/unchecked.png')} style={styles.checkboxIcon} />}
           />
           </View>
-          )
+          );
         })}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={Actions.pop}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.onSubmit}
-        >
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 30}}>
+          <Button
+            type="custom"
+            backgroundColor={'#00B89C'}
+            borderColor={'#008E7A'}
+            onPress={Actions.pop}
+            borderRadius={6}
+            shadowHeight={8}
+            activeOpacity={0.5}
+            containerStyle={styles.button}
+            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+          >  
+            Back
+          </Button>
+          <Button
+            type="custom"
+            backgroundColor={'#00B89C'}
+            borderColor={'#008E7A'}
+            onPress={this.onSubmit}
+            borderRadius={6}
+            shadowHeight={8}
+            activeOpacity={0.5}
+            containerStyle={styles.button}
+            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+          >  
+            Submit
+          </Button>
         </View>
         </View>
       </View>
@@ -82,38 +97,28 @@ const styles = {
   navBar: {
     backgroundColor: '#006F60',
     alignItems: 'center',
-    //height: 65
   },
   navBarText: {
     fontSize: 18,
     textAlign: 'center',
     color: '#EFEFF4',
     marginTop: 30,
-    marginBottom: 12
+    marginBottom: 12,
   },
   containerStyle: {
     flexDirection: 'column',
     justifyContent: 'space-between',
     backgroundColor: '#006F60',
-    height
+    height: height - 120,
   },
   button: {
-    backgroundColor: '#00B89C',
-    width: 90,
-    borderRadius: 5,
-    margin: 10,
-    alignSelf: 'center',
-    marginBottom: 150
+    width: width * 2 / 5,
+    height: 40,
+    margin: 20
   },
   imageStyle: {
-    height: height*2/5,
+    height: height * 2 / 5,
     width
-  },
-  buttonText: {
-    color: '#EFEFF4',
-    fontSize: 20,
-    margin: 10,
-    textAlign: 'center'
   },
   checkboxView: {
     flex: 1, 
