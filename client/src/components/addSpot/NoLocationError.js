@@ -7,7 +7,6 @@ const NoLocationError = (props) => {
   StatusBar.setBarStyle('light-content', true);
   return (
     <View>
-      <View style={styles.navBar} />
       <View style={styles.background}>
       <View style={styles.middleContainer}>
         <Image 
