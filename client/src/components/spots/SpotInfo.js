@@ -5,7 +5,6 @@ import {
   ScrollView, 
   Text, 
   Image, 
-  TouchableHighlight, 
   StatusBar, 
   Dimensions 
 } from 'react-native';
@@ -376,12 +375,12 @@ const styles = {
     tintColor: '#EFEFF4',
   },
   button: {
-    width: width / 6,
+    width: width / 5,
     height: 45,
     marginHorizontal: 8
   },
   bottomButton: {
-    width: width / 8,
+    width: width / 9,
     height: 45,
     marginHorizontal: 8
   }
