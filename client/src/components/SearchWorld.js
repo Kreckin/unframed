@@ -36,25 +36,9 @@ class SearchWorld extends Component {
         barStyle='light-content'
       />
       <Image source={require('../images/greenMap.png')} style={styles.backgroundPic}>
-        <View style={styles.blackContainer}>
-          <View style={styles.carouselContainer}>
-            <Text style={styles.locationHeaderText}>Tap to select a location</Text>
-            <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
-             {
-              carouselImages.map((image, idx) => (
-                <TouchableOpacity 
-                  key={idx}
-                  onPress={() => Actions.MapContainer({ newLocation: image.location })}
-                >
-                  <Image style={styles.imageStyle} source={image.source} key={idx} />
-                </TouchableOpacity>
-              ))
-            }
-            </Carousel>
-          </View>
-          
-          <View style={{ }}>
-            <Text style={styles.differentPlaceText}>Or choose somewhere else</Text>
+        <View style={styles.blackContainer}> 
+          <View>
+            <Text style={styles.differentPlaceText}>Check out other cities</Text>
             <View style={styles.searchContainer}>
               
               <View style={styles.inputView}>
@@ -80,6 +64,21 @@ class SearchWorld extends Component {
             </TouchableOpacity>
             </View>
           </View>
+          <View style={styles.carouselContainer}>
+          <Text style={styles.locationHeaderText}>Tap to select a location</Text>
+          <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
+           {
+            carouselImages.map((image, idx) => (
+              <TouchableOpacity 
+                key={idx}
+                onPress={() => Actions.MapContainer({ newLocation: image.location })}
+              >
+                <Image style={styles.imageStyle} source={image.source} key={idx} />
+              </TouchableOpacity>
+            ))
+          }
+          </Carousel>
+        </View>
         </View>
       </Image>
     </View>
@@ -102,8 +101,8 @@ const styles = {
   },
   blackContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: height - 130,
+    justifyContent: 'space-around',
+    height: height - 65,
     width,
     marginHorizontal: 15
   },
@@ -132,7 +131,6 @@ const styles = {
   },
   carouselContainer: {
     width: width-30,
-    marginTop: 50
   },
   locationHeaderText: {
     backgroundColor: 'transparent',

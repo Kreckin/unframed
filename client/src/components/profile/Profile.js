@@ -81,6 +81,7 @@ class Profile extends Component {
             </View>
             <View style={{alignSelf: 'center'}}>
               <FBLogIOButton 
+                
                 logoutCallback={this.props.logoutCallback} 
                 loginCallback={this.props.loginCallback} 
               />
