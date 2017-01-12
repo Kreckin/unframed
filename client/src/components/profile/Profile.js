@@ -33,7 +33,8 @@ class Profile extends Component {
       });
       this.setState({ showAllSpots: userService.currentUser.showAllSpots });
     }
-    render(){
+    render() {
+    const displayName = userService.currentUser.displayName || 'Anonymous';
     return (
       <View>
       <StatusBar barStyle='light-content' />
