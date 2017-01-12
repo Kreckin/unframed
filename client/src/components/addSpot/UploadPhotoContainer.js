@@ -8,6 +8,7 @@ import Spinner from '../Spinner';
 import NoLocationError from './NoLocationError';
 
 import postSpot from '../../lib/postSpot';
+
 const { width, height } = Dimensions.get('window');
 
 const Platform = require('react-native').Platform; // do we need this separate?

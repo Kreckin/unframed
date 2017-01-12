@@ -174,14 +174,3 @@ const styles = {
 
 export default MapContainer;
 
-
-//        <View style={styles.navBar}>
-        //   {this.state.platform === 'ios' ? 
-        //   //IOS does not show the home button, so we have a custom one here that shows only for 
-        //   //IOS phones (Android has their own)
-        //   <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
-        //   <LensIcon
-        //     handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-        //   />
-        //   <AddPhotoIcon />
-        // </View>

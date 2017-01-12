@@ -6,13 +6,13 @@ import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
 import Login from './components/login/Login';
 import MapContainer from './components/map/MapContainer';
 import SpotInfo from './components/spots/SpotInfo';
-import UploadPhotoContainer from './components/spots/UploadPhotoContainer';
-import FlaggedContent from './components/FlaggedContent';
-import SavedList from './components/SavedList';
+import UploadPhotoContainer from './components/addSpot/UploadPhotoContainer';
+import FlaggedContent from './components/spots/FlaggedContent';
+import SavedList from './components/saved/SavedList';
 import Profile from './components/profile/Profile';
 import Spinner from './components/Spinner';
 
-import SearchWorld from './components/SearchWorld';
+import SearchWorld from './components/search/SearchWorld';
 
 import userService from './lib/userService';
 

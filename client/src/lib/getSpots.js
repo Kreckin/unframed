@@ -1,6 +1,5 @@
 import config from './config.js';
 
-
 const getSpots = (lat, lon, distance, location) => {
   return new Promise((resolve, reject) => {
     //sends a GET request to our server/spots

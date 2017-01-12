@@ -35,7 +35,7 @@ class FlaggedContent extends Component {
         </View>
         <View style={styles.containerStyle}>
         <Image
-          source={require('../images/monkey2.png')}
+          source={require('../../images/monkey2.png')}
           style={styles.imageStyle}
         />
         { data.map((item) => {
@@ -47,17 +47,17 @@ class FlaggedContent extends Component {
             item.checked = !item.checked;
             this.setState({flaggedCategories: (data.filter((item) => item.checked === true)
               .map((item) => item = item.name))
-            })
+            });
           }}
            isChecked={item.checked}
            key={item.key}
            rightText={item.name}
            rightTextStyle={styles.checkboxText}
-           checkedImage={<Image source={require('../icons/check.png')} style={styles.checkboxIcon} />}
-           unCheckedImage={<Image source={require('../icons/unchecked.png')} style={styles.checkboxIcon} />}
+           checkedImage={<Image source={require('../../icons/check.png')} style={styles.checkboxIcon} />}
+           unCheckedImage={<Image source={require('../../icons/unchecked.png')} style={styles.checkboxIcon} />}
           />
           </View>
-          )
+          );
         })}
         <View style={{ flexDirection: 'row', justifyContent: 'space-around'}}>
         <TouchableOpacity 

@@ -29,7 +29,7 @@ const SavedItem = (props) => {
             <TouchableHighlight onPress={function () { props.removeSavedSpot(props.spot.id); }}>
               <Image
                 style={styles.trashStyle}
-                source={require('../icons/trash.png')}
+                source={require('../../icons/trash.png')}
               />
             </TouchableHighlight>
           </View>
