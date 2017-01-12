@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { 
   View,
   Text,
-  StyleSheet,
+  StatusBar,
   Image,
   Dimensions,
   Animated,
@@ -17,6 +17,7 @@ import FBLogIOButton from '../login/FBLogIOButton';
 const { width, height } = Dimensions.get('window');
 
 class Profile extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -32,117 +33,128 @@ class Profile extends Component {
       });
       this.setState({ showAllSpots: userService.currentUser.showAllSpots });
     }
-    componentDidMount() {
-        this.state.bounceValue.setValue(1.4);     // Start large
-        Animated.spring(                          // Base: spring, decay, timing
-          this.state.bounceValue,                 // Animate `bounceValue`
-          {
-            toValue: 1,                         // Animate to smaller size
-            friction: 4,                          // Bouncier spring
-          }
-        ).start();                                // Start the animation
-    }
-
     render() {
-        const displayName = userService.currentUser.displayName || 'anon';
-        // console.log('img url', userService.currentUser.profileUrl);
-
-        return (
-            <View style={styles.body}>
-                    <Animated.Image                         // Base: Image, Text, View
-                        source={{ uri: userService.currentUser.profileUrl }}
-                        style={{
-                          transform: [                        // `transform` is an ordered array
-                            { scale: this.state.bounceValue },  // Map `bounceValue` to `scale`
-                          ],
-                          marginTop: height * 0.05,
-                          height: 155,
-                          width: 155,
-                          resizeMode: 'stretch',
-                          borderRadius: 30,
-                          borderColor: 'white',
-                          borderWidth: 5,
-                        }}
-                    />
-                <View style={styles.profileDetails} >
-                    <Text style={styles.text}>Hello, { displayName.slice(0, displayName.indexOf(' ')) }</Text>
-                    <Text style={styles.text}>visited, { this.state.visited }</Text>
-                    <FBLogIOButton style={{marginRight: 'auto', marginLeft: 'auto'}} logoutCallback={this.props.logoutCallback} loginCallback={this.props.loginCallback} />
-                </View>
-              <Text>Show all Spots</Text>
-                <Switch
-                style={{marginBottom: 300}}
-                onValueChange={() => {
-                  userService.changeShowSpots(userService.currentUser.id);
-                  this.setState({showAllSpots: !this.state.showAllSpots });
-                }}
-                 value={this.state.showAllSpots}
-                />
-             
+    const displayName = userService.currentUser.displayName || 'Anonymous';
+    return (
+      <View>
+      <StatusBar barStyle='light-content' />
+        <Image
+          source={require('../../images/greenBackground.png')}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.container}>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{displayName.slice(0, displayName.indexOf(' '))}</Text>
+              <Image
+                style={styles.profilePic}
+                source={{ uri: userService.currentUser.profileUrl }}
+              />
+              <Text style={styles.unlocked}>
+                Total spots unlocked: {this.state.visited}
+              </Text>
             </View>
+            <Text style={styles.directions}>
+              To permanently unlock a photo, you must come within 1000 feet and rate it. 
+              Or, you can choose to show all photos on default.
+            </Text>
+            <View style={styles.switchRow}>
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Text style={styles.switchText}>
+                  Hide pictures until unlocked
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Switch
+                  style={styles.switch}
+                  onValueChange={() => {
+                    userService.changeShowSpots(userService.currentUser.id);
+                    this.setState({ showAllSpots: !this.state.showAllSpots });
+                  }}
+                   value={this.state.showAllSpots}
+                />
+              </View>
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Text style={styles.switchText}>
+                  Show all pictures on default
+                </Text>
+              </View>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+              <FBLogIOButton 
+                
+                logoutCallback={this.props.logoutCallback} 
+                loginCallback={this.props.loginCallback} 
+              />
+            </View>
+          </View>
+        </Image>
+      </View>
+
             
         );
     }
+}
+
+
+const styles = {
+  backgroundImage: {
+    height,
+    width
+  },
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: height - 65,
+    marginHorizontal: 15
+  },
+  nameContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  name: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 40,
+    marginBottom: 5
+  },
+  profilePic: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    borderWidth: 5,
+    borderColor: '#EFEFF4',
+    alignSelf: 'center'
+  },
+  unlocked: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 26,
+    marginTop: 5
+  },
+  directions: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 20,
+  },
+  switchRow: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  switchText: {
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    color: '#EFEFF4',
+    fontSize: 16,
+    marginHorizontal: 20,
+    width: width / 4,
+  },
+  switch: {
+    marginTop: 20
+  }
 };
 
-//                    <View style={styles.userDetails}>
-//                      <TouchableHighlight style={styles.button}>
-//                        <Text style={styles.text}>Votes</Text>
-//                      </TouchableHighlight>
-//                      <TouchableHighlight style={styles.button}>
-//                        <Text style={styles.text}>Posts</Text>
-//                      </TouchableHighlight>
-//                      <TouchableHighlight style={styles.button}>
-//                        <Text style={styles.text}>Spots Visited</Text>
-//                      </TouchableHighlight>
-//                      <TouchableHighlight style={styles.button}>
-//                        <Text style={styles.text}>xyz</Text>
-//                      </TouchableHighlight>
-//                    </View>
-
-
-const styles = StyleSheet.create({
-    body: {
-        alignItems: 'center',
-        flex: 1,
-        backgroundColor: '#006F60',
-    },
-    profilePicture: {
-        flex: 1
-    },
-    image: {
-        marginTop: height * 0.05,
-        // height: 200,
-        // width: 200,
-        resizeMode: 'cover',
-        borderRadius: 20,
-        borderColor: 'white',
-        borderWidth: 5,
-    },
-    profileDetails: {
-        marginTop: height * 0.02,
-        flex: 4,
-    },  
-    text: {
-        textAlign: 'center',
-        color: '#000000',
-        fontSize: 28,
-    },
-    button: {
-        // alignSelf: 'center',
-        backgroundColor: '#EFEFF4',
-        marginTop: height * 0.02,
-        marginBottom: height * 0.02,
-        width: 200,
-        borderRadius: 50,
-        borderWidth: 2,
-    },
-    userDetails: {
-        marginTop: height * 0.02,
-        flex: 1,
-        flexDirection: 'column',
-        marginBottom: 70,
-    },
-});
 
 export default Profile;

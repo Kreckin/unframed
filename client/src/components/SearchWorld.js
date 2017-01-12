@@ -12,23 +12,23 @@ class SearchWorld extends Component {
       address: '',
     };
   }
-  onIconSelect(){
-    Actions.MapContainer({ newLocation:this.state.address });
+  onIconSelect() {
+    Actions.MapContainer({ newLocation: this.state.address });
     this.setState({ address: '' });
   }
   
-  render(){
+  render() {
     const carouselImages = [
-      {source: require('../images/polaroids/paris.png'),
-      location: {latitude: 48.8566, longitude: 2.3522}},
-      {source: require('../images/polaroids/berlin.png'),
-      location: {latitude: 52.52, longitude: 13.405 }},
-      {source: require('../images/polaroids/newyork.png'), 
-      location: {latitude: 40.7128, longitude: -74.0059}},
-      {source: require('../images/polaroids/mexicocity.png'), 
-      location: {latitude: 19.4326, longitude: -99.1332}},
-      {source: require('../images/polaroids/london.png'), 
-      location: {latitude: 51.5074, longitude: -0.1278}},
+      { source: require('../images/polaroids/paris.png'),
+      location: { latitude: 48.8566, longitude: 2.3522 } },
+      { source: require('../images/polaroids/berlin.png'),
+      location: { latitude: 52.52, longitude: 13.405 } },
+      { source: require('../images/polaroids/newyork.png'), 
+      location: { latitude: 40.7128, longitude: -74.0059 } },
+      { source: require('../images/polaroids/mexicocity.png'), 
+      location: { latitude: 19.4326, longitude: -99.1332 } },
+      { source: require('../images/polaroids/london.png'), 
+      location: { latitude: 51.5074, longitude: -0.1278 } },
     ];
     return (
     <View>
@@ -36,25 +36,9 @@ class SearchWorld extends Component {
         barStyle='light-content'
       />
       <Image source={require('../images/greenMap.png')} style={styles.backgroundPic}>
-        <View style={styles.blackContainer}>
-          <View style={styles.carouselContainer}>
-            <Text style={styles.locationHeaderText}>Tap to select a location</Text>
-            <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
-             {
-              carouselImages.map((image, idx) => (
-                <TouchableOpacity 
-                  key={idx}
-                  onPress={() => Actions.MapContainer({ newLocation: image.location })}
-                >
-                  <Image style={styles.imageStyle} source={image.source} key={idx} />
-                </TouchableOpacity>
-              ))
-            }
-            </Carousel>
-          </View>
-          
-          <View style={{ }}>
-            <Text style={styles.differentPlaceText}>Or choose somewhere else</Text>
+        <View style={styles.blackContainer}> 
+          <View>
+            <Text style={styles.differentPlaceText}>Check out other cities</Text>
             <View style={styles.searchContainer}>
               
               <View style={styles.inputView}>
@@ -64,7 +48,7 @@ class SearchWorld extends Component {
                 label='address'
                 placeholder='  Type any address here'
                 value={this.state.address}
-                onChangeText={(address) => this.setState({address})}
+                onChangeText={(address) => this.setState({ address })}
                 placeholderTextColor={'#EFEFF4'}
                 selectionColor={'#006F60'}
                 clearButtonMode={'while-editing'}
@@ -80,12 +64,27 @@ class SearchWorld extends Component {
             </TouchableOpacity>
             </View>
           </View>
+          <View style={styles.carouselContainer}>
+          <Text style={styles.locationHeaderText}>Tap to select a location</Text>
+          <Carousel style={{ height: 250, width: 350, alignSelf: 'center' }}>
+           {
+            carouselImages.map((image, idx) => (
+              <TouchableOpacity 
+                key={idx}
+                onPress={() => Actions.MapContainer({ newLocation: image.location })}
+              >
+                <Image style={styles.imageStyle} source={image.source} key={idx} />
+              </TouchableOpacity>
+            ))
+          }
+          </Carousel>
+        </View>
         </View>
       </Image>
     </View>
-    )
+    );
   }
-};
+}
 const styles = {
   navBar: {
     width,
@@ -102,8 +101,8 @@ const styles = {
   },
   blackContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: height - 130,
+    justifyContent: 'space-around',
+    height: height - 65,
     width,
     marginHorizontal: 15
   },
@@ -116,7 +115,7 @@ const styles = {
   },
   inputView: {
     borderBottomWidth: 2,
-    width: width-80,
+    width: width - 80,
     borderColor: '#EFEFF4',
   },
   textInputStyle: { 
@@ -131,8 +130,7 @@ const styles = {
     tintColor: '#EFEFF4',
   },
   carouselContainer: {
-    width: width-30,
-    marginTop: 50
+    width: width - 30,
   },
   locationHeaderText: {
     backgroundColor: 'transparent',
@@ -149,7 +147,7 @@ const styles = {
     marginBottom: 20,
     marginRight: 30
   },
-  imageStyle:{
+  imageStyle: {
     alignSelf: 'center',
   }
 };
