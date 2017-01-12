@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import { View, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
@@ -24,27 +24,32 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
-      // initialRegion: {
-      //   latitude: 30.2729,
-      //   longitude: -97.7444,
-      //   latitudeDelta: LATITUDE_DELTA,
-      //   longitudeDelta: LONGITUDE_DELTA,
-      // }
     };
-    // beacuse this isn't set in app.js
+
+    this.currentDevicePosition = {};
+    this.pendingUpdate = false;
+
+    // beacuse this isn't set in app.js when the app first loads
     this.props.setCurrentView('map');
 
+    this.firstRegionChangeComplete = false; // used for debouncing
+
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
-    this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
+    this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
+    this.moveMapToCurrentPostion = this.moveMapToCurrentPostion.bind(this);
+    this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
   }
 
   componentDidMount() {
-    //check if search world has passed us some props for a different location.
-    //otherwise, check the location
-    if (this.props.newLocation) {
-      this.handleAddressProps(this.props.newLocation);
-    } else {
+    this.getCurrentPosition()
+    .then((resolve) => {
       this.moveMapToCurrentPostion();
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+     if (newProps.newLocation) {
+      this.handleAddressProps(newProps.newLocation);
     }
   }
 
@@ -52,17 +57,22 @@ class MapContainer extends Component {
     // deets on latitude delta http://troybrant.net/blog/wp-content/uploads/2010/01/24-zoom-18-lat-lng-corners.png
     const distance = geolib.getDistance(
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
-      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
+      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }
+      ) / 1000; // conver to kms
 
-    getSpots(newRegion.latitude, newRegion.longitude, distance, this.state.initialRegion)
-          .then((data) => {
-            this.setState({
-              spots: data,
+    if (this.firstRegionChangeComplete) {
+      getSpots(newRegion.latitude, newRegion.longitude, distance, this.currentDevicePosition)
+            .then((data) => {
+              this.setState({
+                spots: data,
+              });
+            })
+            .catch((reject) => {
+              console.log('Error getting spots', reject);
             });
-          })
-          .catch((reject) => {
-            console.log('Error getting spots', reject);
-          });
+    } else {
+      this.firstRegionChangeComplete = true;
+    }
   }
 
   handleAddressProps(address) {
@@ -77,8 +87,8 @@ class MapContainer extends Component {
             longitudeDelta: LONGITUDE_DELTA,
           },
           3
-        )}
-      );
+        ); });
+      this.pendingUpdate = false;
     } else {
       self.map.animateToRegion(
         { 
@@ -87,49 +97,46 @@ class MapContainer extends Component {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         },
-      3
-      )};
+        3
+      ); 
+    }
+  }
+
+  getCurrentPosition(callback) {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position, err) => {
+          if (err) {
+            console.log('Err getting current postion in moveMapToCurrentPostion', err);
+            reject(err);
+          } else {
+            this.setCurrentDevicePosition(position);
+            resolve(position);
+          }
+        });
+    });
   }
 
   moveMapToCurrentPostion() {
-    navigator.geolocation.getCurrentPosition((position, err) => {
-        if (err) {
-          console.log('Err getting current postion in moveMapToCurrentPostion', err);
-        } else {
-          this.map.animateToRegion(
-            { 
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            },
-            3
-          );
-          this.updateMapWithCurrentPosition(position)
-        }
-      });
+    this.map.animateToRegion(
+      { 
+        latitude: this.currentDevicePosition.latitude,
+        longitude: this.currentDevicePosition.longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      3
+    );
   }
 
-  updateMapWithCurrentPosition(position) {
-    console.log('updating map with current position!');
-    // return new Promise((resolve, reject) => {
-      // navigator.geolocation.getCurrentPosition((position, err) => {
-      //   if (err) {
-      //     reject(err);
-      //   } else {
-          this.setState({
-            initialRegion: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }
-          });
-    //       resolve(position.coords);
-    //     }
-    //   });
-    // });
+  setCurrentDevicePosition(position) {
+    this.currentDevicePosition = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      };
   }
+
   render() {
     return (
       <View>
@@ -137,9 +144,7 @@ class MapContainer extends Component {
           style={styles.map}
           showsUserLocation
           loadingEnabled
-          showsCompass
           showsMyLocationButton
-          initialRegion={this.state.initialRegion}
           ref={ref => { this.map = ref; }}
           //this will change the region as the user moves around the map
           onRegionChangeComplete={this.onRegionChangeComplete}
@@ -158,9 +163,15 @@ class MapContainer extends Component {
                 //onPress={() => { reference[spot.id].showCallout(); }}
                 //This changes the scene to the blurb with the spot passed down as props
                 onCalloutPress={() => {
-                  this.props.setMapSpotState(spot);
-                  this.props.setCurrentView('mapSpot');
-                  Actions.MapSpot({ spot });
+                  if (this.props.getMapSpotState() !== null){
+                    this.props.setMapSpotState(spot);
+                    this.props.setCurrentView('mapSpot');
+                    Actions.MapSpot({ type: ActionConst.REFRESH, spot });
+                  } else {
+                    this.props.setMapSpotState(spot);
+                    this.props.setCurrentView('mapSpot');
+                    Actions.MapSpot({ spot });
+                  }
                 }}
               />
             ))}
@@ -182,14 +193,3 @@ const styles = {
 
 export default MapContainer;
 
-
-//        <View style={styles.navBar}>
-        //   {this.state.platform === 'ios' ? 
-        //   //IOS does not show the home button, so we have a custom one here that shows only for 
-        //   //IOS phones (Android has their own)
-        //   <LocateSelfIcon selectLocatorIcon={this.moveMapToCurrentPostion.bind(this)} /> : null }
-        //   <LensIcon
-        //     handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-        //   />
-        //   <AddPhotoIcon />
-        // </View>

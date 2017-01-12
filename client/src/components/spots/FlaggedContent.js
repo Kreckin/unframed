@@ -36,7 +36,7 @@ class FlaggedContent extends Component {
         </View>
         <View style={styles.containerStyle}>
         <Image
-          source={require('../images/monkey2.png')}
+          source={require('../../images/monkey2.png')}
           style={styles.imageStyle}
         />
         { data.map((item) => {
@@ -54,8 +54,8 @@ class FlaggedContent extends Component {
            key={item.key}
            rightText={item.name}
            rightTextStyle={styles.checkboxText}
-           checkedImage={<Image source={require('../icons/check.png')} style={styles.checkboxIcon} />}
-           unCheckedImage={<Image source={require('../icons/unchecked.png')} style={styles.checkboxIcon} />}
+           checkedImage={<Image source={require('../../icons/check.png')} style={styles.checkboxIcon} />}
+           unCheckedImage={<Image source={require('../../icons/unchecked.png')} style={styles.checkboxIcon} />}
           />
           </View>
           );

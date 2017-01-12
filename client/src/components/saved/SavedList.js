@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, StatusBar, Dimensions, TouchableHighlight } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import SavedItem from './SavedItem';
-import favorites from '../lib/favorites';
-import userService from '../lib/userService';
+import favorites from '../../lib/favorites';
+import userService from '../../lib/userService';
 
 const { height } = Dimensions.get('window');
 
@@ -21,7 +21,6 @@ class SavedList extends Component {
   }
 
   componentWillMount() {
-    //favorites.add(1, 2);
     this.getFavoriteSpots();
     this.recentOrPendingRequest = true;
   }

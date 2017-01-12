@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { View, Image, Dimensions, Text, StatusBar, TextInput, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Carousel from 'react-native-looped-carousel';
 
 const { height, width } = Dimensions.get('window');
@@ -11,23 +11,25 @@ class SearchWorld extends Component {
     this.state = {
       address: '',
     };
+
+    // this.onSearch = this.onSearch.bind(this);
   }
-  onIconSelect() {
-    Actions.MapContainer({ newLocation: this.state.address });
+  onSearch() {
+    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: this.state.address });
     this.setState({ address: '' });
   }
   
   render() {
     const carouselImages = [
-      { source: require('../images/polaroids/paris.png'),
+      { source: require('../../images/polaroids/paris.png'),
       location: { latitude: 48.8566, longitude: 2.3522 } },
-      { source: require('../images/polaroids/berlin.png'),
+      { source: require('../../images/polaroids/berlin.png'),
       location: { latitude: 52.52, longitude: 13.405 } },
-      { source: require('../images/polaroids/newyork.png'), 
+      { source: require('../../images/polaroids/newyork.png'), 
       location: { latitude: 40.7128, longitude: -74.0059 } },
-      { source: require('../images/polaroids/mexicocity.png'), 
+      { source: require('../../images/polaroids/mexicocity.png'), 
       location: { latitude: 19.4326, longitude: -99.1332 } },
-      { source: require('../images/polaroids/london.png'), 
+      { source: require('../../images/polaroids/london.png'), 
       location: { latitude: 51.5074, longitude: -0.1278 } },
     ];
     return (
@@ -35,7 +37,7 @@ class SearchWorld extends Component {
       <StatusBar
         barStyle='light-content'
       />
-      <Image source={require('../images/greenMap.png')} style={styles.backgroundPic}>
+      <Image source={require('../../images/greenMap.png')} style={styles.backgroundPic}>
         <View style={styles.blackContainer}> 
           <View>
             <Text style={styles.differentPlaceText}>Check out other cities</Text>
@@ -55,10 +57,10 @@ class SearchWorld extends Component {
                 />
               </View>
               <TouchableOpacity
-                onPress={this.onIconSelect.bind(this)}
+                onPress={this.onSearch.bind(this)}
               >
                 <Image
-                  source={require('../icons/search.png')}
+                  source={require('../../icons/search.png')}
                   style={styles.iconStyle}
                 />
             </TouchableOpacity>
@@ -71,7 +73,9 @@ class SearchWorld extends Component {
             carouselImages.map((image, idx) => (
               <TouchableOpacity 
                 key={idx}
-                onPress={() => Actions.MapContainer({ newLocation: image.location })}
+                onPress={() => {
+                    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: image.location });
+                }}
               >
                 <Image style={styles.imageStyle} source={image.source} key={idx} />
               </TouchableOpacity>
