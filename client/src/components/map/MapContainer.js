@@ -24,14 +24,9 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
-      // initialRegion: {
-      //   latitude: 30.2729,
-      //   longitude: -97.7444,
-      //   latitudeDelta: LATITUDE_DELTA,
-      //   longitudeDelta: LONGITUDE_DELTA,
-      // }
     };
-    // beacuse this isn't set in app.js
+
+    // beacuse this isn't set in app.js when the app first loads
     this.props.setCurrentView('map');
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
@@ -52,17 +47,17 @@ class MapContainer extends Component {
     // deets on latitude delta http://troybrant.net/blog/wp-content/uploads/2010/01/24-zoom-18-lat-lng-corners.png
     const distance = geolib.getDistance(
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
-      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to ks
+      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to kms
 
     getSpots(newRegion.latitude, newRegion.longitude, distance, this.state.initialRegion)
-          .then((data) => {
-            this.setState({
-              spots: data,
-            });
-          })
-          .catch((reject) => {
-            console.log('Error getting spots', reject);
-          });
+      .then((data) => {
+        this.setState({
+          spots: data,
+        });
+      })
+      .catch((reject) => {
+        console.log('Error getting spots', reject);
+      });
   }
 
   handleAddressProps(address) {
@@ -105,31 +100,22 @@ class MapContainer extends Component {
             },
             3
           );
-          this.updateMapWithCurrentPosition(position)
+          this.updateMapWithCurrentPosition(position);
         }
       });
   }
 
   updateMapWithCurrentPosition(position) {
-    console.log('updating map with current position!');
-    // return new Promise((resolve, reject) => {
-      // navigator.geolocation.getCurrentPosition((position, err) => {
-      //   if (err) {
-      //     reject(err);
-      //   } else {
-          this.setState({
-            initialRegion: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }
-          });
-    //       resolve(position.coords);
-    //     }
-    //   });
-    // });
+    this.setState({
+      initialRegion: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }
+    });
   }
+
   render() {
     return (
       <View>
