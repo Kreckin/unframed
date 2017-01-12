@@ -12,23 +12,23 @@ class SearchWorld extends Component {
       address: '',
     };
   }
-  onIconSelect(){
-    Actions.MapContainer({ newLocation:this.state.address });
+  onIconSelect() {
+    Actions.MapContainer({ newLocation: this.state.address });
     this.setState({ address: '' });
   }
   
-  render(){
+  render() {
     const carouselImages = [
-      {source: require('../images/polaroids/paris.png'),
-      location: {latitude: 48.8566, longitude: 2.3522}},
-      {source: require('../images/polaroids/berlin.png'),
-      location: {latitude: 52.52, longitude: 13.405 }},
-      {source: require('../images/polaroids/newyork.png'), 
-      location: {latitude: 40.7128, longitude: -74.0059}},
-      {source: require('../images/polaroids/mexicocity.png'), 
-      location: {latitude: 19.4326, longitude: -99.1332}},
-      {source: require('../images/polaroids/london.png'), 
-      location: {latitude: 51.5074, longitude: -0.1278}},
+      { source: require('../images/polaroids/paris.png'),
+      location: { latitude: 48.8566, longitude: 2.3522 } },
+      { source: require('../images/polaroids/berlin.png'),
+      location: { latitude: 52.52, longitude: 13.405 } },
+      { source: require('../images/polaroids/newyork.png'), 
+      location: { latitude: 40.7128, longitude: -74.0059 } },
+      { source: require('../images/polaroids/mexicocity.png'), 
+      location: { latitude: 19.4326, longitude: -99.1332 } },
+      { source: require('../images/polaroids/london.png'), 
+      location: { latitude: 51.5074, longitude: -0.1278 } },
     ];
     return (
     <View>
@@ -48,7 +48,7 @@ class SearchWorld extends Component {
                 label='address'
                 placeholder='  Type any address here'
                 value={this.state.address}
-                onChangeText={(address) => this.setState({address})}
+                onChangeText={(address) => this.setState({ address })}
                 placeholderTextColor={'#EFEFF4'}
                 selectionColor={'#006F60'}
                 clearButtonMode={'while-editing'}
@@ -82,9 +82,9 @@ class SearchWorld extends Component {
         </View>
       </Image>
     </View>
-    )
+    );
   }
-};
+}
 const styles = {
   navBar: {
     width,
@@ -115,7 +115,7 @@ const styles = {
   },
   inputView: {
     borderBottomWidth: 2,
-    width: width-80,
+    width: width - 80,
     borderColor: '#EFEFF4',
   },
   textInputStyle: { 
@@ -130,7 +130,7 @@ const styles = {
     tintColor: '#EFEFF4',
   },
   carouselContainer: {
-    width: width-30,
+    width: width - 30,
   },
   locationHeaderText: {
     backgroundColor: 'transparent',
@@ -147,7 +147,7 @@ const styles = {
     marginBottom: 20,
     marginRight: 30
   },
-  imageStyle:{
+  imageStyle: {
     alignSelf: 'center',
   }
 };
