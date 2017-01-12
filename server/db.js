@@ -122,15 +122,16 @@ module.exports = {
     post: (obj) => {
       console.log('obj-----------', obj);
       return new Promise((resolve, reject) => {
-        User.exists(obj, (err, doesExist) => {
-          if (err) reject(err);
-          else if (!doesExist) {
+        db.query(`MATCH (u:User) WHERE u.facebookID = '${obj.facebookID}' RETURN u`, (err, result) => {
+          if (result.length > 0) {
+            console.log('getting current user');
+            resolve(result[0]);
+          } else {
             User.save(obj, (error, savedObject) => {
+              console.log('saving new user!');
               if (error) reject(error);
               else resolve(savedObject);
             });
-          } else {
-            resolve(module.exports.users.get(obj.id));
           }
         });
       });
