@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native';
 import Carousel from 'react-native-looped-carousel';
-import Button from 'react-native-flat-button'
+import Button from 'react-native-flat-button';
 
 const { width, height } = Dimensions.get('window');
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Modal from 'react-native-simple-modal'
+import Modal from 'react-native-simple-modal';
 import CategoryCheckbox from './CategoryCheckbox';
+import Button from 'react-native-flat-button';
 
 const { width, height } = Dimensions.get('window');
 
@@ -14,8 +15,8 @@ class AddSpotInfo extends Component {
             modalVisible: false,
         };
     }
-    modalClose(){
-        this.setState({ modalVisible: false })
+    modalClose() {
+        this.setState({ modalVisible: false });
     }
     render() {
         return (
@@ -27,9 +28,9 @@ class AddSpotInfo extends Component {
                         source={this.props.imageSource}
                     />
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.labelStyle}>Title:</Text>
+                        <Text style={styles.labelStyle}>Title:  </Text>
                         
-                        <Text style={styles.requiredText}>{this.props.title === '' ? '  Required' : null}</Text>
+                        <Text style={styles.requiredText}>{this.props.title === '' ? ' Required ' : null}</Text>
                     </View>
                     <View style={styles.inputView}>
                         <TextInput 
@@ -69,31 +70,45 @@ class AddSpotInfo extends Component {
                             style={styles.textInputStyle}
                             label='categories'
                             color={'gray'}
-                            selectionColor={'#00B89C'}
+                            //selectionColor={'#00B89C'}
                             >
                             {this.props.categories.length ? this.props.categories.join(', ') : 'Tap to select Categories'}
                             </Text>
                       </TouchableHighlight>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <TouchableHighlight 
-                        style={styles.buttonStyle}
-                        onPress={this.props.backToAddPhoto}
-                    >
-                        <Text style={styles.buttonTextStyle}>Choose different picture</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight 
-                        style={styles.buttonStyle}
-                        onPress={this.props.onSubmit}
-                    >
-                        <Text style={styles.buttonTextStyle}>Submit</Text>
-                    </TouchableHighlight>
+                    <Button
+                      type="custom"
+                      backgroundColor={'#00B89C'}
+                      borderColor={'#006F60'}
+                      onPress={this.props.backToAddPhoto}
+                      borderRadius={6}
+                      shadowHeight={8}
+                      activeOpacity={0.5}
+                      containerStyle={styles.button}
+                      contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+                    >  
+                        Choose different picture
+                    </Button>
+                    <Button
+                      type="custom"
+                      backgroundColor={'#00B89C'}
+                      borderColor={'#006F60'}
+                      onPress={this.props.onSubmit}
+                      borderRadius={6}
+                      shadowHeight={8}
+                      activeOpacity={0.5}
+                      containerStyle={styles.button}
+                      contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+                    >  
+                        Submit
+                    </Button>
                 </View>
             </View>
             <Modal
                 open={this.state.modalVisible}
-                modalDidClose={()=> this.setState({modalVisible: false})}
-                style={{alignItems:'center'}}
+                modalDidClose={() => this.setState({ modalVisible: false })}
+                style={{ alignItems: 'center' }}
             >
                  <CategoryCheckbox 
                     onCategoryChange={this.props.onCategoryChange} 
@@ -109,8 +124,7 @@ class AddSpotInfo extends Component {
 const styles = {
     modalContainer: {
         justifyContent: 'center',
-        height: height,
-
+        height,
     },
     containerStyle: {
         width, 
@@ -136,7 +150,12 @@ const styles = {
     requiredText: {
         color: 'red',
         fontSize: 16,
-        marginTop: 5
+        marginTop: 5,
+        borderWidth: 1,
+        borderColor: 'red',
+        padding: 1,
+        alignSelf: 'center',
+        borderRadius: 2
     },
     labelStyle: {
         fontSize: 24,
@@ -152,15 +171,14 @@ const styles = {
         color: '#006F60',
     },
     modalButton: {
-        padding:10,
-        height:40,
-        width: width-30,
+        padding: 10,
+        height: 40,
+        width: width - 30,
     },
-    buttonStyle: {
-        backgroundColor: 'gray',
-        width: 150,
-        borderRadius: 8,
-        alignSelf: 'center',
+    button: {
+        width: width * 2 / 5,
+        height: 60,
+        margin: 20
       },
     buttonTextStyle: {
         color: '#EFEFF4',
