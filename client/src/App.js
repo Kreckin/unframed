@@ -30,9 +30,9 @@ const TabIcon = ({ selected, title }) => {
     <View style={{ alignItems: 'center' }}>
       <Image
         source={iconMapper[title]}
-        style={{ height: 30, width: 30, tintColor: selected ? 'black' : '#EFEFF4' }}
+        style={{ height: 30, width: 30, tintColor: selected ? '#003E35' : '#EFEFF4' }}
       />
-      <Text style={{ margin: 3, fontSize: 12, color: selected ? 'black' : '#EFEFF4' }}>{title}</Text>
+      <Text style={{ margin: 3, fontSize: 12, color: selected ? '#003E35' : '#EFEFF4' }}>{title}</Text>
     </View>
   );
 };

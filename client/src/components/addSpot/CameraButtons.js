@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Dimensions, Image } from 'react-native';
 import Carousel from 'react-native-looped-carousel';
+import Button from 'react-native-flat-button';
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,7 +36,7 @@ export default class CameraButtons extends Component {
     ];
 
     return (
-      <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
+      <View onLayout={this._onLayoutDidChange}>
         <Carousel
           delay={2000}
           style={this.state.size}
@@ -52,12 +53,32 @@ export default class CameraButtons extends Component {
           }
         </Carousel>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={this.props.takePhoto}>
-            <Text style={styles.buttonText}>Take a picture</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.props.chooseImage}>
-            <Text style={styles.buttonText}>Choose from gallery</Text>
-          </TouchableOpacity>
+        <Button
+          type="custom"
+          backgroundColor={'#00B89C'}
+          borderColor={'#008E7A'}
+          onPress={this.props.takePhoto}
+          borderRadius={6}
+          shadowHeight={8}
+          activeOpacity={0.5}
+          containerStyle={styles.button}
+          contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+        >
+          Take a picture
+        </Button>
+        <Button
+          type="custom"
+          backgroundColor={'#00B89C'}
+          borderColor={'#008E7A'}
+          onPress={this.props.chooseImage}
+          borderRadius={6}
+          shadowHeight={8}
+          activeOpacity={0.5}
+          containerStyle={styles.button}
+          contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+        >  
+        Choose from gallery
+          </Button>
         </View>
       </View>
     );
@@ -68,26 +89,20 @@ const styles = {
   buttonContainer: {
     position: 'absolute', 
     top: height - 200, 
-    flexDirection: 'row'
+    flexDirection: 'row',
+    width,
+    justifyContent: 'center',
   },
   button: {
-    backgroundColor: '#00B89C',
-    width: 150,
+    width: width * 2 / 5,
     height: 60,
-    borderRadius: 10,
-    justifyContent: 'center',
-    margin: 15
-  },
-  buttonText: {
-    color: '#EFEFF4',
-    fontSize: 18,
-    textAlign: 'center'
+    margin: 20
   },
   imageStyle: {
     height,
     width,
     opacity: 0.6,
     resizeMode: 'cover'
-  }
+  },
 };
 

@@ -288,21 +288,32 @@ module.exports = {
 
   favorites: {
     get: (userID, spotID) => {
+      // if else statement is not functional but should be left in if we want 
+      // to get individual favorite spot in the future
       if (spotID === undefined) { // just a call to get all favs
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
-            if (error) reject(error);
-            else resolve(favorites);
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s,r LIMIT 100`, (error, favorites) => {
+            if (error) { reject(error); }
+            else {
+              favorites.forEach(function(x){x.s.added = x.r.properties.created;});
+              favorites = favorites.map((x) => x.s);
+              console.log(favorites);
+              resolve(favorites)};
           });
         });
-      } else {
+      } 
+      else {
         return new Promise((resolve, reject) => {
-          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s LIMIT 100`, (error, favorites) => {
-            if (error) reject(error);
-            else resolve(favorites);
-          });
+          db.query(`MATCH (u:User)-[r:favorite]->(s:Spot) WHERE ID(u) = ${userID} RETURN s,r LIMIT 100`, (error, favorites) => {
+            if (error) { reject(error); }
+            else {
+              favorites.forEach(function(x){x.s.added = x.r.properties.created;});
+              favorites = favorites.map((x) => x.s);
+              console.log(favorites);
+              resolve(favorites)};
+           });
         });
-      }
+      } 
     },
     add: (userID, spotID) => {
       return new Promise((resolve, reject) => {
@@ -313,7 +324,7 @@ module.exports = {
           } else {
             const relationship = relationships.filter((rel) => rel.end === parseInt(spotID, 10));
             if (!relationship.length) {
-              db.relate(userID, 'favorite', spotID, {}, (err, relationship) => {
+              db.relate(userID, 'favorite', spotID, {created: new Date().getTime()}, (err, relationship) => {
                 if (err) reject(err);
                 else resolve(relationship);
               });
@@ -337,4 +348,3 @@ module.exports = {
     }
   }
 };
-
