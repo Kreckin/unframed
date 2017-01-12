@@ -24,6 +24,12 @@ class MapContainer extends Component {
     this.state = {
       spots: [],
       platform: Platform.OS,
+      initialRegion: {
+        latitude: 30.2729,
+        longitude: -97.7444,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }
     };
 
     this.currentDevicePosition = {};

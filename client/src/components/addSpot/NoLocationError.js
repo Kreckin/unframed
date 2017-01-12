@@ -1,36 +1,55 @@
 import React from 'react';
 import { View, Text, Image, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
+import Button from 'react-native-flat-button';
 
 const { width, height } = Dimensions.get('window');
 
 const NoLocationError = (props) => {
-  StatusBar.setBarStyle('light-content', true);
   return (
     <View>
-      <View style={styles.navBar} />
       <View style={styles.background}>
+       <StatusBar
+        barStyle="light-content"
+        />
       <View style={styles.middleContainer}>
         <Image 
           source={require('../../images/sadClown.png')}
           style={styles.imageStyle} 
         >
-          <Text style={styles.text}>Sorry. {'\n'} {'\n'} {'\n'}
-            We can't accept this photo. {'\n'} {'\n'} {'\n'}
-            It doesn't have the geolocation data we need to ensure the accuracy of the app.
-            {'\n'} {'\n'} {'\n'}
-            Why not try a different photo?
-          </Text>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around' }}>
+            <Text style={styles.text}>Sorry. </Text>
+            <Text style={styles.text}>We can't accept this photo. </Text>
+            <Text style={styles.text}>It doesn't have the geolocation data we need to ensure the accuracy of the app. </Text>
+          </View>
         </Image>
-        <View style={styles.textContainer}>
-      </View>
+        <Text style={styles.whyText}> Why not try a different photo? </Text>
       <View style={styles.buttonContainer} >
-              
-        <TouchableOpacity style={styles.button} onPress={props.takePhoto}>
-          <Text style={styles.buttonText}>Take a picture</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={props.chooseImage}>
-          <Text style={styles.buttonText}>Choose from gallery</Text>
-        </TouchableOpacity>
+        <Button
+          type="custom"
+          backgroundColor={'#00B89C'}
+          borderColor={'#008E7A'}
+          onPress={props.takePhoto}
+          borderRadius={6}
+          shadowHeight={8}
+          activeOpacity={0.5}
+          containerStyle={styles.button}
+          contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+        >
+          Take a picture
+        </Button>
+        <Button
+          type="custom"
+          backgroundColor={'#00B89C'}
+          borderColor={'#008E7A'}
+          onPress={props.chooseImage}
+          borderRadius={6}
+          shadowHeight={8}
+          activeOpacity={0.5}
+          containerStyle={styles.button}
+          contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+        >  
+        Choose from gallery
+          </Button>
         </View>
         </View>
       </View>
@@ -38,14 +57,6 @@ const NoLocationError = (props) => {
   );
 };
 const styles = {
-  navBar: {
-    position: 'absolute',
-    width,
-    top: 0,
-    backgroundColor: '#006F60',
-    height: 65,
-    zIndex: 2
-  },
    background: {
     flex: 1,
     width,
@@ -53,35 +64,27 @@ const styles = {
     backgroundColor: 'black',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  middleContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  textContainer: {
-    
+    justifyContent: 'space-around'
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#EFEFF4',
+    backgroundColor: 'rgba(0,0,0,0)',
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  whyText: {
+    fontSize: 22,
     color: '#EFEFF4',
     backgroundColor: 'rgba(0,0,0,0)',
     marginTop: 25,
     marginLeft: 15,
     marginRight: 15,
+    textAlign: 'center'
   },
   buttonContainer: {
-    position: 'absolute',
-    top: height - 290, 
-    flexDirection: 'row'
-  },
-  button: {
-    backgroundColor: '#00B89C',
-    width: 150,
-    height: 60,
-    borderRadius: 10,
-    justifyContent: 'center',
-    margin: 15
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   buttonText: {
     color: '#EFEFF4',
@@ -90,7 +93,12 @@ const styles = {
   },
   imageStyle: {
     width,
-    height: height / 2,
+    height: height * 2 / 5,
+  },
+  button: {
+    width: width * 2 / 5,
+    height: 60,
+    margin: 20
   },
 };
 export default NoLocationError;
