@@ -158,34 +158,47 @@ class SpotInfo extends Component {
         <View style={styles.infoContainer}>
       {/*Ratings*/}
           <View style={styles.ratingsContainer}>
+              {/*downvotes*/}
             <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
-                <Image
+              <Image
                   source={require('../../icons/sad.png')}
                   style={styles.iconRating}
-                />
-              </TouchableHighlight>
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.downvotes}</Text>
-              </View>
+              />
+              {'   ' + this.state.downvotes}    
+          </Button>
             </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableHighlight
+          {/*mehvotes*/}
+             <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.button}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
-                <Image
+              <Image
                   source={require('../../icons/meh.png')}
                   style={styles.iconRating}
-                />
-              </TouchableHighlight>
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}>{this.state.mehvotes}</Text>
-              </View>
+              />
+              {'   ' + this.state.mehvotes}    
+          </Button>
             </View>
-
+          {/*upvotes*/}
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
@@ -198,16 +211,13 @@ class SpotInfo extends Component {
                 containerStyle={styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
+
               <Image
                   source={require('../../icons/happy.png')}
                   style={styles.iconRating}
               />
-           {'   ' + this.state.upvotes}
+              {'   ' + this.state.upvotes}    
           </Button>
-              
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.textRating}></Text>
-              </View>
             </View>
           </View>
           {/*Distance*/}
@@ -311,10 +321,10 @@ const styles = {
     paddingRight: 20
   },
   iconRating: {
-    height: 30,
+    height: 33,
     width: 30,
     tintColor: '#EFEFF4',
-    marginTop: 2
+    marginTop: 3
   },
   textRating: {
     paddingLeft: 10,
