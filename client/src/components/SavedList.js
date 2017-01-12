@@ -151,9 +151,8 @@ const styles = {
   //flexDirection: 'row',
   //justifyContent: 'space-around',
   backgroundColor: '#006F60',
-  height: 65,
-  paddingTop: 30,
-  paddingBottom: 12,
+  height: 100,
+  paddingTop: 58,
   paddingLeft: 15
  },
  titleStyle: {
