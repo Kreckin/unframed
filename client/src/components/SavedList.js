@@ -72,7 +72,7 @@ class SavedList extends Component {
   }
 
   recent(a, b) {
-    if (a.added < b.added) return -1;
+    if (b.added < a.added) return -1;
     return 1;
   }
 
