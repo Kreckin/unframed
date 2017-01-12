@@ -71,6 +71,11 @@ class SavedList extends Component {
     return 1;
   }
 
+  recent(a, b) {
+    if (a.added < b.added) return -1;
+    return 1;
+  }
+
   render() {
     if (!this.recentOrPendingRequest) {
       this.getFavoriteSpots();
@@ -90,6 +95,10 @@ class SavedList extends Component {
           </TouchableHighlight>
           <TouchableHighlight onPress={() => this.orderBy(this.highestRated)}>
             <Text style={styles.titleStyle}>Highest Rated</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight onPress={() => this.orderBy(this.recent)}>
+            <Text style={styles.titleStyle}>Recent</Text>
           </TouchableHighlight>
           </View>
           <View style={styles.triangleRow}>
