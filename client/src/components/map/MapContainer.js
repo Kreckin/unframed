@@ -83,6 +83,7 @@ class MapContainer extends Component {
 
   handleAddressProps(address) {
     let self = this;
+    console.log(address)
     if (!address.latitude || !address.longitude) {
       getLatLong({ address }, (res) => {
         self.map.animateToRegion(
@@ -96,6 +97,16 @@ class MapContainer extends Component {
         ); });
       this.pendingUpdate = false;
     } else {
+          getSpots(address.latitude, address.longitude, 5, this.state.initialRegion)
+          .then((data) => {
+            console.log('am I even being called?')
+            this.setState({
+              spots: data,
+            });
+          })
+          .catch((reject) => {
+            console.log('Error getting spots', reject);
+          });
       self.map.animateToRegion(
         { 
           latitude: address.latitude, 
@@ -144,6 +155,14 @@ class MapContainer extends Component {
   }
 
   render() {
+  //   if(this.props.newLocation) {
+  //   const newLocation = {
+  //     latitude: this.props.newLocation.latitude,
+  //     longitude:this.props.newLocation.longitude,
+  //     latitudeDelta: LATITUDE_DELTA
+  //     longitudeDelta: LONGITUDE_DELTA
+  //   }
+  // }
     return (
       <View>
         <MapView 
