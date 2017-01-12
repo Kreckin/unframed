@@ -368,7 +368,7 @@ const styles = {
   },
   categoryViewStyle: {
     backgroundColor: '#EFEFF4',
-    padding: 5,
+    padding: 6,
     borderRadius: 8,
     margin: 5
   },
@@ -388,11 +388,6 @@ const styles = {
     height: 35,
     width: 35,
     tintColor: '#EFEFF4'
-  },
-  saveFlagText: {
-    fontSize: 20,
-    paddingLeft: 5,
-    color: '#EFEFF4'
   },
   button: {
     width: width / 4,
