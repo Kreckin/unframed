@@ -43,6 +43,8 @@ class MapContainer extends Component {
     } else {
       this.moveMapToCurrentPostion();
     }
+
+    console.log('componentDidMount map container')
   }
 
   onRegionChangeComplete(newRegion) {
@@ -123,6 +125,7 @@ class MapContainer extends Component {
   }
 
   render() {
+    console.log('rendering map container');
     return (
       <View>
         <MapView 

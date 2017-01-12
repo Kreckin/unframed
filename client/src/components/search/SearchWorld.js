@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, Dimensions, Text, StatusBar, TextInput, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Carousel from 'react-native-looped-carousel';
 
 const { height, width } = Dimensions.get('window');
@@ -13,7 +13,7 @@ class SearchWorld extends Component {
     };
   }
   onIconSelect() {
-    Actions.MapContainer({ newLocation:this.state.address });
+    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation:this.state.address });
     this.setState({ address: '' });
   }
   
@@ -44,7 +44,10 @@ class SearchWorld extends Component {
               carouselImages.map((image, idx) => (
                 <TouchableOpacity 
                   key={idx}
-                  onPress={() => Actions.MapContainer({ newLocation: image.location })}
+                  onPress={() => {
+                    this.props.
+                    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: image.location })
+                  }}
                 >
                   <Image style={styles.imageStyle} source={image.source} key={idx} />
                 </TouchableOpacity>

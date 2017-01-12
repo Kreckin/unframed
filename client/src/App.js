@@ -160,8 +160,6 @@ render() {
                   <Scene 
                     key='MapContainer'
                     component={MapContainer}
-                    setMapSpotState={this.setMapSpotState}
-                    setCurrentView={this.setCurrentView}
                   />
                   <Scene 
                     key='MapSpot'
