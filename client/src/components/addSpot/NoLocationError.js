@@ -89,7 +89,7 @@ const styles = {
   },
   imageStyle: {
     width,
-    height: height / 2,
+    height: height * 2 / 5,
   },
 };
 export default NoLocationError;

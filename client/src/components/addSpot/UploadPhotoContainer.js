@@ -169,9 +169,11 @@ export default class UploadPhotoContainer extends Component {
       } 
     }
   render() {
-    StatusBar.setBarStyle('light-content', true);
     return (
       <View style={styles.body}>
+      <StatusBar
+        barStyle="light-content"
+      />
         {this.renderButtonOrPic()}
       </View> 
     );
