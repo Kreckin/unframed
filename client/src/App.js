@@ -51,7 +51,7 @@ class App extends Component {
     this.viewingSpotInMap = null;
     this.viewingSpotInSavedList = null;
 
-
+    // login/logout callbacks
     this.loginCallback = this.loginCallback.bind(this);
     this.logoutCallback = this.logoutCallback.bind(this);
 
@@ -60,6 +60,7 @@ class App extends Component {
     this.backButtonHandler = this.backButtonHandler.bind(this);
     this.setMapSpotState = this.setMapSpotState.bind(this);
     this.setSavedListState = this.setSavedListState.bind(this);
+    this.getMapSpotState = this.getMapSpotState.bind(this);
   }
 
   componentWillMount() {
@@ -106,7 +107,11 @@ class App extends Component {
   }
 
   setMapSpotState(newStateData) {
+    console.log('updateing map spot view state')
     this.viewingSpotInMap = newStateData;
+  }
+  getMapSpotState(newStateData) {
+    return (this.viewingSpotInMap);
   }
 
   setSavedListState(newStateData) {
@@ -133,6 +138,8 @@ render() {
               setCurrentView={this.setCurrentView}
               setMapSpotState={this.setMapSpotState}
               setSavedListState={this.setSavedListState}
+              viewingSpotInMap={this.viewingSpotInMap}
+              getMapSpotState={this.getMapSpotState}
             >
               <Scene
                 key="tabBar"
@@ -140,20 +147,23 @@ render() {
                 tabBarStyle={{ height: 65, backgroundColor: '#00B89C' }}
               >
                 {/* Map Tab and its scenes */}
-                <Scene key='Map'
+                <Scene 
+                  key='Map'
                   title='Map'
                   icon={TabIcon}
+                  passProps
+                  titleOpacity={0}
                   onPress={() => {
                     if (this.viewingSpotInMap !== null && this.currentView === 'mapSpot') {
                       this.backButtonHandler();
                     } else if (this.viewingSpotInMap !== null && this.currentView !== 'mapSpot') { // refresh with spot in state
                       // saved spot in state
                       this.setCurrentView('mapSpot');
-                      Actions.MapSpot({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
+                      Actions.Map({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
                     } else { // user is going back
                       // no map spot in state
                       this.setCurrentView('map');
-                      Actions.MapContainer({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
+                      Actions.Map({ type: ActionConst.REFRESH, setMapSpotState: this.setMapSpotState, setCurrentView: this.setCurrentView });
                     }
                   }}
                 >
@@ -183,6 +193,10 @@ render() {
                   <Scene 
                     key='Search'
                     component={SearchWorld}
+                  />
+                  <Scene 
+                    key='SearchMap'
+                    component={MapContainer}
                   />
                 </Scene>
                 {/* Add Spot Tab and its scenes */}

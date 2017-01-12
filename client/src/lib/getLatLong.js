@@ -6,7 +6,7 @@ const getLatLong = (options, callback) => {
   .then((response) => {
       return response.json();
     })
-   .then((data) => callback(data.results[0].geometry.location))
+  .then((data) => callback(data.results[0].geometry.location))
   .catch((err) => console.log('Error in get lat long', err));
 };
 

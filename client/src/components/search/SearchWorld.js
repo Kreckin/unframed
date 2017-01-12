@@ -11,10 +11,19 @@ class SearchWorld extends Component {
     this.state = {
       address: '',
     };
+
+    // this.onSearch = this.onSearch.bind(this);
   }
-  onIconSelect() {
-    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation:this.state.address });
-    this.setState({ address: '' });
+  onSearch() {
+    console.log('viewing spot in map', this.props.getMapSpotState());
+    // if (this.props.getMapSpotState() !== null) {
+    //   console.log('not null!');
+    //   Actions.MapContainer({ type: ActionConst.REPLACE, newLocation: this.state.address });
+    // } else {
+    //   console.log('null!');
+      Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: this.state.address });
+      this.setState({ address: '' });
+    // }
   }
   
   render() {
@@ -45,8 +54,9 @@ class SearchWorld extends Component {
                 <TouchableOpacity 
                   key={idx}
                   onPress={() => {
-                    this.props.
-                    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: image.location })
+                    console.log('relocate!');
+                    // Actions.MapContainer({ newLocation: image.location });
+                    Actions.MapContainer({ type: ActionConst.REFRESH, newLocation: image.location });
                   }}
                 >
                   <Image style={styles.imageStyle} source={image.source} key={idx} />
@@ -74,7 +84,7 @@ class SearchWorld extends Component {
                 />
               </View>
               <TouchableOpacity
-                onPress={this.onIconSelect.bind(this)}
+                onPress={this.onSearch.bind(this)}
               >
                 <Image
                   source={require('../../icons/search.png')}

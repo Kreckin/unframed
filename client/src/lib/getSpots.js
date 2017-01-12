@@ -1,28 +1,29 @@
 import config from './config.js';
 
-const getSpots = (lat, lon, distance, location) => {
+const getSpots = (lat, lon, distance, deviceLocation) => {
   return new Promise((resolve, reject) => {
     //sends a GET request to our server/spots
-  fetch(`${config.apiUrl}/spots?lat=${lat}&lon=${lon}&distance=${distance}`)
-    .then((response) => {
-      //with fetch we gotta json it before we can use it
-      //we then call imageGetter on the data, and then send it back to the app
-      return response.json();
-    })
-    .then((data) => {
-      return resolve(distanceGetter(data, location));
-    })
-    .catch((err) => {
-      console.log('Error in get spots', err); 
-      reject(err);
+    fetch(`${config.apiUrl}/spots?lat=${lat}&lon=${lon}&distance=${distance}`)
+      .then((response) => {
+        //with fetch we gotta json it before we can use it
+        //we then call imageGetter on the data, and then send it back to the app
+        return response.json();
+      })
+      .then((data) => {
+        return resolve(distanceGetter(data, deviceLocation));
+      })
+      .catch((err) => {
+        console.log('Error in get spots', err); 
+        reject(err);
+      });
     });
-  });
 };
-const distanceGetter = (data, location) => {
-            data.forEach((item) => {
-             item.node.distance = distance(item.node.latitude, item.node.longitude, location.latitude, location.longitude);
-            });
-            return data.map(item => item = item.node);
+const distanceGetter = (data, deviceLocation) => {
+  if (data.length === 0 || deviceLocation === undefined) return [];
+  data.forEach((item) => {
+    item.node.distance = distance(item.node.latitude, item.node.longitude, deviceLocation.latitude, deviceLocation.longitude);
+  });
+  return data.map(item => item = item.node);
 }
 //this will go through all of our data, check the category and tag it with an icon to later be used
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
 import { View, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
 import getLatLong from '../../lib/getLatLong';
@@ -26,35 +26,54 @@ class MapContainer extends Component {
       platform: Platform.OS,
     };
 
+    this.currentDevicePosition = {};
+    this.pendingUpdate = false;
+
     // beacuse this isn't set in app.js when the app first loads
     this.props.setCurrentView('map');
 
     this.firstRegionChangeComplete = false; // used for debouncing
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
-    this.updateMapWithCurrentPosition = this.updateMapWithCurrentPosition.bind(this);
+    this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
+    this.moveMapToCurrentPostion = this.moveMapToCurrentPostion.bind(this);
+    this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
   }
 
   componentDidMount() {
-    //check if search world has passed us some props for a different location.
-    //otherwise, check the location
-    if (this.props.newLocation) {
-      this.handleAddressProps(this.props.newLocation);
-    } else {
+    console.log('componentDidMount');
+    this.getCurrentPosition()
+    .then((resolve) => {
       this.moveMapToCurrentPostion();
-    }
+    });
+  }
 
-    console.log('componentDidMount map container')
+  componentWillReceiveProps(newProps) {
+    console.log('componentWillReceiveProps');
+    console.log('new location', newProps.newLocation);
+     if (newProps.newLocation) {
+      console.log('use new location');
+      this.handleAddressProps(newProps.newLocation);
+    }
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
   }
 
   onRegionChangeComplete(newRegion) {
     // deets on latitude delta http://troybrant.net/blog/wp-content/uploads/2010/01/24-zoom-18-lat-lng-corners.png
     const distance = geolib.getDistance(
       { latitude: newRegion.latitude, longitude: newRegion.longitude },
-      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }) / 1000; // conver to kms
+      { latitude: newRegion.latitude + (newRegion.latitudeDelta / 2), longitude: newRegion.longitude }
+      ) / 1000; // conver to kms
 
     if (this.firstRegionChangeComplete) {
-      getSpots(newRegion.latitude, newRegion.longitude, distance)
+      getSpots(newRegion.latitude, newRegion.longitude, distance, this.currentDevicePosition)
             .then((data) => {
               this.setState({
                 spots: data,
@@ -80,8 +99,8 @@ class MapContainer extends Component {
             longitudeDelta: LONGITUDE_DELTA,
           },
           3
-        )}
-      );
+        ); });
+      this.pendingUpdate = false;
     } else {
       self.map.animateToRegion(
         { 
@@ -90,51 +109,59 @@ class MapContainer extends Component {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         },
-      3
-      )};
+        3
+      ); 
+    }
+  }
+
+  getCurrentPosition(callback) {
+    console.log('get current postion');
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position, err) => {
+          if (err) {
+            console.log('Err getting current postion in moveMapToCurrentPostion', err);
+            reject(err);
+          } else {
+            this.setCurrentDevicePosition(position);
+            resolve(position);
+          }
+        });
+    });
   }
 
   moveMapToCurrentPostion() {
-    navigator.geolocation.getCurrentPosition((position, err) => {
-        if (err) {
-          console.log('Err getting current postion in moveMapToCurrentPostion', err);
-        } else {
-          this.map.animateToRegion(
-            { 
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            },
-            3
-          );
-          this.updateMapWithCurrentPosition(position);
-        }
-      });
+    console.log('move map to current position');
+    this.map.animateToRegion(
+      { 
+        latitude: this.currentDevicePosition.latitude,
+        longitude: this.currentDevicePosition.longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      3
+    );
   }
 
-  updateMapWithCurrentPosition(position) {
-    this.setState({
-      initialRegion: {
+  setCurrentDevicePosition(position) {
+    console.log('set current position');
+    this.currentDevicePosition = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      }
-    });
+      };
   }
 
   render() {
-    console.log('rendering map container');
+    console.log('map container render');
+
     return (
       <View>
         <MapView 
           style={styles.map}
           showsUserLocation
           loadingEnabled
-          showsCompass
           showsMyLocationButton
-          initialRegion={this.state.initialRegion}
           ref={ref => { this.map = ref; }}
           //this will change the region as the user moves around the map
           onRegionChangeComplete={this.onRegionChangeComplete}
@@ -153,9 +180,15 @@ class MapContainer extends Component {
                 //onPress={() => { reference[spot.id].showCallout(); }}
                 //This changes the scene to the blurb with the spot passed down as props
                 onCalloutPress={() => {
-                  this.props.setMapSpotState(spot);
-                  this.props.setCurrentView('mapSpot');
-                  Actions.MapSpot({ spot });
+                  if (this.props.getMapSpotState() !== null){
+                    this.props.setMapSpotState(spot);
+                    this.props.setCurrentView('mapSpot');
+                    Actions.MapSpot({ type: ActionConst.REFRESH, spot });
+                  } else {
+                    this.props.setMapSpotState(spot);
+                    this.props.setCurrentView('mapSpot');
+                    Actions.MapSpot({ spot });
+                  }
                 }}
               />
             ))}
