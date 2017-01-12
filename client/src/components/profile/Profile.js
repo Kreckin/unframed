@@ -57,20 +57,32 @@ class Profile extends Component {
               Or, you can choose to show all photos on default.
             </Text>
             <View style={styles.switchRow}>
-              <Text style={styles.switchText}>
-                Butts
-              </Text>
-              <Switch
-                // style={{marginBottom: 300}}
-                onValueChange={() => {
-                  userService.changeShowSpots(userService.currentUser.id);
-                  this.setState({ showAllSpots: !this.state.showAllSpots });
-                }}
-                 value={this.state.showAllSpots}
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Text style={styles.switchText}>
+                  Hide pictures until unlocked
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Switch
+                  // style={{marginBottom: 300}}
+                  onValueChange={() => {
+                    userService.changeShowSpots(userService.currentUser.id);
+                    this.setState({ showAllSpots: !this.state.showAllSpots });
+                  }}
+                   value={this.state.showAllSpots}
+                />
+              </View>
+              <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <Text style={styles.switchText}>
+                  Show all pictures on default
+                </Text>
+              </View>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+              <FBLogIOButton 
+                logoutCallback={this.props.logoutCallback} 
+                loginCallback={this.props.loginCallback} 
               />
-              <Text style={styles.switchText}>
-                Butts
-              </Text>
             </View>
           </View>
         </Image>
@@ -101,7 +113,7 @@ const styles = {
     backgroundColor: 'transparent',
     textAlign: 'center',
     color: '#EFEFF4',
-    fontSize: 36,
+    fontSize: 40,
     marginBottom: 5
   },
   profilePic: {
@@ -127,14 +139,15 @@ const styles = {
   },
   switchRow: {
     flexDirection: 'row',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   switchText: {
     backgroundColor: 'transparent',
     textAlign: 'center',
     color: '#EFEFF4',
-    fontSize: 14,
-    marginHorizontal: 20
+    fontSize: 16,
+    marginHorizontal: 20,
+    width: width / 4,
   }
 };
 
