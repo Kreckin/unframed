@@ -212,12 +212,12 @@ class SpotInfo extends Component {
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
 
-              <Image
-                  source={require('../../icons/happy.png')}
-                  style={styles.iconRating}
-              />
-              {'   ' + this.state.upvotes}    
-          </Button>
+                <Image
+                    source={require('../../icons/happy.png')}
+                    style={styles.iconRating}
+                />
+                {'   ' + this.state.upvotes}    
+              </Button>
             </View>
           </View>
           {/*Distance*/}
@@ -234,35 +234,48 @@ class SpotInfo extends Component {
 
         {/*Save*/}
         <View style={styles.saveFlagContainer}>
-            <TouchableHighlight
-              onPress={this.saveOrUnSaveSpot.bind(this)}
-            >
-              <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
+                onPress={this.saveOrUnSaveSpot.bind(this)}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.bottomButton}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+              >
                 <Image
-                  source={require('../../icons/star.png')}
-                  style={styles.saveFlagIcon}
+                    source={require('../../icons/star.png')}
+                    style={styles.saveFlagIcon}
                 />
-                <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                  <Text style={styles.saveFlagText}>Save</Text>
-              </View>
+                {this.state.saved === true ? 'Saved!' : 'Save'}   
+              </Button>
             </View>
-            </TouchableHighlight>
             
           {/*Flag*/}
-          <TouchableHighlight
-            onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../../icons/flag.png')}
-                style={styles.saveFlagIcon}
-              />
-              <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Text style={styles.saveFlagText}>Flag</Text>
-              </View>
+          <View style={{ flexDirection: 'row' }}>
+              <Button
+                type="custom"
+                backgroundColor={'#00B89C'}
+                borderColor={'#008E7A'}
+                onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
+                borderRadius={6}
+                shadowHeight={8}
+                activeOpacity={0.5}
+                containerStyle={styles.bottomButton}
+                contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+              >
+
+                <Image
+                    source={require('../../icons/flag.png')}
+                    style={styles.saveFlagIcon}
+                />
+                Flag    
+              </Button>
             </View>
-          </TouchableHighlight>
-        </View>
+          </View>  
       </View>
         <Toast
           ref="toast"
@@ -372,8 +385,8 @@ const styles = {
     paddingRight: 20
   },
   saveFlagIcon: {
-    height: 40,
-    width: 40,
+    height: 35,
+    width: 35,
     tintColor: '#EFEFF4'
   },
   saveFlagText: {
@@ -386,5 +399,10 @@ const styles = {
     height: 50,
     marginHorizontal: 10
   },
+  bottomButton: {
+    width: width / 3,
+    height: 50,
+    marginHorizontal: 10
+  }
 };
 export default SpotInfo;
