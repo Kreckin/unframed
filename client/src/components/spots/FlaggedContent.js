@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, StatusBar, Image } from 'react-native';
+import { ScrollView, View, Text, Dimensions, StatusBar, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CheckBox from 'react-native-check-box';
 import Button from 'react-native-flat-button';
@@ -26,9 +26,9 @@ class FlaggedContent extends Component {
   }
   
   render() {
-    StatusBar.setBarStyle('light-content', true);
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        <StatusBar barStyle='light-content' />
         <View style={styles.navBar}>
           <Text style={styles.navBarText}>
           Why should "{this.props.spot.title}" be removed?
@@ -89,7 +89,7 @@ class FlaggedContent extends Component {
           </Button>
         </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
