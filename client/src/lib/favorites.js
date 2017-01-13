@@ -56,7 +56,7 @@ const favorites = {
       return new Promise((resolve, reject) => {
         fetch(`${config.apiUrl}/users/${userID}/favorites/${spotID}`)
           .then((response) => {
-            // console.log(response);
+            resolve(response.json());
           }).catch(error => console.log(error));
       });
     }
