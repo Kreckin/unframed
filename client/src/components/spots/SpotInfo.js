@@ -125,10 +125,9 @@ class SpotInfo extends Component {
   }
 
   render() {
-    let feet = this.props.spot.distance.toFixed(2);
+    const feet = this.props.spot.distance.toFixed(2);
     const noShow = !userService.currentUser.showAllSpots;
     const disabled = !this.state.visited && ((feet * 5280) > 1000);
-    feet = `${feet} miles away`;
     return (
       <ScrollView >
       {/*Header*/}
