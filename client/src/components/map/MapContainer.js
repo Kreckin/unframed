@@ -54,6 +54,7 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log('these here be new props', newProps)
      if (newProps.newLocation) {
       this.handleAddressProps(newProps.newLocation);
     }
@@ -82,6 +83,7 @@ class MapContainer extends Component {
   }
 
   handleAddressProps(address) {
+    console.log('this here be the address ',address)
     let self = this;
     console.log(address)
     if (!address.latitude || !address.longitude) {
@@ -155,14 +157,6 @@ class MapContainer extends Component {
   }
 
   render() {
-  //   if(this.props.newLocation) {
-  //   const newLocation = {
-  //     latitude: this.props.newLocation.latitude,
-  //     longitude:this.props.newLocation.longitude,
-  //     latitudeDelta: LATITUDE_DELTA
-  //     longitudeDelta: LONGITUDE_DELTA
-  //   }
-  // }
     return (
       <View>
         <MapView 
@@ -182,7 +176,7 @@ class MapContainer extends Component {
                 key={spot.id}
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
-                description={spot.description}
+                description={`${parseInt(spot.percentage * 100)}%`}
                 image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}

@@ -68,7 +68,7 @@ export default class UploadPhotoContainer extends Component {
         this.setState({ title: '', description: '', image: null, categories: [] });
         categories.forEach((item) => item.checked = false);
         this.setState({loading: false});
-        Actions.MapContainer({ newLocation: { latitude: spot.latitude, longitude: spot.longitude} });
+        Actions.MapContainer({type: ActionConst.REFRESH, newLocation: { latitude: spot.latitude, longitude: spot.longitude} });
         });
     }
   }

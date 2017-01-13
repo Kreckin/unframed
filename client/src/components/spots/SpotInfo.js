@@ -118,17 +118,17 @@ class SpotInfo extends Component {
     }
     return block;
   }
-  //our toast function, which surprisingingly shows toasts
+  //our toast function, which surprisingly shows toasts
   toastAlert() {
     //this takes two params, the text to show and for how long to show it
     this.refs.toast.show('You must be within 1000 feet to vote and unlock this photo', 2000);
   }
 
   render() {
-    const feet = this.props.spot.distance.toFixed(2);
-    const disabled = !this.state.visited && ((feet * 5280) > 1000) && !userService.currentUser.showAllSpots;
-     console.log('userService current', userService.currentUser);
-     console.log('disabled is ', disabled);
+    let feet = this.props.spot.distance.toFixed(2);
+    const noShow = !userService.currentUser.showAllSpots;
+    const disabled = !this.state.visited && ((feet * 5280) > 1000);
+    feet = `${feet} miles away`;
     return (
       <ScrollView >
       {/*Header*/}
@@ -148,9 +148,9 @@ class SpotInfo extends Component {
           <Image 
           source={{ uri: `${this.props.spot.img_url}` }} 
           style={styles.imageStyle}
-          blurRadius={disabled ? 10 : 0}
+          blurRadius={(disabled && noShow) ? 10 : 0}
           >
-          {disabled ? <Image source={require('../../icons/Lock.png')}
+          {(disabled && noShow) ? <Image source={require('../../icons/Lock.png')}
           style={styles.lockStyle} 
           /> : null}
           </Image>

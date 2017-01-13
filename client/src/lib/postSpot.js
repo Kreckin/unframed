@@ -40,7 +40,7 @@ const postSpot = (data) => {
   };
   //send a fetch rquest with our postConfig file, complete with a body that contains our simulated form
   return fetch(`${config.apiUrl}/spots`, postConfig)
-    .then(response => response.json() )
+    .then(response => response.json())
     .catch(error => console.log(error));
  };
 
