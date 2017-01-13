@@ -73,7 +73,7 @@ class AddSpotInfo extends Component {
                         autocorrect={false}
                         placeholder='  Artist info, size, tips on locating...'
                         placeholderTextColor={'gray'}
-                        selectionColor={'#00B89C'}
+                        selectionColor={'black'}
                         clearButtonMode={'while-editing'}
                         value={this.props.description}
                         onChangeText={this.props.onDescriptionChange}
@@ -96,7 +96,7 @@ class AddSpotInfo extends Component {
                             </Text>
                       </TouchableHighlight>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
                     <Button
                       type="custom"
                       backgroundColor={'#00B89C'}
@@ -106,7 +106,7 @@ class AddSpotInfo extends Component {
                       shadowHeight={8}
                       activeOpacity={0.5}
                       containerStyle={styles.button}
-                      contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+                      contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
                     >  
                         Choose different picture
                     </Button>
@@ -119,7 +119,7 @@ class AddSpotInfo extends Component {
                       shadowHeight={8}
                       activeOpacity={0.5}
                       containerStyle={styles.button}
-                      contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+                      contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
                     >  
                         Submit
                     </Button>
@@ -154,7 +154,7 @@ const styles = {
         paddingRight: 15,
         height: height - 65,
         flexDirection: 'column',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between'
     },
     navBar: {
         backgroundColor: '#006F60',
@@ -189,7 +189,7 @@ const styles = {
     },
     textInputStyle: { 
         height: 40,
-        color: '#006F60',
+        color: 'black',
     },
     modalButton: {
         padding: 10,
