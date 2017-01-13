@@ -61,7 +61,7 @@ class AddSpotInfo extends Component {
                         value={this.props.title}
                         onChangeText={this.props.onTitleChange}
                         placeholderTextColor={'gray'}
-                        selectionColor={'#00B89C'}
+                        selectionColor={'black'}
                         clearButtonMode={'while-editing'}
                         onSubmitEditing={() => this.focusNextField('2')}
                         />
@@ -88,14 +88,13 @@ class AddSpotInfo extends Component {
                         style={styles.modalButton}
                         onPress={() => this.setState({ modalVisible: true })}
                         >
-                            <Text
-                            style={styles.textInputStyle}
-                            label='categories'
-                            color={'gray'}
-                            //selectionColor={'#00B89C'}
-                            >
-                            {this.props.categories.length ? this.props.categories.join(', ') : 'Tap to select Categories'}
-                            </Text>
+                        {this.props.categories.length ? 
+                        <Text style={styles.categoryTextStyle}>
+                            {this.props.categories.join(', ')}
+                        </Text>
+                        :
+                        <Text style={{ color: 'gray', fontSize: 18 }}>Tap to select categories</Text>
+                    }
                       </TouchableHighlight>
                     </View>
                     </KeyboardAvoidingView>
@@ -193,6 +192,10 @@ const styles = {
     textInputStyle: { 
         height: 40,
         color: 'black',
+    },
+    categoryTextStyle: {
+        fontSize: 16,
+        marginLeft: -5
     },
     modalButton: {
         padding: 10,
