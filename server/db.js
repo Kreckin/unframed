@@ -182,6 +182,14 @@ module.exports = {
   },
 
   votes: {
+    get: (userID, spotID) => {
+      return new Promise((resolve, reject) => {
+        db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${userID} AND ID(s) = ${spotID} RETURN r`, (error, relationship) => {
+          if (error) reject(error);
+          else resolve(relationship);
+        });
+      });
+    },
     update: (userID, spotID, voteType) => {
       return new Promise((resolve, reject) => {
         db.query(`MATCH (u:User) -[r:voted] -> (s:Spot) WHERE ID(u) = ${userID} AND ID(s) = ${spotID} RETURN r`, (error, relationship) => {

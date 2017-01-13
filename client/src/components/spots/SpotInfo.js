@@ -16,6 +16,7 @@ import Votes from '../../lib/votes.js';
 import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 import favorites from '../../lib/favorites';
+import getVote from '../../lib/getVote'
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,6 +28,7 @@ class SpotInfo extends Component {
       downvotes: this.props.spot.downvotes,
       mehvotes: this.props.spot.mehvotes,
       saved: false,
+      vote: undefined
     };
   }
 
@@ -35,9 +37,9 @@ class SpotInfo extends Component {
     // (If they've voted, they've visited )
     Visited(userService.currentUser.id, this.props.spot.id)
      //then fetch vote tally
-      .then((data) => this.setState({
-        visited: data.value,
-    }));
+      .then((data) => {
+        this.setState({visited: data.value,});
+      })
 
     favorites.checkIfFavorite(userService.currentUser.id, this.props.spot.id)
        .then((response) => {
@@ -50,6 +52,14 @@ class SpotInfo extends Component {
        .catch((error) => {
          console.log('Error getting checkIfSavedSpot', error);
        });
+    getVote(userService.currentUser.id, this.props.spot.id)
+      .then((response) => {
+        if (response.length > 0) {
+          console.log('did we get in here?', response[0])
+          this.setState({ vote: response[0].properties.voteType });
+        }
+      })
+      .catch(error => console.log('error getting vote', error));
   }
 
   upVote() {
@@ -57,7 +67,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes
+                        mehvotes: res.mehvotes,
+                        vote: 'upvote'
                       });
     });
   }
@@ -67,7 +78,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes
+                        mehvotes: res.mehvotes,
+                        vote: 'downvote'
                       });
     });
   }
@@ -77,7 +89,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes 
+                        mehvotes: res.mehvotes,
+                        vote: 'mehvote' 
                       });
     });
   }
@@ -128,6 +141,7 @@ class SpotInfo extends Component {
     const feet = this.props.spot.distance.toFixed(2);
     const noShow = !userService.currentUser.showAllSpots;
     const disabled = !this.state.visited && ((feet * 5280) > 1000);
+    const vote = this.state.vote;
     return (
       <ScrollView >
       {/*Header*/}
@@ -164,9 +178,9 @@ class SpotInfo extends Component {
                 backgroundColor={'#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
-                borderRadius={6}
+                borderRadius={0}
                 shadowHeight={8}
-                activeOpacity={0.5}
+                activeOpacity={0}
                 containerStyle={styles.bottomButton}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
@@ -180,13 +194,13 @@ class SpotInfo extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={'#00B89C'}
+                
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'downvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
               <Image
@@ -206,7 +220,7 @@ class SpotInfo extends Component {
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'mehvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
               <Image
@@ -226,7 +240,7 @@ class SpotInfo extends Component {
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'upvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
 
@@ -246,7 +260,7 @@ class SpotInfo extends Component {
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.bottomButton}
+                containerStyle={this.state.saved ? styles.disabledBottomButton : styles.bottomButton}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
                 <Image
@@ -375,12 +389,26 @@ const styles = {
   button: {
     width: width / 5,
     height: 45,
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    backgroundColor: '#00B89C'
   },
   bottomButton: {
     width: width / 9,
     height: 45,
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    backgroundColor: '#00B89C'
+  },
+  disabledButton: {
+   backgroundColor: '#008E7A',
+   width: width / 5,
+   height: 45,
+   marginHorizontal: 8
+  },
+  disabledBottomButton: {
+    width: width / 9, 
+    height: 45,
+    marginHorizontal: 8,
+    backgroundColor: '#008E7A'
   }
 };
 export default SpotInfo;
