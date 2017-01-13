@@ -34,8 +34,6 @@ const validateSpot = function (spot, callback) {
     callback('enter coordinates');
   } else if (!spot.img_url.length) {
     callback('enter a photo');
-  } else if (!spot.categories.length) {
-    callback('enter some categories');
   } else {
     callback();
   }

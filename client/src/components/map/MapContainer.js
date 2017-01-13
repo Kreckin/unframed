@@ -96,7 +96,7 @@ class MapContainer extends Component {
         ); });
       this.pendingUpdate = false;
     } else {
-      self.map.animateToRegion(
+          self.map.animateToRegion(
         { 
           latitude: address.latitude, 
           longitude: address.longitude, 
@@ -163,7 +163,7 @@ class MapContainer extends Component {
                 key={spot.id}
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
-                description={spot.description}
+                description={`Score: ${parseInt(spot.percentage * 100)}%`}
                 image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}
