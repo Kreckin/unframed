@@ -37,12 +37,13 @@ class SpotInfo extends Component {
     // (If they've voted, they've visited )
     Visited(userService.currentUser.id, this.props.spot.id)
      //then fetch vote tally
-      .then((data) => this.setState({
-        visited: data.value,
-    }));
+      .then((data) => {
+        this.setState({visited: data.value,});
+      })
 
     favorites.checkIfFavorite(userService.currentUser.id, this.props.spot.id)
        .then((response) => {
+        console.log('what is my response', response)
          if (response.length > 0) {
            this.setState({
              saved: true,
@@ -195,13 +196,13 @@ class SpotInfo extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={vote !== 'downvote' ? '#008E7A' : '#00B89C'}
+                
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'downvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
               <Image
@@ -215,13 +216,13 @@ class SpotInfo extends Component {
              <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={(vote === 'mehvote' ? '#008E7A' : '#00B89C')}
+                backgroundColor={'#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'mehvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
               <Image
@@ -235,13 +236,13 @@ class SpotInfo extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={vote === 'upvote' ? '#008E7A': '#00B89C'}
+                backgroundColor={'#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.button}
+                containerStyle={vote === 'upvote' ?  styles.disabledButton: styles.button}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
 
@@ -261,7 +262,7 @@ class SpotInfo extends Component {
                 borderRadius={6}
                 shadowHeight={8}
                 activeOpacity={0.5}
-                containerStyle={styles.bottomButton}
+                containerStyle={this.state.saved ? styles.disabledBottomButton : styles.bottomButton}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
                 <Image
@@ -390,18 +391,26 @@ const styles = {
   button: {
     width: width / 5,
     height: 45,
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    backgroundColor: '#00B89C'
   },
   bottomButton: {
     width: width / 9,
     height: 45,
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    backgroundColor: '#00B89C'
   },
   disabledButton: {
-    width: width / 9,
+   backgroundColor: '#008E7A',
+   width: width / 5,
+   height: 45,
+   marginHorizontal: 8
+  },
+  disabledBottomButton: {
+    width: width / 9, 
     height: 45,
     marginHorizontal: 8,
-    opacity: 0
+    backgroundColor: '#008E7A'
   }
 };
 export default SpotInfo;
