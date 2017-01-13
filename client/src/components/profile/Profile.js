@@ -36,10 +36,10 @@ class Profile extends Component {
     render() {
     const displayName = userService.currentUser.displayName || 'Anonymous';
     return (
-      <View>
+      <View style={{ flex: 1 }}>
       <StatusBar barStyle='light-content' />
         <Image
-          source={require('../../images/greenBackground.png')}
+          source={require('../../images/room.png')}
           style={styles.backgroundImage}
         >
           <View style={styles.container}>
@@ -60,7 +60,7 @@ class Profile extends Component {
             <View style={styles.switchRow}>
               <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Text style={styles.switchText}>
-                  Hide pictures until unlocked
+                  Hide spoilers
                 </Text>
               </View>
               <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
@@ -75,11 +75,11 @@ class Profile extends Component {
               </View>
               <View style={{ flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Text style={styles.switchText}>
-                  Show all pictures on default
+                  Show spoilers
                 </Text>
               </View>
             </View>
-            <View style={{ alignSelf: 'center' }}>
+            <View style={{ alignSelf: 'center', marginBottom: 20 }}>
               <FBLogIOButton 
                 logoutCallback={this.props.logoutCallback} 
                 loginCallback={this.props.loginCallback} 
@@ -118,9 +118,9 @@ const styles = {
     marginBottom: 5
   },
   profilePic: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
     borderWidth: 5,
     borderColor: '#EFEFF4',
     alignSelf: 'center'
@@ -146,8 +146,9 @@ const styles = {
     backgroundColor: 'transparent',
     textAlign: 'center',
     color: '#EFEFF4',
-    fontSize: 16,
+    fontSize: 18,
     marginHorizontal: 20,
+    marginTop: 10,
     width: width / 4,
   },
   switch: {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MapView from 'react-native-maps';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import geolib from 'geolib';
 import getSpots from '../../lib/getSpots';
@@ -146,6 +146,9 @@ class MapContainer extends Component {
   render() {
     return (
       <View>
+      <StatusBar
+        barStyle='default'
+      />
         <MapView 
           style={styles.map}
           showsUserLocation

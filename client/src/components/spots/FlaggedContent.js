@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, StatusBar, Image } from 'react-native';
+import { ScrollView, View, Text, Dimensions, StatusBar, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CheckBox from 'react-native-check-box';
 import Button from 'react-native-flat-button';
@@ -26,9 +26,9 @@ class FlaggedContent extends Component {
   }
   
   render() {
-    StatusBar.setBarStyle('light-content', true);
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        <StatusBar barStyle='light-content' />
         <View style={styles.navBar}>
           <Text style={styles.navBarText}>
           Why should "{this.props.spot.title}" be removed?
@@ -70,7 +70,7 @@ class FlaggedContent extends Component {
             shadowHeight={8}
             activeOpacity={0.5}
             containerStyle={styles.button}
-            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+            contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
           >  
             Back
           </Button>
@@ -83,13 +83,13 @@ class FlaggedContent extends Component {
             shadowHeight={8}
             activeOpacity={0.5}
             containerStyle={styles.button}
-            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+            contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
           >  
             Submit
           </Button>
         </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -104,6 +104,7 @@ const styles = {
     color: '#EFEFF4',
     marginTop: 30,
     marginBottom: 12,
+    marginHorizontal: 10
   },
   containerStyle: {
     flexDirection: 'column',
@@ -132,7 +133,7 @@ const styles = {
   },
   checkboxText: {
     color: '#006F60',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'left'
   },
   checkboxIcon: {
