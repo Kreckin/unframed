@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StatusBar, Dimensions, TouchableHighlight } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
 import SavedItem from './SavedItem';
 import favorites from '../../lib/favorites';
 import userService from '../../lib/userService';
@@ -48,7 +47,7 @@ class SavedList extends Component {
   }
 
   orderBy(callback) {
-    console.log("I got here with a callback of ", callback);
+    // console.log("I got here with a callback of ", callback);
     this.setState({ trianglePosition: callback });
     if (this.state.sortFunction !== callback) {
       this.setState({ sortFunction: callback });
@@ -82,7 +81,7 @@ class SavedList extends Component {
     }
     this.orderBy.bind(this);
 
-    console.log(this.state.favorites);
+    // console.log(this.state.favorites);
 
     return (
       <View>
@@ -101,9 +100,9 @@ class SavedList extends Component {
           </TouchableHighlight>
           </View>
           <View style={styles.triangleRow}>
-            <View style={this.state.trianglePosition === this.distance ? styles.triangle : null } />
-            <View style={this.state.trianglePosition === this.highestRated ? styles.triangle : null } />
-            <View style={this.state.trianglePosition === this.recent ? styles.triangle : null } />
+            <View style={this.state.trianglePosition === this.distance ? styles.triangle : null} />
+            <View style={this.state.trianglePosition === this.highestRated ? styles.triangle : null} />
+            <View style={this.state.trianglePosition === this.recent ? styles.triangle : null} />
           </View>
         </View>
         
