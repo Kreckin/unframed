@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { View, StatusBar, StyleSheet, Dimensions, Alert, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker'; // info: https://github.com/marcshilling/react-native-image-picker
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
 import Spinner from '../Spinner';
 import NoLocationError from './NoLocationError';
-
 import postSpot from '../../lib/postSpot';
 
 const { width, height } = Dimensions.get('window');
 
-// info: https://github.com/marcshilling/react-native-image-picker
 
 const categories = [
     { key: 0, name: 'Street art', checked: false },
@@ -54,6 +52,7 @@ export default class UploadPhotoContainer extends Component {
     ]
   );
     } else {
+      this.setState({ loading: true });
       //we take everything we need for the postSpot function and pass it in as an object
       postSpot({ 
         title: this.state.title, 
@@ -62,11 +61,13 @@ export default class UploadPhotoContainer extends Component {
         latitude: this.state.latitude, 
         longitude: this.state.longitude,
         uri: this.state.image.uri 
-      });
-      //set the states to null so we get a blank slate again
-      this.setState({ title: '', description: '', image: null, categories: [] });
-      categories.forEach((item) => item.checked = false);
-      Actions.MapContainer();
+      }).then((spot) => {
+        //set the states to null so we get a blank slate again
+        this.setState({ title: '', description: '', image: null, categories: [] });
+        categories.forEach((item) => item.checked = false);
+        this.setState({loading: false});
+        Actions.MapContainer({type: ActionConst.REFRESH, newLocation: { latitude: spot.latitude, longitude: spot.longitude} });
+        });
     }
   }
 
@@ -86,8 +87,6 @@ export default class UploadPhotoContainer extends Component {
       console.log('User cancelled image picker');
     } else if (response.error) {
       console.log('ImagePicker Error: ', response.error);
-      this.refs.permissionDenied.show('Photos are required to post photos.');
-      Actions.UploadPhotoContainer({ type: ActionConst.REPLACE });
     } else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
     } else {
