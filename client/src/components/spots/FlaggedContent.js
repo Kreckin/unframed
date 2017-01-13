@@ -104,6 +104,7 @@ const styles = {
     color: '#EFEFF4',
     marginTop: 30,
     marginBottom: 12,
+    marginHorizontal: 10
   },
   containerStyle: {
     flexDirection: 'column',
@@ -132,7 +133,7 @@ const styles = {
   },
   checkboxText: {
     color: '#006F60',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'left'
   },
   checkboxIcon: {

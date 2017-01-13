@@ -173,7 +173,7 @@ class SpotInfo extends Component {
 
                 <Image
                     source={require('../../icons/flag.png')}
-                    style={styles.saveFlagIcon}
+                    style={styles.FlagIcon}
                 />  
               </Button>
               {/*downvotes*/}
@@ -251,7 +251,7 @@ class SpotInfo extends Component {
               >
                 <Image
                     source={require('../../icons/star.png')}
-                    style={styles.saveFlagIcon}
+                    style={styles.saveIcon}
                 />   
               </Button>
             </View>
@@ -362,9 +362,14 @@ const styles = {
     fontSize: 18,
     fontStyle: 'italic',
   },
-  saveFlagIcon: {
+  saveIcon: {
     height: 25,
     width: 25,
+    tintColor: '#EFEFF4',
+  },
+  FlagIcon: {
+    height: 25,
+    width: 20,
     tintColor: '#EFEFF4',
   },
   button: {
