@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, Dimensions, Alert } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { View, StatusBar, StyleSheet, Dimensions, Alert, Platform } from 'react-native';
+import { Actions, ActionConst } from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-picker';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
@@ -11,8 +13,6 @@ import postSpot from '../../lib/postSpot';
 
 const { width, height } = Dimensions.get('window');
 
-const Platform = require('react-native').Platform; // do we need this separate?
-const ImagePicker = require('react-native-image-picker');
 // info: https://github.com/marcshilling/react-native-image-picker
 
 const categories = [
@@ -86,6 +86,8 @@ export default class UploadPhotoContainer extends Component {
       console.log('User cancelled image picker');
     } else if (response.error) {
       console.log('ImagePicker Error: ', response.error);
+      this.refs.permissionDenied.show('Photos are required to post photos.');
+      Actions.UploadPhotoContainer({ type: ActionConst.REPLACE });
     } else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
     } else {
@@ -121,12 +123,12 @@ export default class UploadPhotoContainer extends Component {
   }
    chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, (response) => {
-      if (response.didCancel) {
+      if (response.error) {
+        this.refs.permissionDenied.show('Photos are required to post photos.');
         this.setState({
           loading: false,
         });
-      } 
-      else {
+      } else {
         this.setImage(response); 
       }
     });
@@ -175,6 +177,7 @@ export default class UploadPhotoContainer extends Component {
         barStyle="light-content"
       />
         {this.renderButtonOrPic()}
+      <Toast ref="permissionDenied" />
       </View> 
     );
   }
