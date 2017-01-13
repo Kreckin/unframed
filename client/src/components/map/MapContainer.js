@@ -163,7 +163,7 @@ class MapContainer extends Component {
                 key={spot.id}
                 coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
                 title={spot.title}
-                description={`${parseInt(spot.percentage * 100)}%`}
+                description={`Score: ${parseInt(spot.percentage * 100)}%`}
                 image={mapPin}
                 //This adds the mini blurb on the screen
                 //onPress={() => { reference[spot.id].showCallout(); }}
