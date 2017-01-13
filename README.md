@@ -1,7 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/Kreckin/unexpectedpony.png?label=ready&title=Ready)](https://waffle.io/Kreckin/unexpectedpony)
-# Unexpectedpony
+# Urban Canvas
 
-> Find and rate interesting things nearby.
+> A react-native app to find and post nearby street art. 
 
 ## Team
 
@@ -11,28 +11,25 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
 1. [Contributing](#contributing)
-
-## Usage
-
-TODO
 
 ## Requirements
 
+General:  
 - Node
-- XCode
-- Cocoapods
 - React-native
 
+iOS:  
+- XCode
+- Cocoapods
+
+Android:  
+- Android Studio
+
 ## Development
-
-
 ### Installing Dependencies
 
 From within the root directory:
@@ -41,8 +38,9 @@ From within the root directory:
 npm install
 ```
 
-#### Building the iOS app:
+Installing iOS dependencies:
 
+Run the following command within the `client/ios/` directory:  
 ```sh
 pod install
 ```
@@ -51,7 +49,7 @@ pod install
 
 1. Install [docker](https://www.docker.com/products/overview).
 
-2. Start the neo4j/spatial container
+1. Start the neo4j/spatial container
 
 ```sh
 docker run \
@@ -78,16 +76,14 @@ Other usefull docker commands:
 `docker stop DB` - stop the 'DB' container
 `docker start DB` - start the 'DB' container
 
- 3. Start the server
+1. Start the server
 
 From within the server directory
  `npm start`
 
-
 ### Roadmap
 
 View the project roadmap [here](https://github.com/Kreckin/unexpectedpony/issues)
-
 
 ## Contributing
 
