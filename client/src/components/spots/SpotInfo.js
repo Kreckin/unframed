@@ -43,7 +43,6 @@ class SpotInfo extends Component {
 
     favorites.checkIfFavorite(userService.currentUser.id, this.props.spot.id)
        .then((response) => {
-        console.log('what is my response', response)
          if (response.length > 0) {
            this.setState({
              saved: true,
@@ -55,7 +54,6 @@ class SpotInfo extends Component {
        });
     getVote(userService.currentUser.id, this.props.spot.id)
       .then((response) => {
-        console.log('getVote got ', response)
         if (response.length > 0) {
           console.log('did we get in here?', response[0])
           this.setState({ vote: response[0].properties.voteType });
