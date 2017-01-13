@@ -7,7 +7,8 @@ import {
     TouchableHighlight, 
     Dimensions, 
     Image, 
-    StatusBar
+    StatusBar,
+    KeyboardAvoidingView
     } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Modal from 'react-native-simple-modal';
@@ -44,6 +45,7 @@ class AddSpotInfo extends Component {
                         style={styles.imageStyle}
                         source={this.props.imageSource}
                     />
+                    <KeyboardAvoidingView>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.labelStyle}>Title:  </Text>
                         {this.props.title === '' ? <Text style={styles.requiredText}> Required </Text> : null}
@@ -96,6 +98,7 @@ class AddSpotInfo extends Component {
                             </Text>
                       </TouchableHighlight>
                     </View>
+                    </KeyboardAvoidingView>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
                     <Button
                       type="custom"
@@ -201,11 +204,6 @@ const styles = {
         height: 60,
         margin: 20
       },
-    buttonTextStyle: {
-        color: '#EFEFF4',
-        fontSize: 24,
-        alignSelf: 'center'
-    }
 };
 
 export default AddSpotInfo;

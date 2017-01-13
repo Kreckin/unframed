@@ -70,7 +70,7 @@ class FlaggedContent extends Component {
             shadowHeight={8}
             activeOpacity={0.5}
             containerStyle={styles.button}
-            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+            contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
           >  
             Back
           </Button>
@@ -83,7 +83,7 @@ class FlaggedContent extends Component {
             shadowHeight={8}
             activeOpacity={0.5}
             containerStyle={styles.button}
-            contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
+            contentStyle={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}
           >  
             Submit
           </Button>
