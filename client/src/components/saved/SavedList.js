@@ -14,7 +14,7 @@ class SavedList extends Component {
     this.state = {
       favorites: [],
       sortFunction: this.distance,
-      trianglePosition: 'this.distance'
+      trianglePosition: this.distance
     };
     this.recentOrPendingRequest = false;
     this.hasChildInViewStack = false;
@@ -48,7 +48,7 @@ class SavedList extends Component {
   }
 
   orderBy(callback) {
-    console.log("I got here with a callback of ", callback)
+    console.log("I got here with a callback of ", callback);
     this.setState({ trianglePosition: callback });
     if (this.state.sortFunction !== callback) {
       this.setState({ sortFunction: callback });
@@ -93,7 +93,7 @@ class SavedList extends Component {
             <Text style={styles.titleStyle}>Closest</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => this.orderBy(this.highestRated)}>
-            <Text style={styles.titleStyle}>Highest Rated</Text>
+            <Text style={styles.titleStyle}>Top Spots</Text>
           </TouchableHighlight>
 
           <TouchableHighlight onPress={() => this.orderBy(this.recent)}>
@@ -101,8 +101,9 @@ class SavedList extends Component {
           </TouchableHighlight>
           </View>
           <View style={styles.triangleRow}>
-            <View style={this.state.trianglePosition === 'this.distance' ? styles.triangle : null } />
-            <View style={this.state.trianglePosition === 'this.highestRated' ? styles.triangle : null } />
+            <View style={this.state.trianglePosition === this.distance ? styles.triangle : null } />
+            <View style={this.state.trianglePosition === this.highestRated ? styles.triangle : null } />
+            <View style={this.state.trianglePosition === this.recent ? styles.triangle : null } />
           </View>
         </View>
         
@@ -135,13 +136,14 @@ const styles = {
  triangle: {
   height: 0, 
   width: 0, 
-  borderLeftWidth: 15, 
+  borderLeftWidth: 25, 
   borderLeftColor: 'transparent',
-  borderRightWidth: 15, 
+  borderRightWidth: 25, 
   borderRightColor: 'transparent', 
-  borderBottomWidth: 15, 
+  borderBottomWidth: 25, 
   borderBottomColor: '#EFEFF4',
   marginLeft: -30
+  //paddingBottom: -70
  },
  triangleRow: {
   flexDirection: 'row',
