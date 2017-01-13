@@ -88,6 +88,19 @@ app.post('/spots', upload.single('spot_image'), (req, res) => {
     res.status(400).send('Spots require images');
   }
 });
+app.get('/spots/voted/:uid/:sid', (req, res) => {
+  const userID = parseInt(req.params.uid);
+  const spotID = parseInt(req.params.sid);
+  db.votes.get(userID, spotID)
+  .then((response) => {
+    console.log('sending', response);
+    res.send(response);
+  })
+  .catch((reject) => {
+    console.log('rejecting with', reject);
+    res.status(500).send(reject);
+  });
+});
 
 app.get('/spots/visited/:uid/:sid', (req, res) => {
   console.log('params, ', req.params);

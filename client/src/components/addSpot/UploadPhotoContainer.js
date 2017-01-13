@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, StatusBar, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, StatusBar, StyleSheet, Dimensions, Alert, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-picker'; // info: https://github.com/marcshilling/react-native-image-picker
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 import CameraButtons from './CameraButtons';
 import AddSpotInfo from './AddSpotInfo';
@@ -10,22 +12,26 @@ import postSpot from '../../lib/postSpot';
 
 const { width, height } = Dimensions.get('window');
 
-const Platform = require('react-native').Platform; // do we need this separate?
-const ImagePicker = require('react-native-image-picker');
-// info: https://github.com/marcshilling/react-native-image-picker
 
 const categories = [
     { key: 0, name: 'Street art', checked: false },
-    { key: 1, name: 'Piece', checked: false },
-    { key: 2, name: 'Tag', checked: false },
-    { key: 3, name: 'Mural', checked: false },
-    { key: 4, name: 'Installation', checked: false },
+    { key: 1, name: 'Graffiti', checked: false },
+    { key: 2, name: 'Piece', checked: false },
+    { key: 3, name: 'Tag', checked: false },
+    { key: 4, name: 'Mural', checked: false },
     { key: 5, name: 'Wheat paste', checked: false },
     { key: 6, name: 'Stencil', checked: false },
     { key: 7, name: 'Roller', checked: false },
-    { key: 8, name: 'Character', checked: false },
-    { key: 9, name: 'Sticker', checked: false },
-    { key: 10, name: 'Other', checked: false }
+    { key: 8, name: 'Very large', checked: false },
+    { key: 9, name: 'Hidden', checked: false },
+    { key: 10, name: 'Controversial', checked: false },
+    { key: 11, name: 'Famous', checked: false },
+    { key: 12, name: 'Political', checked: false },
+    { key: 13, name: 'Historical', checked: false },
+    { key: 14, name: 'Funny', checked: false },
+    { key: 15, name: 'WTF', checked: false },
+    { key: 16, name: 'Poetic', checked: false },
+    { key: 16, name: 'Other', checked: false }
     ];
 
 export default class UploadPhotoContainer extends Component {
@@ -123,12 +129,12 @@ export default class UploadPhotoContainer extends Component {
   }
    chooseImage() {
     ImagePicker.launchImageLibrary({ noData: true }, (response) => {
-      if (response.didCancel) {
+      if (response.error) {
+        this.refs.permissionDenied.show('Photos are required to post photos.');
         this.setState({
           loading: false,
         });
-      } 
-      else {
+      } else {
         this.setImage(response); 
       }
     });
@@ -177,6 +183,7 @@ export default class UploadPhotoContainer extends Component {
         barStyle="light-content"
       />
         {this.renderButtonOrPic()}
+      <Toast ref="permissionDenied" />
       </View> 
     );
   }
