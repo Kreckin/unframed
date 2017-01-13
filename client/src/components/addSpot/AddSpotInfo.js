@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableHighlight, Dimensions, Image } from 'react-native';
+import { 
+    View, 
+    ScrollView,
+    Text, 
+    TextInput, 
+    TouchableHighlight, 
+    Dimensions, 
+    Image, 
+    StatusBar
+    } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Modal from 'react-native-simple-modal';
-import CategoryCheckbox from './CategoryCheckbox';
 import Button from 'react-native-flat-button';
+import CategoryCheckbox from './CategoryCheckbox';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,11 +27,18 @@ class AddSpotInfo extends Component {
     }
     modalClose() {
         this.setState({ modalVisible: false });
+    } 
+
+    focusNextField(nextField) {
+    this.refs[nextField].focus();
     }
+
     render() {
         return (
-            <View>
-                <View style={styles.navBar} />
+            <ScrollView>
+            <StatusBar
+                barStyle="default"
+            />
                 <View style={styles.containerStyle}>
                     <Image
                         style={styles.imageStyle}
@@ -37,18 +54,21 @@ class AddSpotInfo extends Component {
                         autocorrect={false}
                         autoCapitalize={'sentences'}
                         label='title'
+                        ref='1'
                         placeholder='  Give a name to this artwork'
                         value={this.props.title}
                         onChangeText={this.props.onTitleChange}
                         placeholderTextColor={'gray'}
                         selectionColor={'#00B89C'}
                         clearButtonMode={'while-editing'}
+                        onSubmitEditing={() => this.focusNextField('2')}
                         />
                     </View>
                     <Text style={styles.labelStyle}>Description:</Text>
                     <View style={styles.inputView}>
                         <TextInput 
                         style={styles.textInputStyle}
+                        ref="2"
                         label='description'
                         autocorrect={false}
                         placeholder='  Artist info, size, tips on locating...'
@@ -57,6 +77,7 @@ class AddSpotInfo extends Component {
                         clearButtonMode={'while-editing'}
                         value={this.props.description}
                         onChangeText={this.props.onDescriptionChange}
+                        onSubmitEditing={() => this.setState({ modalVisible: true })}
                         />
                     </View>
                     <Text style={styles.labelStyle}>Categories:</Text>
@@ -115,7 +136,7 @@ class AddSpotInfo extends Component {
                     modalClose={this.modalClose.bind(this)}
                  />
             </Modal>
-        </View>
+        </ScrollView>
       );
     }
 }
@@ -126,11 +147,12 @@ const styles = {
         height,
     },
     containerStyle: {
+        paddingTop: 30,
         width, 
         backgroundColor: '#EFEFF4',
         paddingLeft: 15,
         paddingRight: 15,
-        height: height - 130,
+        height: height - 65,
         flexDirection: 'column',
         justifyContent: 'space-around'
     },
