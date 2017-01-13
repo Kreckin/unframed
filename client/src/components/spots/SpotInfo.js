@@ -16,6 +16,7 @@ import Votes from '../../lib/votes.js';
 import Visited from '../../lib/spotVisited.js';
 import userService from '../../lib/userService';
 import favorites from '../../lib/favorites';
+import getVote from '../../lib/getVote'
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,6 +28,7 @@ class SpotInfo extends Component {
       downvotes: this.props.spot.downvotes,
       mehvotes: this.props.spot.mehvotes,
       saved: false,
+      vote: undefined
     };
   }
 
@@ -50,6 +52,15 @@ class SpotInfo extends Component {
        .catch((error) => {
          console.log('Error getting checkIfSavedSpot', error);
        });
+    getVote(userService.currentUser.id, this.props.spot.id)
+      .then((response) => {
+        console.log('getVote got ', response)
+        if (response.length > 0) {
+          console.log('did we get in here?', response[0])
+          this.setState({ vote: response[0].properties.voteType });
+        }
+      })
+      .catch(error => console.log('error getting vote', error));
   }
 
   upVote() {
@@ -57,7 +68,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes
+                        mehvotes: res.mehvotes,
+                        vote: 'upvote'
                       });
     });
   }
@@ -67,7 +79,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes
+                        mehvotes: res.mehvotes,
+                        vote: 'downvote'
                       });
     });
   }
@@ -77,7 +90,8 @@ class SpotInfo extends Component {
       .then((res) => {
         this.setState({ upvotes: res.upvotes, 
                         downvotes: res.downvotes,
-                        mehvotes: res.mehvotes 
+                        mehvotes: res.mehvotes,
+                        vote: 'mehvote' 
                       });
     });
   }
@@ -128,6 +142,7 @@ class SpotInfo extends Component {
     const feet = this.props.spot.distance.toFixed(2);
     const noShow = !userService.currentUser.showAllSpots;
     const disabled = !this.state.visited && ((feet * 5280) > 1000);
+    const vote = this.state.vote;
     return (
       <ScrollView >
       {/*Header*/}
@@ -164,9 +179,9 @@ class SpotInfo extends Component {
                 backgroundColor={'#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={() => Actions.FlaggedContent({ spot: this.props.spot })}
-                borderRadius={6}
+                borderRadius={0}
                 shadowHeight={8}
-                activeOpacity={0.5}
+                activeOpacity={0}
                 containerStyle={styles.bottomButton}
                 contentStyle={{ fontSize: 18, fontWeight: '500', textAlign: 'center' }}
               >
@@ -180,7 +195,7 @@ class SpotInfo extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={'#00B89C'}
+                backgroundColor={vote !== 'downvote' ? '#008E7A' : '#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.downVote.bind(this)}
                 borderRadius={6}
@@ -200,7 +215,7 @@ class SpotInfo extends Component {
              <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={'#00B89C'}
+                backgroundColor={(vote === 'mehvote' ? '#008E7A' : '#00B89C')}
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.mehVote.bind(this)}
                 borderRadius={6}
@@ -220,7 +235,7 @@ class SpotInfo extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Button
                 type="custom"
-                backgroundColor={'#00B89C'}
+                backgroundColor={vote === 'upvote' ? '#008E7A': '#00B89C'}
                 borderColor={'#008E7A'}
                 onPress={disabled ? this.toastAlert.bind(this) : this.upVote.bind(this)}
                 borderRadius={6}
@@ -381,6 +396,12 @@ const styles = {
     width: width / 9,
     height: 45,
     marginHorizontal: 8
+  },
+  disabledButton: {
+    width: width / 9,
+    height: 45,
+    marginHorizontal: 8,
+    opacity: 0
   }
 };
 export default SpotInfo;
