@@ -54,7 +54,6 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('these here be new props', newProps)
      if (newProps.newLocation) {
       this.handleAddressProps(newProps.newLocation);
     }
@@ -83,9 +82,7 @@ class MapContainer extends Component {
   }
 
   handleAddressProps(address) {
-    console.log('this here be the address ',address)
     let self = this;
-    console.log(address)
     if (!address.latitude || !address.longitude) {
       getLatLong({ address }, (res) => {
         self.map.animateToRegion(
@@ -99,17 +96,7 @@ class MapContainer extends Component {
         ); });
       this.pendingUpdate = false;
     } else {
-          getSpots(address.latitude, address.longitude, 5, this.state.initialRegion)
-          .then((data) => {
-            console.log('am I even being called?')
-            this.setState({
-              spots: data,
-            });
-          })
-          .catch((reject) => {
-            console.log('Error getting spots', reject);
-          });
-      self.map.animateToRegion(
+          self.map.animateToRegion(
         { 
           latitude: address.latitude, 
           longitude: address.longitude, 

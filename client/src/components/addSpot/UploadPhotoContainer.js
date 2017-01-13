@@ -53,7 +53,7 @@ export default class UploadPhotoContainer extends Component {
     ]
   );
     } else {
-      this.setState({loading: true})
+      this.setState({ loading: true });
       //we take everything we need for the postSpot function and pass it in as an object
       postSpot({ 
         title: this.state.title, 
@@ -63,7 +63,6 @@ export default class UploadPhotoContainer extends Component {
         longitude: this.state.longitude,
         uri: this.state.image.uri 
       }).then((spot) => {
-        console.log(spot)
         //set the states to null so we get a blank slate again
         this.setState({ title: '', description: '', image: null, categories: [] });
         categories.forEach((item) => item.checked = false);
