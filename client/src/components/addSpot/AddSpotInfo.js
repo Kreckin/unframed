@@ -29,8 +29,7 @@ class AddSpotInfo extends Component {
                     />
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.labelStyle}>Title:  </Text>
-                        
-                        <Text style={styles.requiredText}>{this.props.title === '' ? ' Required ' : null}</Text>
+                        {this.props.title === '' ? <Text style={styles.requiredText}> Required </Text> : null}
                     </View>
                     <View style={styles.inputView}>
                         <TextInput 
