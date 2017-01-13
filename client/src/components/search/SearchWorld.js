@@ -23,6 +23,8 @@ class SearchWorld extends Component {
     const carouselImages = [
       { source: require('../../images/polaroids/paris.png'),
       location: { latitude: 48.8566, longitude: 2.3522 } },
+      { source: require('../../images/polaroids/austin.png'),
+      location: { latitude: 30.2672, longitude: -97.7431 } },
       { source: require('../../images/polaroids/berlin.png'),
       location: { latitude: 52.52, longitude: 13.405 } },
       { source: require('../../images/polaroids/newyork.png'), 

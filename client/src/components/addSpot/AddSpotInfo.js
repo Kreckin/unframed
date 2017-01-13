@@ -163,8 +163,8 @@ const styles = {
     },
     imageStyle: {
         marginTop: 5,
-        height: 150,
-        width: 150,
+        height: height / 4,
+        width: height / 4,
         alignSelf: 'center',
         borderWidth: 3
     },
