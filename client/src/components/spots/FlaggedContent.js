@@ -60,7 +60,7 @@ class FlaggedContent extends Component {
           </View>
           );
         })}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 30}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 40 }}>
           <Button
             type="custom"
             backgroundColor={'#00B89C'}
@@ -118,7 +118,7 @@ const styles = {
     margin: 20
   },
   imageStyle: {
-    height: height * 2 / 5,
+    height: height / 3,
     width
   },
   checkboxView: {

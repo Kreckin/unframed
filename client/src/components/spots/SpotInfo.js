@@ -268,10 +268,11 @@ class SpotInfo extends Component {
                 />   
               </Button>
             </View>
-          {/*Distance*/}
+          {/*Distance
           <Text style={styles.distanceStyle}>
           Currently {feet} miles away
           </Text>
+        */}
           {/*Description*/}
           <Text style={styles.descriptionStyle}>
             {this.props.spot.description ? this.props.spot.description : 
@@ -337,8 +338,8 @@ const styles = {
     marginRight: 5
   },
   iconRating: {
-    height: 33,
-    width: 30,
+    height: 22,
+    width: 22,
     tintColor: '#EFEFF4',
     marginTop: 3
   },
