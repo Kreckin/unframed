@@ -46,12 +46,12 @@ class MapContainer extends Component {
     this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
   }
 
-  componentDidMount() {
-    this.getCurrentPosition()
-    .then((resolve) => {
-      this.moveMapToCurrentPostion();
-    });
-  }
+  // componentDidMount() {
+  //   this.getCurrentPosition()
+  //   .then((resolve) => {
+  //     this.moveMapToCurrentPostion();
+  //   });
+  // }
 
   componentWillReceiveProps(newProps) {
      if (newProps.newLocation) {
@@ -157,6 +157,7 @@ class MapContainer extends Component {
           ref={ref => { this.map = ref; }}
           //this will change the region as the user moves around the map
           onRegionChangeComplete={this.onRegionChangeComplete}
+          initialRegion={this.state.initialRegion}
         >
           {this.state.spots.map(spot => (
               //This maps all the spots (passed down from app as props)
