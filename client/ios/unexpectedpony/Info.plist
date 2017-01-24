@@ -56,7 +56,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>amazonaws.com</key>
+			<key>unframedapp.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -73,11 +73,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We need to access the camera for the app</string>
+	<string>To take photos within the app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Cuz I need it</string>
+	<string>To display spots near your location.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need to access the camera for the app</string>
+	<string>To select photos within the app.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
