@@ -56,6 +56,7 @@ class SearchWorld extends Component {
                 placeholderTextColor={'#EFEFF4'}
                 selectionColor={'#006F60'}
                 clearButtonMode={'while-editing'}
+                underlineColorAndroid='transparent'
                 />
               </View>
               <TouchableOpacity

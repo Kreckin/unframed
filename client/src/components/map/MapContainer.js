@@ -46,12 +46,14 @@ class MapContainer extends Component {
     this.setCurrentDevicePosition = this.setCurrentDevicePosition.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getCurrentPosition()
-  //   .then((resolve) => {
-  //     this.moveMapToCurrentPostion();
-  //   });
-  // }
+  componentDidMount() {
+    if (Platform === 'ios') {
+      this.getCurrentPosition()
+    .then((resolve) => {
+      this.moveMapToCurrentPostion();
+    });
+    }
+  }
 
   componentWillReceiveProps(newProps) {
      if (newProps.newLocation) {
